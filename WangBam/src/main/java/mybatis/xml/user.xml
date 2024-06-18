@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="user">
+    <resultMap id="user_addr" type="UserVO">
+      <id property="us_idx" column="us_idx" />
+      <collection property="addr_list" ofType="AddrVO" select="addr.getAddrList" column="us_idx" />
+    </resultMap>
+
+
+  	<insert id="addUser" parameterType="UserVO">
+  		INSERT INTO user(us_name, us_email, us_pwd, us_nickname, us_tel, us_insert_date, us_type, us_status)
+  	  VALUES (#{us_name}, #{us_email}, #{us_pwd}, #{us_nickname}, #{us_tel}, now(), 1, 1);
+  	</insert>
+
+    <select id="login" parameterType="UserVO" resultType="UserVO">
+      SELECT * FROM user WHERE us_email = #{us_email} AND us_pwd = #{us_pwd} AND us_status = 1;
+    </select>
+
+    <select id="findUserEmail" parameterType="Map" resultType="UserVO">
+      SELECT us_email FROM user WHERE us_name = #{us_name} and us_tel = #{us_tel} and us_status = 1;
+    </select>
+
+    <select id="findPw" parameterType="Map" resultType="UserVO">
+      SELECT us_pwd 
+      FROM user 
+      WHERE us_email = #{us_email} and us_name = #{us_name} and us_tel = #{us_tel} and us_status = 1;
+    </select>
+
+    <update id="deleteUser" parameterType="String">
+      UPDATE user 
+      SET us_status = 0 
+      WHERE us_idx = #{us_idx};
+    </update>
+
+    <update id="updateUser" parameterType="UserVO">
+      UPDATE user 
+      SET us_name = #{us_name}, us_email = #{us_email}, us_pwd = #{us_pwd}, us_nickname = #{us_nickname}, us_tel = #{us_tel}
+      WHERE us_idx = #{us_idx};
+    </update>
+
+    <select id="searchUserList" parameterType="UserVO" resultType="UserVO">
+      SELECT * FROM user
+      <choose>
+        <when test="us_name != null">
+          WHERE us_name LIKE concat('%', #{us_name}, '%') AND us_status = 1
+        </when>
+        <when test="us_email != null">
+          WHERE us_email LIKE concat('%', #{us_email}, '%') AND us_status = 1
+        </when>
+        <when test="us_tel != null">
+          WHERE us_tel LIKE concat('%', #{us_tel}, '%') AND us_status = 1
+        </when>
+        <when test="us_nickname != null">
+          WHERE us_nickname LIKE concat('%', #{us_nickname}, '%') AND us_status = 1
+        </when>
+        <otherwise>
+          WHERE us_status = 1
+        </otherwise>
+      </choose>
+    </select>
+
+    <select id="findUserAddr" parameterType="UserVO" resultMap="user_addr">
+      SELECT * FROM user WHERE us_idx = #{us_idx};
+    </select>
+  </mapper>
+
