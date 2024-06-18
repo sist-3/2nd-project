@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="comment">
+
+<!-- select -->
+	<!-- 게시글에 작성된 댓글 목록 + resultMap(댓글 작성자 닉네임) -->
+	<select id="comment" parameterType="String" resultMap="boards.getUser">
+		SELECT *
+		FROM comment_t
+		WHERE bo_idx = #{bo_idx} AND co_status = 1
+	</select>
+<!-- select end -->
+
+<!-- insert -->
+	<insert id="write" parameterType="map">
+		INSERT INTO comment_t
+			(us_idx, bo_idx, co_content, co_write_date, co_status)
+		VALUES
+			(#{us_idx}, #{bo_idx}, #{co_content}, NOW(), 1)
+	</insert>
+<!-- insert end -->
+
+<!-- update, delete -->
+	<!-- 댓글 수정 -->
+	<update id="deit" parameterType="map">
+		UPDATE comment_t
+		SET co_content = #{co_content}, co_write_date = NOW()
+	</update>
+	
+	<!-- 댓글 삭제 -->
+	<update id="delete">
+		UPDATE comment_t
+		SET co_status = 0
+	</update>
+<!-- update, delete end -->
+
+</mapper>
