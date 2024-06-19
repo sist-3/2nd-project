@@ -60,7 +60,7 @@
     </select>
 
     <!-- 마이페이지 -->
-    <select id="findUserInfo" parameterType="String" resultType="mybatis.vo.UserVO">
+    <select id="findByidx" parameterType="String" resultType="mybatis.vo.UserVO">
       SELECT * FROM user WHERE us_idx = #{us_idx} AND us_status = 1;
     </select>
 

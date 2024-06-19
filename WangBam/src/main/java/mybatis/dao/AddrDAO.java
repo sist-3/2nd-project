@@ -10,7 +10,7 @@ import mybatis.vo.AddressVO;
 
 public class AddrDAO {
     //주소추가
-    public int add(Map<String, String> map) {
+    public int add(Map<String, String> map) { 
         SqlSession ss = FactoryService.getFactory().openSession();
         int cnt = ss.insert("addr.add", map);
         if(cnt > 0) {

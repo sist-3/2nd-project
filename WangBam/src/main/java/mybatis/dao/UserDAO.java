@@ -88,11 +88,11 @@ public class UserDAO {
 		ss.close();
 		return arr;
 	}
-
+	
 	//유저 한명 검색
-	public UserVO findUserInfo(String us_idx) {
+	public UserVO findByidx(String us_idx) {
 		SqlSession ss = FactoryService.getFactory().openSession();
-		UserVO result = ss.selectOne("user.findUserInfo",us_idx);
+		UserVO result = ss.selectOne("user.findByidx",us_idx);
 		ss.close();
 		return result;
 	}
