@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/img/logo.ico">
+  <title>왕밤빵</title>
+
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="container">
+      <header class="header">
+        <div class="header-inner">
+          <nav class="global-nav">
+            <div class="global-nav-links">
+              <a href="/html/user/notice_list.html" class="global-nav-item">공지사항</a>
+              <a href="/html/user/item_list.html" class="global-nav-item">상품보기</a>
+              <a href="/html/user/order_list.html" class="global-nav-item">주문현황</a>
+              <a href="/html/user/question_list.html" class="global-nav-item">1:1문의</a>
+            </div>
+          </nav>
+          <nav class="local-nav">
+            <div class="local-nav-links">
+              <h1><a href="" class="product-name">왕밤빵</a></h1>
+              <a href="../login.html">로그인</a>
+              <a href="#">회원가입</a>
+              <a href="#">마이페이지</a>
+              <a href="#">장바구니</a>
+            </div>
+          </nav>
+        </div>
+      </header>
+      <main class="main">
+        <section class="content">
+          <div class="buy-con">
+            <h1>결제페이지</h1>
+            <table class="order-table">
+              <thead>
+                <tr>
+                  <th>이미지</th>
+                  <th>상품정보</th>
+                  <th>판매가</th>
+                  <th>수량</th>
+                  <th>적립금</th>
+                  <th>배송구분</th>
+                  <th>배송비</th>
+                  <th>합계</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><img src="" alt="[홍베이커리] 호두 파운드 이미지"></td>
+                  <td>[홍베이커리] 호두 파운드</td>
+                  <td>7,500원</td>
+                  <td>1</td>
+                  <td>-</td>
+                  <td>기본배송</td>
+                  <td>착불(수령인)</td>
+                  <td>7,500원</td>
+                </tr>
+                <tr>
+                  <td colspan="8">상품구매금액 7,500 + 배송비 4,000 = 합계 : 11,500원</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="delivery-info">
+              <h2>배송 정보</h2>
+              <br>
+              <form class="form-group">
+                <label for="postcode">주소찾기</label>
+                <div class="address-group">
+                  <input type="text" id="postcode" name="postcode">
+                  <button type="button">우편번호</button>
+                </div>
+                <input type="text" class="address-input" name="address1" placeholder="기본주소">
+                <input type="text" class="address-input2" name="address2" placeholder="나머지주소">
+
+
+                <label for="phone">휴대폰</label>
+                <div class="phone-input">
+                  <select name="phone1">
+                    <option value="010">010</option>
+                    <!-- Add more options as needed -->
+                  </select>
+                  <span>-</span>
+                  <input type="text" name="phone2">
+                  <span>-</span>
+                  <input type="text" name="phone3">
+                </div>
+                <label for="email">이메일</label>
+                <input type="email" id="email" name="email">
+                <label for="message">배송시요구사항</label>
+                <select id="message" name="message">
+                  <option value="">배송메모를 선택해주세요</option>
+                  <option value="custom">직접입력</option>
+                  <option value="1">문 앞에 놓아주세요</option>
+                  <option value="2">부재 시 연락 부탁드려요</option>
+                  <option value="3">배송 전 미리 연락해 주세요</option>
+                </select>
+
+                <div class="payment">
+                  <h2>결제수단</h2>
+                  <label><input type="radio" name="payment" value="account"> 무통장 입금</label>
+                  <label><input type="radio" name="payment" value="card"> 카드 결제</label>
+
+                </div>
+                <div class="total">
+                  <p>총 결제금액</p>
+                  <p class="total-amount">11,500원</p>
+                </div>
+                <button type="button" class="final-btn">결제하기</button>
+              </form>
+            </div>
+          </div>
+        </section>
+      </main>
+      <footer class="footer">
+        <div class="inner-footer">
+          <p><strong>주소</strong> : (00000) 서울특별시 역삼 | <strong>전화번호</strong> : 02) 1234-1234 | <strong>대표자</strong> : 왕밤이
+          </p>
+          <p>COPYRIGHT &copy; 2024 (주)왕밤빵. ALL RIGHTS RESERVED.</p>
+        </div>
+      </footer>
+    </div>
+  </div>
+  <script src="/js/ui.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,59 @@
+body:has(.docu) {
+	background-color: #f7f7f7;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	padding: 20px; /* 추가된 여백 */
+}
+.docu {
+	width: 100%;
+	max-width: 600px;
+	background: white;
+	padding: 40px;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+	border-radius: 12px;
+	box-sizing: border-box;
+	margin: 20px 0; /* 위아래 여백 추가 */
+}
+.docu > h1 {
+	margin-bottom: 32px;
+}
+.form-group {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	max-width: 900px;
+	margin: auto;
+}
+.form-group > h1 {
+	border-left: 4px solid #e2e2e2;
+	padding-left: 8px;
+	margin-bottom: 16px;
+}
+.form-group label + :is(input, select, div, textarea),
+.form-group input + :is(input, div),
+.form-group div > div + :is(div, input) {
+	margin-top: 8px;
+}
+
+.form-group > div + div {
+	margin-top: 24px;
+}
+.form-group .buttons {
+	text-align: center;
+}
+.address-group button {
+	flex-shrink: 0;
+}
+.address-group input + input,
+.phone-group input + input {
+	margin-top: 0;
+}
+.comment {
+	border-radius: 12px;
+	border: 1px solid #e2e2e2;
+	padding: 24px;
+}
