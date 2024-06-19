@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="order">
+
+    <!-- all -->
+    <select id="all" resultType="mybatis.vo.OrderDetailVO">
+        SELECT * FROM order_detail_t
+    </select>
+
+    <!-- find -->
+    <select id="find" parameterType="Map" resultType="mybatis.vo.OrderDetailVO">
+        SELECT * FROM order_detail_t
+        <where>
+            <trim prefixOverrides="AND">
+                <if test="od_idx != null">
+                    od_idx = #{od_idx}
+                </if>
+                <if test="or_idx != null">
+                    AND or_idx = #{or_idx}
+                </if>
+                <if test="pd_idx != null">
+                    AND pd_idx = #{pd_idx}
+                </if>
+                <if test="od_cnt != null">
+                    AND od_cnt = #{od_cnt}
+                </if>
+                <if test="od_price != null">
+                    AND od_price = #{od_price}
+                </if>
+            </trim>
+        </where>
+    </select>
+
+    <!-- add -->
+    <insert id="add" parameterType="Map">
+        INSERT INTO order_detail_t (or_idx, pd_idx, od_cnt, od_price)
+        VALUES (#{or_idx}, #{pd_idx}, #{od_cnt}, #{od_price})
+    </insert>
+
+</mapper>

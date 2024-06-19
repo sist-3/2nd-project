@@ -1,6 +1,6 @@
 package mybatis.vo;
 
-public class Order_DetailVO {
+public class OrderDetailVO {
 	private String od_idx,
 	or_idx,
 	pd_idx,
