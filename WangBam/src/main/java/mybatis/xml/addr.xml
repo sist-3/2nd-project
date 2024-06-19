@@ -4,7 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="addr">
     <!-- 주소 추가 -->
-  	<insert id="addAddr" parameterType="Map">
+  	<insert id="add" parameterType="Map">
   		INSERT INTO address(us_idx, ad_name, ad_postal_code, ad_addr, ad_addr_detail, ad_tel, ad_default)
   		VALUES (#{us_idx}, #{ad_name}, #{ad_postal_code}, #{ad_addr}, #{ad_addr_detail}, #{ad_tel}, #{ad_default});
   	</insert>
@@ -21,12 +21,12 @@
     </select>
     
     <!-- 주소 정보 수정 -->
-    <update id="updateAddr" parameterType="Map">
+    <update id="update" parameterType="Map">
       UPDATE address SET ad_name = #{ad_name}, ad_postal_code = #{ad_postal_code}, ad_addr = #{ad_addr}, ad_addr_detail = #{ad_addr_detail}, ad_tel = #{ad_tel} WHERE ad_idx = #{ad_idx};
     </update>
 
     <!-- 기본 주소 변경 -->
-    <update id="updateDefaultAddr" parameterType="Map">
+    <update id="updateDefault" parameterType="Map">
       UPDATE address SET ad_default = 0 WHERE ad_default = 1 AND us_idx = #{us_idx}
       UPDATE address SET ad_default = 1 WHERE ad_idx = #{ad_idx}
     </update>

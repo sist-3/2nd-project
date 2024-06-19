@@ -10,9 +10,9 @@ import mybatis.vo.UserVO;
 
 public class UserDAO {
 	// 유저 추가
-	public int addUser(Map<String, String> map) {
+	public int add(Map<String, String> map) {
 		SqlSession ss = FactoryService.getFactory().openSession();
-		int cnt = ss.insert("user.addUser",map);
+		int cnt = ss.insert("user.add",map);
 		if(cnt>0) {
 			ss.commit();
 		}
@@ -31,7 +31,7 @@ public class UserDAO {
 	//아이디 찾기
 	public String findId(Map<String, String> map) {
 		SqlSession ss = FactoryService.getFactory().openSession();
-		String result = ss.selectOne("user.findId",map);
+		String result = ss.selectOne("user.findUserEmail",map);
 		ss.close();
 		return result;
 	}
@@ -45,9 +45,9 @@ public class UserDAO {
 	}
 
 	// 유저 삭제
-	public int deleteUser(String us_idx) {
+	public int delete(String us_idx) {
 		SqlSession ss = FactoryService.getFactory().openSession();
-		int cnt = ss.delete("user.deleteUser",us_idx);
+		int cnt = ss.delete("user.delete",us_idx);
 		if(cnt>0) {
 			ss.commit();
 		}
@@ -56,9 +56,9 @@ public class UserDAO {
 	}
 
 	// 유저 수정
-	public int updateUser(Map<String, String> map) {
+	public int update(Map<String, String> map) {
 		SqlSession ss = FactoryService.getFactory().openSession();
-		int cnt = ss.update("user.updateUser",map);
+		int cnt = ss.update("user.update",map);
 		if(cnt>0) {
 			ss.commit();
 		}
@@ -67,25 +67,24 @@ public class UserDAO {
 	}
 
 	//모든유저
-	public UserVO[] AllUser() {
+	public UserVO[] all() {
 		SqlSession ss = FactoryService.getFactory().openSession();
-		List<UserVO> list = ss.selectList("user.AllUser");
+		List<UserVO> list = ss.selectList("user.all");
 		UserVO[] arr = new UserVO[list.size()];
-		arr = list.toArray(arr);
+		if(list.size()>0&&list!=null) {
+			arr = list.toArray(arr);
+		}
 		ss.close();
 		return arr;
 	}	
 	//특정 유저 검색
-	public UserVO[] findUser(Map<String, String> map) {
+	public UserVO[] search(Map<String, String> map) {
 		SqlSession ss = FactoryService.getFactory().openSession();
-		List<UserVO> list = ss.selectList("user.findUser",map);
+		List<UserVO> list = ss.selectList("user.searchUserList",map);
 		UserVO[] arr = new UserVO[list.size()];
 		if(list.size()>0&&list!=null) {
 			arr = list.toArray(arr);
-			ss.close();
-			return arr;
 		}
-		ss.close();
 		ss.close();
 		return arr;
 	}
