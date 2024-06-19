@@ -4,9 +4,17 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="comment">
 
+<!-- resultMap  -->
+	<!-- 댓글 작성자의 정보 -->
+	<resultMap type="mybatis.vo.CommentVO" id="findWithComment">
+		<id property="co_idx" column="co_idx"/>
+		<collection property="uvo" ofType="mybatis.vo.UserVO" select="user.findByidx" column="us_idx"/>
+	</resultMap>
+<!-- resultMap end -->
+
 <!-- select -->
 	<!-- 게시글에 작성된 댓글 목록 + resultMap(댓글 작성자 닉네임) -->
-	<select id="allComment" parameterType="String" resultMap="boards.getUser">
+	<select id="find" parameterType="String" resultMap="findWithComment">
 		SELECT *
 		FROM comment_t
 		WHERE bo_idx = #{bo_idx} AND co_status = 1
@@ -14,6 +22,7 @@
 <!-- select end -->
 
 <!-- insert -->
+	<!-- 댓글 작성 -->
 	<insert id="add" parameterType="map">
 		INSERT INTO comment_t
 			(us_idx, bo_idx, co_content, co_write_date, co_status)

@@ -8,21 +8,15 @@
 	<!-- 게시글 작성자 + 상품 + 댓글 목록 -->
 	<resultMap type="mybatis.vo.BoardVO" id="findWithBoard">
 		<id property="bo_idx" column="bo_idx"/>
-		<association property="uvo" javaType="mybatis.vo.UserVO" select="user" column="us_idx"/>
-		<association property="pvo" javaType="mybatis.vo.ProductVO" select="product" column="pd_idx"/>
-		<collection property="c_list" ofType="mybatis.vo.CommVO" select="comment.allComment" column="bo_idx"/>
+		<association property="uvo" javaType="mybatis.vo.UserVO" select="user.findByidx" column="us_idx"/>
+		<association property="pvo" javaType="mybatis.vo.ProductVO" select="product.all" column="pd_idx"/>
+		<collection property="c_list" ofType="mybatis.vo.CommVO" select="comment.find" column="bo_idx"/>
 	</resultMap>
-	
-	<resultMap type="mybatis.vo.CommentVO" id="getUser">
-		<id property="co_idx" column="co_idx"/>
-		<collection property="uvo" ofType="mybatis.vo.UserVO" select="user" column="us_idx"/>
-	</resultMap>
-	
 <!-- resultMap end -->
 
 <!-- Select -->
-	<!-- 조회할 게시글 + 검색조건 + 작성자 + 댓글 + 상품 -->
-	<select id="allBoard" parameterType="map" resultType="findWithBoard"> 
+	<!-- 조회할 게시글 + 검색조건 + 작성자 닉네임 + 댓글 + 상품 -->
+	<select id="find" parameterType="map" resultMap="findWithBoard"> 
 		SELECT *
 		FROM (
         	SELECT @RN:=@RN+1 AS rnum, a.*
@@ -40,8 +34,8 @@
 					<when test= "searchType == title"> <!-- 제목 검색 -->
 						bo_title LIKE CONCAT('%',#{searchValue},'%')
 					</when>
-					<when test= "searchType == writer"> <!-- 작성자 검색 -->
-						us_idx in (select us_idx from user_t where us_name like concat('%', #{searchValue}, '%'))
+					<when test= "searchType == writer"> <!-- 작성자 닉네임 검색 -->
+						us_idx in (select us_idx from user_t where us_nickname like concat('%', #{searchValue}, '%'))
 					</when>
 					<when test= "searchType == writeDate"> <!-- 날짜 검색 -->
 						bo_write_date BETWEEN #{searchValue} and #{searchValue2}
@@ -57,8 +51,8 @@
 		</where>
 	</select>
 	
-	<!-- (유저) 자신이 적은 문의사항 목록 + 작성자 + 상품 + 댓글 -->
-	<select id="allUserQuestion" parameterType="map" resultType="findWithBoard">
+	<!-- (유저) 자신이 적은 문의사항 목록 + 작성자 닉네임 + 상품 + 댓글 -->
+	<select id="findUserQuestion" parameterType="map" resultType="findWithBoard">
 		SELECT *
 		FROM (
         	SELECT @RN:=@RN+1 AS rnum, a.*
@@ -84,22 +78,8 @@
 		</where>
 	</select>
 	
-	<!-- 게시글, 댓글을 작성한 유저 정보 -->
-	<select id="user" parameterType="String" resultType="mybatis.vo.UserVO">
-		SELECT *
-		FROM user_t
-		WHERE us_idx = #{us_idx}
-	</select>
-	
-	<!-- 게시글에 올라간 상품 정보 -->
-	<select id="product" parameterType="String" resultType="mybatis.vo.ProductVO">
-		SELECT *
-		FROM product_t
-		WHERE pd_idx = #{pd_idx}
-	</select>
-	
 	<!-- 게시글 상세보기 -->
-	<select id="view" parameterType="String" resultType="mybatis.vo.BoardVO">
+	<select id="findByidx" parameterType="String" resultType="mybatis.vo.BoardVO">
 		SELECT *
 		FROM boards_t
 		WHERE bo_idx = #{bo_idx}
@@ -139,8 +119,8 @@
 		WHERE bo_idx = #{bo_idx}
 	</update>
 	
-	<!-- 문의사항 게시글에 관리자가 답변을 작성 -->
-	<update id="answer">
+	<!-- 문의사항 게시글에 관리자가 답변을 작성한 게시글의 답변 상태 변경 -->
+	<update id="updateByidx" parameterType="String">
 		UPDATE boards_t
 		SET bo_answer = 0
 		WHERE bo_idx = #{bo_idx}

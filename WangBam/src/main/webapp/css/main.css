@@ -1,7 +1,3 @@
-.view {
-	padding-bottom: 100px;
-	background-color: #fff;
-}
 .content {
 	position: relative;
 	min-height: 200px;
@@ -9,6 +5,14 @@
 }
 .content:has(.quick-menu) {
 	padding-top: 160px;
+}
+/* 스와이퍼 */
+.swiper {
+	margin-bottom: 100px;
+	background-color: #fff;
+}
+.swiper-button-next:after, .swiper-button-prev:after{
+	color:#999;
 }
 /* 빠른메뉴 */
 .quick-menu {
@@ -18,10 +22,16 @@
 	max-width: 1260px;
 	margin: auto;
 	border-top: 1px solid #eee;
+	border-bottom:1px solid #eee;
 	padding: 20px 0;
 }
 .quick-item {
 	flex: 1;
+}
+.quick-item a {
+	display:block;
+	width:100%;
+	height:100%;
 }
 .quick-item.notice {
 	height: 100%;
@@ -81,6 +91,9 @@
 .hot-header + div {
 	background-color: #f5f4f2;
 }
+.hot-header + div + div {
+	background-color:#ebeae8;
+}
 .hot-header p:nth-child(2) span {
 	font-size: 14px;
 	color: #aaa;
@@ -92,6 +105,7 @@
 }
 .hot-right {
 	flex: 0.3;
+	background-color: #ede9e6;
 }
 
 .product-list {
