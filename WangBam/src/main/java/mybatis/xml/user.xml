@@ -4,32 +4,69 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="user">
   	<!-- 유저와 주소를 함께 조회하는 매퍼 -->
-    <resultMap id="findwithAddr" type="UserVO">
+    <resultMap id="findwithAddr" type="mybatis.vo.UserVO">
       <id property="us_idx" column="us_idx" />
-      <collection property="addr_list" ofType="AddrVO" select="addr.getAddrList" column="us_idx" />
+      <collection property="addr_list" ofType="mybatis.vo.AddressVO" select="addr.findAddrList" column="us_idx" />
     </resultMap>
 
     <!-- 유저 추가 -->
-  	<insert id="addUser" parameterType="UserVO">
+  	<insert id="addUser" parameterType="Map">
   		INSERT INTO user(us_name, us_email, us_pwd, us_nickname, us_tel, us_insert_date, us_type, us_status)
   	  VALUES (#{us_name}, #{us_email}, #{us_pwd}, #{us_nickname}, #{us_tel}, now(), 1, 1);
   	</insert>
 
     <!-- 로그인 -->
-    <select id="login" parameterType="UserVO" resultType="UserVO">
+    <select id="login" parameterType="Map" resultType="mybatis.vo.UserVO">
       SELECT * FROM user WHERE us_email = #{us_email} AND us_pwd = #{us_pwd} AND us_status = 1;
     </select>
 
     <!-- 아이디 찾기 -->
-    <select id="findUserEmail" parameterType="Map" resultType="UserVO">
+    <select id="findUserEmail" parameterType="Map" resultType="String">
       SELECT us_email FROM user WHERE us_name = #{us_name} and us_tel = #{us_tel} and us_status = 1;
     </select>
 
     <!-- 비밀번호 찾기 -->
-    <select id="findPw" parameterType="Map" resultType="UserVO">
+    <select id="findPw" parameterType="Map" resultType="String">
       SELECT us_pwd 
       FROM user 
       WHERE us_email = #{us_email} and us_name = #{us_name} and us_tel = #{us_tel} and us_status = 1;
+    </select>
+
+    <!-- 유저 전체조회 -->
+    <select id="AllUser" resultType="mybatis.vo.UserVO">
+      SELECT * FROM user WHERE us_status = 1;
+    </select>
+
+    <!-- 유저 리스트 조회 -->
+    <select id="searchUserList" parameterType="Map" resultType="mybatis.vo.UserVO">
+      SELECT * FROM user
+      <choose>
+        <when test="type == 'name'">
+          WHERE us_name LIKE concat('%', #{value}, '%') AND us_status = 1
+        </when>
+        <when test="type == 'email'">
+          WHERE us_email LIKE concat('%', #{value}, '%') AND us_status = 1
+        </when>
+        <when test="type == 'tel'">
+          WHERE us_tel LIKE concat('%', #{value}, '%') AND us_status = 1
+        </when>
+        <when test="type == 'nickname'">
+          WHERE us_nickname LIKE concat('%', #{value}, '%') AND us_status = 1
+        </when>
+        <otherwise>
+          WHERE us_status = 1
+        </otherwise>
+      </choose>
+    </select>
+
+    <!-- 마이페이지 -->
+    <select id="findUserInfo" parameterType="String" resultType="mybatis.vo.UserVO">
+      SELECT * FROM user WHERE us_idx = #{us_idx} AND us_status = 1;
+    </select>
+
+    <!-- 유저 주소 조회 -->
+    <select id="findUserAddr" parameterType="String" resultMap="findwithAddr">
+      SELECT * FROM user WHERE us_idx = #{us_idx};
     </select>
 
     <!-- 유저 삭제 -->
@@ -40,38 +77,10 @@
     </update>
 
     <!-- 유저 수정 -->
-    <update id="updateUser" parameterType="UserVO">
+    <update id="updateUser" parameterType="Map">
       UPDATE user 
       SET us_name = #{us_name}, us_email = #{us_email}, us_pwd = #{us_pwd}, us_nickname = #{us_nickname}, us_tel = #{us_tel}
       WHERE us_idx = #{us_idx};
     </update>
-
-
-    <!-- 유저 리스트 조회 -->
-    <select id="searchUserList" parameterType="UserVO" resultType="UserVO">
-      SELECT * FROM user
-      <choose>
-        <when test="us_name != null">
-          WHERE us_name LIKE concat('%', #{us_name}, '%') AND us_status = 1
-        </when>
-        <when test="us_email != null">
-          WHERE us_email LIKE concat('%', #{us_email}, '%') AND us_status = 1
-        </when>
-        <when test="us_tel != null">
-          WHERE us_tel LIKE concat('%', #{us_tel}, '%') AND us_status = 1
-        </when>
-        <when test="us_nickname != null">
-          WHERE us_nickname LIKE concat('%', #{us_nickname}, '%') AND us_status = 1
-        </when>
-        <otherwise>
-          WHERE us_status = 1
-        </otherwise>
-      </choose>
-    </select>
-
-    <!-- 유저 주소 조회 -->
-    <select id="findUserAddr" parameterType="UserVO" resultMap="user_addr">
-      SELECT * FROM user WHERE us_idx = #{us_idx};
-    </select>
   </mapper>
 
