@@ -23,11 +23,11 @@ import action.Action;
  * Servlet implementation class Controller
  */
 @WebServlet(
-		urlPatterns = { "/" }, 
+		urlPatterns = { "/admin" }, 
 		initParams = { 
-				@WebInitParam(name = "myParam", value = "/WEB-INF/u_action.properties")
+				@WebInitParam(name = "myParam", value = "/WEB-INF/a_action.properties")
 		})
-public class UserController extends HttpServlet {
+public class AdminController extends HttpServlet {
 private static final long serialVersionUID = 1L;
 	
 	private HashMap<String, Action> actionMap;
@@ -35,7 +35,7 @@ private static final long serialVersionUID = 1L;
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserController() {
+    public AdminController() {
         super();
         actionMap = new HashMap<>();
     }
