@@ -2,7 +2,7 @@ package mybatis.vo;
 
 import java.util.List;
 
-public class BoardVO {
+public class BoardsVO {
 	private String bo_Idx,
 	us_idx,
 	pd_idx,

@@ -2,11 +2,11 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="borads">
+<mapper namespace="boards">
 
 <!-- rersultMap -->
 	<!-- 게시글 작성자 + 상품 + 댓글 목록 -->
-	<resultMap type="mybatis.vo.BoardVO" id="findWithBoard">
+	<resultMap type="mybatis.vo.BoardsVO" id="findWithBoard">
 		<id property="bo_idx" column="bo_idx"/>
 		<association property="uvo" javaType="mybatis.vo.UserVO" select="user.findByidx" column="us_idx"/>
 		<association property="pvo" javaType="mybatis.vo.ProductVO" select="product.all" column="pd_idx"/>
@@ -29,30 +29,30 @@
     	) c
 		<where>
 			c.rnum BETWEEN #{begin} AND #{end}
-			<if test="searchType != null and searchValue != null">
-				<choose>
-					<when test= "searchType == title"> <!-- 제목 검색 -->
-						bo_title LIKE CONCAT('%',#{searchValue},'%')
-					</when>
-					<when test= "searchType == writer"> <!-- 작성자 닉네임 검색 -->
-						us_idx in (select us_idx from user_t where us_nickname like concat('%', #{searchValue}, '%'))
-					</when>
-					<when test= "searchType == writeDate"> <!-- 날짜 검색 -->
-						bo_write_date BETWEEN #{searchValue} and #{searchValue2}
-					</when>
-					<when test= "searchType == score"> <!-- 평점 검색 -->
-						bo_score = #{searchValue}
-					</when>
-					<when test= "searchType == answer"> <!-- 미답변 목록 검색 -->
-						bo_answer = 1
-					</when>
-				</choose>
-			</if>
+            <if test="searchType != null and searchValue != null">
+                <choose>
+                    <when test= "searchType == title"> <!-- 제목 검색 -->
+                        bo_title LIKE CONCAT('%',#{searchValue},'%')
+                    </when>
+                    <when test= "searchType == writer"> <!-- 작성자 닉네임 검색 -->
+                        us_idx in (select us_idx from user_t where us_nickname like concat('%', #{searchValue}, '%'))
+                    </when>
+                    <when test= "searchType == writeDate"> <!-- 날짜 검색 -->
+                        bo_write_date BETWEEN #{searchValue} and #{searchValue2}
+                    </when>
+                    <when test= "searchType == score"> <!-- 평점 검색 -->
+                        bo_score = #{searchValue}
+                    </when>
+                    <when test= "searchType == answer"> <!-- 미답변 목록 검색 -->
+                        bo_answer = 1
+                    </when>
+                </choose>
+            </if>
 		</where>
 	</select>
 	
 	<!-- (유저) 자신이 적은 문의사항 목록 + 작성자 닉네임 + 상품 + 댓글 -->
-	<select id="findUserQuestion" parameterType="map" resultType="findWithBoard">
+	<select id="findUserQuestion" parameterType="map" resultMap="findWithBoard">
 		SELECT *
 		FROM (
         	SELECT @RN:=@RN+1 AS rnum, a.*
@@ -79,7 +79,7 @@
 	</select>
 	
 	<!-- 게시글 상세보기 -->
-	<select id="findByidx" parameterType="String" resultType="mybatis.vo.BoardVO">
+	<select id="findByidx" parameterType="String" resultType="mybatis.vo.BoardsVO">
 		SELECT *
 		FROM boards_t
 		WHERE bo_idx = #{bo_idx}

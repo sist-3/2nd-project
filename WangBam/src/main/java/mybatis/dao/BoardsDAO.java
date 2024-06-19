@@ -7,25 +7,21 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 
 import mybatis.service.FactoryService;
-import mybatis.vo.BoardVO;
+import mybatis.vo.BoardsVO;
 
 public class BoardsDAO {
 	
 	//전체 게시글 목록 조회
-	public static BoardVO[] find(Map<String, String> map) { //타입별 게시글 배열 반환
+	public static BoardsVO[] find(Map<String, String> map) { //타입별 게시글 배열 반환
 		SqlSession ss = FactoryService.getFactory().openSession();
 		
-		BoardVO[] ar = null;
+		BoardsVO[] ar = null;
 		
-		//Map<String, String> map = new HashMap<>();
-		//map.put("bo_type", bo_type);
-		//map.put("begin", begin);
-		//map.put("end", end);
-		
-		List<BoardVO> list = ss.selectList("boards.allBoard", map);
+		// TODO : 오류 발생 지점
+		List<BoardsVO> list = ss.selectList("boards.find", map);
 		
 		if(list != null) {
-			ar = new BoardVO[list.size()];
+			ar = new BoardsVO[list.size()];
 			list.toArray(ar);
 		}
 		ss.close();
@@ -34,15 +30,15 @@ public class BoardsDAO {
 	}
 	
 	//유저가 자신의 문의사항 게시글 목록 조회
-	public static BoardVO[] findUserQuestion(Map<String, String> map) {
+	public static BoardsVO[] findUserQuestion(Map<String, String> map) {
 		SqlSession ss = FactoryService.getFactory().openSession();
 		
-		BoardVO[] ar = null;
+		BoardsVO[] ar = null;
 		
-		List<BoardVO> list = ss.selectList("boards.allUserQuestion", map);
+		List<BoardsVO> list = ss.selectList("boards.allUserQuestion", map);
 		
 		if(list != null) {
-			ar = new BoardVO[list.size()];
+			ar = new BoardsVO[list.size()];
 			list.toArray(ar);
 		}
 		ss.close();
@@ -81,15 +77,15 @@ public class BoardsDAO {
 	}
 	
 	//게시글 상세보기
-	public static BoardVO[] findByidx(String bo_idx) {
+	public static BoardsVO[] findByidx(String bo_idx) {
 		SqlSession ss = FactoryService.getFactory().openSession();
 		
-		BoardVO[] ar = null;
+		BoardsVO[] ar = null;
 		
-		List<BoardVO> list = ss.selectList("boards.findByidx", bo_idx);
+		List<BoardsVO> list = ss.selectList("boards.findByidx", bo_idx);
 		
 		if(list != null) {
-			ar = new BoardVO[list.size()];
+			ar = new BoardsVO[list.size()];
 			list.toArray(ar);
 		}
 		ss.close();
