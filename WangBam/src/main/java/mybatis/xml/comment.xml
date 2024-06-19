@@ -27,12 +27,14 @@
 	<update id="update" parameterType="map">
 		UPDATE comment_t
 		SET co_content = #{co_content}, co_write_date = NOW()
+		WHERE co_idx = #{co_idx}
 	</update>
 	
 	<!-- 댓글 삭제 -->
 	<update id="delete">
 		UPDATE comment_t
 		SET co_status = 0
+		WHERE co_idx = #{co_idx}
 	</update>
 <!-- update, delete end -->
 

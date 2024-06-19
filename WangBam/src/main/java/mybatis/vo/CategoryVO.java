@@ -1,21 +1,21 @@
 package mybatis.vo;
 
 public class CategoryVO {
-	private String ca_idx, ca_name;
+	private String ct_idx, ct_name;
 
-	public String getCa_idx() {
-		return ca_idx;
+	public String getCt_idx() {
+		return ct_idx;
 	}
 
-	public void setCa_idx(String ca_idx) {
-		this.ca_idx = ca_idx;
+	public void setCt_idx(String ct_idx) {
+		this.ct_idx = ct_idx;
 	}
 
-	public String getCa_name() {
-		return ca_name;
+	public String getCt_name() {
+		return ct_name;
 	}
 
-	public void setCa_name(String ca_name) {
-		this.ca_name = ca_name;
+	public void setCt_name(String ct_name) {
+		this.ct_name = ct_name;
 	}
 }

@@ -6,7 +6,7 @@
 
 <!-- rersultMap -->
 	<!-- 게시글 작성자 + 상품 + 댓글 목록 -->
-	<resultMap type="mybatis.vo.BoardVO" id="rm1">
+	<resultMap type="mybatis.vo.BoardVO" id="findWithBoard">
 		<id property="bo_idx" column="bo_idx"/>
 		<association property="uvo" javaType="mybatis.vo.UserVO" select="user" column="us_idx"/>
 		<association property="pvo" javaType="mybatis.vo.ProductVO" select="product" column="pd_idx"/>
@@ -22,7 +22,7 @@
 
 <!-- Select -->
 	<!-- 조회할 게시글 + 검색조건 + 작성자 + 댓글 + 상품 -->
-	<select id="allBoard" parameterType="map" resultType="rm1"> 
+	<select id="allBoard" parameterType="map" resultType="findWithBoard"> 
 		SELECT *
 		FROM (
         	SELECT @RN:=@RN+1 AS rnum, a.*
@@ -51,6 +51,33 @@
 					</when>
 					<when test= "searchType == answer"> <!-- 미답변 목록 검색 -->
 						bo_answer = 1
+					</when>
+				</choose>
+			</if>
+		</where>
+	</select>
+	
+	<!-- (유저) 자신이 적은 문의사항 목록 + 작성자 + 상품 + 댓글 -->
+	<select id="allUserQuestion" parameterType="map" resultType="findWithBoard">
+		SELECT *
+		FROM (
+        	SELECT @RN:=@RN+1 AS rnum, a.*
+        	FROM (
+            	SELECT *
+            	FROM boards_t
+            	WHERE bo_status = 1 AND bo_type = 1
+            	ORDER BY bo_idx DESC
+        	) a, (SELECT @RN:=0) b
+    	) c
+		<where>
+			c.rnum BETWEEN #{begin} AND #{end} AND us_idx = #{us_idx}
+			<if test="searchType != null and searchValue != null">
+				<choose>
+					<when test= "searchType == title"> <!-- 제목 검색 -->
+						bo_title LIKE CONCAT('%',#{searchValue},'%')
+					</when>
+					<when test= "searchType == writeDate"> <!-- 날짜 검색 -->
+						bo_write_date BETWEEN #{searchValue} and #{searchValue2}
 					</when>
 				</choose>
 			</if>
