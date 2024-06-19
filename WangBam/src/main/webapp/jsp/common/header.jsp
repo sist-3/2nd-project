@@ -27,7 +27,7 @@
 							<a href="/html/user/item_list.html" class="global-nav-item">상품보기</a>
 							<a href="/html/user/order_list.html" class="global-nav-item">주문현황</a>
 							<a href="/html/user/question_list.html" class="global-nav-item">1:1문의</a>
-							<a href="/html/user/question_list.html" class="global-nav-item">브랜드소개</a>
+							<a href="?type=brand" class="global-nav-item">브랜드소개</a>
 						</div>
 					</nav>
 					<nav class="local-nav">
