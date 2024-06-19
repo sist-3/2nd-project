@@ -6,7 +6,7 @@
 
 <!-- select -->
 	<!-- 게시글에 작성된 댓글 목록 + resultMap(댓글 작성자 닉네임) -->
-	<select id="comment" parameterType="String" resultMap="boards.getUser">
+	<select id="allComment" parameterType="String" resultMap="boards.getUser">
 		SELECT *
 		FROM comment_t
 		WHERE bo_idx = #{bo_idx} AND co_status = 1
@@ -14,7 +14,7 @@
 <!-- select end -->
 
 <!-- insert -->
-	<insert id="write" parameterType="map">
+	<insert id="add" parameterType="map">
 		INSERT INTO comment_t
 			(us_idx, bo_idx, co_content, co_write_date, co_status)
 		VALUES
@@ -24,7 +24,7 @@
 
 <!-- update, delete -->
 	<!-- 댓글 수정 -->
-	<update id="deit" parameterType="map">
+	<update id="update" parameterType="map">
 		UPDATE comment_t
 		SET co_content = #{co_content}, co_write_date = NOW()
 	</update>

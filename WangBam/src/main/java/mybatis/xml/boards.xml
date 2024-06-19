@@ -5,12 +5,12 @@
 <mapper namespace="borads">
 
 <!-- rersultMap -->
-	<!-- 게시글 작성자 + 댓글 목록 -->
+	<!-- 게시글 작성자 + 상품 + 댓글 목록 -->
 	<resultMap type="mybatis.vo.BoardVO" id="rm1">
 		<id property="bo_idx" column="bo_idx"/>
 		<association property="uvo" javaType="mybatis.vo.UserVO" select="user" column="us_idx"/>
 		<association property="pvo" javaType="mybatis.vo.ProductVO" select="product" column="pd_idx"/>
-		<collection property="c_list" ofType="mybatis.vo.CommVO" select="comment.comment" column="bo_idx"/>
+		<collection property="c_list" ofType="mybatis.vo.CommVO" select="comment.allComment" column="bo_idx"/>
 	</resultMap>
 	
 	<resultMap type="mybatis.vo.CommentVO" id="getUser">
@@ -22,7 +22,7 @@
 
 <!-- Select -->
 	<!-- 조회할 게시글 + 검색조건 + 작성자 + 댓글 + 상품 -->
-	<select id="list" parameterType="String" resultType="rm1"> 
+	<select id="allBoard" parameterType="map" resultType="rm1"> 
 		SELECT *
 		FROM (
         	SELECT @RN:=@RN+1 AS rnum, a.*
@@ -81,7 +81,7 @@
 
 <!-- Insert -->
 	<!-- 게시글 작성 -->
-	<insert id="write" parameterType="map">
+	<insert id="add" parameterType="map">
 		INSERT INTO boards_t
 			(us_idx, pd_idx, bo_type, bo_title, bo_content, bo_write_date, bo_img, bo_score, bo_answer, bo_status)
 		VALUES
@@ -91,7 +91,7 @@
 
 <!-- Update, Delete -->
 	<!-- 작성된 게시글 수정 -->
-	<update id="edit" parameterType="map">
+	<update id="update" parameterType="map">
 		UPDATE boards_t
 		SET	us_idx = #{us_idx}, pd_idx = #{pd_idx}, bo_type = #{bo_type}, bo_title = #{bo_title}, bo_content = #{bo_content},
 			bo_write_date = NOW(), bo_img = #{bo_img}, bo_score = #{bo_score}, bo_answer = #{bo_answer}
@@ -108,7 +108,7 @@
 	<!-- 조회수 증가 -->
 	<update id="hit" parameterType="String">
 		UPDATE boards_t
-		SET hit = hit+1
+		SET bo_hit = bo_hit+1
 		WHERE bo_idx = #{bo_idx}
 	</update>
 	
