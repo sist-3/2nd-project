@@ -8,6 +8,20 @@ body {
 	font-family: 'NanumGothic';
 	font-weight: 500;
 }
+.fade-in {
+    animation: fadeIn .5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+    	transform:translateY(-20px);
+        opacity: 0;
+    }
+    to {
+    	transform:translateY(0);
+        opacity: 1;
+    }
+}
 /* 헤더 */
 .header {
 	position: sticky;
