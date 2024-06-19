@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="product">
+
+	<!-- 상품상세정보페이지 조회 -->
+	<select id="all" parameterType="String" resultType="mybatis.vo.ProductVO">
+		select * from product_t
+		where pd_idx = #{pd_idx}
+	</select>
+
+	<!-- 상품 리스트 조회 -->
+	<select id="all" parameterType="String" resultType="mybatis.vo.ProductVO">
+		select * from product_t
+	</select>
+
+	<!-- 상품 추가 -->
+	<insert id="add">
+		insert into product_t(pd_idx, ct_idx, pd_name, pd_price, pd_sale_price,
+		pd_sale, pd_date, pd_cnt, pd_thumbnail_img, pd_detail_img,
+		pd_last_update, pd_status)
+		values(#{pd_idx}, #{ct_idx}, #{pd_name}, #{pd_price}, #{pd_sale_price}, #{pd_sale},
+		#{pd_date}, #{pd_cnt}, #{pd_thumbnail_img}, #{pd_detail_img},
+		#{pd_last_update}, #{pd_status))
+
+	</insert>
+
+
+	<!-- 상품 수정 -->
+	<update id="update" parameterType="Map">
+		update product_t
+		set pd_idx = '${pd_idx}',
+		ct_idx = '${ct_idx}',
+		pd_name = '${pd_name}',
+		pd_price = '${pd_price}',
+		pd_sale_price = '${pd_sale_price}',
+		pd_sale = '${pd_sale}',
+		pd_date = '${pd_date}',
+		pd_cnt = '${pd_cnt}',
+		pd_thumbnail_img = '${pd_thumbnail_img}',
+		pd_detail_img = '${pd_detail_img}',
+		pd_last_update = '${pd_last_update}',
+		pd_status = '${pd_status}'
+		where pd_idx = #{pd_idx}
+	</update>
+
+	<!-- 상품 삭제 -->
+	<update id="update" parameterType="Map">
+		update product_t
+		pd_status = '${pd_status}'
+		where pd_idx = #{pd_idx}
+
+	</update>
+
+	<!-- 1. 카테고리 코드(ca_idx)로 상품 재고(pd_cnt) 조회 -->
+	<select id="find_cnt" parameterType="int" resultType="int">
+		SELECT pd_cnt
+		FROM product_t
+		WHERE ct_idx = #{ca_idx}
+	</select>
+
+	<!-- 2. 모든 상품 리스트 조회해서 페이지네이션 하기 -->
+	<select id="page" parameterType="map" resultType="mybatis.vo.ProductVO">
+		SELECT *
+		FROM (
+		SELECT @RN:=@RN+1 AS rnum, a.*
+		FROM (
+		SELECT *
+		FROM product_t
+		WHERE pd_status = 1
+		ORDER BY pd_idx
+		) a, (SELECT @RN:=0) b
+		) c
+		WHERE c.rnum BETWEEN #{start} AND #{end};
+
+	</select>
+
+
+	<!-- 3. 상품 이름(pd_name)으로 검색하는 기능 -->
+	<select id="find_pd" parameterType="string"
+		resultType="mybatis.vo.ProductVO">
+		SELECT *
+		FROM product_t
+		WHERE pd_name LIKE CONCAT('%', #{pd_name}, '%')
+	</select>
+</mapper>
