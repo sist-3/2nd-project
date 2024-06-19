@@ -1,3 +1,4 @@
+// 메인 슬라이더
 const swiper = new Swiper('.swiper', {
   // Navigation arrows
   navigation: {
@@ -11,6 +12,7 @@ const swiper = new Swiper('.swiper', {
   },
 });
 
+// 엄청난버튼
 const animateButton = function (e) {
 	e.preventDefault;
 	//reset animation
@@ -27,3 +29,10 @@ const bubblyButtons = document.querySelectorAll('.final-btn');
 for (let i = 0; i < bubblyButtons.length; i++) {
 	bubblyButtons[i].addEventListener('click', animateButton, false);
 }
+
+// 화면 이동시 인지효과
+window.addEventListener("DOMContentLoaded", function() {
+	setTimeout(function(){
+		document.querySelector('main').classList.add('fade-in');
+	}, 100)
+});
