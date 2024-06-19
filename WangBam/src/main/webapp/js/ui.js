@@ -1,3 +1,4 @@
+// 메인 슬라이더
 const swiper = new Swiper('.swiper', {
   // Navigation arrows
   navigation: {
@@ -11,6 +12,7 @@ const swiper = new Swiper('.swiper', {
   },
 });
 
+// 엄청난버튼
 const animateButton = function (e) {
 	e.preventDefault;
 	//reset animation

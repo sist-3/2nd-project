@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -33,7 +34,7 @@
 					<nav class="local-nav">
 						<div class="local-nav-links">
 							<h1>
-								<a href="" class="product-name">왕밤빵</a>
+								<a href="?type=index" class="product-name">왕밤빵</a>
 							</h1>
 							<a href="../login.html">로그인</a> <a href="#">회원가입</a> <a href="#">마이페이지</a>
 							<a href="#">장바구니</a>
@@ -42,7 +43,7 @@
 				</div>
 			</header>
 			<main class="main">
-				<c:if test="${request.requestURI == request.contextPath}">
+				<c:if test="${fn:endsWith(pageContext.request.requestURI,'main.jsp')}">
 					<!-- Slider main container -->
 					<div class="swiper">
 						<!-- Additional required wrapper -->
