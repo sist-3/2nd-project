@@ -1,8 +1,5 @@
 # Eclipse
 .metadata
 Servers
-.project
 build/
 
-# vscode(=cursor)
-.classpath

@@ -69,7 +69,7 @@
 
     <!-- delete (주문 취소) -->
     <update id="delete" parameterType="String">
-        UPDATE order_t SET or_status_code = 'cancel' WHERE or_idx = #{or_idx}
+        UPDATE order_t SET or_end_date = NOW(), or_status_code = 'cancel' WHERE or_idx = #{or_idx}
     </update>
 
 </mapper>
