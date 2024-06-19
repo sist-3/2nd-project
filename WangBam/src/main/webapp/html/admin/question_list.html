@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/admin.css">
+    <title>왕밤빵</title>
+</head>
+
+<body>
+    <div class="admin">
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>선택</th>
+                    <th>번호</th>
+                    <th>제목</th>
+                    <th>작성자</th>
+                    <th>작성날짜</th>
+                    <th>답변상태</th>
+                    <th>조회수</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <c:if test="${}">
+                    <c:forEach var="vo" itmes="" varStatus="vs">
+                        <tr class="question">
+                            <td><input type="checkbox" /></td>
+                            <td>vs.Index + 1</td>
+                            <td>vo.Title</td>
+                            <td>vo.Writer</td>
+                            <td>vo.WriteDate</td>
+                            <td>vo.Status</td>
+                            <td>vo.ViewCount</td>
+                        </tr>
+                    </c:forEach>
+                </c:if>
+
+                <c:if test="${}">
+                    <tr class="no_question">
+                        <td colspan="7">
+                            <b>문의사항이 없습니다.</b>
+                        </td>
+                    </tr>
+                </c:if>
+            </tbody>
+        </table>
+        <div class="admin-pagination">
+            <a href="#">&lt;</a>
+            <a href="#">1</a>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#">4</a>
+            <a href="#">5</a>
+            <a href="#">6</a>
+            <a href="#">7</a>
+            <a href="#">8</a>
+            <a href="#">9</a>
+            <a href="#">10</a>
+            <a href="#">&gt;</a>
+        </div>
+        <div>
+            <td colspan="7">
+                <button type="button" class="admin-btn cancel">삭제</button>
+            </td>
+        </div>
+
+    </div>
+</body>
+
+</html>

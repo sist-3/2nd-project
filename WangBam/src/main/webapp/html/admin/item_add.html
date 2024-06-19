@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>상품 추가</title>
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+
+<body>
+  <div class="admin">
+    <h1>상품 추가</h1>
+    <form class="form-group">
+      <div>
+        <label for="username">상품명</label>
+        <input type="text" id="item_name" placeholder="상품명" readonly>
+      </div>
+      <div>
+        <label for="category">카테고리</label>
+        <select name="category">
+          <option value="빵">빵</option>
+          <option value="롤케익">롤케익</option>
+        </select>
+      </div>
+      <div>
+        <label for="item_discription">상품설명</label>
+        <input type="text" id="item_discription" placeholder="상품설명">
+      </div>
+      <div>
+        <label for="price">가격</label>
+        <input type="text" id="price" placeholder="가격">
+      </div>
+      <div>
+        <label for="img">상품이미지</label>
+        <div>
+          <img src="" />
+        </div>
+      </div>
+
+      <div class="buttons">
+        <button type="submit" class="admin-btn submit">추가</button>
+        <button type="button" class="admin-btn cancel">삭제</button>
+      </div>
+    </form>
+  </div>
+</body>
+
+</html>
