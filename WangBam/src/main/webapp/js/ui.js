@@ -29,10 +29,3 @@ const bubblyButtons = document.querySelectorAll('.final-btn');
 for (let i = 0; i < bubblyButtons.length; i++) {
 	bubblyButtons[i].addEventListener('click', animateButton, false);
 }
-
-// 화면 이동시 인지효과
-window.addEventListener("DOMContentLoaded", function() {
-	setTimeout(function(){
-		document.querySelector('main').classList.add('fade-in');
-	}, 100)
-});
