@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>사용자 상세조회</title>
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+
+<body>
+  <div class="admin">
+    <h1>사용자 상세조회</h1>
+    <form action="" class="form-group">
+      <div>
+        <label for="email">아이디</label>
+        <input type="text" id="email" placeholder="현재 아이디 (이메일)" readonly>
+      </div>
+      <div>
+        <label for="name">이름</label>
+        <input type="text" id="name" placeholder="이름">
+      </div>
+      <div>
+        <label for="phone">전화번호</label>
+        <div class="phone-group">
+          <select>
+            <option value="010">010</option>
+            <option value="011">011</option>
+            <option value="017">017</option>
+          </select>
+          <input type="text" id="phone-middle" placeholder="1588">
+          <input type="text" id="phone-last" placeholder="2222">
+        </div>
+      </div>
+      <div>
+        <label for="address">주소</label>
+        <input type="text" id="address" placeholder="주소">
+      </div>
+      <div>
+        <label for="detail_address">상세주소</label>
+        <input type="text" id="detail_address" placeholder="상세주소">
+      </div>
+      <div class="buttons">
+        <button type="button" class="admin-btn submit">수정</button>
+        <button type="button" class="admin-btn cancel">삭제</button>
+      </div>
+
+    </form>
+  </div>
+</body>
+
+</html>

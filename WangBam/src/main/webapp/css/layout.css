@@ -1,0 +1,96 @@
+/* 레이아웃 스타일 */
+html,
+body {
+	min-height: 100%;
+	color: #333;
+}
+body {
+	font-family: 'NanumGothic';
+	font-weight: 500;
+}
+/* 헤더 */
+.header {
+	position: sticky;
+	top: 0;
+	z-index: 3;
+	border-bottom: 1px solid #e2e2e2;
+	background: rgba(255, 255, 255, 0.1);
+	backdrop-filter: saturate(180%) blur(15px);
+}
+.header-inner {
+	max-width: 1260px;
+	margin: auto;
+}
+.logo {
+	width: 150px;
+	height: 102px;
+	background: url(../img/logo.png) no-repeat center/contain;
+}
+.global-nav {
+	width: 100%;
+	height: 44px;
+	padding: 0 1rem;
+}
+.local-nav {
+	width: 100%;
+	height: 52px;
+	padding: 0 1rem;
+}
+.global-nav-links,
+.local-nav-links {
+	display: flex;
+	align-items: center;
+	max-width: 1260px;
+	height: 100%;
+	margin: 0 auto;
+}
+.global-nav-links {
+	justify-content: space-between;
+}
+.local-nav-links h1 {
+	margin-right: auto;
+}
+.local-nav-links h1 .product-name {
+	font-size: 1.4rem;
+	font-weight: bold;
+	padding-left: 40px;
+	background: url(../img/logo.png) no-repeat left center/contain;
+}
+.local-nav-links a {
+	font-size: 0.8rem;
+	color: #333;
+}
+.global-nav-links a {
+	color: #333;
+}
+.local-nav-links a:not(.product-name) {
+	margin-left: 2em;
+}
+/* 메인영역 */
+.main {
+	min-height: calc(100vh - 196px);
+	background-color: #fff;
+}
+.main:has(.view) {
+	background-color: #eee;
+}
+.content {
+	max-width: 1260px;
+	margin: auto;
+}
+/* 푸터 */
+.footer {
+	border-top: 1px solid #eee;
+}
+.inner-footer {
+	max-width: 1260px;
+	height: 98px;
+	margin: auto;
+	padding: 24px;
+}
+.inner-footer p {
+	text-align: center;
+}
+.inner-footer p + p {
+	margin-top: 12px;
+}

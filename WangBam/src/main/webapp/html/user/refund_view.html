@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/style.css">
+  <title>왕밤빵</title>
+</head>
+
+<body>
+  <form class="form-group">
+    <h1>주문취소내역</h1>
+    <div style="display: flex;">
+      <div>
+        <div>
+          <label for="reIdx">취소번호</label>
+          <input type="text" name="re_idx" placeholder="re_idx" disabled />
+        </div>
+        <div>
+          <label for="orDate">주문날짜</label>
+          <input type="text" name="or_date" placeholder="or_date" disabled />
+        </div>
+        <div>
+          <label for="pdName">상품명</label>
+          <input type="text" name="pd_name" placeholder="pd_name" disabled />
+        </div>
+        <div>
+          <label for="usIdx">회원번호</label>
+          <input type="text" name="us_idx" placeholder="us_idx" disabled />
+        </div>
+        <div>
+          <label for="odStatus">배송상태</label>
+          <input type="text" name="od_status" placeholder="od_status" disabled />
+        </div>
+        <div>
+          <label for="reCode">환불사유</label>
+          <input type="text" name="re_code" placeholder="re_code" disabled>
+        </div>
+      </div>
+
+      <div>
+        <div>
+          <label for="orIdx">주문번호</label>
+          <input type="text" name="or_idx" placeholder="or_idx" disabled />
+        </div>
+        <div>
+          <label for="orDate">취소날짜</label>
+          <input type="text" name="or_end_date" placeholder="or_end_date" disabled />
+        </div>
+        <div>
+          <label for="pdPrice">가격</label>
+          <input type="text" name="pd_price" placeholder="pd_price or pd_sale_price" disabled />
+        </div>
+        <div>
+          <label for="usName">주문자</label>
+          <input type="text" name="us_name" placeholder="us_name" disabled />
+        </div>
+        <div>
+          <label for="reStatus">취소상태</label>
+          <input type="text" name="re_status" placeholder="re_status" disabled />
+        </div>
+        <div>
+          <label for="reContent">상세사유</label>
+          <input type="text" name="re_content" placeholder="re_content" disabled />
+        </div>
+      </div>
+    </div>
+
+    <div class="btn_div">
+      <button type="button" class="btn cancel">목록</button>
+      <button type="button" class="btn cancel">수정</button>
+      <button type="button" class="btn submit">삭제</button>
+    </div>
+  </form>
+</body>
+
+</html>
