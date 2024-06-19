@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-17"/>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="lib" path="c:/My_Study/lib/cos.jar"/>
+	<classpathentry kind="lib" path="c:/My_Study/lib/jdom-2.0.6.1.jar"/>
+	<classpathentry kind="lib" path="c:/My_Study/lib/jstl.jar"/>
+	<classpathentry kind="lib" path="c:/My_Study/lib/mybatis-3.5.16.jar"/>
+	<classpathentry kind="lib" path="c:/My_Study/lib/mysql-connector-j-8.3.0.jar"/>
+	<classpathentry kind="lib" path="c:/My_Study/lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="c:/My_Study/lib/standard.jar"/>
+	<classpathentry kind="output" path="build/classes"/>
+</classpath>
