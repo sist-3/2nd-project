@@ -16,7 +16,7 @@
 	</select>
 
 	<!-- 상품 추가 -->
-	<insert id="add">
+	<insert id="add" parameterType="map">
 		insert into product_t(pd_idx, ct_idx, pd_name, pd_price, pd_sale_price,
 		pd_sale, pd_date, pd_cnt, pd_thumbnail_img, pd_detail_img,
 		pd_last_update, pd_status)
@@ -44,7 +44,7 @@
 	</update>
 
 	<!-- 상품 삭제 -->
-	<update id="delete" parameterType="Map">
+	<update id="delete" parameterType="string">
 		update product_t
 		pd_status = '0'
 		where pd_idx = #{pd_idx}
