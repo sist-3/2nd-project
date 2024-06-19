@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>사용자 상세조회</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <form class="form-group">
+    <h1>사용자 상세조회</h1>
+    <div>
+      <label for="username">아이디</label>
+      <input type="text" id="username" placeholder="현재 아이디 (이메일)">
+    </div>
+    <div>
+      <label for="username">이름</label>
+      <input type="text" id="username" placeholder="현재 아이디 (이메일)">
+    </div>
+    <div>
+      <label for="username">전화번호</label>
+      <div class="phone-group">
+        <select id="phone">
+          <option value="010">010</option>
+          <option value="011">011</option>
+          <option value="017">017</option>
+        </select>
+        <input type="text" id="phone-middle" placeholder="1588">
+        <input type="text" id="phone-last" placeholder="2222">
+      </div>
+    </div>
+    <div>
+      <label for="username">주소</label>
+      <div class="address-group">
+        <input type="text" id="postcode" placeholder="우편번호">
+        <button type="button" class="btn">검색</button>
+      </div>
+      <input type="text" placeholder="기본주소">
+      <input type="text" placeholder="나머지주소">
+    </div>
+    <div class="buttons">
+      <button type="submit" class="btn submit">수정</button>
+      <button type="button" class="btn cancel">삭제</button>
+    </div>
+  </form>
+</body>
+
+</html>
