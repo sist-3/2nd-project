@@ -22,7 +22,7 @@ where ca_idx = #{ca_idx}
 </update> 
 
 <!-- <delete>장바구니 선택 삭제 가능 --> 
-<delete id="delete" parameterMap="String">
+<delete id="delete" parameterType="String">
 delete from cart_t
 where ca_idx = #{ca_idx}
 </delete>
