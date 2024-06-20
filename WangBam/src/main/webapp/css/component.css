@@ -86,10 +86,10 @@ caption {
 	color: #333;
 }
 
-.pagination a.on {
+.pagination div.on {
 	background-color: #cda178;
 }
-.pagination a.disable {
+.pagination div.disable {
 	background-color: #bbb;
 }
 
@@ -156,6 +156,15 @@ caption {
 }
 
 .pagination a {
+	border-radius: 50%;
+	background-color: #673a11;
+	width: 25px;
+	height: 25px;
+	display: inline-block;
+	color: #fff;
+	padding: 2px;
+}
+.pagination .on, .disable {
 	border-radius: 50%;
 	background-color: #673a11;
 	width: 25px;
