@@ -46,28 +46,28 @@
 	<div class="admin-pagination">
 			<c:set var="page" value="${ requestScope.page}" />
 			<c:if test="${page.startPage < page.pagePerBlock }">
-				<li class="disable">&lt;</li>
+				<div class="disable">&lt;</div>
 			</c:if>
 			<c:if test="${page.startPage >= page.pagePerBlock }">
-				<li><a
-					href="admin?type=order_list&searchType=${searchType }&searchValue=${searchValue }&cPage=${page.nowPage - page.pagePerBlock }">&lt;</a></li>
+				<div><a
+					href="admin?type=order_list&searchType=${searchType }&searchValue=${searchValue }&cPage=${page.nowPage - page.pagePerBlock }">&lt;</a></div>
 			</c:if>
 
 			<c:forEach begin="${page.startPage }" end="${page.endPage }" varStatus="vs">
 				<c:if test="${page.nowPage eq vs.index}">
-					<li class="now">${vs.index}</li>
+					<div><a class="on">${vs.index}</a></div>
 				</c:if>
 				<c:if test="${page.nowPage ne vs.index}">
-					<li><a href="admin?type=orderList&cPage=${vs.index}">${vs.index}</a></li>
+					<div><a href="admin?type=orderList&cPage=${vs.index}">${vs.index}</a></div>
 				</c:if>
 			</c:forEach>
 
 			<c:if test="${page.endPage < page.totalPage }">
-				<li><a
-					href="admin?type=orderList&cPage=${page.nowPage + page.pagePerBlock - 1}">&gt;</a></li>
+				<div><a
+					href="admin?type=orderList&cPage=${page.nowPage + page.pagePerBlock - 1}">&gt;</a></div>
 			</c:if>
 			<c:if test="${page.endPage >= page.totalPage }">
-				<li class="disable">&gt;</li>
+				<div class="disable">&gt;</div>
 			</c:if>
 
 	</div>
