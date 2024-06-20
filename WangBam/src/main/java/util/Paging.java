@@ -6,8 +6,8 @@ public class Paging {
 	int totalRecord; // 총 게시물 수
 	int pagePerBlock = 5; // 한 블럭 당 보여질 페이지 묶음
 	int totalPage; // 총 페이지 수
-	int begin; // 현재 페이지 값에 따라 bbs_t테이블에서 가져올 게시물의 시작 행 번호
-	int end; // 현재 페이지 값에 따라 bbs_t테이블에서 가져올 게시물의 마지막 행 번호
+	int begin; // 게시물의 시작 행 번호
+	int end; // 게시물의 마지막 행 번호
 	int startPage; // 한 블럭의 시작 페이지
 	int endPage; // 한 블럭의 마지막 페이지
 
