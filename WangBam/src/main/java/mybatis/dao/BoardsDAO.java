@@ -9,11 +9,21 @@ import mybatis.service.FactoryService;
 import mybatis.vo.BoardsVO;
 
 public class BoardsDAO {
-	
+	//전체 게시글 갯수 조회
 	public static int allCount(String bo_type) {
 		SqlSession ss = FactoryService.getFactory().openSession();
 		
 		int cnt = ss.selectOne("boards.allCount",bo_type);
+		
+		ss.close();
+		
+		return cnt;
+	}
+	//검색된 전체 게시글 갯수 조회
+	public static int allSearchCount(Map<String, String> s_map) {
+		SqlSession ss = FactoryService.getFactory().openSession();
+		
+		int cnt = ss.selectOne("boards.allSearchCount",s_map);
 		
 		ss.close();
 		
