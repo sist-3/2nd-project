@@ -7,7 +7,6 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 
 import mybatis.service.FactoryService;
-import mybatis.vo.AddressVO;
 import mybatis.vo.ProductVO;
 
 public class ProductDAO {
@@ -19,7 +18,13 @@ public class ProductDAO {
 		return vo;
 		
 	}
-
+	public static int allCount() {
+		SqlSession ss = FactoryService.getFactory().openSession();
+		int cnt = ss.selectOne("product.allCount");
+		ss.close();
+		return cnt;
+		
+	}
 	//상품 리스트 조회
 	public static ProductVO[] allProduct() {
 		SqlSession ss = FactoryService.getFactory().openSession();
@@ -72,22 +77,13 @@ public class ProductDAO {
 	}
 
 	// 모든 상품 리스트 조회해서 페이지네이션 하기
-	public static ProductVO[] allProduct(String start,String end) {
+	public static ProductVO[] findProductByName(HashMap<String, String> map) {
 		
 		SqlSession ss = FactoryService.getFactory().openSession();
-		HashMap<String, String> map = new HashMap<>();
-		map.put("start", String.valueOf(start));
-		map.put("end", String.valueOf(end));
-		List<ProductVO> list = ss.selectList("product.page", map);
+
+		List<ProductVO> list = ss.selectList("product.findProductByName", map);
 		ss.close();
 		return list.toArray(new ProductVO[0]);
 	}
 
-	//상품 이름(pd_name)으로 검색하는 기능
-	public static ProductVO[] findProduct(String pd_name) {
-		SqlSession ss = FactoryService.getFactory().openSession();
-		List<ProductVO> list = ss.selectList("product.find_pd", pd_name);
-		ss.close();
-		return list.toArray(new ProductVO[0]);
-	}
 }
