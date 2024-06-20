@@ -133,6 +133,13 @@
 		SET bo_answer = 0
 		WHERE bo_idx = #{bo_idx}
 	</update>
+	
+	<!-- 상품상세페이지 문의,리뷰 게시판  -->
+	
+	<select id="findBypdidx" parameterType="String" resultType="mybatis.vo.BoardsVO">
+	SELECT * FROM boards_t 
+	WHERE pd_idx = #{pd_idx} AND bo_type IN(1,2)
+	</select>
 <!-- Update, Delete end-->
 
 </mapper>
