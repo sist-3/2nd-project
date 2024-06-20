@@ -9,12 +9,20 @@
 	<resultMap type="mybatis.vo.BoardsVO" id="findWithBoard">
 		<id property="bo_idx" column="bo_idx"/>
 		<association property="uvo" javaType="mybatis.vo.UserVO" select="user.findByidx" column="us_idx"/>
-		<association property="pvo" javaType="mybatis.vo.ProductVO" select="product.all" column="pd_idx"/>
+		<association property="pvo" javaType="mybatis.vo.ProductVO" select="product.findByid" column="pd_idx"/>
 		<collection property="c_list" ofType="mybatis.vo.CommVO" select="comment.find" column="bo_idx"/>
 	</resultMap>
 <!-- resultMap end -->
 
 <!-- Select -->
+	<!-- 등록된 게시글의 갯수 -->
+	<select id="allCount" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM boards_t
+		WHERE bo_status = 1
+		AND bo_type = #{bo_type} 
+	</select>
+
 	<!-- 조회할 게시글 + 검색조건 + 작성자 닉네임 + 댓글 + 상품 -->
 	<select id="find" parameterType="map" resultMap="findWithBoard"> 
 		SELECT *

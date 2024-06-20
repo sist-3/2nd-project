@@ -1,6 +1,5 @@
 package mybatis.dao;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,13 +10,22 @@ import mybatis.vo.BoardsVO;
 
 public class BoardsDAO {
 	
+	public static int allCount(String bo_type) {
+		SqlSession ss = FactoryService.getFactory().openSession();
+		
+		int cnt = ss.selectOne("boards.allCount",bo_type);
+		
+		ss.close();
+		
+		return cnt;
+	}
+	
 	//전체 게시글 목록 조회
 	public static BoardsVO[] find(Map<String, String> map) { //타입별 게시글 배열 반환
 		SqlSession ss = FactoryService.getFactory().openSession();
 		
 		BoardsVO[] ar = null;
 		
-		// TODO : 오류 발생 지점
 		List<BoardsVO> list = ss.selectList("boards.find", map);
 		
 		if(list != null) {
