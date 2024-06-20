@@ -8,7 +8,7 @@ public class CommentVO {
 	co_write_date,
 	co_status;
 	private UserVO uvo;
-	private BoardVO bvo;
+	private BoardsVO bvo;
 	
 	public String getCo_idx() {
 		return co_idx;
@@ -52,10 +52,10 @@ public class CommentVO {
 	public void setUvo(UserVO uvo) {
 		this.uvo = uvo;
 	}
-	public BoardVO getBvo() {
+	public BoardsVO getBvo() {
 		return bvo;
 	}
-	public void setBvo(BoardVO bvo) {
+	public void setBvo(BoardsVO bvo) {
 		this.bvo = bvo;
 	}
 }
