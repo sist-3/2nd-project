@@ -23,16 +23,22 @@ public class ReviewListAction implements Action {
 		//페이징 처리를 위한 객체 생성
 		Paging page = new Paging(5,5); 
 		String bo_type = "2";
+		String ct_idx = request.getParameter("ct_idx");
+		if(ct_idx == null) {
+			ct_idx = "1";
+		}
 		
 		//전체 카테고리 가져오기
 		CategoryVO[] cate_ar = CategoryDAO.allCategory();
 		request.setAttribute("cate_ar", cate_ar);
+		request.setAttribute("ct_idx", ct_idx);
 		
 		//전체 페이지 수 구하기
 		page.setTotalRecord(BoardsDAO.allCount(bo_type));
 		
 		//현재 페이지 값 받기
 		String cPage = request.getParameter("cPage");
+		
 
 		if(cPage != null) {
 			int nowPage = Integer.parseInt(cPage);
@@ -43,7 +49,6 @@ public class ReviewListAction implements Action {
 		
 		String begin = Integer.toString(page.getBegin());
 		String end = Integer.toString(page.getEnd());
-		String ct_idx = request.getParameter("ct_idx");
 		
 		Map<String, String> map = new HashMap<>();
 		map.put("begin",begin);
