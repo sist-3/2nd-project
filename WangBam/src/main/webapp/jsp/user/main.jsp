@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@include file="/jsp/common/header.jsp"%>
 <!-- 여기에 작업 -->
 <div class="quick-menu">
@@ -23,10 +26,39 @@
 			<p>공지사항</p>
 			<button title="더보기" class="btn-icon plus" type="button"></button>
 		</div>
+		<%-- 공지사항 오늘날짜로 부터 30일 기준으로만 new클래스 적용 --%>
 		<ul class="notice-list">
-			<li class="new"><a href=""> <span>오픈을 축하합니다.</span> <span
-					class="sub-date">2019-11-05</span>
-			</a></li>
+			<%--현재 날짜 준비--%>
+			<c:set var="now" value="<%=new java.util.Date()%>" />
+			<fmt:formatDate var="nowD" value="${now}" pattern="yyyy-MM-dd hh:mm:ss" />
+			<%--현재 날짜를 기준이 되는 날짜와 같은 포멧으로 변경--%>
+			<fmt:parseDate value="${nowD }" var="nowPlanDate" pattern="yyyy-MM-dd"/>
+			<%--현재 날짜를 일수로 변경--%>
+			<fmt:parseNumber value="${nowPlanDate.time / (1000*60*60*24)}" integerOnly="true" var="nowDate"></fmt:parseNumber>
+			<c:forEach var="notice" items="${b_ar}" varStatus="idx">
+			<%--기준이 되는 날짜 준비--%>
+				<fmt:parseDate value="${notice.bo_write_date }" var="bWriteDate" pattern="yyyy-MM-dd"/>
+				<%--기준이 되는 날짜를 일수로 변경--%>
+				<fmt:parseNumber value="${bWriteDate.time / (1000*60*60*24)}" integerOnly="true" var="writeDate"></fmt:parseNumber>
+				<c:choose>
+					<c:when test="${nowDate < writeDate + 30}">
+						<li class="new">
+							<a href="">
+								<span><c:out value="${notice.bo_title}" /></span> 
+								<span class="sub-date"><c:out value="${notice.bo_write_date}" /></span>
+							</a>
+						</li>
+					</c:when>
+					<c:when test="${nowDate > writeDate + 30}">
+						<li>
+							<a href="">
+								<span><c:out value="${notice.bo_title}" /></span> 
+								<span class="sub-date"><c:out value="${notice.bo_write_date}" /></span>
+							</a>
+						</li>
+					</c:when>
+				</c:choose>
+			</c:forEach>
 		</ul>
 	</div>
 </div>
