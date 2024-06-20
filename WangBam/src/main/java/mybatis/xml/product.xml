@@ -65,7 +65,7 @@
 				ORDER BY pd_idx
 			) a, (SELECT @RN:=0) b
 		) c
-		WHERE c.rnum BETWEEN #{start} AND #{end};
+		WHERE c.rnum BETWEEN #{start} AND #{end}
 
 	</select>
 

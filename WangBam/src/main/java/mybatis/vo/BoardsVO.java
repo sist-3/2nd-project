@@ -2,8 +2,8 @@ package mybatis.vo;
 
 import java.util.List;
 
-public class BoardVO {
-	private String bo_Idx,
+public class BoardsVO {
+	private String bo_idx,
 	us_idx,
 	pd_idx,
 	bo_type,
@@ -32,11 +32,11 @@ public class BoardVO {
 		this.answer_status = answer_status;
 	}
 	
-	public String getBo_Idx() {
-		return bo_Idx;
+	public String getBo_idx() {
+		return bo_idx;
 	}
-	public void setBo_Idx(String bo_Idx) {
-		this.bo_Idx = bo_Idx;
+	public void setBo_idx(String bo_idx) {
+		this.bo_idx = bo_idx;
 	}
 	public String getUs_idx() {
 		return us_idx;
