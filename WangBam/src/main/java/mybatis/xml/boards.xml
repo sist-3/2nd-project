@@ -36,7 +36,6 @@
         	) a, (SELECT @RN:=0) b
     	) c
 		<where>
-			c.rnum BETWEEN #{begin} AND #{end}
             <if test="searchType != null and searchValue != null">
                 <choose>
                     <when test= "searchType == 'title'"> <!-- 제목 검색 -->
