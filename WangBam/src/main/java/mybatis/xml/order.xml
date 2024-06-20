@@ -14,48 +14,48 @@
     <select id="find" parameterType="Map" resultType="mybatis.vo.OrderVO">
         SELECT * FROM order_t
         <where>
-            <if test="or_idx != null">
-                or_idx = #{or_idx} 
-            </if>
-            <trim prefix="AND">
+            <trim prefixOverrides="AND">
+                <if test="or_idx != null">
+                    or_idx = #{or_idx} 
+                </if>
                 <if test="us_idx != null">
-                    us_idx = #{us_idx}
+                    AND us_idx = #{us_idx}
                 </if>
                 <if test="or_date != null">
-                    or_date = #{or_date} 
+                    AND or_date = #{or_date} 
                 </if>
                 <if test="or_end_date != null">
-                    or_end_date = #{or_end_date} 
+                    AND or_end_date = #{or_end_date} 
                 </if>
                 <if test="or_name != null">
-                    or_name = #{or_name}
+                    AND or_name = #{or_name}
                 </if>
                 <if test="or_postal_code != null">
-                    or_postal_code = #{or_postal_code}
+                    AND or_postal_code = #{or_postal_code}
                 </if>
                 <if test="or_addr != null">
-                    or_addr = #{or_addr}
+                    AND or_addr = #{or_addr}
                 </if>
                 <if test="or_addr_detail != null">
-                    or_addr_detail = #{or_addr_detail}
+                    AND or_addr_detail = #{or_addr_detail}
                 </if>
                 <if test="or_tel != null">
-                    or_tel = #{or_tel}
+                    AND or_tel = #{or_tel}
                 </if>
                 <if test="or_request != null">
-                    or_request = #{or_request}
+                    AND or_request = #{or_request}
                 </if>
                 <if test="or_payment_code != null">
-                    or_payment_code = #{or_payment_code}
+                    AND or_payment_code = #{or_payment_code}
                 </if>
                 <if test="or_tracking_number != null">
-                    or_tracking_number = #{or_tracking_number}
+                    AND or_tracking_number = #{or_tracking_number}
                 </if>
                 <if test="or_total_price != null">
-                    or_total_price = #{or_total_price}
+                    AND or_total_price = #{or_total_price}
                 </if>
                 <if test="or_status_code != null">
-                    or_status_code = #{or_status_code}
+                    AND or_status_code = #{or_status_code}
                 </if>
             </trim>
         </where>
@@ -67,9 +67,8 @@
         VALUES (#{us_idx}, NOW(), #{or_end_date}, #{or_name}, #{or_postal_code}, #{or_addr}, #{or_addr_detail}, #{or_tel}, #{or_request}, #{or_payment_code}, #{or_tracking_number}, #{or_total_price}, #{or_status_code})
     </insert>
 
-    <!-- delete (주문 취소) -->
-    <update id="delete" parameterType="String">
-        UPDATE order_t SET or_end_date = NOW(), or_status_code = 'cancel' WHERE or_idx = #{or_idx}
+    <!-- update -->
+    <update id="updateStatusCode" parameterType="Map">
+        UPDATE order_t SET or_status_code = #{or_status_code} WHERE or_idx = #{or_idx}
     </update>
-
 </mapper>
