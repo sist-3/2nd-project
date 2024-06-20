@@ -47,6 +47,23 @@ public class BoardsDAO {
 		return ar;
 	}
 	
+	//카테고리별 리뷰 목록 조회
+		public static BoardsVO[] findReview(Map<String, String> map) { //타입별 게시글 배열 반환
+			SqlSession ss = FactoryService.getFactory().openSession();
+			
+			BoardsVO[] ar = null;
+			
+			List<BoardsVO> list = ss.selectList("boards.findReview", map);
+			
+			if(list != null) {
+				ar = new BoardsVO[list.size()];
+				list.toArray(ar);
+			}
+			ss.close();
+			
+			return ar;
+		}
+		
 	//유저가 자신의 문의사항 게시글 목록 조회
 	public static BoardsVO[] findUserQuestion(Map<String, String> map) {
 		SqlSession ss = FactoryService.getFactory().openSession();
@@ -134,4 +151,6 @@ public class BoardsDAO {
 		
 		return ar;
 	}
+	
+	
 }

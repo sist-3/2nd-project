@@ -17,6 +17,14 @@ public class OrderDAO {
 
         return list;
     }
+    
+    public static int allCount(Map<String, String> map) {
+        SqlSession ss = FactoryService.getFactory().openSession();
+        int i = ss.selectOne("order.allCount", map);
+        ss.close();
+
+        return i;
+    }
 
     public static List<OrderVO> find(Map<String, String> map) {
         SqlSession ss = FactoryService.getFactory().openSession();
