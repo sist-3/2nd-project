@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" href="/img/logo.ico">
+<link rel="icon" href="${pageContext.request.contextPath}/img/logo.ico">
 <title>왕밤빵</title>
 
 <link rel="stylesheet"
@@ -29,7 +29,7 @@
 					<nav class="global-nav">
 						<div class="global-nav-links">
 							<a href="/html/user/notice_list.html" class="global-nav-item">공지사항</a>
-							<a href="/html/user/item_list.html" class="global-nav-item">상품보기</a>
+							<a href="?type=item" class="global-nav-item">상품보기</a>
 							<a href="/html/user/order_list.html" class="global-nav-item">주문현황</a>
 							<a href="/html/user/question_list.html" class="global-nav-item">1:1문의</a>
 							<a href="?type=brand" class="global-nav-item">브랜드소개</a>

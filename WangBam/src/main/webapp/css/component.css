@@ -73,29 +73,41 @@ caption {
 }
 
 .pagination {
+	display:flex;
+	gap:10px;
+	justify-content:center;
 	text-align: center;
 	margin-bottom: 20px;
 	padding: 15px;
 }
 
 .pagination a {
-	margin: 0 5px;
 	text-decoration: none;
 	color: #333;
 }
+
+.pagination a.on {
+	background-color: #cda178;
+}
+.pagination a.disable {
+	background-color: #bbb;
+}
+
 
 .pagination a:hover {
 	text-decoration: underline;
 }
 
 .admin-pagination {
+	display:flex;
+	gap:10px;
+	justify-content:center;
 	text-align: center;
 	margin-top: 20px;
 	padding: 15px;
 }
 
 .admin-pagination a {
-	margin: 0 5px;
 	text-decoration: none;
 	color: #333;
 	padding: 12px;
@@ -105,6 +117,9 @@ caption {
 .admin-pagination a.on {
 	color: #fff;
 	background-color: #25496f;
+}
+.admin-pagination a.disable {
+	background-color: #bbb;
 }
 
 .admin-pagination a:hover {

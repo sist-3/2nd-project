@@ -75,6 +75,7 @@
 .hot-items {
 	display: flex;
 	gap: 20px;
+	margin-bottom:80px;
 }
 .hot-left {
 	flex: 0.7;
@@ -109,9 +110,7 @@
 }
 
 .product-list {
-	width: 80%;
 	margin: auto;
-	padding: 100px 0;
 	overflow: hidden;
 }
 .product-list > h2 {
@@ -137,7 +136,7 @@
 	max-width: 100%;
 	height: auto;
 	display: block;
-	margin: 0 auto 10px;
+	margin: 0 auto;
 }
 
 .item p {
