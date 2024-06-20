@@ -110,4 +110,18 @@ public class BoardsDAO {
 		
 		return cnt;
 	}
+	
+	//상품상세페이지 문의,리뷰 게시판
+	public static BoardsVO[] findBypdidx(String pd_idx) {
+		SqlSession ss = FactoryService.getFactory().openSession();
+		BoardsVO[] ar = null;
+		List<BoardsVO> list = ss.selectList("boards.findBypdidx",pd_idx);
+		if(list != null) {
+			ar = new BoardsVO[list.size()];
+			list.toArray(ar);
+		}
+		ss.close();
+		
+		return ar;
+	}
 }
