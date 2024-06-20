@@ -5,34 +5,34 @@
   <mapper namespace="addr">
     <!-- 주소 추가 -->
   	<insert id="add" parameterType="Map">
-  		INSERT INTO address(us_idx, ad_name, ad_postal_code, ad_addr, ad_addr_detail, ad_tel, ad_default)
+  		INSERT INTO address_t(us_idx, ad_name, ad_postal_code, ad_addr, ad_addr_detail, ad_tel, ad_default)
   		VALUES (#{us_idx}, #{ad_name}, #{ad_postal_code}, #{ad_addr}, #{ad_addr_detail}, #{ad_tel}, #{ad_default});
   	</insert>
 
 
     <!-- 기본 주소 조회 -->
   	<select id="findDefaultAddr" parameterType="String" resultType="mybatis.vo.AddressVO">
-  		SELECT * FROM address WHERE us_idx = #{us_idx} AND ad_default = 1;
+  		SELECT * FROM address_t WHERE us_idx = #{us_idx} AND ad_default = 1;  
   	</select>
 
     <!-- 주소 리스트 조회 -->
     <select id="findAddrList" parameterType="String" resultType="mybatis.vo.AddressVO">
-      SELECT * FROM address WHERE us_idx = #{us_idx}
+      SELECT * FROM address_t WHERE us_idx = #{us_idx}
     </select>
     
     <!-- 주소 정보 수정 -->
     <update id="update" parameterType="Map">
-      UPDATE address SET ad_name = #{ad_name}, ad_postal_code = #{ad_postal_code}, ad_addr = #{ad_addr}, ad_addr_detail = #{ad_addr_detail}, ad_tel = #{ad_tel} WHERE ad_idx = #{ad_idx};
+      UPDATE address_t SET ad_name = #{ad_name}, ad_postal_code = #{ad_postal_code}, ad_addr = #{ad_addr}, ad_addr_detail = #{ad_addr_detail}, ad_tel = #{ad_tel} WHERE ad_idx = #{ad_idx};
     </update>
 
     <!-- 기본 주소 변경 -->
     <update id="updateDefault" parameterType="Map">
-      UPDATE address SET ad_default = 0 WHERE ad_default = 1 AND us_idx = #{us_idx}
-      UPDATE address SET ad_default = 1 WHERE ad_idx = #{ad_idx}
+      UPDATE address_t SET ad_default = 0 WHERE ad_default = 1 AND us_idx = #{us_idx}
+      UPDATE address_t SET ad_default = 1 WHERE ad_idx = #{ad_idx}
     </update>
 
     <!-- 주소 삭제 -->
     <delete id="deleteAddr" parameterType="String">
-      DELETE FROM address WHERE ad_idx = #{ad_idx};
+      DELETE FROM address_t WHERE ad_idx = #{ad_idx};
     </delete>
   </mapper>
