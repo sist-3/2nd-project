@@ -36,26 +36,26 @@
         	) a, (SELECT @RN:=0) b
     	) c
 		<where>
-			c.rnum BETWEEN #{begin} AND #{end}
             <if test="searchType != null and searchValue != null">
                 <choose>
-                    <when test= "searchType == title"> <!-- 제목 검색 -->
-                        bo_title LIKE CONCAT('%',#{searchValue},'%')
+                    <when test= "searchType == 'title'"> <!-- 제목 검색 -->
+                      	bo_title LIKE CONCAT('%',#{searchValue},'%') AND
                     </when>
-                    <when test= "searchType == writer"> <!-- 작성자 닉네임 검색 -->
-                        us_idx in (select us_idx from user_t where us_nickname like concat('%', #{searchValue}, '%'))
+                    <when test= "searchType == 'writer'"> <!-- 작성자 닉네임 검색 -->
+                        us_idx in (select us_idx from user_t where us_nickname like CONCAT('%', #{searchValue}, '%')) AND
                     </when>
-                    <when test= "searchType == writeDate"> <!-- 날짜 검색 -->
-                        bo_write_date BETWEEN #{searchValue} and #{searchValue2}
+                    <when test= "searchType == 'writeDate'"> <!-- 날짜 검색 -->
+                        bo_write_date BETWEEN #{searchValue} and #{searchValue2} AND
                     </when>
-                    <when test= "searchType == score"> <!-- 평점 검색 -->
-                        bo_score = #{searchValue}
+                    <when test= "searchType == 'score'"> <!-- 평점 검색 -->
+                        bo_score = #{searchValue} AND
                     </when>
-                    <when test= "searchType == answer"> <!-- 미답변 목록 검색 -->
-                        bo_answer = 1
+                    <when test= "searchType == 'answer'"> <!-- 미답변 목록 검색 -->
+                        bo_answer = 1 AND
                     </when>
                 </choose>
             </if>
+			c.rnum BETWEEN #{begin} AND #{end}
 		</where>
 	</select>
 	
