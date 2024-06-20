@@ -68,7 +68,7 @@
     </insert>
 
     <!-- update -->
-    <update id="updateByOrderStatus" parameterType="Map">
+    <update id="updateStatusCode" parameterType="Map">
         UPDATE order_t SET or_status_code = #{or_status_code} WHERE or_idx = #{or_idx}
     </update>
 </mapper>
