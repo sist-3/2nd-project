@@ -15,14 +15,13 @@ public class LoginAction implements Action {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("로그인");
 		String viewPath=null;
-		String us_id = request.getParameter("us_id");
-		String us_pw = request.getParameter("us_pw");
+		String id = request.getParameter("id");
+		String pw = request.getParameter("pw");
 		HttpSession session = request.getSession();
 		Map<String, String> map = new HashMap<>();
-		map.put("us_email", us_id);
-		map.put("us_pwd", us_pw);
+		map.put("us_email", id);
+		map.put("us_pwd", pw);
 		UserVO user = UserDAO.login(map);
 		if(user != null) {
 			session.setAttribute("user", user);
