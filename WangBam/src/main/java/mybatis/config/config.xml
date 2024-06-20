@@ -12,5 +12,12 @@
     </environment>
   </environments>
   <mappers>
+  	<mapper resource="mybatis/xml/boards.xml" />
+  	<mapper resource="mybatis/xml/addr.xml" />
+  	<mapper resource="mybatis/xml/cart.xml" />
+  	<mapper resource="mybatis/xml/comment.xml" />
+  	<mapper resource="mybatis/xml/order.xml" />
+  	<mapper resource="mybatis/xml/product.xml" />
+  	<mapper resource="mybatis/xml/user.xml" />
   </mappers>
 </configuration>

@@ -30,16 +30,16 @@
 	<!-- 상품 수정 -->
 	<update id="update" parameterType="Map">
 		update product_t
-		set pd_idx = '#{pd_idx}',
-		ct_idx = '#{ct_idx}',
-		pd_name = '#{pd_name}',
-		pd_price = '#{pd_price}',
-		pd_sale_price = '#{pd_sale_price}',
-		pd_sale = '#{pd_sale}',
-		pd_cnt = '#{cnt}',
-		pd_thumbnail_img = '#{pd_thumbnail_img}',
-		pd_detail_img = '#{pd_detail_img}',
-		pd_last_update = 'NOW()',
+		set pd_idx = #{pd_idx},
+		ct_idx = #{ct_idx},
+		pd_name = #{pd_name},
+		pd_price = #{pd_price},
+		pd_sale_price = #{pd_sale_price},
+		pd_sale = #{pd_sale},
+		pd_cnt = #{pd_cnt},
+		pd_thumbnail_img = #{pd_thumbnail_img},
+		pd_detail_img = #{pd_detail_img},
+		pd_last_update = NOW(),
 		where pd_idx = #{pd_idx}
 	</update>
 
