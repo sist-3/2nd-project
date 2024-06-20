@@ -22,13 +22,21 @@ public class BuyAction implements Action {
 		
 		// 샘플 데이터
 		OrderDetailVO odvo = new OrderDetailVO();
+		OrderDetailVO odvo2 = new OrderDetailVO();
 		ProductVO pvo = ProductDAO.findByid("1");
 		odvo.setPvo(pvo);
-		odvo.setOd_price("2700");
+		odvo.setOd_price("8100");
 		odvo.setOd_cnt("3");
+		
+		odvo2.setPvo(pvo);
+		odvo2.setOd_price("10800");
+		odvo2.setOd_cnt("4");
 
 		List<OrderDetailVO> odvoList = new ArrayList<>();
 		odvoList.add(odvo);
+		odvoList.add(odvo2);
+		
+		
 		
 		if(request.getMethod().equalsIgnoreCase("GET")) {
 			request.setAttribute("odvoList", odvoList);

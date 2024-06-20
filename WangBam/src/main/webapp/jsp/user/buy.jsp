@@ -20,7 +20,7 @@
            -> productVO, 수량, 내부 정보 상품 계산 후 가격
      --%>
     <% 
-        Object obj = request.getAttribute("odvo");
+        Object obj = request.getAttribute("odvoList");
         List<OrderDetailVO> odvoList = null;
         if(obj == null) {
             %>
@@ -49,20 +49,25 @@
                 </tr>
             </thead>
             <tbody>
-                <% for(OrderDetailVO odvo : odvoList) { %>
+                <% 
+                int totalPrice = 0;
+               	for(OrderDetailVO odvo : odvoList) {
+               		int price = 0;
+               		totalPrice += Integer.parseInt(odvo.getOd_price());
+                %>
                 <tr>
                     <td><img src="<%=odvo.getPvo().getPd_thumbnail_img()%>"></td>
                     <td><%=odvo.getPvo().getPd_name()%></td>
-                    <td><%=odvo.getOd_price()%></td>
+                    <td><%=Integer.parseInt(odvo.getOd_price()) / Integer.parseInt(odvo.getOd_cnt())%></td>
                     <td><%=odvo.getOd_cnt()%></td>
                     <td>-</td>
                     <td>기본배송</td>
                     <td>착불(수령인)</td>
-                    <td><% int price = Integer.parseInt(odvo.getOd_price()) * Integer.parseInt(odvo.getOd_cnt() %></td>
+                    <td><%= odvo.getOd_price() %></td>
                 </tr>
                 <% } %>
                 <tr>
-                    <td colspan="8">상품구매금액 <%=odvo.getOd_price() * odvo.getOd_cnt()%> + 배송비 4,000 = 합계 : <%=odvo.getOd_price() * odvo.getOd_cnt() + 4000 %>원</td>
+                    <td colspan="8">상품구매금액 <%=totalPrice %>+ 배송비 4000 = 합계 : <%=totalPrice+4000%>원</td>
                 </tr>
             </tbody>
         </table>
@@ -109,7 +114,7 @@
                 </div>
                 <div class="total">
                     <p>총 결제금액</p>
-                    <p class="total-amount">11,500원</p>
+                    <p class="total-amount"><%=totalPrice+4000 %> 원</p>
                 </div>
                 <button type="button" class="final-btn">결제하기</button>
             </form>
