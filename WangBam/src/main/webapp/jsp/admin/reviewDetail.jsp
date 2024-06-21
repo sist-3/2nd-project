@@ -18,8 +18,7 @@
 				disabled />
 		</div>
 		<div>
-			<label for="score">평점</label> 
-			<input type="text" name="Score"
+			<label for="score">평점</label> <input type="text" name="Score"
 				value="${vo.bo_score}" disabled />
 		</div>
 		<div>
@@ -29,12 +28,21 @@
 
 
 		<div class="btn_div">
-			<button type="button" class="admin-btn cancel" onclick="">삭제</button>
-			<button type="button" class="admin-btn submit" onclick="">목록</button>
+			<button type="button" class="admin-btn cancel"
+				onclick="del('${vo.bo_idx}')">삭제</button>
+			<button type="button" class="admin-btn submit"
+				onclick="javascript:window.location.href='admin?type=reviewList'">목록</button>
 		</div>
 	</form>
 </div>
 <%@include file="/jsp/common/footer.jsp"%>
+<script>
+	function del(idx) {
+		if (confirm("정말 삭제하시겠습니까?")) {
+			window.location = "admin?type=reviewDelete&bo_idx=" + idx;
+		}
+	}
+</script>
 </body>
 
 </html>
