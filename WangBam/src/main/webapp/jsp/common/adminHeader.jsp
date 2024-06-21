@@ -21,6 +21,7 @@
             <a href="#" class="global-nav-item">리뷰 답글</a>
             <a href="#" class="global-nav-item">문의사항 답글</a>
             <a href="#" class="global-nav-item">상품관리</a>
+            <a href="#" class="global-nav-item">주문관리</a>
             <a href="#" class="global-nav-item">회원관리</a>
           </div>
         </nav>
