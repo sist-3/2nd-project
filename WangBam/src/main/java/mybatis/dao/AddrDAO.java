@@ -35,7 +35,7 @@ public class AddrDAO {
     //기본 주소 가져오기
     static public AddressVO findUserDefault(String us_idx) {
         SqlSession ss = FactoryService.getFactory().openSession();
-        AddressVO result = ss.selectOne("addr.findDefault", us_idx);
+        AddressVO result = ss.selectOne("addr.findDefaultAddr", us_idx);
         ss.close();
         return result;
     }
