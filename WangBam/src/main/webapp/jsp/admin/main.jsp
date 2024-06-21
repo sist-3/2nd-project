@@ -7,29 +7,38 @@
 <section>
             <div class="title">
               <h3>판매진행현황</h3>
-              <div calss="graph">
-                그래프
-              </div>
             </div>
+              <ul class="order-state">
+              	<li>배송대기 : 1건</li>
+              	<li>배송중 : 1건</li>
+              	<li>배송완료 : 1건</li>
+              	<li>주문취소 : 1건</li>
+              	<li>환불요청 : 1건</li>
+              </ul>
           </section>
 
           <section>
             <div class="title">
-              <h3>기간별 매출</h3>
-              <canvas id="periodSales" width="600" height="300"></canvas>
+              <h3>기간별 월매출</h3>
+            </div>
+            <div class="chart-box">
+            	<canvas id="periodSales"></canvas>
             </div>
           </section>
 
           <section>
             <div class="title">
               <h3>카테고리별 재고대비 판매량</h3>
-              <canvas id="salesByCategory" width="600" height="300"></canvas>
+            </div>
+            <div class="chart-box">
+            	<canvas id="salesByCategory"></canvas>
             </div>
           </section>
 
           <section>
             <div class="title">
               <h3>VIP 회원</h3>
+            </div>
               <table class="table">
               	<thead>
 					<tr>
@@ -43,17 +52,20 @@
               	<tbody>
               		<tr>
               			<td></td>
+              			<td></td>
+              			<td></td>
+              			<td></td>
+              			<td></td>
               		</tr>
               	</tbody>
 			</table>
-            </div>
           </section>
 <%@include file="/jsp/common/footer.jsp" %>
 <script>
 const periodSalesCanvas = document.querySelector('#periodSales');
 const salesByCategoryCanvas = document.querySelector('#salesByCategory');
 const periodSalesData = {
-		labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+		labels: ['2024-01', '2024-02', '2024-03', '2024-04', '2024-05', '2024-06'],
 	    datasets: [{
 	        label: '# of Votes',
 	        data: [12, 19, 3, 5, 2, 3],
