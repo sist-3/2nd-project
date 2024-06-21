@@ -9,15 +9,15 @@ body:has(.admin) {
 	background-color: #f7f7f7;
 	margin: 0;
 	padding: 0;
-	display: flex;
+	/* display: flex; */
 	justify-content: center;
 	align-items: center;
-	min-height: 100vh;
-	padding: 20px; /* 추가된 여백 */
+	/* min-height: 100vh; */
+	/* padding: 20px; */ /* 추가된 여백 */
 }
 .admin-main {
 	min-height: calc(100vh - 144px);
-	background-color: #fff;
+	/* background-color: #fff; */
 }
 .admin {
 	width: auto;
@@ -28,7 +28,7 @@ body:has(.admin) {
 	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 	border-radius: 12px;
 	box-sizing: border-box;
-	margin: 20px 0; /* 위아래 여백 추가 */
+	margin: 20px auto; /* 위아래 여백 추가 */
 }
 
 .admin h1 {
