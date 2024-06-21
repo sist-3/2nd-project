@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <html lang="ko">
 
 <head>
@@ -12,17 +14,18 @@
 </head>
 
 <body>
+<c:set var="currentPage" value="${param.type}" />
   <div class="wrap">
     <div class="container">
       <header class="admin-header">
         <nav class="global-nav">
           <div class="global-nav-links">
-            <a href="admin?type=index" class="global-nav-item on">한눈에 보기</a>
-            <a href="admin?type=reviewList" class="global-nav-item">리뷰 답글</a>
-            <a href="#" class="global-nav-item">문의사항 답글</a>
-            <a href="#" class="global-nav-item">상품관리</a>
-            <a href="admin?type=orderList" class="global-nav-item">주문관리</a>
-            <a href="#" class="global-nav-item">회원관리</a>
+            <a href="admin?type=index" class="${currentPage.contains('index') ? 'global-nav-item on' : 'global-nav-item'}">한눈에 보기</a>
+            <a href="admin?type=reviewList" class="${currentPage.contains('reviewList') ? 'global-nav-item on' : 'global-nav-item'}">리뷰 답글</a>
+            <a href="admin?type=questionList" class="${currentPage.contains('questionList') ? 'global-nav-item on' : 'global-nav-item'}">문의사항 답글</a>
+            <a href="admin?type=productList" class="${currentPage.contains('productList') ? 'global-nav-item on' : 'global-nav-item'}">상품관리</a>
+            <a href="admin?type=orderList" class="${currentPage.contains('orderList') ? 'global-nav-item on' : 'global-nav-item'}">주문관리</a>
+            <a href="admin?type=memberList" class="${currentPage.contains('memberList') ? 'global-nav-item on' : 'global-nav-item'}">회원관리</a>
           </div>
         </nav>
       </header>

@@ -141,6 +141,9 @@ caption {
 	border-radius: 12px;
 	cursor: pointer;
 }
+.btn.search {
+	background:url(../img/icon_search.png) no-repeat center/contain;
+}
 .btn.submit {
 	color: #fff;
 	background-color: #744e33;

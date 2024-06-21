@@ -19,17 +19,18 @@
 </head>
 
 <body>
+<c:set var="currentPage" value="${param.type}" />
 	<div class="wrap">
 		<div class="container">
 			<header class="header">
 				<div class="header-inner">
 					<nav class="global-nav">
 						<div class="global-nav-links">
-							<a href="/html/user/notice_list.html" class="global-nav-item">공지사항</a>
-							<a href="?type=item" class="global-nav-item">상품보기</a>
-							<a href="/html/user/order_list.html" class="global-nav-item">주문현황</a>
-							<a href="/html/user/question_list.html" class="global-nav-item">1:1문의</a>
-							<a href="?type=brand" class="global-nav-item">브랜드소개</a>
+							<a href="?type=notice" class="${currentPage.contains('notice') ? 'global-nav-item on' : 'global-nav-item'}">공지사항</a>
+							<a href="?type=item" class="${currentPage.contains('item') ? 'global-nav-item on' : 'global-nav-item'}">상품보기</a>
+							<a href="?type=order" class="${currentPage.contains('order') ? 'global-nav-item on' : 'global-nav-item'}">주문현황</a>
+							<a href="?type=question" class="${currentPage.contains('question') ? 'global-nav-item on' : 'global-nav-item'}">1:1문의</a>
+							<a href="?type=brand" class="${currentPage.contains('brand') ? 'global-nav-item on' : 'global-nav-item'}">브랜드소개</a>
 						</div>
 					</nav>
 					<nav class="local-nav">
@@ -37,8 +38,8 @@
 							<h1>
 								<a href="?type=index" class="product-name">왕밤빵</a>
 							</h1>
-							<a href="../login.html">로그인</a> <a href="#">회원가입</a> <a href="#">마이페이지</a>
-							<a href="#">장바구니</a>
+							<a href="?type=login">로그인</a> <a href="?type=member">회원가입</a> <a href="?type=my">마이페이지</a>
+							<a href="?type=cart">장바구니</a>
 						</div>
 					</nav>
 				</div>
