@@ -14,12 +14,17 @@ public class ItemAction implements Action {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		Paging page = new Paging(6,5);
+		String productPerBlock = request.getParameter("productPerBlock");
+		int numPerPage = 6;
+		if( productPerBlock != null) {
+			numPerPage = Integer.valueOf(productPerBlock);
+		}
+		Paging page = new Paging(numPerPage,5);
 		
 		String cPage = request.getParameter("cPage");
 		String searchValue = request.getParameter("searchValue");
-
-		page.setTotalRecord(ProductDAO.allCount());
+		
+		page.setTotalRecord(ProductDAO.allCount(searchValue));
 		
 		if(cPage != null) { //시작 페이지 설정
 			page.setNowPage(Integer.parseInt(cPage));

@@ -32,6 +32,7 @@ caption {
 .search-bar {
 	display: flex;
 	justify-content: flex-end;
+	gap:16px;
 }
 
 .search-bar input {

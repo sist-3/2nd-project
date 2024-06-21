@@ -18,13 +18,6 @@ public class ProductDAO {
 		return vo;
 		
 	}
-	public static int allCount() {
-		SqlSession ss = FactoryService.getFactory().openSession();
-		int cnt = ss.selectOne("product.allCount");
-		ss.close();
-		return cnt;
-		
-	}
 	//상품 리스트 조회
 	public static ProductVO[] allProduct() {
 		SqlSession ss = FactoryService.getFactory().openSession();
@@ -73,6 +66,13 @@ public class ProductDAO {
 		}else{
 			ss.rollback();
 		}
+		return cnt;
+	}
+	// 검색조건에 맞는 목록카운트
+	public static int allCount(String searchValue) {
+		SqlSession ss = FactoryService.getFactory().openSession();
+		int cnt = ss.selectOne("product.allCount", searchValue);
+		ss.close();
 		return cnt;
 	}
 
