@@ -77,5 +77,6 @@
 		<button type="button" class="admin-btn cancel">주문취소</button>
 	</div>
 </div>
-
 <%@include file="/jsp/common/footer.jsp" %>
+</body>
+</html>

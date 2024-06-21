@@ -9,6 +9,7 @@
 <div class="search-bar">
 	<form method="post" name="ctIdxForm">
 		<select name="ct_idx">
+				<option value="all" selected>전체조회</option>
 			<c:forEach var="cate" items="${requestScope.cate_ar }">
 				<option value="${cate.ct_idx }" <c:if test="${(cate.ct_idx == param.ct_idx)}">selected</c:if>>${cate.ct_name }</option>
 			</c:forEach>
@@ -32,12 +33,19 @@
 
 		<tbody>
 			<c:if test="${fn:length('ar') > 0}">
-				<c:forEach var="vo" items="${ar }" varStatus="vs">
+				<c:forEach var="vo" items="${requestScope.ar }" varStatus="vs">
 					<tr class="review">
 						<td><input type="checkbox" /></td>
-						<td>${vs.index + 1}</td>
-						<td>${vo.bo_title}</td>
-						<td>${vo.uvo.us_idx}</td>
+						<td>${vs.index + 1 + (page.pagePerBlock * (page.nowPage - 1))}</td>
+						<td><a href="admin?type=reviewDetail&bo_idx=${vo.bo_idx}">${vo.bo_title}</a></td>
+						<td>
+							<c:if test="${null eq vo.uvo.us_name}">
+								<b>탈퇴한 회원</b>
+							</c:if>
+							<c:if test="${null ne vo.uvo.us_name}">
+								${vo.uvo.us_name}
+							</c:if>
+						</td>
 						<td>${vo.bo_write_date}</td>
 						<td>${vo.bo_score}</td>
 						<td>${vo.bo_hit}</td>
@@ -52,7 +60,9 @@
 			</c:if>
 		</tbody>
 	</table>
-	<div class="admin-pagination">
+
+
+  	<div class="admin-pagination">
 			<c:set var="page" value="${ requestScope.page}" />
 			<c:if test="${page.startPage < page.pagePerBlock }">
 				<div class="disable">&lt;</div>
@@ -81,7 +91,6 @@
 
 	</div>
 
-
 	<div class="btn_div">
 		<button type="button" class="admin-btn submit">삭제</button>
 	</div>
@@ -99,8 +108,10 @@
 			type:"get",
 			data: "ct_idx="+encodeURIComponent(ct_idx),
 		}).done(function(res){
-			$("body").html(res);
+			$(".content").html($(res).find(".content").html());
 		});
 	}
 </script>
 <%@include file="/jsp/common/footer.jsp"%>
+</body>
+</html>
