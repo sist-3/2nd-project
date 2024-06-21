@@ -23,7 +23,6 @@ public class ReviewDetailAction implements Action {
 	
 		String bo_idx = request.getParameter("bo_idx");
 
-		System.out.println(bo_idx + "zz");
 		BoardsVO vo = BoardsDAO.findByidx(bo_idx);
 		request.setAttribute("vo", vo);
 

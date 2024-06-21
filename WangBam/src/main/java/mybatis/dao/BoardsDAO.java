@@ -106,6 +106,10 @@ public class BoardsDAO {
 		SqlSession ss = FactoryService.getFactory().openSession();
 		
 		int cnt = ss.update("boards.delete", bo_idx);
+		if(cnt > 0)
+			ss.commit();
+		else
+			ss.rollback();
 		ss.close();
 		
 		return cnt;
