@@ -14,7 +14,10 @@ public class OrderVO {
 	or_payment_code,
 	or_tracking_number,
 	or_total_price,
-	or_status_code;
+	or_status_code,
+	or_sales_month,
+	or_sales;
+	
 	private UserVO uvo;
 	
 	public String getOr_total_price() {
@@ -107,5 +110,17 @@ public class OrderVO {
 	}
 	public void setUvo(UserVO uvo) {
 		this.uvo = uvo;
+	}
+	public String getOr_sales_month() {
+		return or_sales_month;
+	}
+	public void setOr_sales_month(String or_sales_month) {
+		this.or_sales_month = or_sales_month;
+	}
+	public String getOr_sales() {
+		return or_sales;
+	}
+	public void setOr_sales(String or_sales) {
+		this.or_sales = or_sales;
 	}
 }

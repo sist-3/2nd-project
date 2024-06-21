@@ -63,4 +63,19 @@ public class OrderDAO {
 
         return result;
     }
+    
+    public static OrderVO[] findSalesByMonth(){
+    	SqlSession ss = FactoryService.getFactory().openSession();
+    	OrderVO[] ar = null;
+    	
+    	List<OrderVO> list = ss.selectList("order.findSalesByMonth");
+    	
+    	if(list != null) {
+    		ar = new OrderVO[list.size()];
+    		list.toArray(ar);
+    	}
+    	ss.close();
+    	
+    	return ar;
+    }
 }
