@@ -9,29 +9,32 @@ body:has(.admin) {
 	background-color: #f7f7f7;
 	margin: 0;
 	padding: 0;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	min-height: 100vh;
-	padding: 20px; /* 추가된 여백 */
 }
 .admin-main {
+	padding: 40px;
 	min-height: calc(100vh - 144px);
 	background-color: #fff;
 }
-.admin {
-	width: auto;
-	min-width: 600px;
-	max-width: 800px;
-	background: white;
-	padding: 40px;
-	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-	border-radius: 12px;
-	box-sizing: border-box;
-	margin: 20px 0; /* 위아래 여백 추가 */
+.admin-main > .content > section {
+    border: 1px solid #e2e2e2;
+    border-radius: 20px;
+    padding: 32px;
+}
+.admin-main > .content > section + section {
+	margin-top:32px;
+}
+.admin-main .title {
+	margin-bottom : 12px;
+}
+.admin-main .title h3 {
+	border-left : 4px solid #e2e2e2;
+	padding-left : 8px;
+}
+.admin-main .chart-box {
+	width: 600px;
 }
 
-.admin h1 {
+.admin-main h1 {
 	font-size: 24px;
 	font-weight: 700;
 	color: #333;
@@ -39,22 +42,22 @@ body:has(.admin) {
 	margin-bottom: 30px;
 }
 
-.admin form {
+.admin-main form {
 	display: flex;
 	flex-direction: column;
 	gap: 20px;
 }
 
-.admin label {
+.admin-main label {
 	font-weight: 700;
 	color: #333;
 }
 
-.admin input[type='text'],
-.admin input[type='password'],
-.admin input[type='email'],
-.admin textarea,
-.admin select {
+.admin-main input[type='text'],
+.admin-main input[type='password'],
+.admin-main input[type='email'],
+.admin-main textarea,
+.admin-main select {
 	width: 100%;
 	padding: 12px 15px;
 	border: 1px solid #ddd;
@@ -65,16 +68,16 @@ body:has(.admin) {
 	box-sizing: border-box;
 }
 
-.admin input[type='text']:focus,
-.admin input[type='password']:focus,
-.admin input[type='email']:focus,
-.admin textarea:focus,
-.admin select:focus {
+.admin-main input[type='text']:focus,
+.admin-main input[type='password']:focus,
+.admin-main input[type='email']:focus,
+.admin-main textarea:focus,
+.admin-main select:focus {
 	border-color: #007bff;
 }
 
-.admin input::placeholder,
-.admin textarea {
+.admin-main input::placeholder,
+.admin-main textarea {
 	color: #bbb;
 }
 
@@ -137,20 +140,52 @@ body:has(.admin) {
 	background-color: #e2e2e2;
 	color: #333;
 }
-
+.admin-header {
+	position:sticky;
+	top:0;
+	border-bottom:1px solid #e2e2e2;
+}
 .admin-header .global-nav {
 	width: 100%;
 	height: 44px;
 	padding: 0 1rem;
-	background-color: #e2e2e2;
+	background-color: #fff;
 }
 .admin-header .global-nav-links {
 	display: flex;
 	align-items: center;
+	justify-content: space-between;
 	max-width: 1260px;
 	height: 100%;
 	margin: 0 auto;
 }
-.admin-header .global-nav-links {
-	justify-content: space-between;
+.admin-header .global-nav-links a.on{
+	color:hotpink;
+}
+.admin-header .global-nav-links a:hover {
+	text-decoration: underline;
+}
+.order-state {
+	display:flex;
+	gap:16px;
+}
+.order-state > li {
+	flex:1;
+	padding:32px;
+	border-radius:20px;
+}
+.order-state > li:nth-child(1) {
+	background-color:rgba(255, 99, 132, 0.2);
+}
+.order-state > li:nth-child(2) {
+	background-color:rgba(255, 159, 64, 0.2);
+}
+.order-state > li:nth-child(3) {
+	background-color:rgba(255, 205, 86, 0.2);
+}
+.order-state > li:nth-child(4) {
+	background-color:rgba(75, 192, 192, 0.2);
+}
+.order-state > li:nth-child(5) {
+	background-color:rgba(54, 162, 235, 0.2);
 }

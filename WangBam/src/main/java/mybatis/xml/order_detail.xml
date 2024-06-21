@@ -40,4 +40,14 @@
         VALUES (#{or_idx}, #{pd_idx}, #{od_cnt}, #{od_price})
     </insert>
 
+
+    <!-- findWithProduct -->
+    <resultMap id="orderDetailWithProduct" type="mybatis.vo.OrderDetailVO">
+        <association property="pvo" column="pd_idx" javaType="mybatis.vo.ProductVO" select="product.findByid"/>
+    </resultMap>
+
+    <select id="findByIdxWithProduct" parameterType="String" resultMap="orderDetailWithProduct">
+        SELECT * FROM order_detail_t
+        WHERE or_idx = #{or_idx}
+    </select>
 </mapper>
