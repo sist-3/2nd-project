@@ -73,15 +73,30 @@ caption {
 }
 
 .pagination {
+	display:flex;
+	gap:10px;
+	justify-content:center;
 	text-align: center;
 	margin-bottom: 20px;
 	padding: 15px;
 }
-
-.pagination a {
-	margin: 0 5px;
-	text-decoration: none;
-	color: #333;
+.pagination > div {
+	border-radius: 50%;
+	background-color: #673a11;
+	width: 25px;
+	height: 25px;
+	display: inline-block;
+	color: #fff;
+	padding: 2px;
+}
+.pagination > div > a {
+	color:#fff;
+}
+.pagination .on {
+	background-color: #cda178;
+}
+.pagination .disable {
+	background-color: #bbb;
 }
 
 .pagination a:hover {
@@ -89,13 +104,15 @@ caption {
 }
 
 .admin-pagination {
+	display:flex;
+	gap:10px;
+	justify-content:center;
 	text-align: center;
 	margin-top: 20px;
 	padding: 15px;
 }
 
 .admin-pagination a {
-	margin: 0 5px;
 	text-decoration: none;
 	color: #333;
 	padding: 12px;
@@ -105,6 +122,9 @@ caption {
 .admin-pagination a.on {
 	color: #fff;
 	background-color: #25496f;
+}
+.admin-pagination a.disable {
+	background-color: #bbb;
 }
 
 .admin-pagination a:hover {
@@ -138,16 +158,6 @@ caption {
 	position: relative;
 	text-indent: -9999px;
 	height: 0;
-}
-
-.pagination a {
-	border-radius: 50%;
-	background-color: #673a11;
-	width: 25px;
-	height: 25px;
-	display: inline-block;
-	color: #fff;
-	padding: 2px;
 }
 
 .btn_div {
@@ -253,14 +263,29 @@ caption {
 }
 
 
-	 .brand-box {
-      padding: 20px;
-      margin: 20px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      background-color: #f9f9f9;
-    }
+.brand-box {
+     padding: 20px;
+     margin: 20px;
+     border: 1px solid #ddd;
+     border-radius: 5px;
+     background-color: #f9f9f9;
+}
 
-	.brand-title {
-      color: #5b4024;
-    }
+.brand-title {
+     color: #5b4024;
+}
+
+.item > .img-box {
+	min-height:300px;
+}
+.item > .img-box > img {
+	max-width:70%;
+	transition:0.5s;
+}
+.item > .img-box > img:hover {
+	max-width:100%;
+}
+
+
+
+   

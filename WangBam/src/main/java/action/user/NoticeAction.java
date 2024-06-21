@@ -33,6 +33,7 @@ public class NoticeAction implements Action {
 		map.put("begin", Integer.toString(page.getBegin()));
 		map.put("end", Integer.toString(page.getEnd()));
 		
+		
 		BoardsVO[] ar = BoardsDAO.find(map); //공지사항 게시글 배열로 반환
 		
 		if(ar!=null) {

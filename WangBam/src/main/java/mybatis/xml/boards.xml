@@ -22,6 +22,34 @@
 		WHERE bo_status = 1
 		AND bo_type = #{bo_type} 
 	</select>
+	
+	<!-- 검색한 게시글의 갯수 -->
+	<select id="allSearchCount" parameterType="map" resultType="int">
+		SELECT COUNT(*)
+		FROM boards_t
+		<where>
+            <if test="searchType != null and searchValue != null">
+                <choose> <!-- 검색할 요소에 따라 when태그 추가 -->
+                    <when test= "searchType == 'title'"> <!-- 제목 검색 -->
+                      	bo_title LIKE CONCAT('%',#{searchValue},'%') AND
+                    </when>
+                    <when test= "searchType == 'writer'"> <!-- 작성자 닉네임 검색 -->
+                        us_idx in (select us_idx from user_t where us_nickname like CONCAT('%', #{searchValue}, '%')) AND
+                    </when>
+                    <when test= "searchType == 'writeDate'"> <!-- 날짜 검색 -->
+                        bo_write_date BETWEEN #{searchValue} and #{searchValue2} AND
+                    </when>
+                    <when test= "searchType == 'score'"> <!-- 평점 검색 -->
+                        bo_score = #{searchValue} AND
+                    </when>
+                    <when test= "searchType == 'answer'"> <!-- 미답변 목록 검색 -->
+                        bo_answer = 1 AND
+                    </when>
+                </choose>
+            </if>
+			bo_status = 1 AND bo_type = #{bo_type}
+		</where>
+	</select>
 
 	<!-- 조회할 게시글 + 검색조건 + 작성자 닉네임 + 댓글 + 상품 -->
 	<select id="find" parameterType="map" resultMap="findWithBoard"> 
@@ -31,31 +59,33 @@
         	FROM (
             	SELECT *
             	FROM boards_t
-            	WHERE bo_status = 1 AND bo_type = #{bo_type}
+            	<where>
+            	bo_status = 1 AND bo_type = #{bo_type} 
+            		<if test="searchType != null and searchValue != null">
+		                <choose><!-- 검색할 요소에 따라 when태그 추가 -->
+		                    <when test= "searchType == 'title'"> <!-- 제목 검색 -->
+		                      	AND bo_title LIKE CONCAT('%',#{searchValue},'%')
+		                    </when>
+		                    <when test= "searchType == 'writer'"> <!-- 작성자 닉네임 검색 -->
+		                        AND us_idx in (select us_idx from user_t where us_nickname like CONCAT('%', #{searchValue}, '%'))
+		                    </when>
+		                    <when test= "searchType == 'writeDate'"> <!-- 날짜 검색 -->
+		                        AND bo_write_date BETWEEN #{searchValue} and #{searchValue2}
+		                    </when>
+		                    <when test= "searchType == 'score'"> <!-- 평점 검색 -->
+		                        AND bo_score = #{searchValue}
+		                    </when>
+		                    <when test= "searchType == 'answer'"> <!-- 미답변 목록 검색 -->
+		                        AND bo_answer = 1
+		                    </when>
+		                </choose>
+		            </if>
+            	</where>
             	ORDER BY bo_idx DESC
         	) a, (SELECT @RN:=0) b
     	) c
 		<where>
 			c.rnum BETWEEN #{begin} AND #{end}
-            <if test="searchType != null and searchValue != null">
-                <choose>
-                    <when test= "searchType == title"> <!-- 제목 검색 -->
-                        bo_title LIKE CONCAT('%',#{searchValue},'%')
-                    </when>
-                    <when test= "searchType == writer"> <!-- 작성자 닉네임 검색 -->
-                        us_idx in (select us_idx from user_t where us_nickname like concat('%', #{searchValue}, '%'))
-                    </when>
-                    <when test= "searchType == writeDate"> <!-- 날짜 검색 -->
-                        bo_write_date BETWEEN #{searchValue} and #{searchValue2}
-                    </when>
-                    <when test= "searchType == score"> <!-- 평점 검색 -->
-                        bo_score = #{searchValue}
-                    </when>
-                    <when test= "searchType == answer"> <!-- 미답변 목록 검색 -->
-                        bo_answer = 1
-                    </when>
-                </choose>
-            </if>
 		</where>
 	</select>
 	
@@ -133,6 +163,33 @@
 		SET bo_answer = 0
 		WHERE bo_idx = #{bo_idx}
 	</update>
+	
+	<!-- 상품상세페이지 문의,리뷰 게시판  -->
+	<select id="findBypdidx" parameterType="String" resultType="mybatis.vo.BoardsVO">
+		SELECT *
+		FROM boards_t 
+		WHERE pd_idx = #{pd_idx}
+		AND bo_type IN(1,2)
+	</select>
 <!-- Update, Delete end-->
+
+
+<!-- 카테고리별 리뷰 조회 -->
+	<select id="findReview" parameterType="map" resultType="mybatis.vo.BoardsVO"> 
+		SELECT *
+		FROM (
+			SELECT @RN:=@RN+1 AS rnum, a.*
+			FROM (
+            	SELECT bt.pd_idx, bt.bo_title, bt.us_idx, bt.bo_write_date, bt.bo_score, bo_hit
+            	FROM boards_t bt, (SELECT pd_idx
+									FROM product_t
+									WHERE ct_idx = #{ct_idx}) pt
+				WHERE bt.pd_idx = pt.pd_idx
+            	AND bo_status = 1 
+                AND bo_type = #{bo_type}
+        	) a, (SELECT @RN:=0) b
+    	) c
+        WHERE c.rnum BETWEEN #{begin} AND #{end}
+   </select>
 
 </mapper>

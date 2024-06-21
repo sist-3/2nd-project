@@ -10,10 +10,69 @@
         SELECT * FROM order_t
     </select>
 
+	<select id="allCount" parameterType="Map" resultType="int">
+        SELECT count(*) FROM order_t
+        <where>
+            <trim prefixOverrides="AND">
+                <if test="or_idx != null">
+                    or_idx = #{or_idx} 
+                </if>
+                <if test="us_idx != null">
+                    AND us_idx = #{us_idx}
+                </if>
+                <if test="or_date != null">
+                    AND or_date = #{or_date} 
+                </if>
+                <if test="or_end_date != null">
+                    AND or_end_date = #{or_end_date} 
+                </if>
+                <if test="or_name != null">
+                    AND or_name = #{or_name}
+                </if>
+                <if test="or_postal_code != null">
+                    AND or_postal_code = #{or_postal_code}
+                </if>
+                <if test="or_addr != null">
+                    AND or_addr = #{or_addr}
+                </if>
+                <if test="or_addr_detail != null">
+                    AND or_addr_detail = #{or_addr_detail}
+                </if>
+                <if test="or_tel != null">
+                    AND or_tel = #{or_tel}
+                </if>
+                <if test="or_request != null">
+                    AND or_request = #{or_request}
+                </if>
+                <if test="or_payment_code != null">
+                    AND or_payment_code = #{or_payment_code}
+                </if>
+                <if test="or_tracking_number != null">
+                    AND or_tracking_number = #{or_tracking_number}
+                </if>
+                <if test="or_total_price != null">
+                    AND or_total_price = #{or_total_price}
+                </if>
+                <if test="or_status_code != null">
+                    AND or_status_code = #{or_status_code}
+                </if>
+            </trim>
+        </where>
+    </select>
+    
     <!-- find -->
     <select id="find" parameterType="Map" resultType="mybatis.vo.OrderVO">
-        SELECT * FROM order_t
+        SELECT * FROM (
+        	SELECT @RN:=@RN+1 AS rnum, a.*
+        	FROM (
+            	SELECT *
+            	FROM order_t
+        	) a, (SELECT @RN:=0) b
+    	) c
         <where>
+        	<if test="begin != null and end != null">
+				c.rnum BETWEEN #{begin} AND #{end}
+			</if>
             <trim prefixOverrides="AND">
                 <if test="or_idx != null">
                     or_idx = #{or_idx} 
