@@ -112,20 +112,13 @@ public class BoardsDAO {
 	}
 	
 	//게시글 상세보기
-	public static BoardsVO[] findByidx(String bo_idx) {
+	public static BoardsVO findByidx(String bo_idx) {
 		SqlSession ss = FactoryService.getFactory().openSession();
 		
-		BoardsVO[] ar = null;
-		
-		List<BoardsVO> list = ss.selectList("boards.findByidx", bo_idx);
-		
-		if(list != null) {
-			ar = new BoardsVO[list.size()];
-			list.toArray(ar);
-		}
+		BoardsVO vo = ss.selectOne("boards.findByidx", bo_idx);
 		ss.close();
 		
-		return ar;
+		return vo;
 	}
 	
 	//답변상태 변경
@@ -152,5 +145,15 @@ public class BoardsDAO {
 		return ar;
 	}
 	
+	//리뷰 게시판 글 수
+		public static int countReview(String ct_idx) {
+			SqlSession ss = FactoryService.getFactory().openSession();
+			
+			int cnt = ss.selectOne("boards.countReview",ct_idx);
+			
+			ss.close();
+			
+			return cnt;
+		}
 	
 }

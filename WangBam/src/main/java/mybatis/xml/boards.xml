@@ -175,15 +175,19 @@
 
 
 <!-- 카테고리별 리뷰 조회 -->
-	<select id="findReview" parameterType="map" resultType="mybatis.vo.BoardsVO"> 
+	<select id="findReview" parameterType="map" resultMap="findWithBoard"> 
 		SELECT *
 		FROM (
 			SELECT @RN:=@RN+1 AS rnum, a.*
 			FROM (
-            	SELECT bt.pd_idx, bt.bo_title, bt.us_idx, bt.bo_write_date, bt.bo_score, bo_hit
-            	FROM boards_t bt, (SELECT pd_idx
-									FROM product_t
-									WHERE ct_idx = #{ct_idx}) pt
+            	SELECT bt.pd_idx, bt.bo_idx, bt.bo_title, bt.us_idx, bt.bo_write_date, bt.bo_score, bo_hit
+            	FROM boards_t as bt, (SELECT pd_idx
+									  FROM product_t
+									<where>
+										<if test="ct_idx != 'all'">
+									 	ct_idx = #{ct_idx}
+										</if>
+									</where>) as pt
 				WHERE bt.pd_idx = pt.pd_idx
             	AND bo_status = 1 
                 AND bo_type = #{bo_type}
@@ -192,4 +196,19 @@
         WHERE c.rnum BETWEEN #{begin} AND #{end}
    </select>
 
+	<!-- Select -->
+	<!-- 등록된 리뷰글의 갯수 -->
+	<select id="countReview" parameterType="String" resultType="int">
+	SELECT count(*)
+            	FROM boards_t as bt, (SELECT pd_idx
+									  FROM product_t
+									<where>
+										<if test="ct_idx != 'all'">
+									 	ct_idx = #{ct_idx}
+										</if>
+									</where>) as pt
+				WHERE bt.pd_idx = pt.pd_idx
+            	AND bo_status = 1 
+                AND bo_type = 2
+	</select>
 </mapper>

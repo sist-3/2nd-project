@@ -125,3 +125,20 @@
 	</div>
 </div>
 <%@include file="/jsp/common/footer.jsp"%>
+<script>
+// 메인 슬라이더
+const swiper = new Swiper('.swiper', {
+  // Navigation arrows
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  },
+
+  // And if we need scrollbar
+  scrollbar: {
+    el: '.swiper-scrollbar',
+  },
+});
+</script>
+</body>
+</html>

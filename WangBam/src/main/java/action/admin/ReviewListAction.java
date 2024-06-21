@@ -24,17 +24,18 @@ public class ReviewListAction implements Action {
 		Paging page = new Paging(5,5); 
 		String bo_type = "2";
 		String ct_idx = request.getParameter("ct_idx");
+		
 		if(ct_idx == null) {
-			ct_idx = "1";
+			ct_idx = "all";
 		}
 		
 		//전체 카테고리 가져오기
 		CategoryVO[] cate_ar = CategoryDAO.allCategory();
-		request.setAttribute("cate_ar", cate_ar);
 		request.setAttribute("ct_idx", ct_idx);
+		request.setAttribute("cate_ar", cate_ar);
 		
 		//전체 페이지 수 구하기
-		page.setTotalRecord(BoardsDAO.allCount(bo_type));
+		page.setTotalRecord(BoardsDAO.countReview(ct_idx));
 		
 		//현재 페이지 값 받기
 		String cPage = request.getParameter("cPage");
@@ -57,7 +58,6 @@ public class ReviewListAction implements Action {
 		map.put("ct_idx", ct_idx);
 		
 		BoardsVO[] ar = BoardsDAO.findReview(map);
-
 		//배열 ar을 jsp에서 표현하기 위해 request에 저장
 		request.setAttribute("ar", ar);
 		request.setAttribute("page", page);
