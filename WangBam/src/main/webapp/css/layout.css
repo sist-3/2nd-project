@@ -63,6 +63,9 @@ body {
 .global-nav-links a {
 	color: #333;
 }
+.global-nav-links a.on {
+	color: #673a11;
+}
 .local-nav-links a:not(.product-name) {
 	margin-left: 2em;
 }
