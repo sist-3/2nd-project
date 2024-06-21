@@ -1,3 +1,4 @@
+<%@page import="mybatis.vo.AddressVO"%>
 <%@page import="mybatis.vo.OrderDetailVO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -77,13 +78,11 @@
             <form class="form-group">
                 <label for="postcode">주소찾기</label>
                 <div class="address-group">
-                    <input type="text" id="postcode" name="postcode">
+                    <input type="text" id="postcode" name="postcode" <c:if test="${avo != null}">value="${avo.getAd_postal_code()}"</c:if> placeholder="우편번호">
                     <button type="button">우편번호</button>
                 </div>
-                <input type="text" class="address-input" name="address1" placeholder="기본주소">
-                <input type="text" class="address-input2" name="address2" placeholder="나머지주소">
-
-
+                <input type="text" class="address-input" name="address1" <c:if test="${avo != null}">value="${avo.getAd_addr()}"</c:if> placeholder="기본주소"/>
+                <input type="text" class="address-input2" name="address2" <c:if test="${avo != null}">value="${avo.getAd_addr_detail()}"</c:if> placeholder="상세주소"/>
                 <label for="phone">휴대폰</label>
                 <div class="phone-input">
                     <select name="phone1">
@@ -91,16 +90,15 @@
                         <!-- Add more options as needed -->
                     </select>
                     <span>-</span>
-                    <input type="text" name="phone2">
+                    <input type="text" name="phone2" <c:if test="${avo != null}">value="${avo.getAd_tel().substring(2,6)}"</c:if>>
                     <span>-</span>
-                    <input type="text" name="phone3">
+                    <input type="text" name="phone3" <c:if test="${avo != null}">value="${avo.getAd_tel().substring(6)}"</c:if>>
                 </div>
                 <label for="email">이메일</label>
                 <input type="email" id="email" name="email">
                 <label for="message">배송시요구사항</label>
                 <select id="message" name="message">
                     <option value="">배송메모를 선택해주세요</option>
-                    <option value="custom">직접입력</option>
                     <option value="1">문 앞에 놓아주세요</option>
                     <option value="2">부재 시 연락 부탁드려요</option>
                     <option value="3">배송 전 미리 연락해 주세요</option>
