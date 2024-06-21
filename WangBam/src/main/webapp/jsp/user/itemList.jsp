@@ -7,6 +7,11 @@
 <div class="search-group">
     <h2>상품 리스트</h2>
   <form class="search-bar">
+  	<select name="productPerBlock" id="productPerBlock">
+  		<option value="6">6개씩 보기</option>
+  		<option value="12">12개씩 보기</option>
+  		<option value="18">18개씩 보기</option>
+  	</select>
     <input type="text" id="searchProductName" name="searchValue" placeholder="Search..." />
     <button type="button" class="search-btn" id="searchBtn">&#128269;</button>
   </form>
@@ -26,7 +31,7 @@
 	</div>
 </div>
 
-  <div class="pagination">
+  <div class="pagination" id="pagination">
     <c:set var="paging" value="${requestScope.paging}" />
     <c:choose>
     	<c:when test="${paging.nowPage > 1 }">
@@ -66,10 +71,12 @@
 	  $(function() {
 	      $("#searchBtn").on('click', function() {
 	          const searchValue = $("#searchProductName").val();
+	          const productPerBlock = $("#productPerBlock").val();
 	          const cPage = $(".on").text();
 	          const param = {
         		  "type":"item",
         		  "searchValue": searchValue,
+        		  "productPerBlock":productPerBlock,
 	          }
 	          
 	          $.ajax({
@@ -78,7 +85,7 @@
 	              data: param,
 	          }).done(function(res){
 	        	  $("#productList").html($(res).find("#productList").html());
-	        	  console.log($(res).find("#productList").html());
+	        	  $("#pagination").html($(res).find("#pagination").html());
 	          });
 	      });
 	  });
