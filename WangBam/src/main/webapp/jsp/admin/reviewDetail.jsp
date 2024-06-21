@@ -4,7 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <%@include file="/jsp/common/adminHeader.jsp"%>
-<div class="admin">
+
 	<h1>리뷰 상세보기</h1>
 	<form action="" method="post" class="form-group">
 		<div>
@@ -34,7 +34,6 @@
 				onclick="javascript:window.location.href='admin?type=reviewList'">목록</button>
 		</div>
 	</form>
-</div>
 <%@include file="/jsp/common/footer.jsp"%>
 <script>
 	function del(idx) {

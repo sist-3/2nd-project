@@ -24,6 +24,7 @@ public class ReviewDetailAction implements Action {
 		String bo_idx = request.getParameter("bo_idx");
 
 		BoardsVO vo = BoardsDAO.findByidx(bo_idx);
+		BoardsDAO.updateHit(bo_idx);
 		request.setAttribute("vo", vo);
 
 		return "/jsp/admin/reviewDetail.jsp";

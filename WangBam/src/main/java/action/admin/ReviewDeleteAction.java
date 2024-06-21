@@ -13,12 +13,21 @@ public class ReviewDeleteAction implements Action {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String bo_idx = request.getParameter("bo_idx");
-		
-		
-		BoardsDAO.delete(bo_idx);
+		String[] bo_idx_ar = request.getParameterValues("bo_idx_ar");
 
-		
-		return "/jsp/admin/reviewDelete.jsp";    //"admin?type=reviewList";
+		if (bo_idx != null) {
+			BoardsDAO.delete(bo_idx);
+		}
+
+		if (bo_idx_ar != null && bo_idx_ar.length > 0) {
+			// 삭제 로직 구현
+			for (String bo_idx2 : bo_idx_ar) {
+				BoardsDAO.delete(bo_idx2);
+
+			}
+		}
+
+		return "/jsp/admin/reviewDelete.jsp"; // "admin?type=reviewList";
 	}
 
 }
