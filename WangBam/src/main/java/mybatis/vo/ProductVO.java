@@ -2,7 +2,7 @@ package mybatis.vo;
 
 public class ProductVO {
 	private String pd_idx,
-	ca_idx,
+	ct_idx,
 	pd_name,
 	pd_price,
 	pd_sale_price,
@@ -21,11 +21,11 @@ public class ProductVO {
 	public void setPd_idx(String pd_idx) {
 		this.pd_idx = pd_idx;
 	}
-	public String getCa_idx() {
-		return ca_idx;
+	public String getCt_idx() {
+		return ct_idx;
 	}
-	public void setCa_idx(String ca_idx) {
-		this.ca_idx = ca_idx;
+	public void setCt_idx(String ct_idx) {
+		this.ct_idx = ct_idx;
 	}
 	public String getPd_name() {
 		return pd_name;
