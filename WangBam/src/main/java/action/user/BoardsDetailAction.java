@@ -11,7 +11,7 @@ import action.Action;
 import mybatis.dao.BoardsDAO;
 import mybatis.vo.BoardsVO;
 
-public class boardsDetailAction implements Action {
+public class BoardsDetailAction implements Action {
 	
 	List<BoardsVO> hit_list;
 	
