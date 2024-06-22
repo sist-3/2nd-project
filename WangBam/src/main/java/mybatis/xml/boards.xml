@@ -117,7 +117,7 @@
 	</select>
 	
 	<!-- 게시글 상세보기 -->
-	<select id="findByidx" parameterType="String" resultType="mybatis.vo.BoardsVO">
+	<select id="findByidx" parameterType="String" resultMap="findWithBoard">
 		SELECT *
 		FROM boards_t
 		WHERE bo_idx = #{bo_idx}

@@ -16,7 +16,7 @@ public class SearchAction implements Action {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewPath = null;
-		Paging page = new Paging(1,2);
+		Paging page = new Paging(5,5);
 		
 		String cPage = request.getParameter("cPage");
 		String bo_type = request.getParameter("bo_type");

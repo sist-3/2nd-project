@@ -4,9 +4,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <%@include file="/jsp/common/header.jsp" %>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
 <div>
-    <form action="?type=search" method="post" class="search-group">
-    	<h2>공지사항</h2>
+    <form action="?type=search" method="post" class="search-group" id="searchForm">
+    	<h2><a href="?type=notice">공지사항</a></h2>
 	    <div id="searchBox" class="search-bar">
 	    	<select name="searchType" id="searchType">
 				<option value="title" ${requestScope.searchType == 'title' ? 'selected' : ''}>제목</option>
@@ -15,10 +16,8 @@
 			</select>
 			<input type="hidden" name="bo_type" value="0"/>
 			<input type="text" name="searchValue" id="searchValue" value="${requestScope.searchValue }"/>
-			
-            	<input type="hidden" name="searchValue2" id="searchValue2" value="${requestScope.searchValue2}"/>
-        	
-			<button type="submit" class="search-btn">검색</button>
+            <input type="text" name="searchValue2" id="searchValue2" value="${requestScope.searchValue2}"/>
+			<button type="submit" class="search-btn btn search"></button>
 	    </div>
     </form>
     <table class="table1">
@@ -37,7 +36,7 @@
                 <c:forEach var="vo" items="${requestScope.ar }" varStatus="vs">
                     <tr class="notice">
                         <td>${page.totalRecord-((page.nowPage-1)*page.numPerPage+vs.index) }</td>
-                        <td><a href="">${vo.bo_title }</a></td>
+                        <td><a href="?type=boardsDetail&bidx=${vo.bo_idx }&cPage=${page.nowPage}">${vo.bo_title }</a></td>
                         <c:if test="${vo.uvo.us_nickname != null }">
                         	<td>${vo.uvo.us_nickname }</td>
                         </c:if>
@@ -54,7 +53,6 @@
                 <tr class="no_notice">
                     <td colspan="5">
                         <b>공지사항이 없습니다.</b>
-                        ${fn:length(ar)}
                     </td>
                 </tr>
             </c:if>
@@ -95,46 +93,51 @@
 			</c:if>
   	</div>
 </div>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-<!-- <script>
-	document.getElementById('searchType').addEventListener('change', function() {
-	    var type = this.value;
-	    var searchBox = document.getElementById('searchBox');
-	    var removeInput = document.getElementById('searchValue2');
-	    var submitButton = searchBox.querySelector('button[type="submit"]');
-	    
-	    if (removeInput) {
-	    	searchBox.removeChild(removeInput);
-	    }
-	    if (type == 'writeDate') {
-	        var newInput = document.createElement('input');
-	        newInput.type = 'text';
-	        newInput.id = 'searchValue2';
-	        newInput.name = 'searchValue2';
-	        
-	        searchBox.insertBefore(newInput, submitButton);
-	    }
-   });
-</script> -->
+<%@include file="/jsp/common/footer.jsp" %>
+<script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
 <script>
-	document.addEventListener('DOMContentLoaded', function() {
-	    var type = document.getElementById('searchType');
-	    var value2 = document.getElementById('searchValue2');
-	
-	    // 페이지 로드 시, hidden input의 타입을 변경
-	    if (type.value === 'writeDate') {
-	    	value2.type = 'text';
-	    }
-	
-	    type.addEventListener('change', function() {
-	        var selectType = this.value;
+	$(document).ready(function() {
+    	$('#searchType').change(function() {
+	        var selectType = $(this).val();
 	        if (selectType == 'writeDate') {
-	        	value2.type = 'text';
+	            $('#searchValue').datepicker({
+	                changeYear: true,
+	                changeMonth: true,
+	                dateFormat: 'yy-mm-dd',
+	                beforeShow: function(input, inst) {
+	                    $(input).prop('readonly', true);
+	                }
+	              });
+	            $('#searchValue2').show().datepicker({
+	                changeYear: true,
+	                changeMonth: true,
+	                dateFormat: 'yy-mm-dd',
+	                beforeShow: function(input, inst) {
+	                    $(input).prop('readonly', true);
+	                }
+	              });
 	        } else {
-	        	value2.type = 'hidden';
+	        	$('#searchValue').prop('readonly', false).datepicker('destroy').val('').attr('type', 'text');
+	            $('#searchValue2').hide().val('');
 	        }
-	    });
+    	}).trigger('change');
 	});
+	 document.getElementById('searchForm').addEventListener('submit', function(sub) {
+		var type = document.getElementById('searchType').value;
+     	var val = document.getElementById('searchValue').value.trim();
+     	var val2 = document.getElementById('searchValue2').value.trim();
+
+        if (type != 'writeDate') {
+	        if (val == '' || val == null) {
+	            alert('검색어를 입력하세요.');
+	            sub.preventDefault();
+	        }
+        }else if (type == 'writeDate') {
+        	if (val == '' || val == null || val2 == '' || val2 == null){
+           		alert('날짜를 입력하세요.');
+           		sub.preventDefault();
+        	}
+        }
+    });
 </script>
 
-<%@include file="/jsp/common/footer.jsp" %>
