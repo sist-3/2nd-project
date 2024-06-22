@@ -14,7 +14,7 @@ public class BoardsVO {
 	bo_img,
 	bo_score,
 	bo_status,
-	answer_status;
+	bo_answer;
 	private UserVO uvo;
 	private ProductVO pvo;
 	private List<CommentVO> c_list;
@@ -25,11 +25,11 @@ public class BoardsVO {
 	public void setC_list(List<CommentVO> c_list) {
 		this.c_list = c_list;
 	}
-	public String getAnswer_status() {
-		return answer_status;
+	public String getBo_answer() {
+		return bo_answer;
 	}
-	public void setAnswer_status(String answer_status) {
-		this.answer_status = answer_status;
+	public void setBo_answer(String bo_answer) {
+		this.bo_answer = bo_answer;
 	}
 	
 	public String getBo_idx() {
