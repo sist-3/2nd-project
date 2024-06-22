@@ -6,7 +6,20 @@
 <%@include file="/jsp/common/header.jsp" %>
 
 	<form class="form-group">
-	<h1>공지 상세보기</h1>
+	<c:choose>
+		<c:when test="${vo.bo_type == 0 }">
+			<h1>공지 상세보기</h1>
+			<c:set var="type" value="notice"/>
+		</c:when>	
+		<c:when test="${vo.bo_type == 1 }">
+			<h1>문의 상세보기</h1>
+			<c:set var="type" value="question"/>
+		</c:when>	
+		<c:when test="${vo.bo_type == 2 }">
+			<h1>리뷰 상세보기</h1>
+			<c:set var="type" value="review"/>
+		</c:when>	
+	</c:choose>
 		<div>
 			<label for="title">제목</label>
 			<input type="text" name="title"	value="${vo.bo_title }" disabled />
@@ -20,6 +33,12 @@
 			<input type="text" name="writer" 
 			value="<c:if test='${vo.uvo.us_nickname != null}'>${vo.uvo.us_nickname}</c:if><c:if test='${vo.uvo.us_nickname == null}'>관리자</c:if>" disabled />
 		</div>
+		<c:if test="${vo.bo_type == 2 }">
+			<div>
+				<label for="score">평점</label>
+				<input type="text" name="score"	value="${vo.bo_score }" disabled />
+			</div>
+		</c:if>
 		<div>
 			<label for="content">내용</label>
 			<input type="text" name="content" value="${vo.bo_content}" disabled />
@@ -54,7 +73,7 @@
 		
 		<div class="btn_div">
 			<button type="button" class="btn cancel"
-				onclick="javascript:window.location.href='?type=notice&cPage=${requestScope.cPage }'">목록</button>
+				onclick="javascript:window.location.href='?type=${type }&cPage=${requestScope.cPage }'">목록</button>
 		</div>
 	</form>
 <%@include file="/jsp/common/footer.jsp"%>
