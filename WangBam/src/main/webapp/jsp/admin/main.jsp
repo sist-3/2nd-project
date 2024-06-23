@@ -4,6 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <%@include file="/jsp/common/adminHeader.jsp" %>
+
 <section>
             <div class="title">
               <h3>판매진행현황</h3>
@@ -12,7 +13,6 @@
               	<li>배송대기 : 1건</li>
               	<li>배송중 : 1건</li>
               	<li>배송완료 : 1건</li>
-              	<li>주문취소 : 1건</li>
               	<li>환불요청 : 1건</li>
               </ul>
           </section>
@@ -61,14 +61,37 @@
 			</table>
           </section>
 <%@include file="/jsp/common/footer.jsp" %>
+
+<c:set var="ar" value="${requestScope.ar}" />
+<c:forEach var="vo" items="${ar}" varStatus="st">
+	<input type="hidden" name="chartMonth" id="chartMonth${st.index}" value="${vo.or_sales_month}">
+	<input type="hidden" name="chartSales" id="chartData${st.index}" value="${vo.or_sales}">
+</c:forEach>
+
 <script>
-const periodSalesCanvas = document.querySelector('#periodSales');
-const salesByCategoryCanvas = document.querySelector('#salesByCategory');
+// 월별 매출액
+function setData(object){
+	const obj = object;
+	const ar = [];
+	for(let i=0;i<obj.length;i++){
+		ar.push(obj[i].value);
+	}
+	
+	return ar;
+}
+
+const arMonth = setData(document.querySelectorAll('input[name=chartMonth]'));
+const arSales = setData(document.querySelectorAll('input[name=chartSales]'));
+// 차트
+const periodSalesCanvas = $('#periodSales');
+const salesByCategoryCanvas = $('#salesByCategory');
+
+// 차트 데이터 설정
 const periodSalesData = {
-		labels: ['2024-01', '2024-02', '2024-03', '2024-04', '2024-05', '2024-06'],
+		labels: arMonth,
 	    datasets: [{
-	        label: '# of Votes',
-	        data: [12, 19, 3, 5, 2, 3],
+	        label: '월별 매출액',
+	        data: arSales,
 	        borderWidth: 1,
 	        backgroundColor: [
 	        	'rgba(255, 99, 132, 0.2)',
@@ -88,6 +111,7 @@ const periodSalesData = {
               ],
 		}],
 }
+// 차트 옵션
 const options = {
 	scales: {
 	      y: {
@@ -95,12 +119,16 @@ const options = {
 	      }
     }
 }
+// 차트 설정값
 const config = {
 	type: 'bar',
   	data: periodSalesData,
   	options
 }
+// 월별 판매액 차트
 const periodSalesChart = new Chart(periodSalesCanvas, config);
+
+// 회전율 차트
 const salesByCategoryChart = new Chart(salesByCategoryCanvas, {...config, type:"doughnut"});
 </script>
 </body>
