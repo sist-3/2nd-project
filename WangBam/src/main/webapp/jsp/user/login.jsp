@@ -17,7 +17,7 @@
         <a href="#">회원가입</a>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<%@include file="/jsp/common/footer.jsp" %>
 <script>
     function login(frm){
         let us_id = $(frm).find("input[name='id']").val();
@@ -50,4 +50,5 @@
 
     }
 </script>
-<%@include file="/jsp/common/footer.jsp" %>
+</body>
+</html>

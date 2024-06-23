@@ -14,11 +14,8 @@
       <input type="email" id="email" placeholder="example@example.com">
       <button type="button" class="btn" id="email-check-btn">인증</button>
     </div>
-    <div id="email-check-group" class="address-group" style="display: none;">
-        <label for="email-check-result">인증 코드</label>
-        <input type="text" id="email-check-result">
-      </div>
     <span id="email-check" style="display: none; color: red;margin-top: 5px;"></span>
+    <span id="email-check-result"></span>
   </div>
   <div>
     <label for="password">비밀번호</label>
@@ -62,6 +59,7 @@
     <button type="button" class="btn cancel">취소</button>
   </div>
 </form>
+<%@include file="/jsp/common/footer.jsp" %>
 <script>
 function emailCheck(email_address){     
 	email_regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
@@ -100,7 +98,8 @@ $(document).ready(function(){
             email: email
           }
         }).done(function(data){
-            
+            $('#email-check-result').css('display', 'block');
+            $('#email-check-result').text(data);
         }).fail(function(){
             
         });
@@ -178,4 +177,5 @@ $(document).ready(function(){
   });
 });
 </script>
-<%@include file="/jsp/common/footer.jsp" %>
+</body>
+</html>

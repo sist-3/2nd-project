@@ -24,7 +24,7 @@ public class EmailCheckAction implements Action {
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String email = request.getParameter("email");
 		naverMailSend(email);
-		return null;
+		return "/jsp/user/emailcheck.jsp";
 	}
 
 	public static void naverMailSend(String email) {
