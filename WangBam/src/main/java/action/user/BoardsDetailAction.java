@@ -30,8 +30,9 @@ public class BoardsDetailAction implements Action {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewPath = null;
-		String bidx = request.getParameter("bidx");
+		String bo_idx = request.getParameter("bo_idx");
 		String cPage = request.getParameter("cPage");
+		String bo_type = request.getParameter("bo_type");
 		
 		HttpSession session = request.getSession();
 		Object cnt = session.getAttribute("hit");
@@ -44,17 +45,28 @@ public class BoardsDetailAction implements Action {
 			hit_list = (ArrayList<BoardsVO>)cnt;
 		}
 		
-		BoardsVO vo = BoardsDAO.findByidx(bidx);
+		BoardsVO vo = BoardsDAO.findByidx(bo_idx);
 		
 		
 		if(vo != null) {
 			if(checkView(vo)) {
-				BoardsDAO.updateHit(bidx); //조회수 증가
+				BoardsDAO.updateHit(bo_idx); //조회수 증가
 				hit_list.add(vo); //읽은 게시물 추가
 			}
 			request.setAttribute("cPage", cPage);
 			request.setAttribute("vo", vo);
-			viewPath = "jsp/user/boardsDetail.jsp";
+			
+			switch(bo_type) {
+			case "0":  //공지사항
+				viewPath = "jsp/user/noticeDetail.jsp";
+				break;
+			case "1":  //문의사항
+				viewPath = "jsp/user/questionDetail.jsp";
+				break;
+			case "2":  //리뷰
+				viewPath = "jsp/user/reviewDetail.jsp";
+				break;
+			}
 		}
 		return viewPath;
 	}

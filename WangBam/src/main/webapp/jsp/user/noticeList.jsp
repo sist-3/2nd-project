@@ -36,7 +36,7 @@
                 <c:forEach var="vo" items="${requestScope.ar }" varStatus="vs">
                     <tr class="notice">
                         <td>${page.totalRecord-((page.nowPage-1)*page.numPerPage+vs.index) }</td>
-                        <td><a href="?type=boardsDetail&bidx=${vo.bo_idx }&cPage=${page.nowPage}">${vo.bo_title }</a></td>
+                        <td><a href="?type=boardsDetail&bo_idx=${vo.bo_idx }&cPage=${page.nowPage}&bo_type=0">${vo.bo_title }</a></td>
                         <c:if test="${vo.uvo.us_nickname != null }">
                         	<td>${vo.uvo.us_nickname }</td>
                         </c:if>
@@ -50,7 +50,7 @@
             </c:if>
 
             <c:if test="${fn:length(ar) < 1 }">
-                <tr class="no_notice">
+                <tr class="no_data">
                     <td colspan="5">
                         <b>공지사항이 없습니다.</b>
                     </td>
