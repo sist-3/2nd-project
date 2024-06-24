@@ -290,6 +290,11 @@ caption {
 	max-width:100%;
 }
 
-
+/* jQueryUI */
+.ui-datepicker-year, .ui-datepicker-month{
+	display: inline !important;
+	margin-right: 5px !important;
+	width: 89px !important;
+}
 
    

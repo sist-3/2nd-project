@@ -6,15 +6,14 @@
 <%@include file="/jsp/common/header.jsp" %>
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
 <div>
-    <form action="?type=search" method="post" class="search-group" id="searchForm">
-    	<h2><a href="?type=notice">공지사항</a></h2>
+    <form action="?type=searchquestion" method="post" class="search-group" id="searchForm">
+    	<h2><a href="?type=question">문의사항</a></h2>
 	    <div id="searchBox" class="search-bar">
 	    	<select name="searchType" id="searchType">
 				<option value="title" ${requestScope.searchType == 'title' ? 'selected' : ''}>제목</option>
-           		<option value="writer" ${requestScope.searchType == 'writer' ? 'selected' : ''}>닉네임</option>
            	 	<option value="writeDate" ${requestScope.searchType == 'writeDate' ? 'selected' : ''}>날짜</option>
 			</select>
-			<input type="hidden" name="bo_type" value="0"/>
+			<input type="hidden" name="bo_type" value="1"/>
 			<input type="text" name="searchValue" id="searchValue" value="${requestScope.searchValue }"/>
             <input type="text" name="searchValue2" id="searchValue2" value="${requestScope.searchValue2}"/>
 			<button type="submit" class="search-btn btn search"></button>
@@ -27,7 +26,7 @@
                 <th>제목</th>
                 <th>작성자</th>
                 <th>작성날짜</th>
-                <th>조회수</th>
+                <th>답변상태</th>
             </tr>
         </thead>
 
@@ -36,23 +35,32 @@
                 <c:forEach var="vo" items="${requestScope.ar }" varStatus="vs">
                     <tr class="notice">
                         <td>${page.totalRecord-((page.nowPage-1)*page.numPerPage+vs.index) }</td>
-                        <td><a href="?type=boardsDetail&bo_idx=${vo.bo_idx }&cPage=${page.nowPage}&bo_type=0">${vo.bo_title }</a></td>
+                        <td><a href="?type=boardsDetail&bo_type=${vo.bo_type }&bidx=${vo.bo_idx }&cPage=${page.nowPage}">${vo.bo_title }</a></td>
                         <c:if test="${vo.uvo.us_nickname != null }">
                         	<td>${vo.uvo.us_nickname }</td>
                         </c:if>
                         <c:if test="${vo.uvo.us_nickname == null }">
-                        	<td>관리자</td>
+                        	<td>탈퇴한 회원</td>
                         </c:if>
                         <td>${vo.bo_write_date }</td>
-                        <td>${vo.bo_hit }</td>
+                        <td>
+	                        <c:choose>
+	                        	<c:when test="${vo.bo_answer == 0}">
+	                        		답변완료
+	                        	</c:when>
+	                        	<c:when test="${vo.bo_answer == 1}">
+	                        		답변대기중
+	                        	</c:when>
+	                        </c:choose>
+                        </td>
                     </tr>
                 </c:forEach>
             </c:if>
 
             <c:if test="${fn:length(ar) < 1 }">
-                <tr class="no_data">
+                <tr class="no_notice">
                     <td colspan="5">
-                        <b>공지사항이 없습니다.</b>
+                        <b>문의사항이 없습니다.</b>
                     </td>
                 </tr>
             </c:if>
@@ -66,7 +74,7 @@
             	<div class="disable">&lt;</div>
 			</c:if>
 			<c:if test="${page.startPage >= page.pagePerBlock }">
-				<div><a href="?type=search&searchType=${requestScope.searchType }&searchValue=${requestScope.searchValue }&searchValue2=${requestScope.searchValue2 }&cPage=${page.nowPage-page.pagePerBlock }&bo_type=0">&lt;</a></div>
+				<div><a href="?type=search&searchType=${requestScope.searchType }&searchValue=${requestScope.searchValue }&searchValue2=${requestScope.searchValue2 }&cPage=${page.nowPage-page.pagePerBlock }&bo_type=1">&lt;</a></div>
 			</c:if>
 
 
@@ -75,17 +83,17 @@
           			<div class="on">${vs.index }</div>
            		</c:if>
 				<c:if test="${vs.index ne page.nowPage }">
-					<div><a href="?type=search&searchType=${requestScope.searchType }&searchValue=${requestScope.searchValue }&searchValue2=${requestScope.searchValue2 }&cPage=${vs.index }&bo_type=0">${vs.index }</a></div>
+					<div><a href="?type=search&searchType=${requestScope.searchType }&searchValue=${requestScope.searchValue }&searchValue2=${requestScope.searchValue2 }&cPage=${vs.index }&bo_type=1">${vs.index }</a></div>
 				</c:if>
 			</c:forEach>
 			
 			
 			<c:if test="${page.endPage < page.totalPage}">
 				<c:if test="${page.nowPage+page.pagePerBlock > page.totalPage }">
-					<div><a href="?type=search&searchType=${requestScope.searchType }&searchValue=${requestScope.searchValue }&searchValue2=${requestScope.searchValue2 }&cPage=${page.totalPage }&bo_type=0">&gt;</a></div>
+					<div><a href="?type=search&searchType=${requestScope.searchType }&searchValue=${requestScope.searchValue }&searchValue2=${requestScope.searchValue2 }&cPage=${page.totalPage }&bo_type=1">&gt;</a></div>
 				</c:if>
 				<c:if test="${page.nowPage+page.pagePerBlock <= page.totalPage }">
-					<div><a href="?type=search&searchType=${requestScope.searchType }&searchValue=${requestScope.searchValue }&searchValue2=${requestScope.searchValue2 }&cPage=${page.nowPage+page.pagePerBlock}&bo_type=0">&gt;</a></div>
+					<div><a href="?type=search&searchType=${requestScope.searchType }&searchValue=${requestScope.searchValue }&searchValue2=${requestScope.searchValue2 }&cPage=${page.nowPage+page.pagePerBlock}&bo_type=1">&gt;</a></div>
 				</c:if>
 			</c:if>
 			<c:if test="${page.endPage >= page.totalPage}">

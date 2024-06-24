@@ -30,6 +30,28 @@ public class BoardsDAO {
 
 		return cnt;
 	}
+	
+	// 특정 유저가 작성한 문의사항 갯수 조회
+	public static int allUserQuestionCount(String us_idx) {
+		SqlSession ss = FactoryService.getFactory().openSession();
+
+		int cnt = ss.selectOne("boards.allUserQuestionCount", us_idx);
+
+		ss.close();
+
+		return cnt;
+	}
+	
+	// 검색된 특정 유저가 작성한 문의사항 갯수 조회
+	public static int allSearchUserQuestionCount(Map<String, String> u_map) {
+		SqlSession ss = FactoryService.getFactory().openSession();
+
+		int cnt = ss.selectOne("boards.allSearchUserQuestionCount", u_map);
+
+		ss.close();
+		
+		return cnt;
+	}
 
 	// 전체 게시글 목록 조회
 	public static BoardsVO[] find(Map<String, String> map) { // 타입별 게시글 배열 반환
@@ -44,7 +66,7 @@ public class BoardsDAO {
 			list.toArray(ar);
 		}
 		ss.close();
-
+		
 		return ar;
 	}
 
@@ -55,23 +77,6 @@ public class BoardsDAO {
 		BoardsVO[] ar = null;
 
 		List<BoardsVO> list = ss.selectList("boards.findReview", map);
-
-		if (list != null) {
-			ar = new BoardsVO[list.size()];
-			list.toArray(ar);
-		}
-		ss.close();
-
-		return ar;
-	}
-
-	// 유저가 자신의 문의사항 게시글 목록 조회
-	public static BoardsVO[] findUserQuestion(Map<String, String> map) {
-		SqlSession ss = FactoryService.getFactory().openSession();
-
-		BoardsVO[] ar = null;
-
-		List<BoardsVO> list = ss.selectList("boards.allUserQuestion", map);
 
 		if (list != null) {
 			ar = new BoardsVO[list.size()];

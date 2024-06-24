@@ -15,12 +15,13 @@
 <!-- resultMap end -->
 
 <!-- Select -->
+<!-- Paging -->
 	<!-- 등록된 게시글의 갯수 -->
 	<select id="allCount" parameterType="String" resultType="int">
 		SELECT COUNT(*)
 		FROM boards_t
 		WHERE bo_status = 1
-		AND bo_type = #{bo_type} 
+			AND bo_type = #{bo_type}
 	</select>
 	
 	<!-- 검색한 게시글의 갯수 -->
@@ -34,10 +35,10 @@
                       	bo_title LIKE CONCAT('%',#{searchValue},'%') AND
                     </when>
                     <when test= "searchType == 'writer'"> <!-- 작성자 닉네임 검색 -->
-                        us_idx in (select us_idx from user_t where us_nickname like CONCAT('%', #{searchValue}, '%')) AND
+                        us_idx in (SELECT us_idx FROM user_t WHERE us_nickname LIKE CONCAT('%', #{searchValue}, '%')) AND
                     </when>
                     <when test= "searchType == 'writeDate'"> <!-- 날짜 검색 -->
-                        bo_write_date BETWEEN #{searchValue} and #{searchValue2} AND
+                        bo_write_date BETWEEN #{searchValue} AND #{searchValue2} AND
                     </when>
                     <when test= "searchType == 'score'"> <!-- 평점 검색 -->
                         bo_score = #{searchValue} AND
@@ -50,6 +51,35 @@
 			bo_status = 1 AND bo_type = #{bo_type}
 		</where>
 	</select>
+	
+	<!-- 특정 유저가 작성한 문의사항 게시글의 갯수 -->
+	<select id="allUserQuestionCount" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM boards_t
+		WHERE bo_status = 1
+			AND bo_type = 1
+			AND us_idx = #{us_idx}
+	</select>
+
+	<!-- 특정 유저가 작성한 문의사항 중 검색한 게시글의 갯수 -->
+	<select id="allSearchUserQuestionCount" parameterType="map" resultType="int">
+		SELECT COUNT(*)
+		FROM boards_t
+		<where>
+            <if test="searchType != null and searchValue != null">
+                <choose> <!-- 검색할 요소에 따라 when태그 추가 -->
+                    <when test= "searchType == 'title'"> <!-- 제목 검색 -->
+                      	bo_title LIKE CONCAT('%',#{searchValue},'%') AND
+                    </when>
+                    <when test= "searchType == 'writeDate'"> <!-- 날짜 검색 -->
+                        bo_write_date BETWEEN #{searchValue} AND #{searchValue2} AND
+                    </when>
+                </choose>
+            </if>
+			bo_status = 1 AND bo_type = 1 AND us_idx = #{us_idx}
+		</where>
+	</select>
+<!-- Paging end -->	
 
 	<!-- 조회할 게시글 + 검색조건 + 작성자 닉네임 + 댓글 + 상품 -->
 	<select id="find" parameterType="map" resultMap="findWithBoard"> 
@@ -67,10 +97,10 @@
 		                      	AND bo_title LIKE CONCAT('%',#{searchValue},'%')
 		                    </when>
 		                    <when test= "searchType == 'writer'"> <!-- 작성자 닉네임 검색 -->
-		                        AND us_idx in (select us_idx from user_t where us_nickname like CONCAT('%', #{searchValue}, '%'))
+		                        AND us_idx in (SELECT us_idx FROM user_t WHERE us_nickname LIKE CONCAT('%', #{searchValue}, '%'))
 		                    </when>
 		                    <when test= "searchType == 'writeDate'"> <!-- 날짜 검색 -->
-		                        AND bo_write_date BETWEEN #{searchValue} and #{searchValue2}
+		                        AND bo_write_date BETWEEN #{searchValue} AND #{searchValue2}
 		                    </when>
 		                    <when test= "searchType == 'score'"> <!-- 평점 검색 -->
 		                        AND bo_score = #{searchValue}
@@ -79,6 +109,9 @@
 		                        AND bo_answer = 1
 		                    </when>
 		                </choose>
+		            </if>
+		            <if test="us_idx != null"> <!-- 특정유저의 게시글 검색 -->
+		            	AND us_idx = #{us_idx}
 		            </if>
             	</where>
             	ORDER BY bo_idx DESC
@@ -89,35 +122,8 @@
 		</where>
 	</select>
 	
-	<!-- (유저) 자신이 적은 문의사항 목록 + 작성자 닉네임 + 상품 + 댓글 -->
-	<select id="findUserQuestion" parameterType="map" resultMap="findWithBoard">
-		SELECT *
-		FROM (
-        	SELECT @RN:=@RN+1 AS rnum, a.*
-        	FROM (
-            	SELECT *
-            	FROM boards_t
-            	WHERE bo_status = 1 AND bo_type = 1
-            	ORDER BY bo_idx DESC
-        	) a, (SELECT @RN:=0) b
-    	) c
-		<where>
-			c.rnum BETWEEN #{begin} AND #{end} AND us_idx = #{us_idx}
-			<if test="searchType != null and searchValue != null">
-				<choose>
-					<when test= "searchType == title"> <!-- 제목 검색 -->
-						bo_title LIKE CONCAT('%',#{searchValue},'%')
-					</when>
-					<when test= "searchType == writeDate"> <!-- 날짜 검색 -->
-						bo_write_date BETWEEN #{searchValue} and #{searchValue2}
-					</when>
-				</choose>
-			</if>
-		</where>
-	</select>
-	
 	<!-- 게시글 상세보기 -->
-	<select id="findByidx" parameterType="String" resultType="mybatis.vo.BoardsVO">
+	<select id="findByidx" parameterType="String" resultMap="findWithBoard">
 		SELECT *
 		FROM boards_t
 		WHERE bo_idx = #{bo_idx}
