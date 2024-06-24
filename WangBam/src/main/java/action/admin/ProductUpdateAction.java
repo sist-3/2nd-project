@@ -17,10 +17,7 @@ public class ProductUpdateAction implements Action {
         String pd_name = request.getParameter("pd_name");
         String ct_idx = request.getParameter("ct_idx");
         String pd_price = request.getParameter("pd_price");
-        System.out.println(pd_idx);
-        System.out.println(pd_name);
-        System.out.println(ct_idx);
-        System.out.println(pd_price);
+       
         
 
         Map<String, String> map = new HashMap<>();
