@@ -25,7 +25,6 @@ body:has(.admin) {
 }
 .admin-main .title {
 	margin-bottom : 32px;
-	text-align : center;
 }
 .admin-main .title h3 {
 	border-left : 4px solid #e2e2e2;
