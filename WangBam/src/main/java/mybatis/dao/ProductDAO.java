@@ -34,12 +34,12 @@ public class ProductDAO {
 	public static int addProduct(Map<String, String> map) {
 		SqlSession ss = FactoryService.getFactory().openSession();
 		int cnt = ss.insert("product.add",map);
-		ss.close();
 		if(cnt>0) {
 			ss.commit();
 		}else{
 			ss.rollback();
 		}
+		ss.close();
 		return cnt;
 	}
 
@@ -47,25 +47,37 @@ public class ProductDAO {
 	public static int updateProduct(Map<String, String> map) {
 		SqlSession ss = FactoryService.getFactory().openSession();
 		int cnt = ss.update("product.update",map);
-		ss.close();
 		if(cnt>0) {
 			ss.commit();
 		}else{
 			ss.rollback();
 		}
+		ss.close();
+		return cnt;
+	}
+	//상품 리스트 삭제
+	public static int deleteProducts(Map<String, Object> map) {
+		SqlSession ss = FactoryService.getFactory().openSession();
+		int cnt = ss.update("product.deleteProducts",map);
+		if(cnt>0) {
+			ss.commit();
+		}else{
+			ss.rollback();
+		}
+		ss.close();
 		return cnt;
 	}
 
 	//상품 삭제
-	public static int deleteProduct(String pd_idx) {
+	public static int deleteProduct(Map<String, String>map) {
 		SqlSession ss = FactoryService.getFactory().openSession();
-		int cnt = ss.delete("product.delete",pd_idx);
-		ss.close();
+		int cnt = ss.update("product.delete",map);
 		if(cnt>0) {
 			ss.commit();
 		}else{
 			ss.rollback();
 		}
+		ss.close();
 		return cnt;
 	}
 	// 검색조건에 맞는 목록카운트
