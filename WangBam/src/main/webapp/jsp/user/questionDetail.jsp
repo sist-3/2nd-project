@@ -6,7 +6,7 @@
 <%@include file="/jsp/common/header.jsp" %>
 
 	<div class="form-group">
-		<h1>공지 상세보기</h1>
+		<h1>문의 상세보기</h1>
 		
 		<div>
 			<label for="title">제목</label>
@@ -19,7 +19,7 @@
 		<div>
 			<label for="writer">작성자</label>
 			<input type="text" name="writer" 
-			value="<c:if test='${vo.uvo.us_nickname != null}'>${vo.uvo.us_nickname}</c:if><c:if test='${vo.uvo.us_nickname == null}'>관리자</c:if>" disabled />
+			value="<c:if test='${vo.uvo.us_nickname != null}'>${vo.uvo.us_nickname}</c:if><c:if test='${vo.uvo.us_nickname == null}'>탈퇴한회원</c:if>" disabled />
 		</div>
 		<div>
 			<label for="content">내용</label>
@@ -32,11 +32,16 @@
 			<c:forEach var="cvo" items="${vo.c_list }" varStatus="vs">
 					<div>
 						<c:choose>
-							<c:when test="${cvo.uvo.us_idx == vo.uvo.us_idx }">
+							<c:when test="${cvo.uvo.us_idx == vo.uvo.us_idx && cvo.uvo.us_type != 0 }">
 								작성자: <b style="color: #ff0044">${vo.uvo.us_nickname }</b>&nbsp;&nbsp;
 							</c:when>
 							<c:when test="${cvo.uvo.us_nickname != null}">
-								작성자: ${cvo.uvo.us_nickname } &nbsp;&nbsp;
+								<c:if test="${cvo.uvo.us_type == 0 }">
+									작성자: <b style="color: #4400ff">${cvo.uvo.us_nickname }</b> &nbsp;&nbsp;
+								</c:if>
+								<c:if test="${cvo.uvo.us_type != 0 }">
+									작성자: ${cvo.uvo.us_nickname } &nbsp;&nbsp;
+								</c:if>
 							</c:when>
 							<c:when test="${cvo.uvo.us_nickname == null}">
 								작성자: 탈퇴한 회원 &nbsp;&nbsp;
@@ -70,7 +75,7 @@
 		</form>
 		
 		<button type="button" class="btn cancel"
-				onclick="javascript:window.location.href='Controller?type=notice&cPage=${requestScope.cPage }'">목록</button>
+				onclick="javascript:window.location.href='Controller?type=question&cPage=${requestScope.cPage }'">목록</button>
 		
 	</div>
 <script>

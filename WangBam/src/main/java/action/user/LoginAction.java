@@ -16,19 +16,25 @@ public class LoginAction implements Action {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewPath=null;
-		String us_id = request.getParameter("us_id");
-		String us_pw = request.getParameter("us_pw");
-		HttpSession session = request.getSession();
-		Map<String, String> map = new HashMap<>();
-		map.put("us_email", us_id);
-		map.put("us_pwd", us_pw);
-		UserVO user = UserDAO.login(map);
-		if(user != null) {
-			session.setAttribute("user", user);
-			viewPath="/jsp/user/loginSuccess.jsp";
-		}else {
-			viewPath="/jsp/user/loginFail.jsp";
+		if(request.getMethod().equals("POST")) {
+			String us_id = request.getParameter("us_id");
+			String us_pw = request.getParameter("us_pw");
+			HttpSession session = request.getSession();
+			Map<String, String> map = new HashMap<>();
+			map.put("us_email", us_id);
+			map.put("us_pwd", us_pw);
+			UserVO user = UserDAO.login(map);
+			if(user != null) {
+				session.setAttribute("user", user);
+				viewPath="/jsp/user/loginSuccess.jsp";
+			}else {
+				viewPath="/jsp/user/loginFail.jsp";
+			}
+		}else if(request.getMethod().equals("GET")) {
+			viewPath="/jsp/user/login.jsp";
 		}
+		
+		
 		return viewPath;
 	}
 }
