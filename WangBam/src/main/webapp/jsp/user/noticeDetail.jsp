@@ -5,7 +5,7 @@
 
 <%@include file="/jsp/common/header.jsp" %>
 
-	<form class="form-group">
+	<div class="form-group">
 		<h1>공지 상세보기</h1>
 		
 		<div>
@@ -50,10 +50,8 @@
 					</div>
 			</c:forEach>
 		</div>
-	</form>
 	
-		
-		
+
 		<label for="content">댓글작성</label>
 		<form name="writeCommentForm" action="Controller" method="post" onsubmit="return writeComment()">
 			작성자: ${vo.uvo.us_nickname }<br/>
@@ -65,38 +63,18 @@
 			<input type="submit" value="댓글등록"/> 
 		</form>
 		
-		<form name="boradDataForm" action="admin" method="post">
-			<input type="hidden" name="type" value="boardsDetail"/>
+		<form name="boardDataForm" action="admin" method="post">
+			<input type="hidden" name="type" value="noticeEdit"/>
 			<input type="hidden" name="bo_idx" value="${vo.bo_idx}"/>
 			<input type="hidden" name="cPage" value="${requestScope.cPage}"/>
 		</form>
 		
-	<div class="btn_div">
-		<c:if test="${vo.uvo.us_type == 0 }"> <!-- (!)로그인한 유저의 us_type으로 변경 요망-->
-			<button type="button" class="btn cancel"
-			onclick="editBoard()">수정</button>
-			<button type="button" class="btn cancel"
-			onclick="delBoard()">삭제</button>
-		</c:if>
 		<button type="button" class="btn cancel"
-			onclick="javascript:window.location.href='?type=notice&cPage=${requestScope.cPage }'">목록</button>
+				onclick="javascript:window.location.href='Controller?type=notice&cPage=${requestScope.cPage }'">목록</button>
+		
 	</div>
-	
 <script>
-	function editBoard() {
-		let res = confirm("수정 하시겠습니까?");
-		if(res){
-		document.boradDataForm.type.value = "editNotice";
-		document.boradDataForm.submit();
-		}
-	}
-	function delBoard() {
-		let res = confirm("삭제 하시겠습니까?");
-		if(res){
-			document.boradDataForm.type.value = "delNotice";
-			document.boradDataForm.submit();
-		}
-	}
+	//댓글 유효성 검사
 	function writeComment() {
 		var val = document.getElementById('co_content');
 		if(val.value.trim() !== "") {
@@ -108,7 +86,6 @@
 			return false;  // 폼 제출 방지
 		}
 	}
-
 </script>
 <%@include file="/jsp/common/footer.jsp"%>
 </body>

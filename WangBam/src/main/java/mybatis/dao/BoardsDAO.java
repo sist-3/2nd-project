@@ -92,8 +92,14 @@ public class BoardsDAO {
 		SqlSession ss = FactoryService.getFactory().openSession();
 
 		int cnt = ss.insert("boards.add", map);
+		
+		if(cnt>0)
+			ss.commit();
+		else
+			ss.rollback();
+		
 		ss.close();
-
+		
 		return cnt;
 	}
 
@@ -102,8 +108,13 @@ public class BoardsDAO {
 		SqlSession ss = FactoryService.getFactory().openSession();
 
 		int cnt = ss.update("boards.update", map);
+		
+		if(cnt>0) 
+			ss.commit();
+		else
+			ss.rollback();
+		
 		ss.close();
-
 		return cnt;
 	}
 
@@ -136,6 +147,12 @@ public class BoardsDAO {
 		SqlSession ss = FactoryService.getFactory().openSession();
 
 		int cnt = ss.update("boards.updateByidx", bo_idx);
+		
+		if(cnt>0)
+			ss.commit();
+		else
+			ss.rollback();
+		
 		ss.close();
 
 		return cnt;
