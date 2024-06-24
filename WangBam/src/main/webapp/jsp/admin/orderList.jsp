@@ -8,16 +8,19 @@
 
 <div class="search-group">
 	<h2>주문 리스트</h2>
-	<div class="search-bar">
-		<select name="searchType">
-			<option value="or_name">받는사람</option>
-			<option value="or_date">배송일</option>
-			<option value="or_status_code">주문상태</option>
-		</select> <input type="text" placeholder="Search..." name="searchValue" />
-		<button type="submit" class="search-btn">&#128269;</button>
-	</div>
+	<form class="search-bar">
+		<select name="searchType" id="searchType">
+			<option value="all" selected>전체조회</option>
+			<option value="or_name" <c:if test="${(requestScope.searchType == 'or_name')}">selected</c:if>>받는사람</option>
+			<option value="or_date" <c:if test="${(requestScope.searchType == 'or_date')}">selected</c:if>>배송일</option>
+			<option value="or_status_code" <c:if test="${(requestScope.searchType == 'or_status_code')}">selected</c:if>>주문상태</option>
+			<option value="or_tracking_number" <c:if test="${(requestScope.searchType == 'or_tracking_number')}">selected</c:if>>운송장번호</option>
+		</select>
+		<input type="text" name="searchValue" id="searchValue" placeholder="Search..." value="<c:if test='${(requestScope.searchValue != null)}'>${param.searchValue }</c:if>"/>
+		<button type="button" class="search-btn" id="sendBtn">&#128269;</button>
+		</form>
 </div>
-<table class="table">
+<table class="table" id="orderList">
 	<tr>
 		<th>체크박스</th>
 		<th>no</th>
@@ -42,7 +45,7 @@
 	</c:forEach>
 
 </table>
-<div class="admin-pagination">
+<div class="admin-pagination" id="pagination">
 	<c:set var="page" value="${ requestScope.page}" />
 	<c:if test="${page.startPage < page.pagePerBlock }">
 		<div class="disable">&lt;</div>
@@ -63,7 +66,7 @@
 		</c:if>
 		<c:if test="${page.nowPage ne vs.index}">
 			<div>
-				<a href="admin?type=orderList&cPage=${vs.index}">${vs.index}</a>
+				<a href="admin?type=orderList&cPage=${vs.index}&searchType=${searchType }&searchValue=${searchValue }">${vs.index}</a>
 			</div>
 		</c:if>
 	</c:forEach>
@@ -71,7 +74,7 @@
 	<c:if test="${page.endPage < page.totalPage }">
 		<div>
 			<a
-				href="admin?type=orderList&cPage=${page.nowPage + page.pagePerBlock - 1}">&gt;</a>
+				href="admin?type=orderList&cPage=${page.nowPage + page.pagePerBlock - 1}&earchType=${searchType }&searchValue=${searchValue }">&gt;</a>
 		</div>
 	</c:if>
 	<c:if test="${page.endPage >= page.totalPage }">
@@ -84,6 +87,34 @@
 	<button type="button" class="admin-btn submit">발송</button>
 	<button type="button" class="admin-btn cancel">주문취소</button>
 </div>
+
+
 <%@include file="/jsp/common/footer.jsp"%>
+
+<script>
+$(function(){
+	$("#searchType").on('change', function(){
+		$("#searchValue").val("");
+	})
+	
+	$("#sendBtn").on('click', function(){
+		const searchType = $("#searchType").val();
+		const searchValue = $("#searchValue").val();
+		console.log(searchValue);
+		$.ajax({
+			url : "admin?type=orderList",
+			type : "GET",
+			data : {
+				"searchType" : searchType,
+				"searchValue" : searchValue,
+			},
+		}).done(function(res) {
+			$("#orderList").html($(res).find("#orderList").html());
+			$("#pagination").html($(res).find("#pagination").html());
+		});
+	});
+});
+		
+</script>
 </body>
 </html>
