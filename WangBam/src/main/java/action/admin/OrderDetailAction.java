@@ -32,3 +32,4 @@ public class OrderDetailAction implements Action {
 	}
 
 }
+
