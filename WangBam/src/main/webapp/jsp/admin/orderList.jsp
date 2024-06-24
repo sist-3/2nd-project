@@ -36,8 +36,7 @@
 				id="orChk${vo.or_idx}" /></td>
 			<td>${page.totalRecord - ((page.nowPage-1)*page.numPerPage + vs.index) }</td>
 			<td style="text-align: left"><a
-				href="admin?type=orderDetail&or_idx=${vo.or_idx }&cPage=${page.nowPage}">
-					${vo.or_name} </a></td>
+				href="admin?type=orderDetail&or_idx=${vo.or_idx }">${vo.or_name} </a></td>
 			<td>${vo.or_tel}</td>
 			<td>${vo.or_status_code}</td>
 			<td>${vo.or_tracking_number}</td>
