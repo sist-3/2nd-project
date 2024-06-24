@@ -10,7 +10,7 @@
     </resultMap>
 
     <!-- 유저 추가 -->
-  	<insert id="add" parameterType="Map">
+  	<insert id="add" parameterType="Map" useGeneratedKeys="true" keyProperty="us_idx" keyColumn="us_idx">
   		INSERT INTO user_t(us_name, us_email, us_pwd, us_nickname, us_tel, us_insert_date, us_type, us_status)
   	  VALUES (#{us_name}, #{us_email}, #{us_pwd}, #{us_nickname}, #{us_tel}, now(), 1, 1);
   	</insert>

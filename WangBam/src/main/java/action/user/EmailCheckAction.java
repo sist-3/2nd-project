@@ -73,7 +73,7 @@ public class EmailCheckAction implements Action {
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
 
             // 메일 제목
-            message.setSubject("KTKO SMTP TEST1111");
+            message.setSubject("왕밤빵 이메일 인증");
 
             // 메일 내용
             File file = new File(path);

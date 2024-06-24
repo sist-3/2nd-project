@@ -15,6 +15,15 @@ public class UserDAO {
 		int cnt = ss.insert("user.add",map);
 		if(cnt>0) {
 			ss.commit();
+		}else{
+			ss.rollback();
+		}
+		
+		int c = ss.insert("addr.add",map);
+		if(c>0) {
+			ss.commit();
+		}else{
+			ss.rollback();
 		}
 		ss.close();
 		return cnt; 
