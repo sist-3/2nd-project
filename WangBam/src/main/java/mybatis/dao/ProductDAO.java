@@ -55,6 +55,18 @@ public class ProductDAO {
 		ss.close();
 		return cnt;
 	}
+	//상품 리스트 삭제
+	public static int deleteProducts(Map<String, Object> map) {
+		SqlSession ss = FactoryService.getFactory().openSession();
+		int cnt = ss.update("product.deleteProducts",map);
+		if(cnt>0) {
+			ss.commit();
+		}else{
+			ss.rollback();
+		}
+		ss.close();
+		return cnt;
+	}
 
 	//상품 삭제
 	public static int deleteProduct(Map<String, String>map) {

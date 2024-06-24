@@ -42,6 +42,16 @@
 
 	</update>
 
+	<!-- 상품리스트 삭제 -->
+	<update id="deleteProducts" parameterType="map">
+    update product_t
+    set pd_status = 0  <!-- 또는 delete from product_t -->
+    where pd_idx IN
+    <foreach item="item" index="index" collection="pd_idx_list" open="(" separator="," close=")">
+        #{item}
+    </foreach>
+	</update>
+
 	
 
 	<!-- 모든 상품 리스트 조회해서 페이지네이션 하기 -->
