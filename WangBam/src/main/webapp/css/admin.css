@@ -24,7 +24,7 @@ body:has(.admin) {
 	margin-top:32px;
 }
 .admin-main .title {
-	margin-bottom : 12px;
+	margin-bottom : 32px;
 }
 .admin-main .title h3 {
 	border-left : 4px solid #e2e2e2;
@@ -32,6 +32,7 @@ body:has(.admin) {
 }
 .admin-main .chart-box {
 	width: 600px;
+	margin:auto;
 }
 
 .admin-main h1 {

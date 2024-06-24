@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <%@include file="/jsp/common/adminHeader.jsp"%>
 
@@ -36,6 +37,7 @@
 	</div>
 </section>
 
+<c:set var="vip_ar" value="${requestScope.vip }" />
 <section>
 	<div class="title">
 		<h3>VIP 회원</h3>
@@ -46,29 +48,39 @@
 				<th>no</th>
 				<th>이름</th>
 				<th>전화번호</th>
-				<th>주소</th>
 				<th>총구매액</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
+			<c:forEach var="vip" items="${vip_ar}" varStatus="st">
+				<tr>
+					<td>${vip.us_idx}</td>
+					<td>${vip.us_name}</td>
+					<td>${vip.us_tel}</td>
+					<td><fmt:formatNumber value="${vip.us_total_price}" pattern="#,###" />원</td>
+				</tr>
+			</c:forEach>
 		</tbody>
 	</table>
 </section>
 <%@include file="/jsp/common/footer.jsp"%>
 
+<%-- 월별 매출액  --%>
 <c:set var="ar" value="${requestScope.ar}" />
 <c:forEach var="vo" items="${ar}" varStatus="st">
 	<input type="hidden" name="chartMonth" id="chartMonth${st.index}"
 		value="${vo.or_sales_month}">
 	<input type="hidden" name="chartSales" id="chartData${st.index}"
 		value="${vo.or_sales}">
+</c:forEach>
+
+<%-- 카테고리별 회전율 --%>
+<c:set var="c_ar" value="${requestScope.c_list}" />
+<c:forEach var="cvo" items="${c_ar}" varStatus="st">
+	<input type="hidden" name="ctName" id="ctName${st.index}"
+		value="${cvo.ct_name}">
+	<input type="hidden" name="odCntPerpdCnt" id="odCntPerpdCnt${st.index}"
+		value="${cvo.odCnt_per_pdCnt}">
 </c:forEach>
 
 <script>
@@ -83,56 +95,63 @@ function setData(object){
 	return ar;
 }
 
+// 데이터 요청
 const arMonth = setData(document.querySelectorAll('input[name=chartMonth]'));
 const arSales = setData(document.querySelectorAll('input[name=chartSales]'));
+const arCategoryName = setData(document.querySelectorAll('input[name=ctName]'));
+const arodCntPerpdCnt = setData(document.querySelectorAll('input[name=odCntPerpdCnt]'));
 // 차트
 const periodSalesCanvas = $('#periodSales');
 const salesByCategoryCanvas = $('#salesByCategory');
 
-// 차트 데이터 설정
+//월별 매출액 차트 데이터 설정
 const periodSalesData = {
 		labels: arMonth,
-	    datasets: [{
-	        label: '월별 매출액',
+		datasets:[{
+			label: "월별 매출액",
 	        data: arSales,
-	        borderWidth: 1,
 	        backgroundColor: [
-	        	'rgba(255, 99, 132, 0.2)',
-	            'rgba(255, 159, 64, 0.2)',
-	            'rgba(255, 205, 86, 0.2)',
-	            'rgba(75, 192, 192, 0.2)',
-	            'rgba(54, 162, 235, 0.2)',
-	            'rgba(153, 102, 255, 0.2)',
-          	],
-          	borderColor: [
-          		'rgba(255, 99, 132, 0.2)',
-	            'rgba(255, 159, 64, 0.2)',
-	            'rgba(255, 205, 86, 0.2)',
-	            'rgba(75, 192, 192, 0.2)',
-	            'rgba(54, 162, 235, 0.2)',
-	            'rgba(153, 102, 255, 0.2)',
-              ],
+	  	      'rgba(255, 99, 132, 0.2)',
+	  	      'rgba(255, 159, 64, 0.2)',
+	  	      'rgba(255, 205, 86, 0.2)',
+	  	      'rgba(75, 192, 192, 0.2)',
+	  	      'rgba(54, 162, 235, 0.2)',
+	  	      'rgba(153, 102, 255, 0.2)',
+	  	    ],
 		}],
 }
-// 차트 옵션
+
+// 카테고리별 재고대비 매출액 설정
+const salesByCategoryData = {
+		labels: arCategoryName,
+		datasets:[{
+			label: "카테고리별 재고대비 매출액",
+	        data: arodCntPerpdCnt,
+	        backgroundColor: [
+	  	      'rgba(233, 102, 255, 0.2)',
+	  	      'rgba(77, 255, 207, 0.2)'
+	  	    ],
+		}],
+}
+// 차트 default 옵션
 const options = {
-	scales: {
-	      y: {
-	        beginAtZero: true
-	      }
+    plugins:{
+        legend: {
+            display: false
+        },
     }
 }
-// 차트 설정값
+// 차트 default 설정값
 const config = {
 	type: 'bar',
   	data: periodSalesData,
-  	options
+  	options,
 }
 // 월별 판매액 차트
-const periodSalesChart = new Chart(periodSalesCanvas, config);
+const periodSalesChart = new Chart(periodSalesCanvas, {...config});
 
 // 회전율 차트
-const salesByCategoryChart = new Chart(salesByCategoryCanvas, {...config, type:"doughnut"});
+const salesByCategoryChart = new Chart(salesByCategoryCanvas, {...config, data:salesByCategoryData});
 </script>
 </body>
 </html>
