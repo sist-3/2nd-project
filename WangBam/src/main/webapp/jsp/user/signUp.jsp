@@ -15,7 +15,7 @@
       <button type="button" class="btn" id="email-check-btn">인증</button>
     </div>
     <span id="email-check" style="display: none; color: red;margin-top: 5px;"></span>
-    <span id="email-check-result"></span>
+    <div id="email-check-result" style="margin-top: 16px;"></div>
   </div>
   <div>
     <label for="password">비밀번호</label>
@@ -93,15 +93,14 @@ $(document).ready(function(){
     $.ajax({  
         	url: '/WangBam/',
         	type: 'POST',
-        	data: {
-            type: 'emailCheck',
-            email: email
-          }
+        	data: "type=emailcheck&email="+email,
         }).done(function(data){
-            $('#email-check-result').css('display', 'block');
-            $('#email-check-result').text(data);
+        	console.log(data);
+        	$('#email-check-result').css('display', 'block');
+        	$('#email-check-result').html(data)
+
         }).fail(function(){
-            
+
         });
     
   });
