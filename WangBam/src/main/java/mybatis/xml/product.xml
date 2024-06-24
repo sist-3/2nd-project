@@ -83,15 +83,15 @@
 			FROM (
 				SELECT *
 				FROM product_t
-				WHERE pd_status = 1
+				<where>
+					pd_status = 1
+					<if test="searchValue != null">
+						AND pd_name LIKE CONCAT('%', #{searchValue}, '%')
+					</if>
+				</where>
 				ORDER BY pd_idx
 			) a, (SELECT @RN:=0) b
 		) c
-		<where>
-			c.rnum BETWEEN #{start} AND #{end}
-			<if test="searchValue != null">
-				AND pd_name LIKE CONCAT('%', #{searchValue}, '%')
-			</if>
-		</where>
+		where c.rnum BETWEEN #{start} AND #{end}
 	</select>
 </mapper>
