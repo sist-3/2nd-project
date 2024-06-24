@@ -12,7 +12,7 @@ import mybatis.dao.OrderDAO;
 import mybatis.vo.OrderVO;
 import util.Paging;
 
-public class OrderListAction implements Action {
+public class OrderDetailAction implements Action {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {

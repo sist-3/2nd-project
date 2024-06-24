@@ -11,7 +11,7 @@ import mybatis.dao.BoardsDAO;
 import mybatis.vo.BoardsVO;
 import util.Paging;
 
-public class SearchAction implements Action {
+public class SearchQuestionAction implements Action {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -23,15 +23,16 @@ public class SearchAction implements Action {
 		String searchType = request.getParameter("searchType");
 		String searchValue = request.getParameter("searchValue");
 		String searchValue2 = request.getParameter("searchValue2");
+		//String us_idx = request.getParameter("us_idx");
 		
-		Map<String, String> s_map = new HashMap<>();
-		s_map.put("bo_type", bo_type);
-		s_map.put("searchType", searchType);
-		s_map.put("searchValue", searchValue);
-		s_map.put("searchValue2", searchValue2);
+		Map<String, String> u_map = new HashMap<>();
+		u_map.put("searchType", searchType);
+		u_map.put("searchValue", searchValue);
+		u_map.put("searchValue2", searchValue2);
+		u_map.put("us_idx", "14"); //(!)us_idx로 변경 요망
 
-		page.setTotalRecord(BoardsDAO.allSearchCount(s_map)); //검색 조건에 맞는 게시글 수 page에 등록
-		if(cPage != null) { //시작 페이지 설정
+		page.setTotalRecord(BoardsDAO.allSearchUserQuestionCount(u_map)); //검색 조건에 맞는 게시글 수 page에 등록
+		if(cPage != null) {
 			page.setNowPage(Integer.parseInt(cPage));
 		}else {
 			page.setNowPage(1);
@@ -43,32 +44,27 @@ public class SearchAction implements Action {
 		map.put("bo_type", bo_type);
 		map.put("begin", Integer.toString(page.getBegin()));
 		map.put("end", Integer.toString(page.getEnd()));
-		
 		map.put("searchType", searchType);
 		map.put("searchValue", searchValue);
 		map.put("searchValue2", searchValue2);
+		map.put("us_idx", "14"); //(!)us_idx로 변경 요망
+		
+		
 		request.setAttribute("searchType",searchType);
 		request.setAttribute("searchValue",searchValue);
 		request.setAttribute("searchValue2",searchValue2);
 		
 		
 		BoardsVO[] ar = BoardsDAO.find(map); // 게시글 목록 배열로 반환
-
+		
 		if(ar!=null) {
-			switch(bo_type) {
-			case"0": //공지사항
-				viewPath = "/jsp/user/noticeList.jsp";
-				break;
-//			case"1": //문의사항
-//				viewPath = "/jsp/user/questionList.jsp";
-//				break;
-			case"2": //리뷰
-				viewPath = "/jsp/user/reviewList.jsp";
-				break;
-			}
 			request.setAttribute("ar", ar);
 			request.setAttribute("page", page);
+			
+			viewPath = "/jsp/user/questionList.jsp";
 		}
 		return viewPath;
+	
 	}
+
 }

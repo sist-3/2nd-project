@@ -1,71 +1,74 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
-<%@include file="/jsp/common/adminHeader.jsp" %>
+<%@include file="/jsp/common/adminHeader.jsp"%>
+
+<c:set var="deliAr" value="${requestScope.deliAr}" />
+<c:set var="statusLabels" value="${requestScope.STATUS_CODES}" />
+<section>
+	<div class="title">
+		<h3>판매진행현황</h3>
+	</div>
+	<ul class="order-state">
+		<c:forEach var="status" items="${statusLabels}" varStatus="statusIndex">
+            <li>${status} : ${deliAr[statusIndex.index]}건</li>
+        </c:forEach>
+	</ul>
+</section>
 
 <section>
-            <div class="title">
-              <h3>판매진행현황</h3>
-            </div>
-              <ul class="order-state">
-              	<li>배송대기 : 1건</li>
-              	<li>배송중 : 1건</li>
-              	<li>배송완료 : 1건</li>
-              	<li>환불요청 : 1건</li>
-              </ul>
-          </section>
+	<div class="title">
+		<h3>기간별 월매출</h3>
+	</div>
+	<div class="chart-box">
+		<canvas id="periodSales"></canvas>
+	</div>
+</section>
 
-          <section>
-            <div class="title">
-              <h3>기간별 월매출</h3>
-            </div>
-            <div class="chart-box">
-            	<canvas id="periodSales"></canvas>
-            </div>
-          </section>
+<section>
+	<div class="title">
+		<h3>카테고리별 재고대비 판매량</h3>
+	</div>
+	<div class="chart-box">
+		<canvas id="salesByCategory"></canvas>
+	</div>
+</section>
 
-          <section>
-            <div class="title">
-              <h3>카테고리별 재고대비 판매량</h3>
-            </div>
-            <div class="chart-box">
-            	<canvas id="salesByCategory"></canvas>
-            </div>
-          </section>
-
-          <section>
-            <div class="title">
-              <h3>VIP 회원</h3>
-            </div>
-              <table class="table">
-              	<thead>
-					<tr>
-						<th>no</th>
-						<th>이름</th>
-						<th>전화번호</th>
-						<th>주소</th>
-						<th>총구매액</th>
-					</tr>
-              	</thead>
-              	<tbody>
-              		<tr>
-              			<td></td>
-              			<td></td>
-              			<td></td>
-              			<td></td>
-              			<td></td>
-              		</tr>
-              	</tbody>
-			</table>
-          </section>
-<%@include file="/jsp/common/footer.jsp" %>
+<section>
+	<div class="title">
+		<h3>VIP 회원</h3>
+	</div>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>no</th>
+				<th>이름</th>
+				<th>전화번호</th>
+				<th>주소</th>
+				<th>총구매액</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+		</tbody>
+	</table>
+</section>
+<%@include file="/jsp/common/footer.jsp"%>
 
 <c:set var="ar" value="${requestScope.ar}" />
 <c:forEach var="vo" items="${ar}" varStatus="st">
-	<input type="hidden" name="chartMonth" id="chartMonth${st.index}" value="${vo.or_sales_month}">
-	<input type="hidden" name="chartSales" id="chartData${st.index}" value="${vo.or_sales}">
+	<input type="hidden" name="chartMonth" id="chartMonth${st.index}"
+		value="${vo.or_sales_month}">
+	<input type="hidden" name="chartSales" id="chartData${st.index}"
+		value="${vo.or_sales}">
 </c:forEach>
 
 <script>

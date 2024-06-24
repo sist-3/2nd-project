@@ -107,10 +107,9 @@
 		<button type="button" class="admin-btn submit" onclick="del()">삭제</button>
 	</div>
 </div>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"
-	integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-	crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
+
+
+<%@include file="/jsp/common/footer.jsp"%>
 <script>
 	function send() {
 		let ct_idx = document.getElementsByName("ct_idx")[0].value;
@@ -155,6 +154,5 @@
         });
     }
 </script>
-<%@include file="/jsp/common/footer.jsp"%>
 </body>
 </html>

@@ -67,12 +67,7 @@
         	FROM (
             	SELECT *
             	FROM order_t
-        	) a, (SELECT @RN:=0) b
-    	) c
-        <where>
-        	<if test="begin != null and end != null">
-				c.rnum BETWEEN #{begin} AND #{end}
-			</if>
+            	<where>
             <trim prefixOverrides="AND">
                 <if test="or_idx != null">
                     or_idx = #{or_idx} 
@@ -117,6 +112,13 @@
                     AND or_status_code = #{or_status_code}
                 </if>
             </trim>
+        </where>
+        	) a, (SELECT @RN:=0) b
+    	) c
+        <where>
+            <if test="begin != null and end != null">
+				c.rnum BETWEEN #{begin} AND #{end}
+			</if>
         </where>
     </select>
 
