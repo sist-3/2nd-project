@@ -67,12 +67,7 @@
         	FROM (
             	SELECT *
             	FROM order_t
-        	) a, (SELECT @RN:=0) b
-    	) c
-        <where>
-        	<if test="begin != null and end != null">
-				c.rnum BETWEEN #{begin} AND #{end}
-			</if>
+            	<where>
             <trim prefixOverrides="AND">
                 <if test="or_idx != null">
                     or_idx = #{or_idx} 
@@ -118,6 +113,13 @@
                 </if>
             </trim>
         </where>
+        	) a, (SELECT @RN:=0) b
+    	) c
+        <where>
+            <if test="begin != null and end != null">
+				c.rnum BETWEEN #{begin} AND #{end}
+			</if>
+        </where>
     </select>
 
     <!-- add -->
@@ -130,4 +132,19 @@
     <update id="updateStatusCode" parameterType="Map">
         UPDATE order_t SET or_status_code = #{or_status_code} WHERE or_idx = #{or_idx}
     </update>
+    
+    <!-- 월별 매출액 조회 -->
+    <select id="findSalesByMonth" resultType="mybatis.vo.OrderVO">
+	    SELECT
+	    DATE_FORMAT(or_end_date, '%Y-%m') AS or_sales_month,
+	    SUM(or_total_price) AS or_sales
+		FROM
+		    order_t
+		WHERE or_end_date IS NOT NULL
+		GROUP BY
+		    or_sales_month
+		ORDER BY
+		    or_sales_month desc limit 6;
+    </select>
+    
 </mapper>

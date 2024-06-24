@@ -31,6 +31,10 @@ public class CommentDAO {
 		SqlSession ss = FactoryService.getFactory().openSession();
 		
 		int cnt = ss.insert("comment.add", map);
+		if(cnt>0)
+			ss.commit();
+		else
+			ss.rollback();
 		
 		ss.close();
 		
@@ -42,6 +46,10 @@ public class CommentDAO {
 		SqlSession ss = FactoryService.getFactory().openSession();
 		
 		int cnt = ss.update("comment.update", map);
+		if(cnt>0)
+			ss.commit();
+		else
+			ss.rollback();
 		
 		ss.close();
 		
@@ -53,6 +61,10 @@ public class CommentDAO {
 		SqlSession ss = FactoryService.getFactory().openSession();
 		
 		int cnt = ss.update("comment.delete", bo_idx);
+		if(cnt>0)
+			ss.commit();
+		else
+			ss.rollback();
 		
 		ss.close();
 		
