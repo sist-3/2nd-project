@@ -52,7 +52,7 @@
 				</div>
 				<div class="product-page">
 					<div class="product-image">
-						<img src="/img/ppang.png" alt="Product Image">
+						<img src="img/${pvo.pd_thumbnail_img}" alt="Product Image">
 					</div>
 					<div class="product-details">
 						
