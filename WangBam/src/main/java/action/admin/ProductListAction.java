@@ -25,7 +25,7 @@ public class ProductListAction implements Action {
 		
 		//검색으로 나온 리스트 전체 게시물 수 구하기 
 		page.setTotalRecord(ProductDAO.allCount(searchValue));
-		System.out.println(page);
+		
 		//시작 페이지 설정
 		if(cPage != null){
 			page.setNowPage(Integer.parseInt(cPage));
