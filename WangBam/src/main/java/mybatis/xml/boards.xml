@@ -41,7 +41,7 @@
                         bo_write_date BETWEEN #{searchValue} AND #{searchValue2} AND
                     </when>
                     <when test= "searchType == 'score'"> <!-- 평점 검색 -->
-                        bo_score = #{searchValue} AND
+                        bo_score = #{searchValue3} AND
                     </when>
                     <when test= "searchType == 'answer'"> <!-- 미답변 목록 검색 -->
                         bo_answer = 1 AND
@@ -103,7 +103,7 @@
 		                        AND bo_write_date BETWEEN #{searchValue} AND #{searchValue2}
 		                    </when>
 		                    <when test= "searchType == 'score'"> <!-- 평점 검색 -->
-		                        AND bo_score = #{searchValue}
+		                        AND bo_score = #{searchValue3}
 		                    </when>
 		                    <when test= "searchType == 'answer'"> <!-- 미답변 목록 검색 -->
 		                        AND bo_answer = 1
@@ -143,11 +143,21 @@
 <!-- Update, Delete -->
 	<!-- 작성된 게시글 수정 -->
 	<update id="update" parameterType="map">
-		UPDATE boards_t
-		SET	us_idx = #{us_idx}, pd_idx = #{pd_idx}, bo_type = #{bo_type}, bo_title = #{bo_title}, bo_content = #{bo_content},
-			bo_write_date = NOW(), bo_img = #{bo_img}, bo_score = #{bo_score}, bo_answer = #{bo_answer}
-		WHERE bo_idx = #{bo_idx}
-	</update>
+    UPDATE boards_t
+    <set>
+        <if test="us_idx != null">us_idx = #{us_idx},</if>
+        <if test="pd_idx != null">pd_idx = #{pd_idx},</if>
+        <if test="bo_type != null">bo_type = #{bo_type},</if>
+        <if test="bo_title != null">bo_title = #{bo_title},</if>
+        <if test="bo_content != null">bo_content = #{bo_content},</if>
+        <if test="bo_write_date != null">bo_write_date = NOW(),</if>
+        <if test="bo_img != null">bo_img = #{bo_img},</if>
+        <if test="bo_score != null">bo_score = #{bo_score},</if>
+        <if test="bo_answer != null">bo_answer = #{bo_answer},</if>
+    </set>
+    WHERE bo_idx = #{bo_idx}
+</update>
+
 	
 	<!-- 게시글 삭제 -->
 	<update id="delete" parameterType="String">
