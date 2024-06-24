@@ -58,6 +58,7 @@
 			내용:<textarea rows="4" cols="30" name="co_content" id="co_content"></textarea><br/>
 			<input type="hidden" name="us_idx" value="1"/><!-- (!)로그인한 유저의 us_idx로 변경 요망-->
 			<input type="hidden" name="bo_idx" value="${vo.bo_idx}"/>
+			<input type="hidden" name="bo_type" value="0"/>
 			<input type="hidden" name="type" value="writeComment"/>
 			<input type="hidden" name="cPage" value="${requestScope.cPage}"/>
 			<input type="submit" value="댓글등록"/> 

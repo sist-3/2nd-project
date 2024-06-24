@@ -25,8 +25,10 @@ public class QuestionAction implements Action {
 		//HttpSession session = request.getSession(false);
 		//String us_idx = (String) session.getAttribute("user");
 		//System.out.println(us_idx);
-		
-		page.setTotalRecord(BoardsDAO.allUserQuestionCount("14")); //(!)us_idx로 변경 요망 //특정 유저의 문의사항 갯수 등록
+		Map<String, String> count_map = new HashMap<>();
+		count_map.put("bo_type", "1");
+		count_map.put("us_idx", "14"); //(!)us_idx로 변경 요망 //특정 유저의 문의사항 갯수 등록
+		page.setTotalRecord(BoardsDAO.allUserBoardsCount(count_map)); 
 		
 		if(cPage != null) { //시작 페이지 설정
 			page.setNowPage(Integer.parseInt(cPage));

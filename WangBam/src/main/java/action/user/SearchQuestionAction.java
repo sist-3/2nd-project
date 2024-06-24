@@ -31,7 +31,7 @@ public class SearchQuestionAction implements Action {
 		u_map.put("searchValue2", searchValue2);
 		u_map.put("us_idx", "14"); //(!)us_idx로 변경 요망
 
-		page.setTotalRecord(BoardsDAO.allSearchUserQuestionCount(u_map)); //검색 조건에 맞는 게시글 수 page에 등록
+		page.setTotalRecord(BoardsDAO.allSearchUserBoardsCount(u_map)); //검색 조건에 맞는 게시글 수 page에 등록
 		if(cPage != null) {
 			page.setNowPage(Integer.parseInt(cPage));
 		}else {
