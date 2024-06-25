@@ -9,7 +9,16 @@ public class UserVO {
 	us_tel,
 	us_insert_date,
 	us_type,
-	us_status;
+	us_status,
+	us_total_price;
+
+	public String getUs_total_price() {
+		return us_total_price;
+	}
+
+	public void setUs_total_price(String us_total_price) {
+		this.us_total_price = us_total_price;
+	}
 
 	public String getUs_idx() {
 		return us_idx;

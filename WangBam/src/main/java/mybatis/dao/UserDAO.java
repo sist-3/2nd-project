@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 
 import mybatis.service.FactoryService;
+import mybatis.vo.OrderVO;
 import mybatis.vo.UserVO;
 
 public class UserDAO {
@@ -118,4 +119,20 @@ public class UserDAO {
 		ss.close();
 		return result;
 	}
+	
+    // VIP
+    public static UserVO[] findByVIP() {
+    	SqlSession ss = FactoryService.getFactory().openSession();
+    	UserVO[] ar = null;
+    	
+    	List<OrderVO> list = ss.selectList("user.findByVIP");
+    	
+    	if(list != null) {
+    		ar = new UserVO[list.size()];
+    		list.toArray(ar);
+    	}
+    	ss.close();
+    	
+    	return ar;
+    }
 }

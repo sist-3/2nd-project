@@ -13,6 +13,7 @@
 
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/style.css">
 
@@ -38,8 +39,14 @@
 							<h1>
 								<a href="?type=index" class="product-name">왕밤빵</a>
 							</h1>
-							<a href="?type=login">로그인</a> <a href="?type=member">회원가입</a> <a href="?type=my">마이페이지</a>
-							<a href="?type=cart">장바구니</a>
+							<c:if test="${sessionScope.user != null}">
+								<a href="?type=logout">로그아웃</a>
+								<a href="?type=my">마이페이지</a>
+								<a href="?type=cart">장바구니</a>
+							</c:if>
+							<c:if test="${sessionScope.user == null}">
+								<a href="?type=login">로그인</a> <a href="?type=member">회원가입</a>
+							</c:if>
 						</div>
 					</nav>
 				</div>
@@ -57,11 +64,11 @@
 									alt="배너">
 							</div>
 							<div class="swiper-slide">
-								<img src="${pageContext.request.contextPath}/img/03.png"
+								<img src="${pageContext.request.contextPath}/img/02.png"
 									alt="배너">
 							</div>
 							<div class="swiper-slide">
-								<img src="${pageContext.request.contextPath}/img/03.png"
+								<img src="${pageContext.request.contextPath}/img/01.png"
 									alt="배너">
 							</div>
 						</div>

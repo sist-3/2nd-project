@@ -8,4 +8,26 @@
    		SELECT *
 		FROM category_t;
    </select>
+   
+   <!-- 카테고리 별 판매량 대비 재고수량 구하기 -->
+	<select id="findPdcntPerOdcntByCategory" resultType="mybatis.vo.CategoryVO">
+		SELECT ct_idx, ct_name, sum(pd_cnt) as pd_cnt , sum(sales_cnt) as sales_cnt, sum(sales_cnt) / sum(pd_cnt) as odCnt_per_pdCnt
+		FROM (SELECT 
+		    p.pd_idx, 
+		    (select ct_name from category_t where ct_idx = p.ct_idx) as ct_name,
+		    p.ct_idx,
+		    p.pd_name, 
+		    pd_cnt,
+		    IFNULL(SUM(od.od_cnt), 0) AS sales_cnt
+		FROM 
+		    product_t p LEFT JOIN order_detail_t od ON p.pd_idx = od.pd_idx
+		WHERE 
+		    p.ct_idx IN(SELECT ct_idx FROM category_t)
+		GROUP BY 
+		    p.pd_idx, 
+		    p.pd_name, 
+		    p.pd_cnt
+		) AS turn
+		GROUP BY ct_idx
+	</select>
 </mapper>

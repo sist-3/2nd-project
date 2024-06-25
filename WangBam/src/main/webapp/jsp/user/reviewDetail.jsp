@@ -6,7 +6,7 @@
 <%@include file="/jsp/common/header.jsp" %>
 
 	<div class="form-group">
-		<h1>공지 상세보기</h1>
+		<h1>리뷰 상세보기</h1>
 		
 		<div>
 			<label for="title">제목</label>
@@ -19,11 +19,23 @@
 		<div>
 			<label for="writer">작성자</label>
 			<input type="text" name="writer" 
-			value="<c:if test='${vo.uvo.us_nickname != null}'>${vo.uvo.us_nickname}</c:if><c:if test='${vo.uvo.us_nickname == null}'>관리자</c:if>" disabled />
+			value="<c:if test='${vo.uvo.us_nickname != null}'>${vo.uvo.us_nickname}</c:if><c:if test='${vo.uvo.us_nickname == null}'>탈퇴한회원</c:if>" disabled />
+		</div>
+		<div>
+			<label for="content">상품</label>
+			<input type="text" name="scroe" value="${vo.pvo.pd_name}" disabled />
+		</div>
+		<div>
+			<label for="content">평점</label>
+			<input type="text" name="scroe" value="${vo.bo_score}" disabled />
 		</div>
 		<div>
 			<label for="content">내용</label>
 			<input type="text" name="content" value="${vo.bo_content}" disabled />
+		</div>
+		<div>
+			<label for="content">조회수</label>
+			<input type="text" name="scroe" value="${vo.bo_hit}" disabled />
 		</div>
 		
 	
@@ -32,11 +44,16 @@
 			<c:forEach var="cvo" items="${vo.c_list }" varStatus="vs">
 					<div>
 						<c:choose>
-							<c:when test="${cvo.uvo.us_idx == vo.uvo.us_idx }">
+							<c:when test="${cvo.uvo.us_idx == vo.uvo.us_idx && cvo.uvo.us_type != 0 }">
 								작성자: <b style="color: #ff0044">${vo.uvo.us_nickname }</b>&nbsp;&nbsp;
 							</c:when>
 							<c:when test="${cvo.uvo.us_nickname != null}">
-								작성자: ${cvo.uvo.us_nickname } &nbsp;&nbsp;
+								<c:if test="${cvo.uvo.us_type == 0 }">
+									작성자: <b style="color: #4400ff">${cvo.uvo.us_nickname }</b> &nbsp;&nbsp;
+								</c:if>
+								<c:if test="${cvo.uvo.us_type != 0 }">
+									작성자: ${cvo.uvo.us_nickname } &nbsp;&nbsp;
+								</c:if>
 							</c:when>
 							<c:when test="${cvo.uvo.us_nickname == null}">
 								작성자: 탈퇴한 회원 &nbsp;&nbsp;
@@ -59,7 +76,7 @@
 				내용:<textarea rows="4" cols="30" name="co_content" id="co_content"></textarea><br/>
 				<input type="hidden" name="us_idx" value="${sessionScope.user.us_idx }"/>
 				<input type="hidden" name="bo_idx" value="${vo.bo_idx}"/>
-				<input type="hidden" name="bo_type" value="0"/>
+				<input type="hidden" name="bo_type" value="2"/>
 				<input type="hidden" name="cPage" value="${requestScope.cPage}"/>
 				<input type="hidden" name="type" value="writeComment"/>
 				<input type="submit" value="댓글등록"/> 
@@ -74,15 +91,8 @@
 			</form>
 		</c:if>
 		
-		
-		<form name="boardDataForm" action="admin" method="post">
-			<input type="hidden" name="type" value="noticeEdit"/>
-			<input type="hidden" name="bo_idx" value="${vo.bo_idx}"/>
-			<input type="hidden" name="cPage" value="${requestScope.cPage}"/>
-		</form>
-		
 		<button type="button" class="btn cancel"
-				onclick="javascript:window.location.href='Controller?type=notice&cPage=${requestScope.cPage }'">목록</button>
+				onclick="javascript:window.location.href='Controller?type=review&cPage=${requestScope.cPage }'">목록</button>
 		
 	</div>
 <script>
