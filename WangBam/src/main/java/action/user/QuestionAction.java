@@ -20,11 +20,11 @@ public class QuestionAction implements Action {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
-		String viewPath = null;
+		String viewPath = null;     
 		Paging page = new Paging(5,5);
 		String cPage = request.getParameter("cPage");
 		UserVO uvo = (UserVO) session.getAttribute("user");
-		
+		//다시올리기
 		if(uvo != null) {
 			Map<String, String> count_map = new HashMap<>();
 			count_map.put("bo_type", "1");
