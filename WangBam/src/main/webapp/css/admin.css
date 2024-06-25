@@ -6,14 +6,14 @@
 @import url('./common.css');
 
 body:has(.admin) {
-	background-color: #f7f7f7;
+	background-color: #fafafc;
 	margin: 0;
 	padding: 0;
 }
 .admin-main {
 	padding: 40px;
 	min-height: calc(100vh - 144px);
-	background-color: #fff;
+	background-color: #fafafc;
 }
 .admin-main > .content > section {
     border: 1px solid #e2e2e2;
@@ -47,6 +47,13 @@ body:has(.admin) {
 	display: flex;
 	flex-direction: column;
 	gap: 20px;
+}
+
+.admin-main .form-group{
+	width: 600px;
+    padding: 50px;
+    background-color: #f5f5f5;
+    border-radius: 20px;
 }
 
 .admin-main label {
@@ -145,12 +152,13 @@ body:has(.admin) {
 	position:sticky;
 	top:0;
 	border-bottom:1px solid #e2e2e2;
+	background-color:#fafafc;
 }
 .admin-header .global-nav {
 	width: 100%;
 	height: 44px;
 	padding: 0 1rem;
-	background-color: #fff;
+	background-color: #fafafc;
 }
 .admin-header .global-nav-links {
 	display: flex;

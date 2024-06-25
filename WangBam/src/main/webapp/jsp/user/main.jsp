@@ -83,45 +83,19 @@
 		<img src="${pageContext.request.contextPath}/img/hot_03.png" alt="핫3">
 	</div>
 </div>
-<div class="product-list">
-	<h2>ITEM LIST 1</h2>
+<div class="product-list" id="productList">
+	<h2>이달의 상품</h2>
 	<div class="item-list">
-		<div class="item">
-			<img src="${pageContext.request.contextPath}/img/rollcake1.png"
-				alt="General Roll Cake">
-			<p>[은뜰베이커리] 일반 롤케익</p>
-			<p>6,300원</p>
-		</div>
-		<div class="item">
-			<img src="${pageContext.request.contextPath}/img/rollcake2.png"
-				alt="Green Tea Roll Cake">
-			<p>[은뜰베이커리] 녹차 롤케익</p>
-			<p>6,500원</p>
-		</div>
-		<div class="item">
-			<img src="${pageContext.request.contextPath}/img/rollcake3.png"
-				alt="Mocha Roll Cake">
-			<p>[은뜰베이커리] 모카 롤케익</p>
-			<p>6,500원</p>
-		</div>
-		<div class="item">
-			<img src="${pageContext.request.contextPath}/img/rollcake4.png"
-				alt="Strawberry Roll Cake">
-			<p>[은뜰베이커리] 딸기 롤케익</p>
-			<p>6,500원</p>
-		</div>
-		<div class="item">
-			<img src="${pageContext.request.contextPath}/img/rollcake5.png"
-				alt="Chocolate Roll Cake">
-			<p>[은뜰베이커리] 초코 롤케익</p>
-			<p>9,000원</p>
-		</div>
-		<div class="item">
-			<img src="${pageContext.request.contextPath}/img/rollcake6.png"
-				alt="Cream Roll Cake">
-			<p>[은뜰베이커리] 크림 롤케익</p>
-			<p>7,500원</p>
-		</div>
+		<c:forEach var="product" items="${requestScope.p_ar}" varStatus="i">
+			<div class="item">
+				<div class="img-box">
+					<img src="${pageContext.request.contextPath}/img/${product.pd_thumbnail_img}"
+						alt="${product.pd_name }">
+				</div>
+				<p>[왕밤빵 베이커리]${product.pd_name}</p>
+				<p><fmt:formatNumber value="${product.pd_price}" pattern="#,###" />만원</p>
+			</div>
+		</c:forEach>
 	</div>
 </div>
 <%@include file="/jsp/common/footer.jsp"%>
