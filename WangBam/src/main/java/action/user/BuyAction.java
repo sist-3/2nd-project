@@ -88,22 +88,24 @@ public class BuyAction implements Action {
 		// order_t 데이터맵 생성
 		HashMap<String, List<HashMap<String, String>>> commandMap = new HashMap<String, List<HashMap<String, String>>>();
 		List<HashMap<String, String>> defaultList = new ArrayList<HashMap<String, String>>();
-		
+		int or_idx = OrderDAO.findLastIdx();
 		// 이전 페이지에서 입력받은 List<OrderDetailVO>를 가져온다.
 		HttpSession session = request.getSession();
 		Object obj = session.getAttribute("odvoList");
+		session.removeAttribute("odvoList");
 		List<OrderDetailVO> odvoList = null;
 		if(obj != null) {
 			odvoList = (List<OrderDetailVO>)obj;
 			for(OrderDetailVO odvo : odvoList) {
 				HashMap<String, String> map = new HashMap<String, String>();
-				map.put("or_idx", "26");
+				map.put("or_idx", String.valueOf(or_idx));
 				map.put("pd_idx", odvo.getPvo().getPd_idx());
 				map.put("od_price", odvo.getOd_price());
 				map.put("od_cnt", odvo.getOd_cnt());
 				defaultList.add(map);
 			}
 			commandMap.put("odvoList", defaultList);
+			request.setAttribute("idx", or_idx);
 		}
 		
         return commandMap;
