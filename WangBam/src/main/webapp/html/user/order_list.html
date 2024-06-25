@@ -1,58 +1,613 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>전체 주문 리스트</title>
-  <link rel="stylesheet" href="/css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order List</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+
+.sc-qxzqk9-0 {
+    padding: 20px;
+}
+
+.sc-fimazj-0 {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+.sc-abukv2-0 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.sc-abukv2-1 {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.sc-abukv2-2 {
+    display: flex;
+    align-items: center;
+}
+
+.sc-abukv2-3 {
+    color: #346aff;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.sc-gnmni8-0 {
+    margin-top: 10px;
+}
+
+.sc-gnmni8-1 {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.sc-gnmni8-2 {
+    background-color: #fff;
+}
+
+.sc-gnmni8-3 {
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.sc-gnmni8-5 {
+    padding: 10px;
+}
+
+.sc-ki5ja7-0 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sc-ki5ja7-1 {
+    display: flex;
+    flex-direction: column;
+}
+
+.sc-755zt3-0 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #111111;
+}
+
+.sc-755zt3-0.sc-lcvccu-0 {
+    font-weight: normal;
+    color: #008C00;
+}
+
+.sc-izcbvi-0 {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.sc-izcbvi-1 {
+    width: 4px;
+    height: 4px;
+    background-color: #111;
+    margin: 2px 0;
+}
+
+.sc-9cwg9-0 {
+    display: flex;
+    align-items: center;
+}
+
+.sc-9cwg9-1 {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+}
+
+.sc-9cwg9-2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sc-9cwg9-3 {
+    margin-right: 10px;
+}
+
+.sc-9cwg9-5 {
+    display: flex;
+    flex-direction: column;
+}
+
+.sc-9cwg9-6 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sc-8q24ha-0 {
+    display: flex;
+    align-items: center;
+}
+
+.sc-8q24ha-1 {
+    margin-left: 5px;
+}
+
+.sc-8q24ha-5 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sc-8q24ha-3 {
+    display: flex;
+    align-items: center;
+}
+
+.sc-uaa4l4-0 {
+    display: flex;
+    align-items: center;
+}
+
+.sc-755zt3-0.eDgzyT {
+    color: #555555;
+}
+
+.sc-1k9quwu-0 {
+    background-color: #346aff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.sc-1k9quwu-0.eLsqcZ {
+    background-color: #fff;
+    color: #346aff;
+    border: 1px solid #346aff;
+}
+
+.sc-1k9quwu-0.IZnx {
+    background-color: #fff;
+    color: #346aff;
+    border: 1px solid #346aff;
+    margin-left: 5px;
+}
+
+.sc-1k9quwu-0.IZnx.sc-gnmni8-8 {
+    margin-left: 5px;
+}
+
+.sc-1k9quwu-0.IZnx.sc-gnmni8-8.kiiuoA {
+    margin-left: 5px;
+}
+
+.sc-1o307be-0 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.sc-1o307be-1 {
+    background-color: #fff;
+    color: #aab5c0;
+    border: 1px solid #aab5c0;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: not-allowed;
+}
+
+.sc-1o307be-1 svg {
+    margin-left: 5px;
+}
+    </style>
 </head>
-
 <body>
-  <div class="search-group">
-    <h2>상품 리스트</h2>
-    <div class="search-bar">
-      <input type="text" placeholder="Search..." />
-      <button class="search-btn">&#128269;</button>
+<div class="sc-qxzqk9-0 iQgKJk">
+  <div class="sc-fimazj-0 gKYVxm">
+    <div class="sc-abukv2-0 kcHmyx">
+      <div class="sc-abukv2-1 kSZYgn">2021. 9. 1 주문</div>
+      <span font-weight="bold" color="#111111" class="sc-755zt3-0 hullgd" style="font-size: 1.25rem;">배송완료</span>
+      <div class="sc-abukv2-2 kThsCL">
+        <span class="sc-abukv2-3 gSIruC">주문 상세보기</span>
+        
+        <svg width="16" height="16" focusable="false" viewBox="0 0 16 16" aria-hidden="true" role="presentation" style="fill: rgb(52, 106, 255); vertical-align: middle; height: 100%;">
+          <path fill="#346aff" fill-rule="nonzero" d="M11.057 8L5.53 13.529c-.26.26-.26.682 0 .942.26.26.682.26.942 0l6-6c.26-.26.26-.682 0-.942l-6-6c-.26-.26-.682-.26-.942 0-.26.26-.26.682 0 .942L11.057 8z"></path>
+        </svg>
+      </div>
     </div>
-  </div>
-  <table class="table1">
-    <tr>
-      <th>체크박스</th>
-      <th>no</th>
-      <th>받는사람</th>
-      <th>전화번호</th>
-      <th>주문상태</th>
-      <th>운송장 번호</th>
-    </tr>
-    <tr>
-      <td><input type="checkbox" /></td>
-      <td>1</td>
-      <td>ddd@naver.com</td>
-      <td>010-1234-5678</td>
-      <td>배송대기</td>
-      <td>-</td>
-    </tr>
-  </table>
-  <div class="pagination">
-    <a href="#">&lt;</a>
-    <a href="#">1</a>
-    <a href="#">2</a>
-    <a href="#">3</a>
-    <a href="#">4</a>
-    <a href="#">5</a>
-    <a href="#">6</a>
-    <a href="#">7</a>
-    <a href="#">8</a>
-    <a href="#">9</a>
-    <a href="#">10</a>
-    <a href="#">&gt;</a>
-  </div>
+    <div class="sc-gnmni8-0 elGTUw">
+      <table class="sc-gnmni8-1 eSpcfO">
+        <colgroup>
+          <col width="600">
+          <col width="*">
+          <col width="">
+        </colgroup>
+        <tbody class="sc-gnmni8-2 hryMPB">
+          <tr class="sc-gnmni8-3 gmGnuU">
+            <td class="sc-gnmni8-5 hUzAOG">
+              <div class="sc-1jiyjbz-0 dGiGeF">
+                <div class="sc-gnmni8-9 kCcQTc">
+                  <div class="sc-g8964r-0 oRzGt"></div>
+                  <div class="sc-9cwg9-1 gLgexz">
+                    <div class="sc-9cwg9-2 cNiGzR">
+                      <div class="sc-9cwg9-3 eEDOvs">
+                        <a class="sc-1uwk3m0-0 kdlGbA sc-9cwg9-0 gujsmv" href="/ssr/sdp/link?vendorItemId=71501839699&amp;imagePath=https%3A%2F%2Fthumbnail10.coupangcdn.com%2Fthumbnails%2Fremote%2F96x96ex%2Fimage%2Fvendor_inventory%2F099f%2F26698f4bbc50f9ec6cab816547a6c3f97dc5b8c77ce1b6198899f673044b.jpg&amp;sourceType=MyCoupang_my_orders_list_product_image" target="_blank">
+                          <img loading="lazy" width="64" height="64" src="https://thumbnail10.coupangcdn.com/thumbnails/remote/96x96ex/image/vendor_inventory/099f/26698f4bbc50f9ec6cab816547a6c3f97dc5b8c77ce1b6198899f673044b.jpg" alt="호후 닌텐도 스위치/라이트 스컬앤코 조이콘 아날로그 조이 스틱 커버 썸그립 6p 세트 동물의숲 민트 + 블루, 1세트">
+                        </a>
+                      </div>
+                      <div class="sc-9cwg9-5 bmwSdh">
+                        <div class="sc-9cwg9-6 jBCCpd">
+                          <a class="sc-gnmni8-10 yma-DD"></a>
+                          <a href="/ssr/sdp/link?vendorItemId=71501839699&amp;imagePath=https%3A%2F%2Fthumbnail10.coupangcdn.com%2Fthumbnails%2Fremote%2F96x96ex%2Fimage%2Fvendor_inventory%2F099f%2F26698f4bbc50f9ec6cab816547a6c3f97dc5b8c77ce1b6198899f673044b.jpg&amp;sourceType=MyCoupang_my_orders_list_product_title" target="_blank" class="sc-gnmni8-10 sc-8q24ha-0 yma-DD hPjYZj">
+                            <span color="#111111" class="sc-755zt3-1 sc-8q24ha-1 inmgHC ifMZxv">호후 닌텐도 스위치/라이트 스컬앤코 조이콘 아날로그 조이 스틱 커버 썸그립 6p 세트 동물의숲 민트 + 블루, 1세트</span>
+                          </a>
+                          <a class="sc-gnmni8-10 yma-DD"></a>
+                          <a class="sc-gnmni8-10 sc-8q24ha-5 yma-DD iDQVMP">
+                            <div class="sc-8q24ha-3 gFbjJh">
+                              <div class="sc-uaa4l4-0 jxRaeI">
+                                <span font-weight="normal" color="#555555" class="sc-755zt3-0 eDgzyT">7,300 원</span>
+                                <span class="sc-13xhsmd-0 kYtEGM">
+                                  <span class="sc-13xhsmd-1 joIhoV"></span>
+                                </span>
+                                <span class="sc-755zt3-0 jtWNEg">1 개 </span>
+                              </div>
+                            </div>
+                          </a>
+                          <div class="sc-fxyxvg-0 igPkOG"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sc-gnmni8-0 elGTUw">
+      <table class="sc-gnmni8-1 eSpcfO">
+        <colgroup>
+          <col width="600">
+          <col width="">
+        </colgroup>
+        <tbody class="sc-gnmni8-2 hryMPB">
+          <tr class="sc-gnmni8-3 gmGnuU">
+            <td class="sc-gnmni8-5 hUzAOG">
+              <div class="sc-ki5ja7-0 bQVZKC">
+                <div class="sc-ki5ja7-1 krPkOP">
+                  
+                  <span size="4" class="sc-13xhsmd-0 SWzAJ">
+                    <span size="4" class="sc-13xhsmd-1 kMeFyN"></span>
+                  </span>
+                  <span font-weight="normal" color="#008C00" class="sc-755zt3-0 sc-lcvccu-0 sCrFk dhoCVo">9/2(목) 도착</span>
+                </div>
+                <div class="sc-ki5ja7-2 grCKyH">
+                  <button size="28" class="sc-izcbvi-0 kivOhk">
+                    <div class="sc-izcbvi-1 JHhgQ"></div>
+                    <div class="sc-izcbvi-1 JHhgQ"></div>
+                    <div class="sc-izcbvi-1 JHhgQ"></div>
+                  </button>
+                </div>
+              </div>
+              <div class="sc-fe2r96-0 hmCrGF"></div>
+              <div class="sc-1jiyjbz-0 dGiGeF">
+                <div class="sc-gnmni8-9 kCcQTc">
+                  <div class="sc-g8964r-0 oRzGt"></div>
+                  <div class="sc-9cwg9-1 gLgexz">
+                    <div class="sc-9cwg9-2 cNiGzR">
+                      <div class="sc-9cwg9-3 eEDOvs">
+                        <a class="sc-1uwk3m0-0 kdlGbA sc-9cwg9-0 gujsmv" href="/ssr/sdp/link?vendorItemId=70872179792&amp;imagePath=https%3A%2F%2Fthumbnail10.coupangcdn.com%2Fthumbnails%2Fremote%2F96x96ex%2Fimage%2Fvendor_inventory%2Feed8%2F4b871a183fd2ea44e0a0e65d1e7c8fe47a256a0fb38334d618607a871a72.jpg&amp;sourceType=MyCoupang_my_orders_list_product_image" target="_blank">
+                          <img loading="lazy" width="64" height="64" src="https://thumbnail10.coupangcdn.com/thumbnails/remote/96x96ex/image/vendor_inventory/eed8/4b871a183fd2ea44e0a0e65d1e7c8fe47a256a0fb38334d618607a871a72.jpg" alt="슈피겐 닌텐도 스위치 강화유리 tR슬림 글라스, 2개">
+                        </a>
+                      </div>
+                      <div class="sc-9cwg9-5 bmwSdh">
+                        <div class="sc-9cwg9-6 jBCCpd">
+                          <a class="sc-gnmni8-10 yma-DD"></a>
+                          <a href="/ssr/sdp/link?vendorItemId=70872179792&amp;imagePath=https%3A%2F%2Fthumbnail10.coupangcdn.com%2Fthumbnails%2Fremote%2F96x96ex%2Fimage%2Fvendor_inventory%2Feed8%2F4b871a183fd2ea44e0a0e65d1e7c8fe47a256a0fb38334d618607a871a72.jpg&amp;sourceType=MyCoupang_my_orders_list_product_title" target="_blank" class="sc-gnmni8-10 sc-8q24ha-0 yma-DD hPjYZj">
+                            <img class="sc-18r141d-0 izjjTx" loading="lazy" height="16" src="https://image8.coupangcdn.com/image/my/common/badge/badge_3x/logo_Rocket_16@3x.png" alt="ROCKET">
+                            <span color="#111111" class="sc-755zt3-1 sc-8q24ha-1 inmgHC ifMZxv">슈피겐 닌텐도 스위치 강화유리 tR슬림 글라스, 2개</span>
+                          </a>
+                          <a class="sc-gnmni8-10 yma-DD"></a>
+                          <a class="sc-gnmni8-10 sc-8q24ha-5 yma-DD iDQVMP">
+                            <div class="sc-8q24ha-3 gFbjJh">
+                              <div class="sc-uaa4l4-0 jxRaeI">
+                                <span font-weight="normal" color="#555555" class="sc-755zt3-0 eDgzyT">17,150 원</span>
+                                <span class="sc-13xhsmd-0 kYtEGM">
+                                  <span class="sc-13xhsmd-1 joIhoV"></span>
+                                </span>
+                                <span class="sc-755zt3-0 jtWNEg">1 개 </span>
+                              </div>
 
-  <div class="btn_div">
-    <button type="button" class="btn submit">주문취소</button>
-    <button type="button" class="btn cancel">취소</button>
+                          </a>
+                          <div class="sc-fxyxvg-0 igPkOG"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+            
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sc-gnmni8-0 elGTUw">
+      <table class="sc-gnmni8-1 eSpcfO">
+        <colgroup>
+          <col width="600">
+          <col width="">
+        </colgroup>
+        <tbody class="sc-gnmni8-2 hryMPB">
+          <tr class="sc-gnmni8-3 gmGnuU">
+            <td class="sc-gnmni8-5 hUzAOG">
+              <div class="sc-ki5ja7-0 bQVZKC">
+                <div class="sc-ki5ja7-1 krPkOP">
+                  <span font-weight="bold" color="#111111" class="sc-755zt3-0 hullgd" style="font-size: 1.25rem;">배송완료</span>
+                  <span size="4" class="sc-13xhsmd-0 SWzAJ">
+                    <span size="4" class="sc-13xhsmd-1 kMeFyN"></span>
+                  </span>
+                  <span font-weight="normal" color="#008C00" class="sc-755zt3-0 sc-lcvccu-0 sCrFk dhoCVo">9/2(목) 도착</span>
+                </div>
+                <div class="sc-ki5ja7-2 grCKyH">
+                  <button size="28" class="sc-izcbvi-0 kivOhk">
+                    <div class="sc-izcbvi-1 JHhgQ"></div>
+                    <div class="sc-izcbvi-1 JHhgQ"></div>
+                    <div class="sc-izcbvi-1 JHhgQ"></div>
+                  </button>
+                </div>
+              </div>
+              <div class="sc-fe2r96-0 hmCrGF"></div>
+              <div class="sc-1jiyjbz-0 dGiGeF">
+                <div class="sc-gnmni8-9 kCcQTc">
+                  <div class="sc-g8964r-0 oRzGt"></div>
+                  <div class="sc-9cwg9-1 gLgexz">
+                    <div class="sc-9cwg9-2 cNiGzR">
+                      <div class="sc-9cwg9-3 eEDOvs">
+                        <a class="sc-1uwk3m0-0 kdlGbA sc-9cwg9-0 gujsmv" href="/ssr/sdp/link?vendorItemId=3737447444&amp;imagePath=https%3A%2F%2Fthumbnail8.coupangcdn.com%2Fthumbnails%2Fremote%2F96x96ex%2Fimage%2Fproduct%2Fimage%2Fvendoritem%2F2019%2F03%2F26%2F3737447444%2F9261f9df-2f3a-4264-83a1-d7c9d053ee3f.jpg&amp;sourceType=MyCoupang_my_orders_list_product_image" target="_blank">
+                          <img loading="lazy" width="64" height="64" src="https://thumbnail8.coupangcdn.com/thumbnails/remote/96x96ex/image/product/image/vendoritem/2019/03/26/3737447444/9261f9df-2f3a-4264-83a1-d7c9d053ee3f.jpg" alt="겜맥 닌텐도스위치 독에 끼워쓰는 크리스탈케이스, 1세트">
+                        </a>
+                      </div>
+                      <div class="sc-9cwg9-5 bmwSdh">
+                        <div class="sc-9cwg9-6 jBCCpd">
+                          <a class="sc-gnmni8-10 yma-DD"></a>
+                          <a href="/ssr/sdp/link?vendorItemId=3737447444&amp;imagePath=https%3A%2F%2Fthumbnail8.coupangcdn.com%2Fthumbnails%2Fremote%2F96x96ex%2Fimage%2Fproduct%2Fimage%2Fvendoritem%2F2019%2F03%2F26%2F3737447444%2F9261f9df-2f3a-4264-83a1-d7c9d053ee3f.jpg&amp;sourceType=MyCoupang_my_orders_list_product_title" target="_blank" class="sc-gnmni8-10 sc-8q24ha-0 yma-DD hPjYZj">
+                            <img class="sc-18r141d-0 izjjTx" loading="lazy" height="16" src="https://image8.coupangcdn.com/image/my/common/badge/badge_3x/logo_Rocket_16@3x.png" alt="ROCKET">
+                            <span color="#111111" class="sc-755zt3-1 sc-8q24ha-1 inmgHC ifMZxv">겜맥 닌텐도스위치 독에 끼워쓰는 크리스탈케이스, 1세트</span>
+                          </a>
+                          <a class="sc-gnmni8-10 yma-DD"></a>
+                          <a class="sc-gnmni8-10 sc-8q24ha-5 yma-DD iDQVMP">
+                            <div class="sc-8q24ha-3 gFbjJh">
+                              <div class="sc-uaa4l4-0 jxRaeI">
+                                <span font-weight="normal" color="#555555" class="sc-755zt3-0 eDgzyT">7,440 원</span>
+                                <span class="sc-13xhsmd-0 kYtEGM">
+                                  <span class="sc-13xhsmd-1 joIhoV"></span>
+                                </span>
+                                <span class="sc-755zt3-0 jtWNEg">1 개 </span>
+                              </div>
+                            </div>
+                            <div class="sc-8q24ha-4 cUFnye">
+                              <button class="sc-1k9quwu-0 bJzbju sc-xuyxga-0 bZaQeF">장바구니 담기</button>
+                              <div class="sc-xuyxga-1 hxalxw"></div>
+                            </div>
+                          </a>
+                          <div class="sc-fxyxvg-0 igPkOG"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td class="sc-gnmni8-6 gbTJl">
+              <div class="sc-gnmni8-7 bCQoer">
+                <button class="sc-1k9quwu-0 eLsqcZ sc-4d0nwb-0 iiEWkt">배송조회</button>
+                <button class="sc-1k9quwu-0 IZnx sc-gnmni8-8 kiiuoA">교환, 반품 신청</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sc-gnmni8-0 elGTUw">
+      <table class="sc-gnmni8-1 eSpcfO">
+        <colgroup>
+          <col width="600">
+          <col width="">
+        </colgroup>
+        <tbody class="sc-gnmni8-2 hryMPB">
+          <tr class="sc-gnmni8-3 gmGnuU">
+            <td class="sc-gnmni8-5 hUzAOG">
+              <div class="sc-ki5ja7-0 bQVZKC">
+                <div class="sc-ki5ja7-1 krPkOP">
+                  <span font-weight="bold" color="#111111" class="sc-755zt3-0 hullgd" style="font-size: 1.25rem;">배송완료</span>
+                  <span size="4" class="sc-13xhsmd-0 SWzAJ">
+                    <span size="4" class="sc-13xhsmd-1 kMeFyN"></span>
+                  </span>
+                  <span font-weight="normal" color="#555555" class="sc-755zt3-0 sc-lcvccu-0 eDgzyT dhoCVo">9/2(목) 도착</span>
+                </div>
+                <div class="sc-ki5ja7-2 grCKyH">
+                  <button size="28" class="sc-izcbvi-0 kivOhk">
+                    <div class="sc-izcbvi-1 JHhgQ"></div>
+                    <div class="sc-izcbvi-1 JHhgQ"></div>
+                    <div class="sc-izcbvi-1 JHhgQ"></div>
+                  </button>
+                </div>
+              </div>
+              <div class="sc-fe2r96-0 hmCrGF"></div>
+              <div class="sc-1jiyjbz-0 dGiGeF">
+                <div class="sc-gnmni8-9 kCcQTc">
+                  <div class="sc-g8964r-0 oRzGt"></div>
+                  <div class="sc-9cwg9-1 gLgexz">
+                    <div class="sc-9cwg9-2 cNiGzR">
+                      <div class="sc-9cwg9-3 eEDOvs">
+                        <a class="sc-1uwk3m0-0 kdlGbA sc-9cwg9-0 gujsmv" href="/ssr/sdp/link?vendorItemId=74813455571&amp;imagePath=https%3A%2F%2Fthumbnail9.coupangcdn.com%2Fthumbnails%2Fremote%2F96x96ex%2Fimage%2Fvendor_inventory%2F87a0%2F8bb1d18b2cec4987a93dd85e1165a09984854b41d375f7737db8f56ff7e3.jpg&amp;sourceType=MyCoupang_my_orders_list_product_image" target="_blank">
+                          <img loading="lazy" width="64" height="64" src="https://thumbnail9.coupangcdn.com/thumbnails/remote/96x96ex/image/vendor_inventory/87a0/8bb1d18b2cec4987a93dd85e1165a09984854b41d375f7737db8f56ff7e3.jpg" alt="닌텐도스위치 동물의숲 여행용 가방 EVA 하드케이스 파우치, 동물의숲 하드케이스 파우치">
+                        </a>
+                      </div>
+                      <div class="sc-9cwg9-5 bmwSdh">
+                        <div class="sc-9cwg9-6 jBCCpd">
+                          <a class="sc-gnmni8-10 yma-DD"></a>
+                          <a href="/ssr/sdp/link?vendorItemId=74813455571&amp;imagePath=https%3A%2F%2Fthumbnail9.coupangcdn.com%2Fthumbnails%2Fremote%2F96x96ex%2Fimage%2Fvendor_inventory%2F87a0%2F8bb1d18b2cec4987a93dd85e1165a09984854b41d375f7737db8f56ff7e3.jpg&amp;sourceType=MyCoupang_my_orders_list_product_title" target="_blank" class="sc-gnmni8-10 sc-8q24ha-0 yma-DD hPjYZj">
+                            <span color="#111111" class="sc-755zt3-1 sc-8q24ha-1 inmgHC ifMZxv">닌텐도스위치 동물의숲 여행용 가방 EVA 하드케이스 파우치, 동물의숲 하드케이스 파우치</span>
+                          </a>
+                          <a class="sc-gnmni8-10 yma-DD"></a>
+                          <a class="sc-gnmni8-10 sc-8q24ha-5 yma-DD iDQVMP">
+                            <div class="sc-8q24ha-3 gFbjJh">
+                              <div class="sc-uaa4l4-0 jxRaeI">
+                                <span font-weight="normal" class="sc-755zt3-0 kftgZM">9,190 원</span>
+                                <span class="sc-13xhsmd-0 kYtEGM">
+                                  <span class="sc-13xhsmd-1 joIhoV"></span>
+                                </span>
+                                <span class="sc-755zt3-0 jtWNEg">1 개</span>
+                              </div>
+                            </div>
+                            <div class="sc-8q24ha-4 cUFnye">
+                              <button class="sc-1k9quwu-0 bJzbju sc-xuyxga-0 bZaQeF">장바구니 담기</button>
+                              <div class="sc-xuyxga-1 hxalxw"></div>
+                            </div>
+                          </a>
+                          <div class="sc-fxyxvg-0 igPkOG"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td class="sc-gnmni8-6 gbTJl">
+              <div class="sc-gnmni8-7 bCQoer">
+                <button class="sc-1k9quwu-0 eLsqcZ sc-4d0nwb-0 iiEWkt">배송조회</button>
+                <button class="sc-1k9quwu-0 IZnx sc-gnmni8-8 kiiuoA">교환, 반품 신청</button>
+                <button class="sc-1k9quwu-0 IZnx sc-gnmni8-8 kiiuoA">판매자 문의</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sc-h20x0n-0 gcWEbw"></div>
   </div>
+  <div class="sc-fimazj-0 gKYVxm">
+    <div class="sc-abukv2-0 kcHmyx">
+      <div class="sc-abukv2-1 kSZYgn">2021. 7. 26 주문</div>
+      <div class="sc-abukv2-2 kThsCL">
+        <span class="sc-abukv2-3 gSIruC">주문 상세보기</span>
+        <svg width="16" height="16" focusable="false" viewBox="0 0 16 16" aria-hidden="true" role="presentation" style="fill: rgb(52, 106, 255); vertical-align: middle; height: 100%;">
+          <path fill="#346aff" fill-rule="nonzero" d="M11.057 8L5.53 13.529c-.26.26-.26.682 0 .942.26.26.682.26.942 0l6-6c.26-.26.26-.682 0-.942l-6-6c-.26-.26-.682-.26-.942 0-.26.26-.26.682 0 .942L11.057 8z"></path>
+        </svg>
+      </div>
+    </div>
+    <div class="sc-gnmni8-0 elGTUw">
+      <table class="sc-gnmni8-1 eSpcfO">
+        <colgroup>
+          <col width="600">
+          <col width="">
+        </colgroup>
+        <tbody class="sc-gnmni8-2 hryMPB">
+          <tr class="sc-gnmni8-3 gmGnuU">
+            <td class="sc-gnmni8-5 hUzAOG">
+              <div class="sc-ki5ja7-0 bQVZKC">
+                <div class="sc-ki5ja7-1 krPkOP">
+                  <span font-weight="bold" color="#111111" class="sc-755zt3-0 hullgd" style="font-size: 1.25rem;">배송완료</span>
+                  <span size="4" class="sc-13xhsmd-0 SWzAJ">
+                    <span size="4" class="sc-13xhsmd-1 kMeFyN"></span>
+                  </span>
+                  <span font-weight="normal" color="#008C00" class="sc-755zt3-0 sc-lcvccu-0 sCrFk dhoCVo">7/27(화) 도착</span>
+                </div>
+                <div class="sc-ki5ja7-2 grCKyH">
+                  <button size="28" class="sc-izcbvi-0 kivOhk">
+                    <div class="sc-izcbvi-1 JHhgQ"></div>
+                    <div class="sc-izcbvi-1 JHhgQ"></div>
+                    <div class="sc-izcbvi-1 JHhgQ"></div>
+                  </button>
+                </div>
+              </div>
+              <div class="sc-fe2r96-0 hmCrGF"></div>
+              <div class="sc-1jiyjbz-0 dGiGeF">
+                <div class="sc-gnmni8-9 kCcQTc">
+                  <div class="sc-g8964r-0 oRzGt"></div>
+                  <div class="sc-9cwg9-1 gLgexz">
+                    <div class="sc-9cwg9-2 cNiGzR">
+                      <div class="sc-9cwg9-3 eEDOvs">
+                        <a class="sc-1uwk3m0-0 kdlGbA sc-9cwg9-0 gujsmv" href="/ssr/sdp/link?vendorItemId=72779719065&amp;imagePath=https%3A%2F%2Fthumbnail10.coupangcdn.com%2Fthumbnails%2Fremote%2F96x96ex%2Fimage%2Frs_quotation_api%2Fswlt1tpd%2F0cfc45f0fffc4b9d84626d6ff0928c4d.jpg&amp;sourceType=MyCoupang_my_orders_list_product_image" target="_blank">
+                          <img loading="lazy" width="64" height="64" src="https://thumbnail10.coupangcdn.com/thumbnails/remote/96x96ex/image/rs_quotation_api/swlt1tpd/0cfc45f0fffc4b9d84626d6ff0928c4d.jpg" alt="카멜 마운트 고든프로 싱글 모니터암 UMA-2, 1개">
+                        </a>
+                      </div>
+                      <div class="sc-9cwg9-5 bmwSdh">
+                        <div class="sc-9cwg9-6 jBCCpd">
+                          <a class="sc-gnmni8-10 yma-DD"></a>
+                          <a href="/ssr/sdp/link?vendorItemId=72779719065&amp;imagePath=https%3A%2F%2Fthumbnail10.coupangcdn.com%2Fthumbnails%2Fremote%2F96x96ex%2Fimage%2Frs_quotation_api%2Fswlt1tpd%2F0cfc45f0fffc4b9d84626d6ff0928c4d.jpg&amp;sourceType=MyCoupang_my_orders_list_product_title" target="_blank" class="sc-gnmni8-10 sc-8q24ha-0 yma-DD hPjYZj">
+                            <img class="sc-18r141d-0 izjjTx" loading="lazy" height="16" src="https://image8.coupangcdn.com/image/my/common/badge/badge_3x/logo_Rocket_16@3x.png" alt="ROCKET">
+                            <span color="#111111" class="sc-755zt3-1 sc-8q24ha-1 inmgHC ifMZxv">카멜 마운트 고든프로 싱글 모니터암 UMA-2, 1개</span>
+                          </a>
+                          <a class="sc-gnmni8-10 yma-DD"></a>
+                          <a class="sc-gnmni8-10 sc-8q24ha-5 yma-DD iDQVMP">
+                            <div class="sc-8q24ha-3 gFbjJh">
+                              <div class="sc-uaa4l4-0 jxRaeI">
+                                <span font-weight="normal" class="sc-755zt3-0 kftgZM">99,420 원</span>
+                                <span class="sc-13xhsmd-0 kYtEGM">
+                                  <span class="sc-13xhsmd-1 joIhoV"></span>
+                                </span>
+                                <span class="sc-755zt3-0 jtWNEg">1 개</span>
+                              </div>
+                            </div>
+                            <div class="sc-8q24ha-4 cUFnye">
+                              <button class="sc-1k9quwu-0 bJzbju sc-xuyxga-0 bZaQeF">장바구니 담기</button>
+                              <div class="sc-xuyxga-1 hxalxw"></div>
+                            </div>
+                          </a>
+                          <div class="sc-fxyxvg-0 igPkOG"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td class="sc-gnmni8-6 gbTJl">
+              <div class="sc-gnmni8-7 bCQoer">
+                <button class="sc-1k9quwu-0 eLsqcZ sc-4d0nwb-0 iiEWkt">배송조회</button>
+                <button class="sc-1k9quwu-0 IZnx sc-gnmni8-8 kiiuoA">교환, 반품 신청</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sc-h20x0n-0 gcWEbw"></div>
+  </div>
+  <div class="sc-1o307be-0 jOhOoP">
+    <button class="sc-1k9quwu-0 fwNiMs sc-1o307be-1 dTwpud" disabled="">
+      <svg width="14" height="14" focusable="false" viewBox="0 0 16 16" aria-hidden="true" role="presentation" style="fill: rgb(170, 181, 192); transform: rotate(180deg);">
+        <path fill="#aab5c0" fill-rule="nonzero" d="M11.057 8L5.53 13.529c-.26.26-.26.682 0 .942.26.26.682.26.942 0l6-6c.26-.26.26-.682 0-.942l-6-6c-.26-.26-.682-.26-.942 0-.26.26-.26.682 0 .942L11.057 8z"></path>
+      </svg>
+      이전
+    </button>
+    <button class="sc-1k9quwu-0 fwNiMs sc-1o307be-1 dTwpud" disabled="">
+      다음
+      <svg width="14" height="14" focusable="false" viewBox="0 0 16 16" aria-hidden="true" role="presentation" style="fill: rgb(170, 181, 192);">
+        <path fill="#aab5c0" fill-rule="nonzero" d="M11.057 8L5.53 13.529c-.26.26-.26.682 0 .942.26.26.682.26.942 0l6-6c.26-.26.26-.682 0-.942l-6-6c-.26-.26-.682-.26-.942 0-.26.26-.26.682 0 .942L11.057 8z"></path>
+      </svg>
+    </button>
+  </div>
+</div>
 </body>
-
 </html>
