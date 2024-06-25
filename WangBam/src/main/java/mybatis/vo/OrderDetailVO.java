@@ -39,10 +39,11 @@ public class OrderDetailVO {
 	public void setOd_price(String od_price) {
 		this.od_price = od_price;
 	}
-	public OrderVO getOrdervo() {
+
+	public OrderVO getOvo() {
 		return ovo;
 	}
-	public void setOrdervo(OrderVO ovo) {
+	public void setOvo(OrderVO ovo) {
 		this.ovo = ovo;
 	}
 	public ProductVO getPvo() {

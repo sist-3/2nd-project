@@ -39,10 +39,10 @@ public class OrderDetailDAO {
         return result;
     }
 
-    public static List<OrderDetailVO> findByIdxWithProduct(String or_idx) {
+    public static OrderDetailVO findByIdxWithProduct(String or_idx) {
         SqlSession ss = FactoryService.getFactory().openSession();
-        List<OrderDetailVO> list = ss.selectList("order_detail.findByIdxWithProduct", or_idx);
+        OrderDetailVO vo = ss.selectOne("order_detail.findByIdxWithProduct", or_idx);
         
-        return list;
+        return vo;
     }
 }
