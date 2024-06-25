@@ -194,6 +194,12 @@
 		
 		function requestPayment(){
 			let form = document.forms[0];
+			
+			// 폼 유효성 검사
+			if (!validateForm(form)) {
+				return false; // 유효성 검사 실패 시, 폼 제출 중단
+			}
+			
 			if(form.payment.value == 2) {
 				requestCardPayment();
 			}
@@ -219,16 +225,14 @@
 
 		function sendOrder(response) {
 			let form = document.forms[0];
+			
 			// 폼 데이터에 hidden type으로 paymentId 추가
 			let paymentId = document.createElement("input");
 			paymentId.type = "hidden";
 			paymentId.name = "paymentId";
 			paymentId.value = response.paymentId;
 			form.appendChild(paymentId);
-			// 폼 유효성 검사
-			if (!validateForm(form)) {
-				return false; // 유효성 검사 실패 시, 폼 제출 중단
-			}
+			
 			// 모든 검사를 통과하면 form 제출
 			form.submit();
 		}
