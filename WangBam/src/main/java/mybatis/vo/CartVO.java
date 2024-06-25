@@ -1,12 +1,24 @@
 package mybatis.vo;
 
+import java.util.List;
+
 public class CartVO {
 	private String ca_idx,
 	us_idx,
 	pd_idx,
 	ca_cnt;
+	
 	private UserVO uvo;
 	private ProductVO pvo;
+	private List<ProductVO> pvoList;
+	
+	public List<ProductVO> getList() {
+		return pvoList;
+	}
+	
+	public void setList(List<ProductVO> pvoList) {
+		this.pvoList = pvoList;
+	}
 	
 	public String getCa_idx() {
 		return ca_idx;
