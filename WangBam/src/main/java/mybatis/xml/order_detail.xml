@@ -43,6 +43,8 @@
 
     <!-- findWithProduct -->
     <resultMap id="orderDetailWithProduct" type="mybatis.vo.OrderDetailVO">
+    	<id property="or_idx" column="or_idx"></id>
+        <association property="ovo" column="or_idx" javaType="mybatis.vo.OrderVO" select="order.findByid"/>
         <association property="pvo" column="pd_idx" javaType="mybatis.vo.ProductVO" select="product.findByid"/>
     </resultMap>
 
