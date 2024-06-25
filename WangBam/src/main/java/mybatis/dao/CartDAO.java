@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import mybatis.service.FactoryService;
 import mybatis.vo.CartVO;
+import mybatis.vo.ProductVO;
 
 public class CartDAO {
  //장바구니  조회
@@ -56,6 +57,7 @@ public class CartDAO {
 		ss.close();
 		return cnt;
  }
+ //장바구니 선택 삭제(장바구니 비우기)
  public static int deleteCarts(Map<String, Object>map) {
 		SqlSession ss = FactoryService.getFactory().openSession();
 		int cnt = ss.delete("cart.deleteCarts",map);
@@ -67,5 +69,8 @@ public class CartDAO {
 		ss.close();
 		return cnt;
 	}
+
+
+
 
 }
