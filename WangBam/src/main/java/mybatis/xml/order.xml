@@ -146,5 +146,10 @@
 		ORDER BY
 		    or_sales_month desc limit 6;
     </select>
+    <!-- OrderDetail 조회용 -->
+    <select id="findByid" resultType="mybatis.vo.OrderVO" parameterType="String">
+    	SELECT * FROM order_t
+    	WHERE or_idx = ${or_idx}
+    </select>
     
 </mapper>
