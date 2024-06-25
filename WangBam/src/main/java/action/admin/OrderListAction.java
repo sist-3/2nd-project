@@ -25,8 +25,6 @@ public class OrderListAction implements Action {
 	
 		if(searchType == null || searchType == "all") {
 			searchType = null;
-		}else if(searchType.equals("or_date") && searchValue == "") {
-			searchValue = "1234-12-12";
 		}
 		
 		Map<String, String> map2 = new HashMap<>();
