@@ -13,8 +13,8 @@
 			<option value="all" selected>전체조회</option>
 			<option value="or_name"
 				<c:if test="${(requestScope.searchType == 'or_name')}">selected</c:if>>받는사람</option>
-			<option value="or_date"
-				<c:if test="${(requestScope.searchType == 'or_date')}">selected</c:if>>배송일</option>
+			<option value="or_payment_code"
+				<c:if test="${(requestScope.searchType == 'or_payment_code')}">selected</c:if>>주문번호</option>
 			<option value="or_status_code"
 				<c:if test="${(requestScope.searchType == 'or_status_code')}">selected</c:if>>주문상태</option>
 			<option value="or_tracking_number"
@@ -31,8 +31,9 @@
 		<th><input type="checkbox" id="selectCancelAll"/> 주문취소</th>
 		<th>no</th>
 		<th>받는사람</th>
-		<th>전화번호</th>
+		<th>주문번호</th>
 		<th>주문상태</th>
+		<th>주문금액</th>
 		<th>운송장 번호</th>
 	</tr>
 	<c:forEach var="vo" items="${requestScope.list }" varStatus="vs">
@@ -43,8 +44,9 @@
 			<td><a
 				href="admin?type=orderDetail&or_idx=${vo.or_idx }">${vo.or_name}
 			</a></td>
-			<td>${vo.or_tel}</td>
+			<td>${vo.or_payment_code}</td>
 			<td>${vo.or_status_code}</td>
+			<td>${vo.or_total_price}</td>
 			<td>${vo.or_tracking_number}</td>
 		</tr>
 	</c:forEach>

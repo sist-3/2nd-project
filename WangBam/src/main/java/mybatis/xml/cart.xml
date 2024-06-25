@@ -4,19 +4,15 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cart">
 
-<!-- findBypd_idx장바구니  조회 -->
-<resultMap id="findByProduct" type="mybatis.vo.CartVO" >
-	<collection property="pvo" column="pd_idx" ofType="mybatis.vo.ProductVO" select="product.findByid"/>
-</resultMap>
-
-<select id="all" parameterType="String" resultMap="findByProduct">
+<!-- <select>장바구니  조회 -->
+<select id="all" parameterType="int" resultType="mybatis.vo.CartVO">
 select * from cart_t
 where us_idx = #{us_idx}
 </select>
 
 <!-- 장바구니 추가 -->
 <insert id="add" parameterType="Map">
-insert into cart_t(us_idx, pd_idx, ca_cnt)values(#{us_idx}, #{pd_idx}, #{ca_cnt})
+insert into cart_t(ca_idx, us_idx, ca_product_idx, ca_cnt)values(#{ca_idx}, #{us_idx}, #{ca_product_idx}, #{ca_cnt})
 </insert> 
 
 <!-- <update>상품 수량만 수정 가능 -->

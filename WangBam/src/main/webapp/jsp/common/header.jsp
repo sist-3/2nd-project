@@ -39,13 +39,13 @@
 							<h1>
 								<a href="?type=index" class="product-name">왕밤빵</a>
 							</h1>
-							<c:if test="${sessionScope.user != null}">
+							<c:if test="${sessionScope.user ne null}">
 								<a href="?type=logout">로그아웃</a>
 								<a href="?type=my">마이페이지</a>
 								<a href="?type=order">주문현황</a>
 								<a href="?type=cart">장바구니</a>
 							</c:if>
-							<c:if test="${sessionScope.user == null}">
+							<c:if test="${sessionScope.user eq null}">
 								<a href="?type=login">로그인</a> <a href="?type=member">회원가입</a>
 							</c:if>
 						</div>

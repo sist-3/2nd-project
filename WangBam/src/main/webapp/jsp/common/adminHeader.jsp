@@ -34,8 +34,8 @@
 							class="${currentPage.contains('product') ? 'global-nav-item on' : 'global-nav-item'}">상품관리</a>
 						<a href="admin?type=orderList"
 							class="${currentPage.contains('order') ? 'global-nav-item on' : 'global-nav-item'}">주문관리</a>
-						<a href="admin?type=memberList"
-							class="${currentPage.contains('member') ? 'global-nav-item on' : 'global-nav-item'}">회원관리</a>
+						<a href="admin?type=userList"
+							class="${currentPage.contains('user') ? 'global-nav-item on' : 'global-nav-item'}">회원관리</a>
 					</div>
 				</nav>
 			</header>

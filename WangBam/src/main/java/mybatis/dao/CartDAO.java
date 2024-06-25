@@ -7,18 +7,14 @@ import org.apache.ibatis.session.SqlSession;
 
 import mybatis.service.FactoryService;
 import mybatis.vo.CartVO;
-import mybatis.vo.ProductVO;
 
 public class CartDAO {
  //장바구니  조회
  public static CartVO[] allCart(String us_idx) {
 	 SqlSession ss = FactoryService.getFactory().openSession();
 	 List<CartVO> list = ss.selectList("cart.all",us_idx);
-	 CartVO[] arr = new CartVO[list.size()];
-	 for(int i = 0; i<list.size(); i++) {
-		 arr[i]=list.get(i);
-	 }
 	 ss.close();
+	 CartVO[] arr = new CartVO[list.size()];
 	 return arr;
  }
  //장바구니 추가
