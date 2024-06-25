@@ -24,7 +24,9 @@
 					<div class="global-nav-links">
 						<a href="admin?type=index"
 							class="${currentPage.contains('index') ? 'global-nav-item on' : 'global-nav-item'}">한눈에
-							보기</a> <a href="admin?type=reviewList"
+							보기</a> <a href="admin?type=noticeList"
+							class="${currentPage.contains('notice') ? 'global-nav-item on' : 'global-nav-item'}">공지사항
+							관리</a> <a href="admin?type=reviewList"
 							class="${currentPage.contains('review') ? 'global-nav-item on' : 'global-nav-item'}">리뷰
 							답글</a> <a href="admin?type=questionList"
 							class="${currentPage.contains('question') ? 'global-nav-item on' : 'global-nav-item'}">문의사항

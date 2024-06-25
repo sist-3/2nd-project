@@ -27,7 +27,8 @@
 </div>
 <table class="table" id="orderList">
 	<tr>
-		<th><input type="checkbox" id="selectAll"/> 선택</th>
+		<th><input type="checkbox" id="selectSendAll"/> 발송</th>
+		<th><input type="checkbox" id="selectCancelAll"/> 주문취소</th>
 		<th>no</th>
 		<th>받는사람</th>
 		<th>전화번호</th>
@@ -37,8 +38,9 @@
 	<c:forEach var="vo" items="${requestScope.list }" varStatus="vs">
 		<tr>
 			<td><input type="checkbox" value="${vo.or_idx}" name="or_idx_ar" /></td>
+			<td><input type="checkbox" value="${vo.or_idx}" name="or_idx_ar" /></td>
 			<td>${vs.index + 1 + (page.pagePerBlock * (page.nowPage - 1))}</td>
-			<td style="text-align: left"><a
+			<td><a
 				href="admin?type=orderDetail&or_idx=${vo.or_idx }">${vo.or_name}
 			</a></td>
 			<td>${vo.or_tel}</td>
@@ -97,19 +99,8 @@
 
 <script>
 $(function(){
-	 $('#selectAll').on('change', function(){
-	        const isChecked = this.checked;
-	        $('input[name="or_idx_ar"]').each(function() {
-	            const row = $(this).closest('tr');
-	            const orderStatus = row.find('td:eq(4)').text().trim();
-	            console.log(orderStatus);
-	            if (orderStatus === 'UNKNOWN' && isChecked) {
-	                $(this).prop('checked', true);
-	            } else {
-	                $(this).prop('checked', false);
-	            }
-	        });
-	    });
+	selectCancelAll();
+	selectSendAll();
 	
 	$("#searchType").on('change', function(){
 		$("#searchValue").val("");
@@ -129,11 +120,43 @@ $(function(){
 		}).done(function(res) {
 			$("#orderList").html($(res).find("#orderList").html());
 			$("#pagination").html($(res).find("#pagination").html());
+			selectCancelAll();
+			selectSendAll();
 		});
 	});
 });
 
+function selectSendAll() {
+	$('#selectSendAll').on('change', function(){
+        const isChecked = this.checked;
+        $('input[name="or_idx_ar"]').each(function() {
+            const row = $(this).closest('tr');
+            const orderStatus = row.find('td:eq(5)').text().trim();
+            const column = row.children().eq(0).find("input");
+            if (orderStatus === 'UNKNOWN' && isChecked) {
+                $(column).prop('checked', true);
+            } else {
+                $(column).prop('checked', false);
+            }
+        });
+    });
+}
 
+function selectCancelAll() {
+	$('#selectCancelAll').on('change', function(){
+        const isChecked = this.checked;
+        $('input[name="or_idx_ar"]').each(function() {
+            const row = $(this).closest('tr');
+            const orderStatus = row.find('td:eq(5)').text().trim();
+            const column = row.children().eq(1).find("input");
+            if (orderStatus.includes('UNKNOWN') && isChecked) {
+                $(column).prop('checked', true);
+            } else {
+                $(column).prop('checked', false);
+            }
+        });
+    });
+}
 function or_ok(){
 	if (confirm("정말 발송하시겠습니까?")) {
         const checkboxes = document.querySelectorAll('input[name="or_idx_ar"]:checked');

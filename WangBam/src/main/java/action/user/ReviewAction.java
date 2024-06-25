@@ -21,7 +21,6 @@ public class ReviewAction implements Action {
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewPath = null;
 		Paging page = new Paging(5,5);
-		
 		String cPage = request.getParameter("cPage");
 
 		Map<String, String> count_map = new HashMap<>();

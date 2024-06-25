@@ -291,7 +291,10 @@ caption {
 .item > .img-box > img:hover {
 	max-width:100%;
 }
-
+select {
+	appearance:none;
+	background:url(../img/icon_arrow_down.png) no-repeat center right 8px/24px;
+}
 /* jQueryUI */
 .ui-datepicker-year, .ui-datepicker-month{
 	display: inline !important;

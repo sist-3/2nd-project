@@ -16,6 +16,15 @@ public class UserDAO {
 		int cnt = ss.insert("user.add",map);
 		if(cnt>0) {
 			ss.commit();
+		}else{
+			ss.rollback();
+		}
+		
+		int c = ss.insert("addr.add",map);
+		if(c>0) {
+			ss.commit();
+		}else{
+			ss.rollback();
 		}
 		ss.close();
 		return cnt; 
@@ -94,6 +103,19 @@ public class UserDAO {
 	static public UserVO findByidx(String us_idx) {
 		SqlSession ss = FactoryService.getFactory().openSession();
 		UserVO result = ss.selectOne("user.findByidx",us_idx);
+		ss.close();
+		return result;
+	}
+
+	static public UserVO findByEmail(String us_email) {
+		SqlSession ss = FactoryService.getFactory().openSession();
+		UserVO result = ss.selectOne("user.findByEmail",us_email);
+		ss.close();
+		return result;
+	}
+	static public UserVO findByNickname(String us_nickname) {
+		SqlSession ss = FactoryService.getFactory().openSession();
+		UserVO result = ss.selectOne("user.findByNickname",us_nickname);
 		ss.close();
 		return result;
 	}

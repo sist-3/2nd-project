@@ -10,7 +10,7 @@
     </resultMap>
 
     <!-- 유저 추가 -->
-  	<insert id="add" parameterType="Map">
+  	<insert id="add" parameterType="Map" useGeneratedKeys="true" keyProperty="us_idx" keyColumn="us_idx">
   		INSERT INTO user_t(us_name, us_email, us_pwd, us_nickname, us_tel, us_insert_date, us_type, us_status)
   	  VALUES (#{us_name}, #{us_email}, #{us_pwd}, #{us_nickname}, #{us_tel}, now(), 1, 1);
   	</insert>
@@ -35,6 +35,16 @@
     <!-- 유저 전체조회 -->
     <select id="all" resultType="mybatis.vo.UserVO">
         SELECT * FROM user_t WHERE us_status = 1;
+    </select>
+
+    <!-- 이메일로 유저 조회 -->
+    <select id="findByEmail" parameterType="String" resultType="mybatis.vo.UserVO">
+      SELECT * FROM user_t WHERE us_email = #{us_email} AND us_status = 1;
+    </select>
+
+    <!-- 닉네임으로 유저 조회 -->
+    <select id="findByNickname" parameterType="String" resultType="mybatis.vo.UserVO">
+      SELECT * FROM user_t WHERE us_nickname = #{us_nickname} AND us_status = 1;
     </select>
 
     <!-- 유저 리스트 조회 -->
