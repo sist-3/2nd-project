@@ -1,6 +1,5 @@
 package action.admin;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,10 +9,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
 import mybatis.dao.OrderDAO;
+import mybatis.dao.UserDAO;
 import mybatis.vo.OrderVO;
+import mybatis.vo.UserVO;
 import util.Paging;
 
-public class OrderListAction implements Action {
+public class UserListAction implements Action {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -22,16 +23,13 @@ public class OrderListAction implements Action {
 		
 		String searchType = request.getParameter("searchType");
 		String searchValue = request.getParameter("searchValue");
-	
-		if(searchType == null || searchType == "all") {
-			searchType = null;
-		}
 		
 		Map<String, String> map2 = new HashMap<>();
-		map2.put(searchType,searchValue); // or_date : 2024-04-12
+		map2.put("searchType",searchType);
+		map2.put("searchValue",searchValue);
 		
 		//전체 페이지 수 구하기
-		page.setTotalRecord(OrderDAO.allCount(map2));
+		page.setTotalRecord(UserDAO.count(map2));
 		
 		//현재 페이지 값 받기
 		String cPage = request.getParameter("cPage");
@@ -49,9 +47,10 @@ public class OrderListAction implements Action {
 		Map<String, String> map = new HashMap<>();
 		map.put("begin",begin);
 		map.put("end",end);
-		map.put(searchType,searchValue); // or_date : 2024-04-12
+		map.put("searchType",searchType); // or_date : 2024-04-12
+		map.put("searchValue",searchValue); // or_date : 2024-04-12
 		
-		List<OrderVO> list = OrderDAO.find(map);
+		UserVO[] list = UserDAO.search(map);
 		
 		//배열 ar을 jsp에서 표현하기 위해 request에 저장
 		request.setAttribute("list", list);
@@ -59,7 +58,7 @@ public class OrderListAction implements Action {
 		request.setAttribute("searchType", searchType);
 		request.setAttribute("searchValue", searchValue);
 		
-		return "/jsp/admin/orderList.jsp";
+		return "/jsp/admin/userList.jsp";
 		
 	}
 

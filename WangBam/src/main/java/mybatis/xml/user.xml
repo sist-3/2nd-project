@@ -47,26 +47,60 @@
       SELECT * FROM user_t WHERE us_nickname = #{us_nickname} AND us_status = 1;
     </select>
 
-    <!-- 유저 리스트 조회 -->
+    <!-- find -->
     <select id="searchUserList" parameterType="Map" resultType="mybatis.vo.UserVO">
-      SELECT * FROM user_t
-      <choose>
-        <when test="type == 'name'">
-          WHERE us_name LIKE concat('%', #{value}, '%') AND us_status = 1
-        </when>
-        <when test="type == 'email'">
-          WHERE us_email LIKE concat('%', #{value}, '%') AND us_status = 1
-        </when>
-        <when test="type == 'tel'">
-          WHERE us_tel LIKE concat('%', #{value}, '%') AND us_status = 1
-        </when>
-        <when test="type == 'nickname'">
-          WHERE us_nickname LIKE concat('%', #{value}, '%') AND us_status = 1
-        </when>
-        <otherwise>
-          WHERE us_status = 1
-        </otherwise>
-      </choose>
+        SELECT * FROM (
+        	SELECT @RN:=@RN+1 AS rnum, a.*
+        	FROM (
+            	SELECT *
+            	FROM user_t
+            	<where>
+		            <choose>
+				        <when test="searchType == 'name'">
+				          us_name LIKE CONCAT('%', #{searchValue}, '%') AND
+				        </when>
+				        <when test="searchType == 'email'">
+				          us_email LIKE CONCAT('%', #{searchValue}, '%') AND
+				        </when>
+				        <when test="searchType == 'tel'">
+				          us_tel LIKE CONCAT('%', #{searchValue}, '%') AND
+				        </when>
+				        <when test="searchType == 'nickname'">
+				          us_nickname LIKE CONCAT('%', #{searchValue}, '%') AND
+				        </when>
+			      	</choose>
+		            us_status = 1
+		        </where>
+        	) a, (SELECT @RN:=0) b
+    	) c
+        <where>
+            <if test="begin != null and end != null">
+				c.rnum BETWEEN #{begin} AND #{end}
+			</if>
+        </where>
+    </select>
+    <!-- 페이징용 -->
+    <select id="count" parameterType="Map" resultType="int">
+        SELECT count(*) FROM user_t
+        <where>
+	        <trim prefixOverrides="AND">
+	            <choose>
+			        <when test="searchType == 'name'">
+			          us_name LIKE CONCAT('%', #{searchValue}, '%')
+			        </when>
+			        <when test="searchType == 'email'">
+			          us_email LIKE CONCAT('%', #{searchValue}, '%')
+			        </when>
+			        <when test="searchType == 'tel'">
+			          us_tel LIKE CONCAT('%', #{searchValue}, '%')
+			        </when>
+			        <when test="searchType == 'nickname'">
+			          us_nickname LIKE CONCAT('%', #{searchValue}, '%')
+			        </when>
+		      	</choose>
+	            AND us_status = 1
+	        </trim>
+        </where>
     </select>
 
     <!-- 마이페이지 -->

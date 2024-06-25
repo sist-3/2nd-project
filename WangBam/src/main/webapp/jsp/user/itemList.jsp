@@ -60,10 +60,6 @@
     	</c:when>
     </c:choose>
   </div>
-
-  <div class="btn_div">
-    <button type="button" class="btn submit">삭제</button>
-  </div>
   
  <%@include file="/jsp/common/footer.jsp"%>
  

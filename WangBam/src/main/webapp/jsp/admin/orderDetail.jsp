@@ -7,10 +7,10 @@
 
 
 <h1>주문 상세조회</h1>
-<form action="" method="post" class="form-group">
+<form action="" method="post" class="form-group" id="orderForm">
 	<div>
 		<label for="or_idx">주문번호</label> <input type="text" name="or_idx"
-			value="${vo.or_idx }" disabled  />
+			value="${vo.or_idx }" id="or_idx" disabled  />
 	</div>
 	<div>
 		<label for="or_date">주문일시</label> <input type="text" name="or_date"
@@ -41,17 +41,35 @@
 	</div>
 
 	<div class="btn_div">
-		<button type="button" class="admin-btn submit" onclick="">저장</button>
-		<button type="button" class="admin-btn cancel" onclick="cancelOrder()">취소</button>
+		<button type="button" class="admin-btn submit" onclick="okOrder()">발송</button>
+		<button type="button" class="admin-btn cancel" onclick="cancelOrder()">주문취소</button>
+		<button type="button" class="admin-btn edit" onclick="location.href='admin?type=orderList'">뒤로</button>
 	</div>
 </form>
 
 <%@include file="/jsp/common/footer.jsp"%>
 
 <script>
-	function cancelOrder(idx) {
-		if (confirm("주문을 취소하시겠습니까?")) {
-			window.location = "admin?type=orderUpdate&or_idx=" + idx;
+	
+	function okOrder() {
+		if (confirm("정말 발송하시겠습니까?")) {
+            const form = document.getElementById('orderForm');
+            const idx = document.getElementById("or_idx").value;
+
+	        form.method = 'POST';
+	        form.action = 'admin?type=orderUpdate&or_status_code=INFORMATION_RECEIVED&or_idx='+idx;
+	        form.submit();
+		}
+	}
+
+	function cancelOrder() {
+		if (confirm("정말 취소하시겠습니까?")) {
+            const form = document.getElementById('orderForm');
+            const idx = document.getElementById("or_idx").value;
+
+	        form.method = 'POST';
+	        form.action = 'admin?type=orderUpdate&or_status_code=CANCEL&or_idx='+idx;
+	        form.submit();
 		}
 	}
 </script>

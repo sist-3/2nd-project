@@ -40,6 +40,14 @@
         VALUES (#{or_idx}, #{pd_idx}, #{od_cnt}, #{od_price})
     </insert>
 
+    <!-- add -->
+    <insert id="multiAdd" parameterType="Map">
+        INSERT INTO order_detail_t (or_idx, pd_idx, od_cnt, od_price)
+        VALUES
+        <foreach item="item" collection="odvoList" separator=",">
+            (#{item.or_idx}, #{item.pd_idx}, #{item.od_cnt}, #{item.od_price})
+        </foreach>
+    </insert>
 
     <!-- findWithProduct -->
     <resultMap id="orderDetailWithProduct" type="mybatis.vo.OrderDetailVO">

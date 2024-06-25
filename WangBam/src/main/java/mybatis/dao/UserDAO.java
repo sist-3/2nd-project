@@ -98,6 +98,13 @@ public class UserDAO {
 		ss.close();
 		return arr;
 	}
+	//페이징용
+	static public int count(Map<String, String> map) {
+		SqlSession ss = FactoryService.getFactory().openSession();
+		int cnt = ss.selectOne("user.count", map);
+		ss.close();
+		return cnt;
+	}
 	
 	//유저 한명 검색
 	static public UserVO findByidx(String us_idx) {
