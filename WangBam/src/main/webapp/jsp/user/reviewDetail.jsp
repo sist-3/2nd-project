@@ -69,23 +69,27 @@
 		</div>
 	
 
-		<label for="content">댓글작성</label>
-		<form name="writeCommentForm" action="Controller" method="post" onsubmit="return writeComment()">
-			작성자: ${vo.uvo.us_nickname }<br/>
-			내용:<textarea rows="4" cols="30" name="co_content" id="co_content"></textarea><br/>
-			<input type="hidden" name="us_idx" value="7"/><!-- (!)로그인한 유저의 us_idx로 변경 요망-->
-			<input type="hidden" name="bo_idx" value="${vo.bo_idx}"/>
-			<input type="hidden" name="bo_type" value="2"/>
-			<input type="hidden" name="type" value="writeComment"/>
-			<input type="hidden" name="cPage" value="${requestScope.cPage}"/>
-			<input type="submit" value="댓글등록"/> 
-		</form>
+		<c:if test="${sessionScope.user != null}">
+			<label for="content">댓글작성</label>
+			<form name="writeCommentForm" action="Controller" method="post" onsubmit="return writeComment()">
+				작성자: ${sessionScope.user.us_nickname }<br/>
+				내용:<textarea rows="4" cols="30" name="co_content" id="co_content"></textarea><br/>
+				<input type="hidden" name="us_idx" value="${sessionScope.user.us_idx }"/>
+				<input type="hidden" name="bo_idx" value="${vo.bo_idx}"/>
+				<input type="hidden" name="bo_type" value="2"/>
+				<input type="hidden" name="cPage" value="${requestScope.cPage}"/>
+				<input type="hidden" name="type" value="writeComment"/>
+				<input type="submit" value="댓글등록"/> 
+			</form>
+		</c:if>
 		
-		<form name="boardDataForm" action="admin" method="post">
-			<input type="hidden" name="type" value="noticeEdit"/>
-			<input type="hidden" name="bo_idx" value="${vo.bo_idx}"/>
-			<input type="hidden" name="cPage" value="${requestScope.cPage}"/>
-		</form>
+		<c:if test="${sessionScope.user == null}">
+			<form name="loginFrm" action="Controller" method="get">
+				댓글작성:<textarea name="co_content" id="co_content" disabled>로그인이 필요합니다.</textarea><br/>
+				<input type="hidden" name="type" value="login"/>
+				<input type="submit" value="로그인"/>
+			</form>
+		</c:if>
 		
 		<button type="button" class="btn cancel"
 				onclick="javascript:window.location.href='Controller?type=review&cPage=${requestScope.cPage }'">목록</button>
