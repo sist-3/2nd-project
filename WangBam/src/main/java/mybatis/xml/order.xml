@@ -158,4 +158,16 @@
     	SELECT * FROM order_t
     	WHERE or_idx = ${or_idx}
     </select>
+    
+    
+    <!-- 주문정보와 주문상세정보 조회 -->
+    <resultMap type="mybatis.vo.OrderVO" id="findwithOrderDetail">
+        <id property="or_idx" column="or_idx"/>
+        <collection property="od_list" column="or_idx" ofType="mybatis.vo.OrderDetailVO" select="order_detail.findByIdxWithProduct"/>
+    </resultMap>
+
+    
+    <select id="findByUsIdxWithDetail" parameterType="String" resultMap="findwithOrderDetail">
+        SELECT * FROM order_t WHERE us_idx = #{us_idx}
+    </select>
 </mapper>

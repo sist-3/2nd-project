@@ -86,4 +86,17 @@ public class OrderDAO {
 
         return idx;
     }
+    
+    public static OrderVO[] findByUsIdxWithDetail(String us_idx){
+        OrderVO[] ar = null;
+        SqlSession ss = FactoryService.getFactory().openSession();
+        List<OrderVO> list = ss.selectList("order.findByUsIdxWithDetail", us_idx);
+        if(list != null){
+            ar = new OrderVO[list.size()];
+            list.toArray(ar);
+        }
+        ss.close();
+
+        return ar;
+    }
 }

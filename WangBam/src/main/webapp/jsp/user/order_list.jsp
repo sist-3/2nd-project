@@ -12,10 +12,10 @@
         </div>
         <c:forEach var="odvo" items="${ovo.od_list}">
         <div class="order-item">
-            <img src="${odvo.pd_img}" alt="Product Image">
+            <img src="https://via.placeholder.com/50""" alt="Product Image">
             <div class="order-item-details">
-                <h3>${odvo.pd_name}</h3>
-                <p>${odvo.pd_price}원</p>
+                <h3>${odvo.pvo.pd_name}</h3>
+                <p>${odvo.pvo.pd_sale_price}원</p>
             </div>
             <div class="order-item-actions">
                 ${odvo.od_cnt}개

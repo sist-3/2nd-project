@@ -1,5 +1,7 @@
 package mybatis.vo;
 
+import java.util.List;
+
 public class OrderVO {
 	private String or_idx,
 	us_idx,
@@ -20,6 +22,14 @@ public class OrderVO {
 	
 	private UserVO uvo;
 	
+	public List<OrderDetailVO> getOd_list() {
+		return od_list;
+	}
+	public void setOd_list(List<OrderDetailVO> od_list) {
+		this.od_list = od_list;
+	}
+	private List<OrderDetailVO> od_list;
+
 	public String getOr_total_price() {
 		return or_total_price;
 	}

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .order-container {
+            width: 80%;
+            margin: 0 auto;
+            border: 1px solid #ddd;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .order-header h2 {
+            margin: 0;
+        }
+        .order-header a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+        .order-item img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+        }
+        .order-item-details {
+            flex: 1;
+            margin-left: 20px;
+        }
+        .order-item-details h3 {
+            margin: 0;
+            font-size: 16px;
+        }
+        .order-item-details p {
+            margin: 5px 0;
+            color: #555;
+        }
+        .order-item-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+        .order-item-actions button {
+            margin-top: 5px;
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            background-color: #f8f9fa;
+            cursor: pointer;
+        }
+        .order-item-actions button:hover {
+            background-color: #e2e6ea;
+        }
+    .order-status {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+        border-bottom: 1px solid #ddd;
+    }
+    .order-status .status-value {
+        color: #28a745;
+        font-weight: bold;
+    }
+    </style>
+</head>
+<body>
+    <div class="order-container">
+        <div class="order-header">
+            <h2>2021. 9. 1 주문</h2>
+            <a href="#">주문 상세보기 &gt;</a>
+        </div>
+        <div class="order-status">
+            <span class="status-value">배송완료</span>
+        </div>
+        <div class="order-item">
+            <img src="https://via.placeholder.com/50" alt="Product Image">
+            <div class="order-item-details">
+                <h3>호후 닌텐도 스위치/라이트 스컬앤코 조이콘 아날로그 조이 스틱 커버 썸그립 6p 세트 동물의숲 민트 + 블루</h3>
+                <p>7,300원</p>
+            </div>
+            <div class="order-item-actions">
+                1개
+            </div>
+        </div>
+        <div class="order-item">
+            <img src="https://via.placeholder.com/50" alt="Product Image">
+            <div class="order-item-details">
+                <h3>슈피겐 닌텐도 스위치 강화유리 tR 슬림 글라스</h3>
+                <p>17,150원</p>
+            </div>
+            <div class="order-item-actions">
+                1개
+            </div>
+        </div>
+        <div class="order-item">
+            <img src="https://via.placeholder.com/50" alt="Product Image">
+            <div class="order-item-details">
+                <h3>겜맥 닌텐도 스위치 독에 끼워쓰는 크리스탈 케이스</h3>
+                <p>7,440원</p>
+            </div>
+            <div class="order-item-actions">
+                1개
+            </div>
+        </div>
+        <div class="order-item">
+            <img src="https://via.placeholder.com/50" alt="Product Image">
+            <div class="order-item-details">
+                <h3>닌텐도 스위치 동물의숲 연행용 가방 EVA 하드케이스</h3>
+                <p>9,190원</p>
+            </div>
+            <div class="order-item-actions">
+                1개
+            </div>
+        </div>
+    </div>
+</body>
+</html>
