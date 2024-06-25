@@ -14,30 +14,34 @@
 	</div>
 	<div>
 		<label for="or_date">주문일시</label> <input type="text" name="or_date"
-			value="${vo.or_date }" disabled />
+			value="${vo.ovo.or_date }" disabled />
 	</div>
 	<div>
 		<label for="or_date">주문완료일시</label> <input type="text" name="or_date"
-			value="${vo.or_end_date }" disabled />
+			value="${vo.ovo.or_end_date }" disabled />
 	</div>
 	<div>
 		<label for="or_name">받는사람</label> <input type="text" name="or_name"
-			value="${vo.or_name }" disabled />
+			value="${vo.ovo.or_name }" disabled />
+	</div>
+	<div>
+		<label for="pd_name">주문상품</label> <input type="text" name="pd_name"
+			value="${vo.pvo.pd_name }" disabled />
 	</div>
 	<div>
 		<label for="or_status_code">배송상태</label> <input type="text" name="or_status_code"
-			value="${vo.or_status_code }" disabled />
+			value="${vo.ovo.or_status_code }" disabled />
 
 
 	</div>
 	<div>
 		<label for="or_tracking_number">운송장번호</label> <input type="text" name="or_tracking_number"
-			value="${vo.or_tracking_number }" disabled />
+			value="${vo.ovo.or_tracking_number }" disabled />
 	</div>
 	<div>
 		<label for="or_addr">배송지</label> 
-		<input type="text" name="or_addr" value="${vo.or_addr }" disabled /> 
-		<input type="text" name="or_addr_detail" value="${vo.or_addr_detail }" disabled >
+		<input type="text" name="or_addr" value="${vo.ovo.or_addr }" disabled /> 
+		<input type="text" name="or_addr_detail" value="${vo.ovo.or_addr_detail }" disabled >
 	</div>
 
 	<div class="btn_div">

@@ -152,4 +152,10 @@
     <select id="findLastIdx" resultType="int">
         SELECT or_idx FROM order_t ORDER BY or_idx DESC LIMIT 1;
     </select>
+    
+    <!-- OrderDetail 조회용 -->
+    <select id="findByid" resultType="mybatis.vo.OrderVO" parameterType="String">
+    	SELECT * FROM order_t
+    	WHERE or_idx = ${or_idx}
+    </select>
 </mapper>
