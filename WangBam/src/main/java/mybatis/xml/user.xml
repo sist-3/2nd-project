@@ -37,6 +37,16 @@
         SELECT * FROM user_t WHERE us_status = 1;
     </select>
 
+    <!-- 이메일로 유저 조회 -->
+    <select id="findByEmail" parameterType="String" resultType="mybatis.vo.UserVO">
+      SELECT * FROM user_t WHERE us_email = #{us_email} AND us_status = 1;
+    </select>
+
+    <!-- 닉네임으로 유저 조회 -->
+    <select id="findByNickname" parameterType="String" resultType="mybatis.vo.UserVO">
+      SELECT * FROM user_t WHERE us_nickname = #{us_nickname} AND us_status = 1;
+    </select>
+
     <!-- 유저 리스트 조회 -->
     <select id="searchUserList" parameterType="Map" resultType="mybatis.vo.UserVO">
       SELECT * FROM user_t

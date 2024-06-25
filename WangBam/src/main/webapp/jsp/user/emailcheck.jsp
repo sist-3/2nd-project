@@ -1,22 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="EUC-KR"%>
-<label for="email-code">ÀÎÁõÄÚµå</label> <span class="certificationTime" style="margin-left: 10px; color: red;">03:00</span>
+<label for="email-code">ì¸ì¦ì½”ë“œ</label> <span class="certificationTime" style="margin-left: 10px; color: red;">03:00</span>
 <div id="email-confirm-group" class="address-group">
    <input type="text" id="email-code">
-   <button type="button" class="btn" id="email-confirm-btn" onclick="confirm()">È®ÀÎ</button>
+   <button type="button" class="btn" id="email-confirm-btn" onclick="confirm()">í™•ì¸</button>
 </div>
 <script>
 function confirm() {
-	  console.log("${requestScope.code}");
 		let email_code = $('#email-code').val();
 	    if(email_code=="${requestScope.code}"){
 	      $('#email-confirm').val('true');
-	      $('#email-check-result').text('ÀÎÁõ¼º°ø');
+	      $('#email-check-result').text('ì¸ì¦ì„±ê³µ');
 	      $('#email-check-result').css('color', 'green');
 	      $('#email-check').css('display', 'none');
+		  clearInterval(timer);
 	    }else{
 	      $('#email-confirm').val('false');
-	      $('#email-check').text('ÀÎÁõÄÚµå°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù');
+	      $('#email-check').text('ì¸ì¦ë²ˆí˜¸ê°€ í‹€ë ¸ìŠµë‹ˆë‹¤.');
 	      $('#email-check').css('display', 'block');
 	      $('#email-check').css('color', 'red');
 	    }

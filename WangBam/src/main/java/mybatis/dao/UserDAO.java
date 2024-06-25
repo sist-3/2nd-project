@@ -105,4 +105,17 @@ public class UserDAO {
 		ss.close();
 		return result;
 	}
+
+	static public UserVO findByEmail(String us_email) {
+		SqlSession ss = FactoryService.getFactory().openSession();
+		UserVO result = ss.selectOne("user.findByEmail",us_email);
+		ss.close();
+		return result;
+	}
+	static public UserVO findByNickname(String us_nickname) {
+		SqlSession ss = FactoryService.getFactory().openSession();
+		UserVO result = ss.selectOne("user.findByNickname",us_nickname);
+		ss.close();
+		return result;
+	}
 }

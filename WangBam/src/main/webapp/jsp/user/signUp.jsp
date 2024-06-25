@@ -66,6 +66,7 @@
 <%@include file="/jsp/common/footer.jsp" %>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
+var timer;
 function emailCheck(email_address){     
 	email_regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
 	if(!email_regex.test(email_address)){ 
@@ -87,6 +88,7 @@ function passwordCheck(password){
 
 $(document).ready(function(){
   $('#email-check-btn').on('click', function(){
+	
     let email = $('#email').val();
     //에러메세지 초기화
     $('#email-check').css('display', 'none');
@@ -105,6 +107,8 @@ $(document).ready(function(){
       $('#email').css('border-color', '#FFA500');
       return;
     }
+    clearInterval(timer);
+    var cnt = 180;
     $.ajax({  
         	url: '/WangBam/',
         	type: 'POST',
@@ -112,8 +116,8 @@ $(document).ready(function(){
         }).done(function(data){
         	$('#email-check-result').css('display', 'block');
         	$('#email-check-result').html(data);
-          var cnt = 180;        
-          var timer = setInterval(function(){
+                
+          timer = setInterval(function(){
             cnt--;
             //분:초 형식으로 변환
             let min = Math.floor(cnt/60);
@@ -191,6 +195,7 @@ $(document).ready(function(){
     let address = $('#address').val();
     let phone = $('#phone').val();
     let email = $('#email').val();
+    let extraAddress = $('#extra-address').val();
 
     //에러메세지 초기화
     $('#username-check').css('display', 'none');
@@ -212,36 +217,48 @@ $(document).ready(function(){
       $('#username-check').css('display', 'block');
       $('#username-check').text('이름를 입력하세요');
       $('#username').css('border-color', '#FFA500');
+      $('#username').val('');
+      $('#username').focus();
       return;
     }
     if(email.trim().length == 0){
       $('#email-check').css('display', 'block');
       $('#email-check').text('이메일을 입력하세요');
       $('#email').css('border-color', '#FFA500');
+      $('#email').val('');
+      $('#email').focus();
       return;
     }
     if(!emailCheck(email)){
       $('#email-check').css('display', 'block');
       $('#email-check').text('이메일 형식이 올바르지 않습니다');
       $('#email').css('border-color', '#FFA500');
+      $('#email').val('');
+      $('#email').focus();
       return;
     }
     if($('#email-confirm').val()=='false'){
       $('#email-check').css('display', 'block');
       $('#email-check').text('인증을 완료해주세요');
       $('#email').css('border-color', '#FFA500');
+      $('#email').val('');
+      $('#email').focus();
       return;
     }
     if (password.trim().length == 0) {
       $('#password-check').css('display', 'block');
       $('#password-check').text('비밀번호를 입력하세요');
       $('#password').css('border-color', '#FFA500');
+      $('#password').val('');
+      $('#password').focus();
       return;
     }
     if(!passwordCheck(password)){
       $('#password-check').css('display', 'block');
       $('#password-check').text('비밀번호 형식이 올바르지 않습니다');
       $('#password').css('border-color', '#FFA500');
+      $('#password').val('');
+      $('#password').focus();
       return;
     }
     
@@ -249,24 +266,32 @@ $(document).ready(function(){
       $('#confirm-password-check').css('display', 'block');
       $('#confirm-password-check').text('비밀번호를 확인하세요');
       $('#confirm-password').css('border-color', '#FFA500');
+      $('#confirm-password').val('');
+      $('#confirm-password').focus();
       return;
     }
     if (password != confirmPassword) {
       $('#confirm-password-check').css('display', 'block');
       $('#confirm-password-check').text('비밀번호가 일치하지 않습니다');
       $('#confirm-password').css('border-color', '#FFA500');
+      $('#confirm-password').val('');
+      $('#confirm-password').focus();
       return;
     }
     if (nickname.trim().length == 0) {
       $('#nickname-check').css('display', 'block');
       $('#nickname-check').text('닉네임을 입력하세요');
       $('#nickname').css('border-color', '#FFA500');
+      $('#nickname').val('');
+      $('#nickname').focus();
       return;
     }
     if(nickname.trim().length > 10){
       $('#nickname-check').css('display', 'block');
       $('#nickname-check').text('닉네임은 최대 10자입니다');
       $('#nickname').css('border-color', '#FFA500');
+      $('#nickname').val('');
+      $('#nickname').focus();
       return;
     }
     if(postcode.trim().length == 0){
@@ -281,8 +306,40 @@ $(document).ready(function(){
       $('#address').css('border-color', '#FFA500');
       return;
     }
-    
-     $('#signUpForm').submit();
+     $.ajax({
+      url: '/WangBam/',
+      type: 'POST',
+      data: {
+        type: 'signup',
+        us_name: username,
+        us_email: email,
+        us_pwd: password,
+        us_nickname: nickname,
+        us_tel: phone,
+        postcode: postcode,
+        address: address,
+        extraAddress: extraAddress,
+      }
+     }).done(function(data){
+    	console.log(data);
+      if(data==1){
+        location.href = '/WangBam/';
+      }else if(data==2){
+        alert('이미 가입된 이메일입니다.');
+        $('#email-check').css('display', 'block');
+        $('#email-check').text('이미 가입된 이메일입니다.');
+        $('#email').css('border-color', '#FFA500');
+        $('#email').val('');
+        $('#email-check-result').text('');
+        $('#email').focus();
+      }else if(data==3){
+        alert('이미 존재하는 닉네임입니다.');
+        $('#nickname-check').css('display', 'block');
+        $('#nickname-check').text('이미 존재하는 닉네임입니다.');
+        $('#nickname').css('border-color', '#FFA500');
+        $('#nickname').focus();
+      }
+     });
   });
 });
 </script>
