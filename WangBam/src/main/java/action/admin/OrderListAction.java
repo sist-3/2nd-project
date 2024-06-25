@@ -1,5 +1,6 @@
 package action.admin;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,8 +23,10 @@ public class OrderListAction implements Action {
 		String searchType = request.getParameter("searchType");
 		String searchValue = request.getParameter("searchValue");
 	
-		if(searchValue == "all") {
-			searchValue = null;
+		if(searchType == null || searchType == "all") {
+			searchType = null;
+		}else if(searchType.equals("or_date") && searchValue == "") {
+			searchValue = "1234-12-12";
 		}
 		
 		Map<String, String> map2 = new HashMap<>();
@@ -51,7 +54,7 @@ public class OrderListAction implements Action {
 		map.put(searchType,searchValue); // or_date : 2024-04-12
 		
 		List<OrderVO> list = OrderDAO.find(map);
-
+		
 		//배열 ar을 jsp에서 표현하기 위해 request에 저장
 		request.setAttribute("list", list);
 		request.setAttribute("page", page);
