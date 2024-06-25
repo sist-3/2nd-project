@@ -78,4 +78,12 @@ public class OrderDAO {
     	
     	return ar;
     }
+
+    public static int findLastIdx() {
+        SqlSession ss = FactoryService.getFactory().openSession();
+        int idx = ss.selectOne("order.findLastIdx");
+        ss.close();
+
+        return idx;
+    }
 }

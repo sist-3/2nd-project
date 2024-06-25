@@ -146,5 +146,9 @@
 		ORDER BY
 		    or_sales_month desc limit 6;
     </select>
-    
+
+    <!-- 가장 마지막 저장된 인덱스 번호 가져오기-->
+    <select id="findLastIdx" resultType="int">
+        SELECT or_idx FROM order_t ORDER BY or_idx DESC LIMIT 1;
+    </select>
 </mapper>
