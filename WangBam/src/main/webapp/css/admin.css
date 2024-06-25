@@ -49,6 +49,13 @@ body:has(.admin) {
 	gap: 20px;
 }
 
+.admin-main .form-group{
+	width: 600px;
+    padding: 50px;
+    background-color: #f5f5f5;
+    border-radius: 20px;
+}
+
 .admin-main label {
 	font-weight: 700;
 	color: #333;
