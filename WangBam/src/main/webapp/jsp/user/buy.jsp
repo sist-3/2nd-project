@@ -23,35 +23,38 @@
            -> 내부데이터 productVO, 수량, 상품 계산 후 가격
      --%>
 	<%
+	final int deliveryFee = 4000;
+	
 	// 세션에 저장된 로그인 정보 검사 및 저장
 	Object obj = session.getAttribute("uvo");
 	UserVO uvo = null;
 	if (obj == null) {
 	%>
-	<script>
-		alert("결제를 위해 로그인이 필요합니다. \n 로그인 페이지로 이동합니다.");
-	</script>
-	<%
-	response.sendRedirect("?type=login");
-	return;
+		<script>
+			alert("결제를 위해 로그인이 필요합니다. \n 로그인 페이지로 이동합니다.");
+		</script>
+		<%
+			response.sendRedirect("?type=login");
+			return;
 	} else {
-	uvo = (UserVO) obj;
+		uvo = (UserVO) obj;
 	}
 
 	// 요청에 저장된 orderVO 리스트 검사 및 저장
 	obj = request.getAttribute("odvoList");
 	List<OrderDetailVO> odvoList = null;
 	if (obj == null) {
-	%>
-	<script>
-		alert("잘못된 접근입니다. \n 메인페이지로 이동합니다.");
-	</script>
-	<%
-	response.sendRedirect("/");
-	return;
-	} else {
-	odvoList = (List<OrderDetailVO>) obj;
-	request.setAttribute("odvoList", odvoList);
+		%>
+		<script>
+			alert("잘못된 접근입니다. \n 메인페이지로 이동합니다.");
+		</script>
+		<%
+		response.sendRedirect("/");
+		return;
+	} else {		
+		odvoList = (List<OrderDetailVO>) obj;
+		request.setAttribute("odvoList", odvoList);
+		session.setAttribute("odvoList", odvoList);
 	}
 	%>
 	<div class="buy-con">
@@ -90,7 +93,7 @@
 				}
 				%>
 				<tr>
-					<td colspan="8">상품구매금액 <%=totalPrice%>+ 배송비 4000 = 합계 : <%=totalPrice + 4000%>원
+					<td colspan="8">상품구매금액 <%=totalPrice%>+ 배송비 4000 = 합계 : <%=totalPrice + deliveryFee%>원
 					</td>
 				</tr>
 			</tbody>
@@ -98,12 +101,12 @@
 		<div class="delivery-info">
 			<h2>배송 정보</h2>
 			<br>
-			<form class="form-group" action="/WangBam" method="post">
-				<input type="hidden" name="type" value="buy"> 
+			<form class="form-group" action="/WangBam/?type=buy" method="post">
+				<input type="hidden" name="type" value="buy">
 				<input type="hidden" name="us_idx" value="<%=uvo.getUs_idx()%>"> 
 				<input type="hidden" name="total_price" value="<%=totalPrice%>"> 
 				<label for="order-name">받는분</label> 
-				<input type="text" id="or_name"	name="or_name" value="로그인 session에서 가져온 이름" placeholder="받는분 성함">
+				<input type="text" id="or_name"	name="or_name" value="<%=uvo.getUs_name()%>" placeholder="받는분 성함">
 				<label for=postal_code>주소찾기</label>
 				<div class="address-group">
 					<input type="text" id="postal_code" name="postal_code"
@@ -142,7 +145,7 @@
 				</div>
 				<div class="total">
 					<p>총 결제금액</p>
-					<p class="total-amount"><%=totalPrice + 4000%>
+					<p class="total-amount"><%=totalPrice + deliveryFee%>
 						원
 					</p>
 				</div>
@@ -197,17 +200,28 @@
 			const response = await PortOne.requestPayment({
 				storeId : "store-23c8eb3a-0cc2-4cb0-902d-6a7b553a8703",
 				channelKey : "channel-key-a915738a-5c22-4212-a657-76175abe0bf4",
-				paymentId : `PAY123`,
-				orderName : "<%=odvoList.get(0).getPvo().getPd_name()%>",
-				totalAmount : <%=totalPrice + 4000%>,
+				paymentId : `PAY671`,
+				orderName : "[히트상품] <%=odvoList.get(0).getPvo().getPd_name()%>",
+				totalAmount : <%=totalPrice + deliveryFee%>,
 				currency : "CURRENCY_KRW",
 				payMethod : "CARD",
 			});
+
+			if (response.code != null) {
+				// return alert(response.message);
+			}
+
 			sendOrder(response);
 		};
 
 		function sendOrder(response) {
 			let form = document.forms[0];
+			// 폼 데이터에 hidden type으로 paymentId 추가
+			let paymentId = document.createElement("input");
+			paymentId.type = "hidden";
+			paymentId.name = "paymentId";
+			paymentId.value = response.paymentId;
+			form.appendChild(paymentId);
 			// 폼 유효성 검사
 			if (!validateForm(form)) {
 				return false; // 유효성 검사 실패 시, 폼 제출 중단

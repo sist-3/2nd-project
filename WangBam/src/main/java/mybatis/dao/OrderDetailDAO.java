@@ -1,5 +1,6 @@
 package mybatis.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,6 +30,19 @@ public class OrderDetailDAO {
     public static int add(Map<String, String> map) {
         SqlSession ss = FactoryService.getFactory().openSession();
         int result = ss.insert("order_detail.add", map);
+        if (result > 0) {
+            ss.commit();
+        } else {
+            ss.rollback();
+        }
+        ss.close();
+
+        return result;
+    }
+
+    public static int multiAdd(HashMap<String, List<HashMap<String, String>>> map) {
+        SqlSession ss = FactoryService.getFactory().openSession();
+        int result = ss.insert("order_detail.multiAdd", map);
         if (result > 0) {
             ss.commit();
         } else {

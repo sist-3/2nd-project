@@ -49,7 +49,7 @@ public class BuyAction implements Action {
 
 		List<OrderDetailVO> odvoList = new ArrayList<>();
 		odvoList.add(odvo);
-		// odvoList.add(odvo2);
+		odvoList.add(odvo2);
 		
 		if(request.getMethod().equalsIgnoreCase("GET")) {
 			request.setAttribute("odvoList", odvoList);
@@ -76,22 +76,36 @@ public class BuyAction implements Action {
         map.put("or_addr_detail", request.getParameter("addr_detail"));
         map.put("or_tel", request.getParameter("tel1") + request.getParameter("tel2") + request.getParameter("tel3"));
         map.put("or_request", request.getParameter("request"));
-        map.put("or_total_price", request.getParameter("total_price")); // 클래스 이름으로 가정
-        map.put("or_payment_code", "아임포트API에서 반환된 값"); // 아임포트 API로부터 받은 결제 코드
-        map.put("or_tracking_number", "tracker API에서 결제 완료 코드"); // 트래커 API에서 가져온 결제 완료 코드
-        map.put("or_status_code", "tracker API에서 배송 관련 안내 메세지"); // 트래커 API에서 가져온 배송 관련 메세지
+        map.put("or_total_price", request.getParameter("total_price")); 
+        map.put("or_payment_code", request.getParameter("paymentId")); 
+        map.put("or_status_code", "UNKNOWN");
         
         return map;
 	}
 	
-	private Map<String, Object> makeMapOrderDetailData(HttpServletRequest request) {
+	private HashMap<String, List<HashMap<String, String>>> makeMapOrderDetailData(HttpServletRequest request) {
 		// 여러개를 한번에 저장시키기 위해서는 어떻게 코드를 짜야할까??
 		// order_t 데이터맵 생성
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("or_idx", "방금 위에서 주문한 주문의 idx"); // 주문 인덱스 추가
+		HashMap<String, List<HashMap<String, String>>> commandMap = new HashMap<String, List<HashMap<String, String>>>();
+		List<HashMap<String, String>> defaultList = new ArrayList<HashMap<String, String>>();
+		
 		// 이전 페이지에서 입력받은 List<OrderDetailVO>를 가져온다.
-		map.put("odvoList", request.getAttribute("odvoList"));
-
-        return map;
+		HttpSession session = request.getSession();
+		Object obj = session.getAttribute("odvoList");
+		List<OrderDetailVO> odvoList = null;
+		if(obj != null) {
+			odvoList = (List<OrderDetailVO>)obj;
+			for(OrderDetailVO odvo : odvoList) {
+				HashMap<String, String> map = new HashMap<String, String>();
+				map.put("or_idx", "26");
+				map.put("pd_idx", odvo.getPvo().getPd_idx());
+				map.put("od_price", odvo.getOd_price());
+				map.put("od_cnt", odvo.getOd_cnt());
+				defaultList.add(map);
+			}
+			commandMap.put("odvoList", defaultList);
+		}
+		
+        return commandMap;
 	}
 }
