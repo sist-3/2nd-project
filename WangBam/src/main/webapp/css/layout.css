@@ -63,10 +63,6 @@ body {
 .global-nav-links a {
 	color: #333;
 }
-.global-nav-links a:hover {
-	transition:0.3s;
-	transform:translateY(-3px);
-}
 .global-nav-links a.on {
 	color: #673a11;
 }

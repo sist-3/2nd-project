@@ -1,28 +1,47 @@
 <%@page import="mybatis.vo.ProductVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="/img/logo.ico">
+<title>왕밤빵</title>
+<link rel="stylesheet" href="./css/style.css">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
+<script>
+  $( function() {
+    $( "#tabs" ).tabs();
+  } );
+  </script>
   <style>
   #discount{
   
   color: #e74c3c;
-    font-size: 20px;
-    margin-bottom: 10px;
-    
+	font-size: 20px;
+	margin-bottom: 10px;
+	
   
   }
   .product-details p>span{
   font-size: 50px;
   }
   
-  #sale{
-  font-size: 25px;
-  color: red;
-  }
   </style>
+</head>
 
-<%@include file="/jsp/common/header.jsp" %>
+<body>
 
-	
+	<div class="wrap">
+
+		<main class="body">
+			<section class="content">
 				<div class="top">
 					<div class="icons">
 						<a href="#" id="home">
@@ -33,7 +52,7 @@
 				</div>
 				<div class="product-page">
 					<div class="product-image">
-						<img src="img/${pvo.pd_thumbnail_img}" alt="Product Image">
+						<img src="/img/ppang.png" alt="Product Image">
 					</div>
 					<div class="product-details">
 						
@@ -41,8 +60,7 @@
 						<span>${pvo.pd_name}</span>
 						
 						<c:if test="${pvo.pd_sale != null }">
-							<p id="sale" >${pvo.pd_sale}% 할인</p>
-							
+							<span id="sale" >${pvo.pd_sale}% 할인</span>
 						</c:if>
 						</p>
 						
@@ -66,10 +84,12 @@
 						
 						<div class="buttons">
 							<button class="buy-now">바로 구매하기</button>
-							<button class="add-to-cart" onclick="javascript:location.href='?type=cart&pd_idx=${pvo.pd_idx}&us_idx=${sessionScope.user.us_idx}'">장바구니 담기</button>
-							
+							<button class="add-to-cart">장바구니 담기</button>
+							<button class="gift">관심상품등록</button>
 						</div>
-						
+						<div class="kakao-pay">
+							<button class="kakao-pay-button">카카오페이 구매</button>
+						</div>
 					</div>
 				</div>
 
@@ -134,16 +154,15 @@
 
 
 				</div>
-	
+	</section>
+	</main>
+
+	</div>
 
 
-<%@include file="/jsp/common/footer.jsp" %>
 
 	
 	<script>
-	 $( function() {
-		    $( "#tabs" ).tabs();
-		  } );
 	function updateTotalPrice() {
 		let price = ${pvo.pd_price};
 	    let quantity = document.getElementById("quantity").value; // 수량 입력 필드에서 값을 가져옵니다.
@@ -169,5 +188,6 @@
     document.getElementById("quantity").addEventListener("input", updateTotalPrice);
     
 </script>
+</body>
 
-
+</html>

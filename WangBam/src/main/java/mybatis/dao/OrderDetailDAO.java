@@ -1,5 +1,6 @@
 package mybatis.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -39,10 +40,23 @@ public class OrderDetailDAO {
         return result;
     }
 
-    public static OrderDetailVO findByIdxWithProduct(String or_idx) {
+    public static int multiAdd(HashMap<String, List<HashMap<String, String>>> map) {
         SqlSession ss = FactoryService.getFactory().openSession();
-        OrderDetailVO vo = ss.selectOne("order_detail.findByIdxWithProduct", or_idx);
+        int result = ss.insert("order_detail.multiAdd", map);
+        if (result > 0) {
+            ss.commit();
+        } else {
+            ss.rollback();
+        }
+        ss.close();
+
+        return result;
+    }
+
+    public static List<OrderDetailVO> findByIdxWithProduct(String or_idx) {
+        SqlSession ss = FactoryService.getFactory().openSession();
+        List<OrderDetailVO> list = ss.selectList("order_detail.findByIdxWithProduct", or_idx);
         
-        return vo;
+        return list;
     }
 }
