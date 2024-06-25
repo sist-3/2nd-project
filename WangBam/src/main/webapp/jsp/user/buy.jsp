@@ -1,3 +1,4 @@
+<%@page import="mybatis.dao.OrderDAO"%>
 <%@page import="org.apache.ibatis.executor.loader.WriteReplaceInterface"%>
 <%@page import="mybatis.vo.UserVO"%>
 <%@page import="mybatis.vo.AddressVO"%>
@@ -8,7 +9,6 @@
 <%@include file="/jsp/common/header.jsp"%>
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,6 +24,8 @@
      --%>
 	<%
 	final int deliveryFee = 4000;
+	
+	int idx = OrderDAO.findLastIdx() + 1;
 	
 	// 세션에 저장된 로그인 정보 검사 및 저장
 	Object obj = session.getAttribute("uvo");
@@ -153,6 +155,7 @@
 			</form>
 		</div>
 	</div>
+	<%@include file="/jsp/common/footer.jsp"%>
 	<script src="https://cdn.portone.io/v2/browser-sdk.js"></script>
 	<script>
 		function validateForm(form) {
@@ -199,8 +202,8 @@
 		async function requestCardPayment() {
 			const response = await PortOne.requestPayment({
 				storeId : "store-23c8eb3a-0cc2-4cb0-902d-6a7b553a8703",
-				channelKey : "channel-key-a915738a-5c22-4212-a657-76175abe0bf4",
-				paymentId : `PAY671`,
+				channelKey : "channel-key-373bd11f-eb47-4c2d-962a-f630fd0d7a49",
+				paymentId : `PAYMENT`+<%=idx%>,
 				orderName : "[히트상품] <%=odvoList.get(0).getPvo().getPd_name()%>",
 				totalAmount : <%=totalPrice + deliveryFee%>,
 				currency : "CURRENCY_KRW",
@@ -208,7 +211,7 @@
 			});
 
 			if (response.code != null) {
-				// return alert(response.message);
+				return alert(response.message);
 			}
 
 			sendOrder(response);
