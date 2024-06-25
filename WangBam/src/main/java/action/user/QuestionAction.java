@@ -52,31 +52,6 @@ public class QuestionAction implements Action {
 			}
 		}else
 			viewPath = "/jsp/user/login.jsp";
-		
-		Map<String, String> count_map = new HashMap<>();
-		count_map.put("bo_type", "1");
-		count_map.put("us_idx", uvo.getUs_idx()); //특정 유저의 문의사항 갯수 등록
-		page.setTotalRecord(BoardsDAO.allUserBoardsCount(count_map)); 
-		
-		if(cPage != null) { //시작 페이지 설정
-			page.setNowPage(Integer.parseInt(cPage));
-		}else {
-			page.setNowPage(1);
-		}
-		
-		Map<String, String> map = new HashMap<>();
-		map.put("bo_type", "1");
-		map.put("begin", Integer.toString(page.getBegin()));
-		map.put("end", Integer.toString(page.getEnd()));
-		map.put("us_idx", uvo.getUs_idx());  
-		
-		BoardsVO[] ar = BoardsDAO.find(map);
-		
-		if(ar!=null) {
-			viewPath = "/jsp/user/questionList.jsp";
-			request.setAttribute("ar", ar);
-			request.setAttribute("page", page);
-		}
 
 		return viewPath;
 	}
