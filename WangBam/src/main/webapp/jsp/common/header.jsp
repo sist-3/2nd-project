@@ -29,7 +29,7 @@
 						<div class="global-nav-links">
 							<a href="?type=notice" class="${currentPage.contains('notice') ? 'global-nav-item on' : 'global-nav-item'}">공지사항</a>
 							<a href="?type=item" class="${currentPage.contains('item') ? 'global-nav-item on' : 'global-nav-item'}">상품보기</a>
-							<a href="?type=order" class="${currentPage.contains('order') ? 'global-nav-item on' : 'global-nav-item'}">주문현황</a>
+							<a href="?type=review" class="${currentPage.contains('review') ? 'global-nav-item on' : 'global-nav-item'}">리뷰보기</a>
 							<a href="?type=question" class="${currentPage.contains('question') ? 'global-nav-item on' : 'global-nav-item'}">1:1문의</a>
 							<a href="?type=brand" class="${currentPage.contains('brand') ? 'global-nav-item on' : 'global-nav-item'}">브랜드소개</a>
 						</div>
@@ -39,12 +39,13 @@
 							<h1>
 								<a href="?type=index" class="product-name">왕밤빵</a>
 							</h1>
-							<c:if test="${sessionScope.user != null}">
+							<c:if test="${sessionScope.user ne null}">
 								<a href="?type=logout">로그아웃</a>
 								<a href="?type=my">마이페이지</a>
+								<a href="?type=order">주문현황</a>
 								<a href="?type=cart">장바구니</a>
 							</c:if>
-							<c:if test="${sessionScope.user == null}">
+							<c:if test="${sessionScope.user eq null}">
 								<a href="?type=login">로그인</a> <a href="?type=member">회원가입</a>
 							</c:if>
 						</div>

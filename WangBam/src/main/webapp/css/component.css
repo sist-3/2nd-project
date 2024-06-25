@@ -284,11 +284,11 @@ caption {
 .item > .img-box {
 	min-height:300px;
 }
-.item > .img-box > img {
+.item > .img-box img {
 	max-width:70%;
 	transition:0.5s;
 }
-.item > .img-box > img:hover {
+.item > .img-box img:hover {
 	max-width:100%;
 }
 select {
