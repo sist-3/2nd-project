@@ -17,6 +17,7 @@ public class WriteCommentAction implements Action {
 		String bo_idx = request.getParameter("bo_idx");
 		String co_content = request.getParameter("co_content");
 		String cPage = request.getParameter("cPage");
+		String bo_type = request.getParameter("bo_type");
 		
 		Map<String, String> map = new HashMap<>();
 		map.put("us_idx", us_idx);
@@ -25,7 +26,7 @@ public class WriteCommentAction implements Action {
 		
 		CommentDAO.add(map);
 
-		return "?type=boardsDetail&bo_idx="+bo_idx+"&cPage="+cPage+"&bo_type=0";
+		return "?type=boardsDetail&bo_idx="+bo_idx+"&cPage="+cPage+"&bo_type="+bo_type;
 	}
 
 }

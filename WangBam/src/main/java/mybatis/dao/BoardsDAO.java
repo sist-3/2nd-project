@@ -32,10 +32,10 @@ public class BoardsDAO {
 	}
 	
 	// 특정 유저가 작성한 문의사항 갯수 조회
-	public static int allUserQuestionCount(String us_idx) {
+	public static int allUserBoardsCount(Map<String, String> map) {
 		SqlSession ss = FactoryService.getFactory().openSession();
 
-		int cnt = ss.selectOne("boards.allUserQuestionCount", us_idx);
+		int cnt = ss.selectOne("boards.allUserBoardsCount", map);
 
 		ss.close();
 
@@ -43,10 +43,10 @@ public class BoardsDAO {
 	}
 	
 	// 검색된 특정 유저가 작성한 문의사항 갯수 조회
-	public static int allSearchUserQuestionCount(Map<String, String> u_map) {
+	public static int allSearchUserBoardsCount(Map<String, String> u_map) {
 		SqlSession ss = FactoryService.getFactory().openSession();
 
-		int cnt = ss.selectOne("boards.allSearchUserQuestionCount", u_map);
+		int cnt = ss.selectOne("boards.allSearchUserBoardsCount", u_map);
 
 		ss.close();
 		
