@@ -6,8 +6,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import mybatis.dao.CategoryDAO;
 import mybatis.dao.OrderDAO;
+import mybatis.dao.UserDAO;
+import mybatis.vo.CategoryVO;
 import mybatis.vo.OrderVO;
+import mybatis.vo.UserVO;
 
 public class IndexAction implements Action {
 
@@ -42,8 +46,15 @@ public class IndexAction implements Action {
 		}
 
 		// 카테고리별 재고
-
+		CategoryVO[] c_list = CategoryDAO.findPdcntPerOdcntByCategory();
+		if(c_list != null) {
+			request.setAttribute("c_list", c_list);
+		}
 		// vip 회원
+		UserVO[] vip = UserDAO.findByVIP();
+		if (ar != null) {
+			request.setAttribute("vip", vip);
+		}
 
 		return "/jsp/admin/main.jsp";
 	}

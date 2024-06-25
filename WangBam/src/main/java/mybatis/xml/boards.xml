@@ -41,10 +41,16 @@
                         bo_write_date BETWEEN #{searchValue} AND #{searchValue2} AND
                     </when>
                     <when test= "searchType == 'score'"> <!-- 평점 검색 -->
-                        bo_score = #{searchValue} AND
+                        bo_score BETWEEN #{searchValue3} AND #{searchValue3}+0.49 AND
                     </when>
                     <when test= "searchType == 'answer'"> <!-- 미답변 목록 검색 -->
                         bo_answer = 1 AND
+                    </when>
+                    <when test= "searchType == 'category' and searchProduct != 'allProduct'"> <!-- 카테고리(상품) 검색 -->
+                   		pd_idx = #{searchProduct} AND
+                    </when>
+                    <when test= "searchType == 'category' and searchProduct == 'allProduct'"> <!-- 카테고리(전체) 검색 -->
+                    	pd_idx in (SELECT pd_idx FROM product_t WHERE ct_idx = #{searchCategory}) AND
                     </when>
                 </choose>
             </if>
@@ -52,17 +58,19 @@
 		</where>
 	</select>
 	
-	<!-- 특정 유저가 작성한 문의사항 게시글의 갯수 -->
-	<select id="allUserQuestionCount" parameterType="String" resultType="int">
+	<!-- 특정 유저가 작성한 게시글의 갯수 (문의사항, 리뷰) -->
+	<select id="allUserBoardsCount" parameterType="map" resultType="int">
 		SELECT COUNT(*)
 		FROM boards_t
 		WHERE bo_status = 1
-			AND bo_type = 1
-			AND us_idx = #{us_idx}
+			AND bo_type = #{bo_type}
+			<if test="us_idx != null">
+				AND us_idx = #{us_idx}
+			</if>
 	</select>
 
-	<!-- 특정 유저가 작성한 문의사항 중 검색한 게시글의 갯수 -->
-	<select id="allSearchUserQuestionCount" parameterType="map" resultType="int">
+	<!-- 특정 유저가 작성한 게시글중 검색한 게시글 갯수 (문의사항, 리뷰) -->
+	<select id="allSearchUserBoardsCount" parameterType="map" resultType="int">
 		SELECT COUNT(*)
 		FROM boards_t
 		<where>
@@ -76,7 +84,11 @@
                     </when>
                 </choose>
             </if>
-			bo_status = 1 AND bo_type = 1 AND us_idx = #{us_idx}
+			bo_status = 1 
+			AND bo_type = #{bo_type} 
+			<if test="us_idx != null">
+				AND us_idx = #{us_idx}
+			</if>
 		</where>
 	</select>
 <!-- Paging end -->	
@@ -103,10 +115,16 @@
 		                        AND bo_write_date BETWEEN #{searchValue} AND #{searchValue2}
 		                    </when>
 		                    <when test= "searchType == 'score'"> <!-- 평점 검색 -->
-		                        AND bo_score = #{searchValue}
+		                        AND bo_score BETWEEN #{searchValue3} AND #{searchValue3}+0.49
 		                    </when>
 		                    <when test= "searchType == 'answer'"> <!-- 미답변 목록 검색 -->
 		                        AND bo_answer = 1
+		                    </when>
+		                    <when test= "searchType == 'category' and searchProduct != 'allProduct'"> <!-- 카테고리(상품) 검색 -->
+		                    	AND pd_idx = #{searchProduct}
+		                    </when>
+		                    <when test= "searchType == 'category' and searchProduct == 'allProduct'"> <!-- 카테고리(전체) 검색 -->
+		                    	AND pd_idx in (SELECT pd_idx FROM product_t WHERE ct_idx = #{searchCategory})
 		                    </when>
 		                </choose>
 		            </if>
@@ -143,11 +161,21 @@
 <!-- Update, Delete -->
 	<!-- 작성된 게시글 수정 -->
 	<update id="update" parameterType="map">
-		UPDATE boards_t
-		SET	us_idx = #{us_idx}, pd_idx = #{pd_idx}, bo_type = #{bo_type}, bo_title = #{bo_title}, bo_content = #{bo_content},
-			bo_write_date = NOW(), bo_img = #{bo_img}, bo_score = #{bo_score}, bo_answer = #{bo_answer}
-		WHERE bo_idx = #{bo_idx}
-	</update>
+    UPDATE boards_t
+    <set>
+        <if test="us_idx != null">us_idx = #{us_idx},</if>
+        <if test="pd_idx != null">pd_idx = #{pd_idx},</if>
+        <if test="bo_type != null">bo_type = #{bo_type},</if>
+        <if test="bo_title != null">bo_title = #{bo_title},</if>
+        <if test="bo_content != null">bo_content = #{bo_content},</if>
+        <if test="bo_write_date != null">bo_write_date = NOW(),</if>
+        <if test="bo_img != null">bo_img = #{bo_img},</if>
+        <if test="bo_score != null">bo_score = #{bo_score},</if>
+        <if test="bo_answer != null">bo_answer = #{bo_answer},</if>
+    </set>
+    WHERE bo_idx = #{bo_idx}
+</update>
+
 	
 	<!-- 게시글 삭제 -->
 	<update id="delete" parameterType="String">
