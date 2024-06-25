@@ -375,3 +375,72 @@ border-bottom: 1px solid #ddd;
 color: #28a745;
 font-weight: bold;
 }
+
+.order-recipient-info, .order-payment-info, .order-receipt-info {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-top: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.order-recipient-info h3, .order-payment-info h3, .order-receipt-info h3 {
+    margin-top: 0;
+    font-size: 20px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    color: #333;
+}
+
+.order-recipient-info p, .order-payment-info p, .order-receipt-info p {
+    margin: 10px 0;
+    color: #555;
+    font-size: 16px;
+}
+
+.order-payment-info .total-price, .order-payment-info .coupon-discount, .order-payment-info .final-price {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-top: 1px solid #eee;
+}
+
+.order-payment-info .total-price span, .order-payment-info .coupon-discount span, .order-payment-info .final-price span {
+    font-weight: bold;
+    color: #000;
+}
+
+.order-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.order-actions button {
+    margin-left: 8px;
+    padding: 8px 16px;
+    border: 1px solid #8B4513;
+    background-color: #8B4513;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.order-actions button:hover {
+    background-color: #A0522D;
+}
+
+.order-total-price {
+	font-size: 18px;
+	font-weight: bold;
+	color: #333;
+	margin-top: 20px;
+	padding: 10px;
+	text-align: right;
+}
+.order-total-price span {
+	color: #e74c3c;
+}

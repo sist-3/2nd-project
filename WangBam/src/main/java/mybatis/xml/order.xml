@@ -170,4 +170,8 @@
     <select id="findByUsIdxWithDetail" parameterType="String" resultMap="findwithOrderDetail">
         SELECT * FROM order_t WHERE us_idx = #{us_idx}
     </select>
+    
+    <select id="findByIdxWithDetail" parameterType="String" resultMap="findwithOrderDetail">
+        SELECT * FROM order_t WHERE or_idx = #{or_idx}
+    </select>
 </mapper>
