@@ -20,6 +20,7 @@
 			<input type="text" name="searchValue" id="searchValue" value="${requestScope.searchValue }"/>
             <input type="text" name="searchValue2" id="searchValue2" value="${requestScope.searchValue2}"/>
             <select name="searchValue3" id="searchValue3">
+            	<option value="" ${requestScope.searchValue3 == "" ? 'selected' : ''}>::선택::</option>
             	<c:forEach begin="1" end="10" varStatus="vs">
        				<option value="${vs.count/2}" ${requestScope.searchValue3 == vs.count/2 ? 'selected' : ''}>${vs.count/2}점</option>
     			</c:forEach>
@@ -157,6 +158,7 @@
 	        	$('#searchCategory').hide();
 	    		$('#searchProduct').hide();
 	        	$('#searchValue3').show();
+	        	//$('#searchValue3').val("5.0").attr("selected", "selected")
 	        }else if(selectType == 'category'){
 	        	$('#searchValue').hide().val('');
 	        	$('#searchValue2').hide().val('');
