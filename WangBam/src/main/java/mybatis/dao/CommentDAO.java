@@ -57,7 +57,7 @@ public class CommentDAO {
 	}
 	
 	//댓글 삭제
-	public static int update(String bo_idx) {
+	public static int delete(String bo_idx) {
 		SqlSession ss = FactoryService.getFactory().openSession();
 		
 		int cnt = ss.update("comment.delete", bo_idx);
