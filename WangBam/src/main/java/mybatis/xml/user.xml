@@ -92,5 +92,14 @@
       SET us_name = #{us_name}, us_email = #{us_email}, us_pwd = #{us_pwd}, us_nickname = #{us_nickname}, us_tel = #{us_tel}
       WHERE us_idx = #{us_idx};
     </update>
+    
+    <!-- VIP 5명 -->
+    <select id="findByVIP" resultType="mybatis.vo.UserVO">
+    	select u.us_idx, u.us_name, u.us_tel, SUM(or_total_price) AS us_total_price
+		from order_t o INNER JOIN user_t u ON o.us_idx = u.us_idx
+		group by us_idx
+		order by us_total_price desc
+		limit 5;
+    </select>
   </mapper>
 

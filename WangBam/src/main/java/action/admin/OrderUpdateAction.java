@@ -16,50 +16,28 @@ public class OrderUpdateAction implements Action {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		//페이징 처리를 위한 객체 생성
-		Paging page = new Paging(5,5);
+		String or_idx = request.getParameter("or_idx");
+		String[] or_idx_ar = request.getParameterValues("or_idx_ar");
+		String or_status_code = request.getParameter("or_status_code");
 		
-		String searchType = request.getParameter("searchType");
-		String searchValue = request.getParameter("searchValue");
-	
-		if(searchValue == "all") {
-			searchValue = null;
+		if(or_idx != null) {
+			Map<String,String> map = new HashMap<>();
+			map.put("or_idx", or_idx);
+			map.put("or_status_code", or_status_code);
+			OrderDAO.updateStatusCode(map);
 		}
 		
-		Map<String, String> map2 = new HashMap<>();
-		map2.put(searchType,searchValue); // or_date : 2024-04-12
-		
-		//전체 페이지 수 구하기
-		page.setTotalRecord(OrderDAO.allCount(map2));
-		
-		//현재 페이지 값 받기
-		String cPage = request.getParameter("cPage");
-
-		if(cPage != null) {
-			int nowPage = Integer.parseInt(cPage);
-			page.setNowPage(nowPage);
-		}else {
-			page.setNowPage(1);
+		if(or_idx_ar != null && or_idx_ar.length > 0) {
+			for(String or_idx2 : or_idx_ar ) {
+				Map<String,String> map = new HashMap<>();
+				map.put("or_idx", or_idx2);
+				map.put("or_status_code", or_status_code);
+				OrderDAO.updateStatusCode(map);
+			}
+			
 		}
 		
-		String begin = Integer.toString(page.getBegin());
-		String end = Integer.toString(page.getEnd());
-		
-		Map<String, String> map = new HashMap<>();
-		map.put("begin",begin);
-		map.put("end",end);
-		map.put(searchType,searchValue); // or_date : 2024-04-12
-		
-		List<OrderVO> list = OrderDAO.find(map);
-
-		//배열 ar을 jsp에서 표현하기 위해 request에 저장
-		request.setAttribute("list", list);
-		request.setAttribute("page", page);
-		request.setAttribute("searchType", searchType);
-		request.setAttribute("searchValue", searchValue);
-		
-		return "/jsp/admin/orderList.jsp";
-		
+		return "/jsp/admin/orderUpdate.jsp";
 	}
 
 }

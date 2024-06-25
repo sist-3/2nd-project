@@ -39,8 +39,7 @@
 			<c:if test="${fn:length('ar') > 0}">
 				<c:forEach var="vo" items="${requestScope.ar }" varStatus="vs">
 					<tr class="review">
-						<td><input type="checkbox" name="bo_idx_ar"
-							value="${vo.bo_idx }" /></td>
+						<td><input type="checkbox" name="bo_idx_ar" value="${vo.bo_idx }" /></td>
 						<td>${vs.index + 1 + (page.pagePerBlock * (page.nowPage - 1))}</td>
 						<td><a href="admin?type=reviewDetail&bo_idx=${vo.bo_idx}">${vo.bo_title}</a></td>
 						<td><c:if test="${null eq vo.uvo.us_name}">

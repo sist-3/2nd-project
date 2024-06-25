@@ -72,7 +72,6 @@
 	      $("#searchBtn").on('click', function() {
 	          const searchValue = $("#searchProductName").val();
 	          const productPerBlock = $("#productPerBlock").val();
-	          const cPage = $(".on").text();
 	          const param = {
         		  "type":"item",
         		  "searchValue": searchValue,

@@ -90,12 +90,15 @@ public class ProductDAO {
 
 	// 모든 상품 리스트 조회해서 페이지네이션 하기
 	public static ProductVO[] findProductByName(HashMap<String, String> map) {
-		
 		SqlSession ss = FactoryService.getFactory().openSession();
-
+		ProductVO[] ar = null;
 		List<ProductVO> list = ss.selectList("product.findProductByName", map);
+		if(list != null) {
+			ar = new ProductVO[list.size()];
+			list.toArray(ar);
+		}
 		ss.close();
-		return list.toArray(new ProductVO[0]);
+		return ar;
 	}
 
 }
