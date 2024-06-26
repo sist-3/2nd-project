@@ -86,6 +86,13 @@ body {
 .content {
 	max-width: 1260px;
 	margin: auto;
+	opacity: 0;
+    animation: fadeIn 1s forwards;
+}
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
 }
 /* 푸터 */
 .footer {
