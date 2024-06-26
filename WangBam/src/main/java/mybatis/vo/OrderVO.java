@@ -18,8 +18,8 @@ public class OrderVO {
 	or_total_price,
 	or_status_code,
 	or_sales_month,
-	or_sales;
-	
+	or_sales;	
+	private List<OrderDetailVO> od_list;
 	private UserVO uvo;
 	
 	public List<OrderDetailVO> getOd_list() {
@@ -28,7 +28,6 @@ public class OrderVO {
 	public void setOd_list(List<OrderDetailVO> od_list) {
 		this.od_list = od_list;
 	}
-	private List<OrderDetailVO> od_list;
 
 	public String getOr_total_price() {
 		return or_total_price;
