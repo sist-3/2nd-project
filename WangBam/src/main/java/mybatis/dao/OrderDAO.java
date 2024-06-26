@@ -99,4 +99,13 @@ public class OrderDAO {
 
         return ar;
     }
+    
+    public static OrderVO findByOrIdxWithDetail(String or_idx){
+        SqlSession ss = FactoryService.getFactory().openSession();
+        OrderVO vo = ss.selectOne("order.findByOrIdxWithDetail", or_idx);
+      
+        ss.close();
+
+        return vo;
+    }
 }
