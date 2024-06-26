@@ -89,8 +89,10 @@
 		<c:forEach var="product" items="${requestScope.p_ar}" varStatus="i">
 			<div class="item">
 				<div class="img-box">
+				<a href="?type=detail&pd_idx=${product.pd_idx}">
 					<img src="${pageContext.request.contextPath}/img/${product.pd_thumbnail_img}"
 						alt="${product.pd_name }">
+				</a>
 				</div>
 				<p>[왕밤빵 베이커리]${product.pd_name}</p>
 				<p><fmt:formatNumber value="${product.pd_price}" pattern="#,###" />만원</p>
