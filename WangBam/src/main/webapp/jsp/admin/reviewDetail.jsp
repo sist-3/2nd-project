@@ -12,10 +12,8 @@
 				value="${vo.bo_title }" disabled />
 		</div>
 		<div>
-			<label for="writer">작성자 : </label> <input type="text" name="writer"
-				value="<c:if test='${null eq vo.uvo.us_name}'>탈퇴한 회원</c:if>
-					<c:if test='${null ne vo.uvo.us_name}'>${vo.uvo.us_name}</c:if>"
-				disabled />
+			<label for="writer">작성자</label> <input type="text" name="writer"
+				value="<c:if test='${null eq vo.uvo.us_name}'>탈퇴한 회원</c:if><c:if test='${null ne vo.uvo.us_name}'>${vo.uvo.us_name}</c:if>"disabled />
 		</div>
 		<div>
 			<label for="score">평점</label> <input type="text" name="Score"

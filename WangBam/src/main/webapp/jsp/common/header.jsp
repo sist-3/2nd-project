@@ -46,7 +46,7 @@
 								<a href="?type=cart">장바구니</a>
 							</c:if>
 							<c:if test="${sessionScope.user eq null}">
-								<a href="?type=login">로그인</a> <a href="?type=member">회원가입</a>
+								<a href="?type=login">로그인</a> <a href="?type=signup">회원가입</a>
 							</c:if>
 						</div>
 					</nav>

@@ -16,6 +16,7 @@ public class ProductListDeleteAction implements Action {
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
            String[] pdIdxArray = request.getParameterValues("pd_idx_list");
+           System.out.println(pdIdxArray);
     if (pdIdxArray != null) {
         Map<String, Object> params = new HashMap<>();
         params.put("pd_idx_list", Arrays.asList(pdIdxArray));

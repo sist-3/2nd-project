@@ -15,3 +15,9 @@ const bubblyButtons = document.querySelectorAll('.final-btn');
 for (let i = 0; i < bubblyButtons.length; i++) {
 	bubblyButtons[i].addEventListener('click', animateButton, false);
 }
+// 페이지 전환
+document.addEventListener('DOMContentLoaded', function() {
+    const page = document.querySelector('.content');
+    // 페이지가 로드될 때 fadeIn 애니메이션 적용
+    page.classList.add('fade-in');
+});

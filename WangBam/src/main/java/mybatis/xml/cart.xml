@@ -4,26 +4,43 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cart">
 
-<!-- <select>장바구니  조회 -->
-<select id="all" parameterType="int" resultType="mybatis.vo.CartVO">
-select * from cart_t
-where us_idx = #{us_idx}
-</select>
+	<!-- findBypd_idx장바구니 조회 -->
+	<resultMap id="findByProduct" type="mybatis.vo.CartVO">
+		<collection property="pvo" column="pd_idx"
+			ofType="mybatis.vo.ProductVO" select="product.findByid" />
+	</resultMap>
 
-<!-- 장바구니 추가 -->
-<insert id="add" parameterType="Map">
-insert into cart_t(ca_idx, us_idx, ca_product_idx, ca_cnt)values(#{ca_idx}, #{us_idx}, #{ca_product_idx}, #{ca_cnt})
-</insert> 
+	<select id="all" parameterType="String"
+		resultMap="findByProduct">
+		select * from cart_t
+		where us_idx = #{us_idx}
+	</select>
 
-<!-- <update>상품 수량만 수정 가능 -->
-<update id="update" parameterType="Map">
-update cart_t set ca_cnt = #{ca_cnt}
-where ca_idx = #{ca_idx}
-</update> 
+	<!-- 장바구니 추가 -->
+	<insert id="add" parameterType="Map">
+		insert into cart_t(us_idx, pd_idx, ca_cnt)values(#{us_idx}, #{pd_idx},
+		#{ca_cnt})
+	</insert>
 
-<!-- <delete>장바구니 선택 삭제 가능 --> 
-<delete id="delete" parameterType="String">
-delete from cart_t
-where ca_idx = #{ca_idx}
-</delete>
+	<!-- <update>상품 수량만 수정 기능 -->
+	<update id="update" parameterType="Map">
+		update cart_t set ca_cnt = #{ca_cnt}
+		where ca_idx = #{ca_idx}
+	</update>
+
+	<!-- <delete>장바구니 행 삭제 기능 -->
+	<delete id="delete" parameterType="String">
+		delete from cart_t
+		where ca_idx = #{ca_idx}
+	</delete>
+	
+	<!-- 장바구니리스트 선택 삭제 (장바구니 비우기)-->
+	<delete id="deleteCarts" parameterType="map">
+    DELETE FROM cart_t
+    WHERE ca_idx IN
+    <foreach item="item" index="index" collection="ca_idx_list" open="(" separator="," close=")">
+        #{item}
+    </foreach>
+    </delete>
+    
 </mapper>

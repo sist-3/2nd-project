@@ -117,7 +117,7 @@
 	                }
 	              });
 	        } else {
-	        	$('#searchValue').prop('readonly', false).datepicker('destroy').val('').attr('type', 'text');
+	        	$('#searchValue').prop('readonly', false).datepicker('destroy').attr('type', 'text');
 	            $('#searchValue2').hide().val('');
 	        }
     	}).trigger('change');

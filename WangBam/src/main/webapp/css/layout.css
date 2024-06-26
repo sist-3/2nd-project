@@ -63,6 +63,10 @@ body {
 .global-nav-links a {
 	color: #333;
 }
+.global-nav-links a:hover {
+   transition:0.3s;
+   transform:translateY(-3px);
+}
 .global-nav-links a.on {
 	color: #673a11;
 }
@@ -72,19 +76,27 @@ body {
 /* 메인영역 */
 .main {
 	min-height: calc(100vh - 196px);
-	background-color: #fafafc;
 }
 .main:has(.view) {
 	background-color: #eee;
 }
+.wrap:not(:has(.swiper)){
+	background: url(../img/bg.png) top;
+}
 .content {
 	max-width: 1260px;
 	margin: auto;
+	opacity: 0;
+    animation: fadeIn 1s forwards;
+}
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
 }
 /* 푸터 */
 .footer {
 	border-top: 1px solid #eee;
-	background-color:#fafafc;
 }
 .inner-footer {
 	max-width: 1260px;

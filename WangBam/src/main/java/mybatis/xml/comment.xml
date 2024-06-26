@@ -35,7 +35,7 @@
 	<!-- 댓글 수정 -->
 	<update id="update" parameterType="map">
 		UPDATE comment_t
-		SET co_content = #{co_content}, co_write_date = NOW()
+		SET co_content = #{co_content}
 		WHERE co_idx = #{co_idx}
 	</update>
 	

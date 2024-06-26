@@ -49,6 +49,10 @@ body:has(.admin) {
 	gap: 20px;
 }
 
+.admin-main .search-bar form {
+	flex-direction: row;
+}
+
 .admin-main .form-group{
 	width: 600px;
     padding: 50px;
