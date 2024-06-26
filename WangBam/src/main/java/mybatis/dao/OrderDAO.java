@@ -108,6 +108,7 @@ public class OrderDAO {
         ss.close();
 
         return ovo;
+    }
 
     
     public static OrderVO findByOrIdxWithDetail(String or_idx){
