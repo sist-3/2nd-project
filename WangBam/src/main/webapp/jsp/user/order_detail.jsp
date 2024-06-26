@@ -15,16 +15,17 @@
             <h3>${odvo.pvo.pd_name}</h3>
             <p>${odvo.pvo.pd_sale_price}원  &nbsp; &nbsp;  ${odvo.od_cnt}개</p>
         </div>
-        <div class="order-item-actions">
-            
-        </div>
+        <div class="order-actions">
+    		<button onclick="location.href='orderlist'">리뷰 작성</button>
+		</div>
     </div>
     </c:forEach>
-    <div class="order-actions">
-    <button onclick="location.href='orderlist'">주문목록 돌아가기</button>
-    
-	</div>
+    <div class="order-total-price">
+            <span>총 결제금액: ${ovo.or_total_price}원</span>
+        </div>
 </div>
+<%-- 배송조회--%>
+<iframe src="https://service.epost.go.kr/trace.RetrieveDomRigiTraceList.comm?sid1=${ovo.or_tracking_number}&displayHeader=N" class="order-delivery-info" id="order-delivery-info" name="order-delivery-info" style="width: 100%; height: 1250px; display: block; margin-top: 20px;"></iframe>
 <div class="order-recipient-info">
     <h3>받는사람 정보</h3>
     <p>받는사람: ${ovo.or_name}</p>
@@ -42,10 +43,16 @@
 </div>
 
 <div class="order-actions">
-    <button onclick="location.href='orderlist'">주문목록 돌아가기</button>
-    <button onclick="location.href='orderdetail?or_idx=${ovo.or_idx}'">주문내역</button>
+    <button onclick="location.href='?type=orderlist'">주문목록 돌아가기</button>
+    <button onclick="location.href='orderdetail?or_idx=${ovo.or_idx}'">주문취소</button>
 </div>
 
   <%@include file="/jsp/common/footer.jsp" %>
+  <script>
+    $(document).ready(function(){
+        
+        console.log("1");
+    });
+  </script>
   </body>
 </html>
