@@ -168,16 +168,31 @@
     window.onload = updateTotalPrice; // 함수를 직접 할당
   	document.getElementById("quantity").addEventListener("input", updateTotalPrice);
  
-   function check() {
-	    let count = document.getElementById('quantity').value;
+  	 function check() {
+         let count = document.getElementById('quantity').value;
 
-	    if (${sessionScope.user != null }) {
-	        location.href = "?type=cartAdd&pd_idx=${pvo.pd_idx}&pd_cnt="+count;
-	    } else {
-	        alert("로그인 먼저 해주세요!");
-	        location.href = "?type=login";
-	    }
-	}
+         if (${sessionScope.user != null }) {
+             // AJAX 요청을 사용하여 장바구니에 상품을 추가하고, 성공 시 페이지를 리다이렉트합니다.
+             $.ajax({
+                 url: "?type=cartAdd",
+                 type: "GET",
+                 data: {
+                     pd_idx: "${pvo.pd_idx}",
+                     pd_cnt: count
+                 },
+                 success: function() {
+                     // 장바구니 추가가 성공하면 장바구니 목록 페이지로 이동합니다.
+                     location.href = "?type=cartList";
+                 },
+                 error: function() {
+                     alert("장바구니 추가에 실패했습니다.");
+                 }
+             });
+         } else {
+             alert("로그인 먼저 해주세요!");
+             location.href = "?type=login";
+         }
+     }
 
 </script>
 
