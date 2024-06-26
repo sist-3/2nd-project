@@ -116,6 +116,7 @@ caption {
 }
 
 .admin-pagination a {
+	display: block;
 	text-decoration: none;
 	color: #333;
 	padding: 12px;
@@ -126,8 +127,13 @@ caption {
 	color: #fff;
 	background-color: #25496f;
 }
-.admin-pagination a.disable {
-	background-color: #bbb;
+.admin-pagination div.disable {
+	text-decoration: none;
+	color: #333;
+	padding: 12px;
+	border-radius: 8px;
+	border: 1px solid #e2e2e2;
+	opacity: 0.5;
 }
 
 .admin-pagination a:hover {
