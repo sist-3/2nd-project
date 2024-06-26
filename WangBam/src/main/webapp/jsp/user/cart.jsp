@@ -9,6 +9,7 @@
 	height: 90px;
 }
 </style>
+
 <table class="table1">
 	<thead>
 		<tr>
@@ -180,4 +181,5 @@
 		}
 
 	});
+
 </script>

@@ -5,27 +5,46 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.mysql.cj.Session;
 
 import action.Action;
 import mybatis.dao.CartDAO;
 import mybatis.vo.CartVO;
 import mybatis.vo.ProductVO;
+import mybatis.vo.UserVO;
 
 public class CartListAction implements Action {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		// TODO Auto-generated method stub
-		//us_idx가 담은 장바구니 확인 product 
-		String us_idx = request.getParameter("us_idx");
+
+		HttpSession session = request.getSession();
+		UserVO user = (UserVO) session.getAttribute("user");
+		if (user == null) {
+			// user 객체가 세션에 없으면 로그인 페이지로 리다이렉트합니다.
+			response.sendRedirect("?type=login");
+			return null;
+		}
+		
+		String us_idx = user.getUs_idx();
 		
 		
+		
+		Map<String, String> map = new HashMap<>();
+		
+		map.put("us_idx", us_idx);
+		
+		
+		
+
 		CartVO[] cvo = CartDAO.allCart(us_idx);
 		request.setAttribute("cvo", cvo);
-		
+
 		return "jsp/user/cart.jsp";
+
 		
-	//장바구니를 누르면 해당 세션에 저장되어있는 유저의 아이디를 전달받아서 카트에 
 	}
 
 }
