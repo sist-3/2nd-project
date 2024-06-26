@@ -7,17 +7,17 @@
 <!-- 여기에 작업 -->
 <div class="quick-menu">
 	<div class="quick-item">
-		<a href=""> <img
+		<a href="?type=item"> <img
 			src="${pageContext.request.contextPath}/img/quick_01.png" alt="빠른메뉴1">
 		</a>
 	</div>
 	<div class="quick-item">
-		<a href=""> <img
+		<a href="?type=item"> <img
 			src="${pageContext.request.contextPath}/img/quick_02.png" alt="빠른메뉴2">
 		</a>
 	</div>
 	<div class="quick-item">
-		<a href=""> <img
+		<a href="?type=item"> <img
 			src="${pageContext.request.contextPath}/img/quick_03.png" alt="빠른메뉴3">
 		</a>
 	</div>
@@ -43,7 +43,7 @@
 				<c:choose>
 					<c:when test="${nowDate < writeDate + 30}">
 						<li class="new">
-							<a href="">
+							<a href="?type=boardsDetail&bo_type=0&bo_idx=${notice.bo_idx }">
 								<span><c:out value="${notice.bo_title}" /></span> 
 								<span class="sub-date"><c:out value="${notice.bo_write_date}" /></span>
 							</a>
@@ -51,7 +51,7 @@
 					</c:when>
 					<c:when test="${nowDate > writeDate + 30}">
 						<li>
-							<a href="">
+							<a href="?type=boardsDetail&bo_type=0&bo_idx=${notice.bo_idx }">
 								<span><c:out value="${notice.bo_title}" /></span> 
 								<span class="sub-date"><c:out value="${notice.bo_write_date}" /></span>
 							</a>
@@ -69,7 +69,7 @@
 				<strong>WEEKLY</strong> HOT ITEMS
 			</p>
 			<p>
-				<span>금주의 핫 아이템</span> <br> <span><a href="">MORE</a></span>
+				<span>금주의 핫 아이템</span> <br> <span><a href="?type=item">MORE</a></span>
 			</p>
 		</div>
 		<div>
