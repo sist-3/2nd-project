@@ -60,7 +60,7 @@
 	<c:if test="${page.startPage >= page.pagePerBlock }">
 		<div>
 			<a
-				href="admin?type=order_list&searchType=${searchType }&searchValue=${searchValue }&cPage=${page.nowPage - page.pagePerBlock }">&lt;</a>
+				href="admin?type=orderList&searchType=${searchType }&searchValue=${searchValue }&cPage=${page.nowPage - page.pagePerBlock }">&lt;</a>
 		</div>
 	</c:if>
 
@@ -82,7 +82,7 @@
 	<c:if test="${page.endPage < page.totalPage }">
 		<div>
 			<a
-				href="admin?type=orderList&cPage=${page.nowPage + page.pagePerBlock - 1}&earchType=${searchType }&searchValue=${searchValue }">&gt;</a>
+				href="admin?type=orderList&cPage=${page.nowPage + page.pagePerBlock}&earchType=${searchType }&searchValue=${searchValue }">&gt;</a>
 		</div>
 	</c:if>
 	<c:if test="${page.endPage >= page.totalPage }">

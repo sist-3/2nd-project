@@ -36,12 +36,12 @@
 <div class="pagination" id="pagination">
 	<c:set var="paging" value="${requestScope.paging}" />
 	<c:choose>
-		<c:when test="${paging.nowPage > 1 }">
+		<c:when test="${paging.startPage >= paging.pagePerBlock }">
 			<div>
-				<a href="?type=item&cPage=${paging.nowPage-1}">&lt;</a>
+				<a href="?type=item&cPage=${paging.nowPage-paging.pagePerBlock}">&lt;</a>
 			</div>
 		</c:when>
-		<c:when test="${paging.nowPage <= 1 }">
+		<c:when test="${paging.startPage < paging.pagePerBlock }">
 			<div class="disable">&lt;</div>
 		</c:when>
 	</c:choose>
@@ -60,42 +60,49 @@
 			</c:when>
 		</c:choose>
 	</c:forEach>
-	<c:choose>
-		<c:when test="${paging.nowPage < paging.endPage }">
+	<c:if test="${paging.endPage < paging.totalPage}">
+		<c:if test="${paging.nowPage+paging.pagePerBlock > paging.totalPage }">
 			<div>
-				<a href="?type=item&cPage=${paging.nowPage+1}">&gt;</a>
+				<a
+					href="admin?type=item&cPage=${paging.totalPage }">&gt;</a>
 			</div>
-		</c:when>
-		<c:when test="${paging.nowPage >= paging.endPage }">
-			<div class="disable">&gt;</div>
-		</c:when>
-	</c:choose>
+		</c:if>
+		<c:if test="${paging.nowPage+paging.pagePerBlock <= paging.totalPage }">
+			<div>
+				<a
+					href="admin?type=item&cPage=${paging.nowPage+paging.pagePerBlock}">&gt;</a>
+			</div>
+		</c:if>
+	</c:if>
+	<c:if test="${paging.endPage >= paging.totalPage }">
+		<div class="disable">&gt;</div>
+	</c:if>
 </div>
 
 <%@include file="/jsp/common/footer.jsp"%>
 
 <script>
-	  $(function() {
-	      $("#searchBtn").on('click', function() {
-	          const searchValue = $("#searchProductName").val();
-	          const productPerBlock = $("#productPerBlock").val();
-	          const param = {
-        		  "type":"item",
-        		  "searchValue": searchValue,
-        		  "productPerBlock":productPerBlock,
-	          }
-	          
-	          $.ajax({
-	              url: "?",  // 올바른 서블릿 경로를 지정하세요.
-	              type: "GET",
-	              data: param,
-	          }).done(function(res){
-	        	  $("#productList").html($(res).find("#productList").html());
-	        	  $("#pagination").html($(res).find("#pagination").html());
-	          });
-	      });
-	  });
-  </script>
+	$(function() {
+		$("#searchBtn").on('click', function() {
+			const searchValue = $("#searchProductName").val();
+			const productPerBlock = $("#productPerBlock").val();
+			const param = {
+				"type" : "item",
+				"searchValue" : searchValue,
+				"productPerBlock" : productPerBlock,
+			}
+
+			$.ajax({
+				url : "?", // 올바른 서블릿 경로를 지정하세요.
+				type : "GET",
+				data : param,
+			}).done(function(res) {
+				$("#productList").html($(res).find("#productList").html());
+				$("#pagination").html($(res).find("#pagination").html());
+			});
+		});
+	});
+</script>
 </body>
 
 </html>
