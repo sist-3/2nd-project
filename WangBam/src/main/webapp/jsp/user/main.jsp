@@ -103,6 +103,7 @@
 // 메인 슬라이더
 const swiper = new Swiper('.swiper', {
   // Navigation arrows
+  autoplay: true,
   navigation: {
     nextEl: '.swiper-button-next',
     prevEl: '.swiper-button-prev',
