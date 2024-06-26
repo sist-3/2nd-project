@@ -25,10 +25,11 @@ public class IndexAction implements Action {
 		}
 
 		// 배송 상태
-		final String[] STATUS_CODES = {"주문완료", "배송중", "배송완료", "환불요청"};
+		final String[] STATUS_CODES_Ko = {"주문완료", "배송중", "배송완료", "주문취소","환불요청" };
+		final String[] STATUS_CODES = {"UNKNOWN", "INFOMATION_RECEIVED", "DELIVERED", "CANCEL","UNKNOWN_WAIT" };
 
 		// 배송 상태 초기화 배열
-		int[] deliAr = new int[STATUS_CODES.length];
+		int[] deliAr = new int[STATUS_CODES_Ko.length];
 		List<OrderVO> delivery = OrderDAO.all();
 
 		if (delivery != null) {
@@ -41,7 +42,7 @@ public class IndexAction implements Action {
 		            }
 		        }
 		    }
-		    request.setAttribute("STATUS_CODES", STATUS_CODES);
+		    request.setAttribute("STATUS_CODES", STATUS_CODES_Ko);
 		    request.setAttribute("deliAr", deliAr);
 		}
 
