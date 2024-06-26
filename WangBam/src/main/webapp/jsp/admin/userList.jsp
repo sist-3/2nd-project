@@ -14,7 +14,6 @@
 			<option value="name">이름</option>
 			<option value="email">이메일</option>
 			<option value="nickname">닉네임</option>
-			<option value="tel">전화번호</option>
 		</select> 
 		<input type="text" name="searchValue" id="searchValue" placeholder="Search..." style="display:none"/>
 		<button type="button" class="search-btn" id="userSendBtn">&#128269;</button>
@@ -25,20 +24,16 @@
 		<th>no</th>
 		<th>이름</th>
 		<th>이메일</th>
-		<th>전화번호</th>
 		<th>닉네임</th>
-		<th>가입날짜</th>
 	</tr>
 	<c:forEach var="vo" items="${requestScope.list }" varStatus="vs">
 		<tr>
 			<td>${vs.index + 1 + (page.pagePerBlock * (page.nowPage - 1))}</td>
 			<td><a
-				href="admin?type=userDetail&or_idx=${vo.us_idx }">${vo.us_name}
+				href="admin?type=userDetail&us_idx=${vo.us_idx }">${vo.us_name}
 			</a></td>
 			<td>${vo.us_email}</td>
-			<td>${vo.us_tel}</td>
 			<td>${vo.us_nickname}</td>
-			<td>${vo.us_insert_date}</td>
 		</tr>
 	</c:forEach>
 
