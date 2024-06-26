@@ -43,6 +43,7 @@
         <thead>
             <tr>
                 <th>번호</th>
+                <th>상품</th>
                 <th>제목</th>
                 <th>작성자</th>
                 <th>작성날짜</th>
@@ -56,6 +57,7 @@
                 <c:forEach var="vo" items="${requestScope.ar }" varStatus="vs">
                     <tr class="review">
                         <td>${page.totalRecord-((page.nowPage-1)*page.numPerPage+vs.index) }</td>
+                        <td>${vo.pvo.pd_name }</td>
                         <td><a href="?type=boardsDetail&bo_idx=${vo.bo_idx }&cPage=${page.nowPage}&bo_type=2">${vo.bo_title }</a></td>
                         <c:if test="${vo.uvo.us_nickname != null }">
                         	<td>${vo.uvo.us_nickname }</td>
