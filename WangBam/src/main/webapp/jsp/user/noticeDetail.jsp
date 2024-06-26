@@ -32,8 +32,11 @@
 			<c:forEach var="cvo" items="${vo.c_list }" varStatus="vs">
 					<div id="comment_${cvo.co_idx }">
 						<c:choose>
-							<c:when test="${cvo.uvo.us_idx == vo.uvo.us_idx }">
+							<c:when test="${cvo.uvo.us_idx == vo.uvo.us_idx && cvo.uvo.us_type == 1}">
 								작성자: <b style="color: #ff0044">${vo.uvo.us_nickname }</b>&nbsp;&nbsp;
+							</c:when>
+							<c:when test="${cvo.uvo.us_type == 0 }">
+								작성자: <b style="color: #4400ff">${cvo.uvo.us_nickname }</b> &nbsp;&nbsp;
 							</c:when>
 							<c:when test="${cvo.uvo.us_nickname != null}">
 								작성자: ${cvo.uvo.us_nickname } &nbsp;&nbsp;

@@ -23,6 +23,7 @@
         <thead>
             <tr>
                 <th>번호</th>
+                <th>상품</th>
                 <th>제목</th>
                 <th>작성자</th>
                 <th>작성날짜</th>
@@ -33,8 +34,9 @@
         <tbody>
             <c:if test="${fn:length(ar) > 0 }">
                 <c:forEach var="vo" items="${requestScope.ar }" varStatus="vs">
-                    <tr class="notice">
+                    <tr class="question">
                         <td>${page.totalRecord-((page.nowPage-1)*page.numPerPage+vs.index) }</td>
+                        <td>${vo.pvo.pd_name }</td>
                         <td><a href="?type=boardsDetail&bo_type=1&bo_idx=${vo.bo_idx }&cPage=${page.nowPage}">${vo.bo_title }</a></td>
                         <c:if test="${vo.uvo.us_nickname != null }">
                         	<td>${vo.uvo.us_nickname }</td>
@@ -59,7 +61,7 @@
 
             <c:if test="${fn:length(ar) < 1 }">
                 <tr class="no_data">
-                    <td colspan="5">
+                    <td colspan="6">
                         <b>문의사항이 없습니다.</b>
                     </td>
                 </tr>
