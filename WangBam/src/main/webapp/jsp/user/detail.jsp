@@ -172,6 +172,7 @@
          let count = document.getElementById('quantity').value;
 
          if (${sessionScope.user != null }) {
+        	 
              // AJAX 요청을 사용하여 장바구니에 상품을 추가하고, 성공 시 페이지를 리다이렉트합니다.
              $.ajax({
                  url: "?type=cartAdd",
@@ -181,8 +182,13 @@
                      pd_cnt: count
                  },
                  success: function() {
+                	 if(confirm("장바구니에 담았습니다.계속 이용하시겠습니까?")){
+                		 location.href="?type=item";
+                	 }else{
+                		 
                      // 장바구니 추가가 성공하면 장바구니 목록 페이지로 이동합니다.
                      location.href = "?type=cartList";
+                	 }
                  },
                  error: function() {
                      alert("장바구니 추가에 실패했습니다.");
