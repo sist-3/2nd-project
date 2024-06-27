@@ -59,8 +59,6 @@ body:has(.docu) {
 	display: flex;
     flex-direction: column;
     gap: 16px;
-	border: 1px solid #e2e2e2;
-	padding: 24px 0;
 }
 .comment-item {
 	border: 1px solid #e2e2e2;

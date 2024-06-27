@@ -42,6 +42,10 @@ body:has(.admin) {
 	text-align: center;
 	margin-bottom: 30px;
 }
+.admin-main .form-group > h1 {
+	border:0;
+	padding:0;
+}
 
 .admin-main form {
 	display: flex;
