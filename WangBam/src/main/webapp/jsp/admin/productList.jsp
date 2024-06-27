@@ -28,7 +28,7 @@
 		<tr>
 			<td><input type="checkbox" class="checkbox" /></td>
 			<td>${product.pd_idx}</td>
-			<td><img src="${product.pd_thumbnail_img }" /></td>
+			<td><img src="${pageContext.request.contextPath}/img/${product.pd_thumbnail_img }" width="100" /></td>
 			<td><a href="admin?type=productDetail&pd_idx=${product.pd_idx}">${product.pd_name}</a>
 			</td>
 			<td>${product.pd_price}</td>
@@ -81,7 +81,7 @@
 <div class="btn_div">
 
 	<button type="button" class="admin-btn submit"
-		onclick="javascript:location.href='jsp/admin/productAdd.jsp'">추가</button>
+		onclick="javascript:location.href='admin?type=productAdd'">추가</button>
 	<button type="button" class="admin-btn cancel" id="deleteBtn">삭제</button>
 </div>
 
