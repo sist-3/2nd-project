@@ -154,4 +154,16 @@ public class UserDAO {
 		ss.close();
 		return ar;
 	}
+
+	public static UserVO[] findByEmailAndName(Map<String, Object> map) {
+		SqlSession ss = FactoryService.getFactory().openSession();
+		UserVO[] ar = null;
+		List<UserVO> list = ss.selectList("user.findByEmailAndName", map);
+		if(list != null) {
+			ar = new UserVO[list.size()];
+			list.toArray(ar);
+		}
+		ss.close();
+		return ar;
+	}
 }

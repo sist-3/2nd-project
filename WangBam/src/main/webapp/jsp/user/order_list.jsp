@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@include file="/jsp/common/header.jsp" %>
 <c:forEach var="ovo" items="${requestScope.o_list}">
-<div class="order-container">
+<div class="order-container" style="margin-bottom: 10px;">
         <div class="order-header">
             <h2>주문번호: ${ovo.or_idx}</h2>
             <a href="http://localhost:8080/WangBam/?type=orderdetail&or_idx=${ovo.or_idx}">주문 상세보기 &gt;</a>

@@ -24,16 +24,14 @@
   </div>
   <div class="buttons">
     <button type="button" id="findEmail" class="findEmail-btn">아이디 찾기</button>
-    <button type="button" class="cancel-btn">취소</button>
+    <button type="button" class="cancel-btn" onclick="location.href='/WangBam/?type=login'">취소</button>
   </div>
 </form>
 <%@include file="/jsp/common/footer.jsp" %>
 <script>
 $(document).ready(function(){
   <c:if test="${message != null}">
-    <script>
       alert("${requestScope.message}");
-    </script>
   </c:if>
 	$(".findEmail-btn").click(function(){
     //유효성검사
@@ -56,9 +54,6 @@ $(document).ready(function(){
       return;
     }
 		$("#findEmailForm").submit();
-	});
-	$(".cancel-btn").click(function(){
-		location.href = "/WangBam/";
 	});
 });
 </script>
