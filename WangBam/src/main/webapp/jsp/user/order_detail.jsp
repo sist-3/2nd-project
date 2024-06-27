@@ -25,7 +25,8 @@
         </div>
 </div>
 <%-- 배송조회--%>
-<iframe src="https://service.epost.go.kr/trace.RetrieveDomRigiTraceList.comm?sid1=${ovo.or_tracking_number}&displayHeader=N" class="order-delivery-info" id="order-delivery-info" name="order-delivery-info" style="width: 100%; height: 1250px; display: block; margin-top: 20px;"></iframe>
+<h2 style="text-align: center; margin-top: 20px;">배송조회</h2>
+<iframe src="https://service.epost.go.kr/trace.RetrieveDomRigiTraceList.comm?sid1=${ovo.or_tracking_number}&displayHeader=N" class="order-delivery-info" id="order-delivery-info" name="order-delivery-info" style="width: 100%; height: 1250px; display: block; margin-top: 10px;"></iframe>
 <div class="order-recipient-info">
     <h3>받는사람 정보</h3>
     <p>받는사람: ${ovo.or_name}</p>
@@ -44,14 +45,20 @@
 
 <div class="order-actions">
     <button onclick="location.href='?type=orderlist'">주문목록 돌아가기</button>
-    <button onclick="location.href='orderdetail?or_idx=${ovo.or_idx}'">주문취소</button>
+    <button id="order-cancel-button">주문취소</button>
 </div>
-
+<form id="order-cancel-form" action="/WangBam/" method="post" style="display: none;">
+    <input type="hidden" name="or_idx" value="${ovo.or_idx}">
+    <input type="hidden" name="type" value="ordercancel">
+</form>
   <%@include file="/jsp/common/footer.jsp" %>
   <script>
     $(document).ready(function(){
-        
-        console.log("1");
+        $('#order-cancel-button').click(function(){
+        	if(confirm('주문을 취소하시겠습니까?')){
+                $('#order-cancel-form').submit();
+            }
+        });
     });
   </script>
   </body>
