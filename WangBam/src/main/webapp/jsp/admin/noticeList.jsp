@@ -98,7 +98,8 @@
 			</c:if>
   	</div>
  	<div class="btn_div">
-  		<button type="button" class="admin-btn submit" onclick="del()">삭제</button>
+  		<button type="button" class="admin-btn submit" onclick="javascript:window.location.href='admin?type=noticeWrite'">등록</button>
+  		<button type="button" class="admin-btn cancel" onclick="del()">삭제</button>
   	</div>
 
 <%@include file="/jsp/common/footer.jsp"%>

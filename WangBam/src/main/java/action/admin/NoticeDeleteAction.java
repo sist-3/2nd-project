@@ -18,7 +18,6 @@ public class NoticeDeleteAction implements Action {
 		}
 
 		if (bo_idx_ar != null && bo_idx_ar.length > 0) {
-			// 삭제 로직 구현
 			for (String bo_idx2 : bo_idx_ar) {
 				BoardsDAO.delete(bo_idx2);
 

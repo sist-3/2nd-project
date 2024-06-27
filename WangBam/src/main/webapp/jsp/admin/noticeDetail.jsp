@@ -23,7 +23,8 @@
 		</div>
 		<div>
 			<label for="content">내용</label>
-			<input type="text" name="content" value="${vo.bo_content}" disabled />
+			<%-- <input type="text" name="content" value="${vo.bo_content}" disabled /> --%>
+			<div style="border: 1px solid black">${vo.bo_content}</div>
 		</div>
 		
 	
@@ -104,7 +105,7 @@
 		<button type="button" class="btn cancel"
 				onclick="javascript:window.location.href='admin?type=noticeEdit&bo_idx=${vo.bo_idx }'">수정</button>
 		<button type="button" class="btn cancel"
-				onclick="javascript:window.location.href='admin?type=noticeDelete&bo_idx=${vo.bo_idx }'">삭제</button>
+				onclick="deleteBoards()">삭제</button>
 		<button type="button" class="btn "
 				onclick="javascript:window.location.href='admin?type=noticeList&cPage=${requestScope.cPage }'">목록</button>
 
@@ -191,7 +192,7 @@
 			content_input.disabled = true;
 			$("#commentList").html($(res).find("#commentList").html());
 		});
-	}
+	};
 
     // 삭제 버튼 클릭 시 처리 함수 (비동기 방식으로 DB에 Update)
     function deleteComment(co_idx) {
@@ -214,7 +215,12 @@
 				$("#commentList").html($(res).find("#commentList").html());
 			});
     	}
-    }
+    };
+    function deleteBoards() {
+    	if(confirm("삭제 하시겠습니까?")){
+    		location.href=`admin?type=noticeDelete&bo_idx=${vo.bo_idx }`;
+    	}
+	};
 </script>
 </body>
 </html>
