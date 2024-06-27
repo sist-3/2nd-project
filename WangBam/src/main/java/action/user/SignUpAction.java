@@ -15,7 +15,7 @@ public class SignUpAction implements Action {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		if(request.getMethod().equals("GET")){
-			return "/jsp/user/signup.jsp";
+			return "/jsp/user/signUp.jsp";
 		}else if(request.getMethod().equals("POST")){
 			String us_name = request.getParameter("us_name");
 			String us_email = request.getParameter("us_email");
