@@ -49,6 +49,9 @@
 	font-size: 13px;
 	font-weight: 700;
 }
+.notice-list li + li {
+	margin-top:4px;
+}
 .notice-list li.new a {
 	padding-left: 20px;
 	background: url(../img/icon_new.png) no-repeat left center/contain;
