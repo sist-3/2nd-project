@@ -27,6 +27,40 @@
         </div>
     </div>
 </c:forEach>
+<div class="pagination">
+			<c:set var="page" value="${requestScope.page }"/>
+			
+			<c:if test="${page.startPage < page.pagePerBlock }">
+            	<div class="disable">&lt;</div>
+			</c:if>
+			<c:if test="${page.startPage >= page.pagePerBlock }">
+				<div><a href="?type=orderlist&cPage=${page.nowPage-page.pagePerBlock }">&lt;</a></div>
+			</c:if>
+
+
+			<c:forEach begin="${page.startPage }" end="${page.endPage }" varStatus="vs">
+          		<c:if test="${vs.index eq page.nowPage }">
+          			<div class="on">${vs.index }</div>
+           		</c:if>
+				<c:if test="${vs.index ne page.nowPage }">
+					<div><a href="?type=orderlist&cPage=${vs.index }">${vs.index }</a></div>
+				</c:if>
+			</c:forEach>
+			
+			
+			<c:if test="${page.endPage < page.totalPage}">
+				<c:if test="${page.nowPage+page.pagePerBlock > page.totalPage }">
+					<div><a href="?type=orderlist&cPage=${page.totalPage }">&gt;</a></div>
+				</c:if>
+				<c:if test="${page.nowPage+page.pagePerBlock <= page.totalPage }">
+					<div><a href="?type=orderlist&cPage=${page.nowPage+page.pagePerBlock}">&gt;</a></div>
+				</c:if>
+			</c:if>
+			<c:if test="${page.endPage >= page.totalPage}">
+				<div class="disable">&gt;</div>
+			</c:if>
+  	</div>
+
 <%@include file="/jsp/common/footer.jsp" %>
   </body>
 </html>

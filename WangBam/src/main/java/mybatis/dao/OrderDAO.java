@@ -87,10 +87,10 @@ public class OrderDAO {
         return idx;
     }
     
-    public static OrderVO[] findByUsIdxWithDetail(String us_idx){
+    public static OrderVO[] findByUsIdxWithDetail(Map<String, String> map){
         OrderVO[] ar = null;
         SqlSession ss = FactoryService.getFactory().openSession();
-        List<OrderVO> list = ss.selectList("order.findByUsIdxWithDetail", us_idx);
+        List<OrderVO> list = ss.selectList("order.findByUsIdxWithDetail", map);
         if(list != null){
             ar = new OrderVO[list.size()];
             list.toArray(ar);
@@ -119,5 +119,13 @@ public class OrderDAO {
 
         return vo;
 
+    }
+
+    public static int countUsIdx(Map<String, String> map){
+        SqlSession ss = FactoryService.getFactory().openSession();
+        int count = ss.selectOne("order.countUsIdx", map);
+        ss.close();
+
+        return count;
     }
 }

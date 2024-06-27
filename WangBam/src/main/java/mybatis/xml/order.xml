@@ -111,6 +111,13 @@
                 <if test="or_status_code != null">
                     AND or_status_code like concat ('%',#{or_status_code},'%')
                 </if>
+                <if test="pd_name != null">
+                    AND or_idx in ( SELECT or_idx 
+                                    FROM order_detail_t
+                                    WHERE pd_idx in (SELECT pd_idx 
+                                                    FROM product_t
+                                                    WHERE pd_name like concat ('%',#{pd_name},'%')))
+                </if>
             </trim>
         </where>
         	) a, (SELECT @RN:=0) b
@@ -175,11 +182,6 @@
         <id property="or_idx" column="or_idx"/>
         <collection property="od_list" column="or_idx" ofType="mybatis.vo.OrderDetailVO" select="order_detail.findByIdxWithProduct"/>
     </resultMap>
-
-    
-    <select id="findByUsIdxWithDetail" parameterType="String" resultMap="findwithOrderDetail">
-        SELECT * FROM order_t WHERE us_idx = #{us_idx}
-    </select>
     
 
     <select id="findByIdxWithDetail" parameterType="String" resultMap="findwithOrderDetail">
@@ -188,5 +190,52 @@
   
      <select id="findByOrIdxWithDetail" parameterType="String" resultMap="findwithOrderDetail">
         SELECT * FROM order_t WHERE or_idx = #{or_idx}
+    </select>
+    
+    <select id="countUsIdx" parameterType="String" resultType="int">
+        SELECT count(*) FROM order_t 
+        <where>
+            <trim prefixOverrides="AND">
+                <if test="us_idx != null">
+                    us_idx = #{us_idx}
+                </if>
+                <if test="pd_name != null">
+                    AND or_idx in ( SELECT or_idx 
+                                    FROM order_detail_t
+                                    WHERE pd_idx in (SELECT pd_idx 
+                                                    FROM product_t
+                                                    WHERE pd_name like concat ('%',#{pd_name},'%')))
+                </if>
+            </trim>
+        </where>
+    </select>
+
+    <select id="findByUsIdxWithDetail" parameterType="Map" resultMap="findwithOrderDetail">
+        SELECT * FROM (
+        	SELECT @RN:=@RN+1 AS rnum, a.*
+        	FROM (
+            	SELECT *
+            	FROM order_t
+            	<where>
+            <trim prefixOverrides="AND">
+                <if test="us_idx != null">
+                    us_idx = #{us_idx}
+                </if>
+                <if test="pd_name != null">
+                    AND or_idx in ( SELECT or_idx 
+                                    FROM order_detail_t
+                                    WHERE pd_idx in (SELECT pd_idx 
+                                                    FROM product_t
+                                                    WHERE pd_name like concat ('%',#{pd_name},'%')))
+                </if>
+            </trim>
+        </where>
+        	) a, (SELECT @RN:=0) b
+    	) c
+        <where>
+            <if test="begin != null and end != null">
+				c.rnum BETWEEN #{begin} AND #{end}
+			</if>
+        </where>
     </select>
 </mapper>
