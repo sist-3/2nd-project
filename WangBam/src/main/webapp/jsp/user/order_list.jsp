@@ -34,7 +34,7 @@
             	<div class="disable">&lt;</div>
 			</c:if>
 			<c:if test="${page.startPage >= page.pagePerBlock }">
-				<div><a href="?type=orderlist&cPage=${page.nowPage-page.pagePerBlock }">&lt;</a></div>
+				<div><a href="?type=order&cPage=${page.nowPage-page.pagePerBlock }">&lt;</a></div>
 			</c:if>
 
 
@@ -43,17 +43,17 @@
           			<div class="on">${vs.index }</div>
            		</c:if>
 				<c:if test="${vs.index ne page.nowPage }">
-					<div><a href="?type=orderlist&cPage=${vs.index }">${vs.index }</a></div>
+					<div><a href="?type=order&cPage=${vs.index }">${vs.index }</a></div>
 				</c:if>
 			</c:forEach>
 			
 			
 			<c:if test="${page.endPage < page.totalPage}">
 				<c:if test="${page.nowPage+page.pagePerBlock > page.totalPage }">
-					<div><a href="?type=orderlist&cPage=${page.totalPage }">&gt;</a></div>
+					<div><a href="?type=order&cPage=${page.totalPage }">&gt;</a></div>
 				</c:if>
 				<c:if test="${page.nowPage+page.pagePerBlock <= page.totalPage }">
-					<div><a href="?type=orderlist&cPage=${page.nowPage+page.pagePerBlock}">&gt;</a></div>
+					<div><a href="?type=order&cPage=${page.nowPage+page.pagePerBlock}">&gt;</a></div>
 				</c:if>
 			</c:if>
 			<c:if test="${page.endPage >= page.totalPage}">

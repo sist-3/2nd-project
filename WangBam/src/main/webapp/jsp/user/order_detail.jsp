@@ -16,7 +16,7 @@
             <p>${odvo.pvo.pd_sale_price}원  &nbsp; &nbsp;  ${odvo.od_cnt}개</p>
         </div>
         <div class="order-actions">
-    		<button onclick="location.href='orderlist'">리뷰 작성</button>
+    		<button onclick="location.href='order'">리뷰 작성</button>
 		</div>
     </div>
     </c:forEach>
@@ -46,7 +46,7 @@
 </div>
 
 <div class="order-actions">
-    <button onclick="location.href='?type=orderlist'">주문목록 돌아가기</button>
+    <button onclick="location.href='?type=order'">주문목록 돌아가기</button>
     <button id="order-cancel-button">주문취소</button>
 </div>
 <form id="order-cancel-form" action="/WangBam/" method="post" style="display: none;">
