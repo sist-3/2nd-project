@@ -159,6 +159,7 @@ body:has(.admin) {
 	top:0;
 	border-bottom:1px solid #e2e2e2;
 	background-color:#fafafc;
+	z-index:3;
 }
 .admin-header .global-nav {
 	width: 100%;

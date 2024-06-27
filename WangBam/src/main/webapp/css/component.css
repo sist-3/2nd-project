@@ -450,3 +450,47 @@ font-weight: bold;
 .order-total-price span {
 	color: #e74c3c;
 }
+.ui-widget.ui-widget-content {
+	padding:0;
+	border-radius:20px;
+	overflow:hidden;
+}
+.ui-dialog .ui-dialog-titlebar {
+	background-color: #8b4d35;
+    border: #8b4d35;
+    color: #fff;
+}
+.ui-dialog .ui-dialog-titlebar-close {
+	right:1em;
+}
+.ui-dialog .ui-dialog-content{
+	background: #fff6e8;
+}
+.ui-dialog .ui-dialog-content > p{
+    text-align: center;
+    padding: 20px;
+    font-weight: 600;
+}
+.ui-dialog .ui-dialog-buttonpane {
+	margin:0;
+	border:0;
+	padding:0 0 20px 0;
+	background:#fff6e8;
+	text-align: center;
+}
+.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
+	float:none;
+}
+
+.ui-dialog .ui-dialog-buttonpane button{
+	height: 40px;
+    border-radius: 10px;
+    margin:0;
+}
+.ui-dialog .ui-dialog-buttonpane button+button{
+	margin-left:8px;
+}
+.ui-dialog-buttonset > .ui-button:first-child {
+    background-color: #8b4d35;
+    color: #fff;
+}
