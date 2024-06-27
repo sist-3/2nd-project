@@ -13,7 +13,7 @@ import mybatis.vo.UserVO;
 
 public class LoginAction implements Action {
 
-	@Override
+	@Override 
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewPath=null;
 		if(request.getMethod().equals("POST")) {

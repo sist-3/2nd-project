@@ -11,8 +11,10 @@ public class LogoutAction implements Action {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
-		session.removeAttribute("user");
-		return "/";
+		if(session.getAttribute("user") != null) {
+			session.removeAttribute("user");
+		}
+		return "jsp/user/redirectMain.jsp";
 	}
 
 }
