@@ -276,15 +276,26 @@ caption {
 
 
 .brand-box {
-     padding: 20px;
-     margin: 20px;
-     border: 1px solid #ddd;
-     border-radius: 5px;
-     background-color: #f9f9f9;
+    padding: 25px;
+    margin: 20px;
+    border: 6px dashed #e5e2c9;
+    background-color: #ffffff;
+    text-align: center;
 }
 
+.brand-box > p{
+	color: #72684f;
+	line-height: 30px
+}
 .brand-title {
      color: #5b4024;
+     padding-bottom: 16px;
+}
+
+.brand-main{
+	background: #ffffff7a;
+    padding: 50px;
+    border-radius: 20px;
 }
 
 .item > .img-box {

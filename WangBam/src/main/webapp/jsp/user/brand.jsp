@@ -3,11 +3,11 @@
     
 <%@include file="/jsp/common/header.jsp" %>
 
-  <div>
+  <div class="brand-main">
     <section class="brand-box">
-      <h2>브랜드 소개</h2>
+      <h1>WangBam Bakery</h1>
       <img src="${pageContext.request.contextPath}/img/logo.png" width="150px" />
-      <p>**왕밤빵 베이커리**에 오신 것을 환영합니다. <br>
+      <p>WangBam Bakery에 오신 것을 환영합니다. <br>
       저희 빵집은 매일 아침 신선한 재료로 정성껏 구워낸 다양한 종류의 빵을 제공하고 있습니다.<br>
       클래식한 분위기 속에서 갓 구운 크루아상, 바게트, 브리오슈 등 전통적인 유럽 스타일의 빵을 맛보실 수 있습니다. <br>
       따뜻한 커피 한 잔과 함께 여유로운 시간을 즐기세요.
@@ -16,8 +16,12 @@
     </section>
 
     <section class="brand-box">
-      <h2 class="brand-title">전국 매장 위치</h2>
+      <h2 class="brand-title">찾아오시는 길</h2>
       <div id="map" style="width:100%;height:350px;"></div>
+      <p>
+      	Address: 서울특별시 강남구 테헤란로 132(역삼동) <br>
+      	대중교통: 역삼역 3번 출구에서 203m
+      </p>
     </section>
   </div>
 

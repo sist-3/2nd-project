@@ -22,7 +22,6 @@ public class OrderDetailAction implements Action {
 		
 		List<OrderDetailVO> list = vo.getOd_list();
 		
-		System.out.println(vo.getOd_list().get(0).getPvo().getPd_name());
 		request.setAttribute("vo", vo);
 		request.setAttribute("list", list);
 		return "/jsp/admin/orderDetail.jsp";
