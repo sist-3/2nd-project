@@ -30,22 +30,29 @@
 		<label for="comment">댓글 [${vo.c_list.size() }]</label>
 		<div class="comment" id="commentList">
 			<c:forEach var="cvo" items="${vo.c_list }" varStatus="vs">
-					<div id="comment_${cvo.co_idx }">
-						<c:choose>
-							<c:when test="${cvo.uvo.us_idx == vo.uvo.us_idx && cvo.uvo.us_type == 1}">
-								작성자: <b style="color: #ff0044">${vo.uvo.us_nickname }</b>&nbsp;&nbsp;
-							</c:when>
-							<c:when test="${cvo.uvo.us_type == 0 }">
-								작성자: <b style="color: #4400ff">${cvo.uvo.us_nickname }</b> &nbsp;&nbsp;
-							</c:when>
-							<c:when test="${cvo.uvo.us_nickname != null}">
-								작성자: ${cvo.uvo.us_nickname } &nbsp;&nbsp;
-							</c:when>
-							<c:when test="${cvo.uvo.us_nickname == null}">
-								작성자: 탈퇴한 회원 &nbsp;&nbsp;
-							</c:when>
-						</c:choose>
-						작성일: ${cvo.co_write_date } &nbsp;&nbsp;
+					<div id="comment_${cvo.co_idx }" class="comment-item">
+						<div class="comment-header">
+							<p>
+								<c:choose>
+									<c:when test="${cvo.uvo.us_idx == vo.uvo.us_idx && cvo.uvo.us_type == 1}">
+										작성자: <b style="color: #ff0044">${vo.uvo.us_nickname }</b>&nbsp;&nbsp;
+									</c:when>
+									<c:when test="${cvo.uvo.us_type == 0 }">
+										작성자: <b style="color: #4400ff">${cvo.uvo.us_nickname }</b> &nbsp;&nbsp;
+									</c:when>
+									<c:when test="${cvo.uvo.us_nickname != null}">
+										작성자: ${cvo.uvo.us_nickname } &nbsp;&nbsp;
+									</c:when>
+									<c:when test="${cvo.uvo.us_nickname == null}">
+										작성자: 탈퇴한 회원 &nbsp;&nbsp;
+									</c:when>
+								</c:choose>
+							</p>
+							<p class="date">
+								작성일: ${cvo.co_write_date } &nbsp;&nbsp;
+							</p>
+						</div>
+						
 						<c:if test="${cvo.uvo.us_idx == sessionScope.user.us_idx and cvo.uvo.us_idx != null }">
 					    	<button class="btn cancel" type="button" onclick="editComment('${cvo.co_idx}')">수정 및 삭제</button><br/>
 						</c:if>
@@ -60,10 +67,6 @@
 								<button type="button" onclick="deleteComment('${cvo.co_idx}')">삭제</button>
 							</div>
 						</div>
-						
-						<c:if test="${!vs.last}">
-							<hr/>
-						</c:if>
 					</div>
 			</c:forEach>
 		</div>
