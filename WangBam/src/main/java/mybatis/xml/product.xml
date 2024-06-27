@@ -18,8 +18,8 @@
 
 	<!-- 상품 추가 -->
 	<insert id="add" parameterType="map">
-		insert into product_t(ct_idx, pd_name, pd_price, pd_sale, pd_date, pd_cnt,pd_last_update, pd_status)
-		values(#{ct_idx},#{pd_name}, #{pd_price},#{pd_sale},NOW(),#{pd_cnt},NOW(),1)
+		insert into product_t(ct_idx, pd_name, pd_price, pd_sale, pd_date, pd_cnt, pd_thumbnail_img, pd_detail_img ,pd_last_update, pd_status)
+		values(#{ct_idx},#{pd_name}, #{pd_price},#{pd_sale},NOW(),#{pd_cnt}, #{pd_thumbnail_img},#{pd_detail_img},NOW(),1)
 
 	</insert>
 
