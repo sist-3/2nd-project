@@ -13,7 +13,8 @@
 <table class="table1">
 	<thead>
 		<tr>
-			<th><input type="checkbox" class="allCheckbox" onclick="allCheck()"/> 모두선택</th>
+			<th><input type="checkbox" class="allCheckbox"
+				onclick="allCheck()" /> 모두선택</th>
 			<th>이미지</th>
 			<th>상품명</th>
 			<th>가격</th>
@@ -42,7 +43,7 @@
 						</td>
 						<td class="total">${vo.pvo.pd_price * vo.ca_cnt}원</td>
 						<td><button type="button" class="btn cancel"
-								 onclick="javascript:if(confirm('삭제하시겠습니까?')){location.href='?type=cartDelete&us_idx=${vo.us_idx}&ca_idx=${vo.ca_idx}'}">삭제</button></td>
+								onclick="javascript:if(confirm('삭제하시겠습니까?')){location.href='?type=cartDelete&us_idx=${vo.us_idx}&ca_idx=${vo.ca_idx}'}">삭제</button></td>
 
 					</tr>
 				</form>
@@ -113,78 +114,85 @@
 	//장바구니 리스트 선택 삭제
 	$(document).ready(function() {
 		$("#delete_Btn").on('click', function() {
-			var ca_idx_array = [];
+			if (confirm("선택된 상품을 삭제하시겠습니까?")) {
+				var ca_idx_array = [];
 
-			$(".checkbox:checked").each(function() {
-				var $row = $(this).closest('tr');
-				var ca_idx = $row.find('.ca_idx').val();
-				ca_idx_array.push(ca_idx);
+				$(".checkbox:checked").each(function() {
+					var $row = $(this).closest('tr');
+					var ca_idx = $row.find('.ca_idx').val();
+					ca_idx_array.push(ca_idx);
 
-			});
-
-			if (ca_idx_array.length > 0) {
-				$.ajax({
-					url : '?type=cartselectDelete', // 수정된 서버의 URL
-					type : 'POST',
-					data : {
-						ca_idx_list : ca_idx_array
-					},
-					traditional : true,
-					success : function(response) {
-						
-						alert('선택된 장바구니가 삭제되었습니다.');
-						location.reload(); // 성공 후 페이지 새로고침
-					},
-					error : function() {
-						
-						alert('장바구니 삭제에 실패했습니다.');
-					}
 				});
-			} else {
-				alert('삭제할 상품을 선택하세요.');
+
+				if (ca_idx_array.length > 0) {
+					$.ajax({
+						url : '?type=cartselectDelete', // 수정된 서버의 URL
+						type : 'POST',
+						data : {
+							ca_idx_list : ca_idx_array
+						},
+						traditional : true,
+						success : function(response) {
+
+							alert('선택된 장바구니가 삭제되었습니다.');
+							location.reload(); // 성공 후 페이지 새로고침
+						},
+						error : function() {
+
+							alert('장바구니 삭제에 실패했습니다.');
+						}
+					});
+				} else {
+					alert('삭제할 상품을 선택하세요.');
+				}
 			}
 		});
 
 	});
 	//장바구니 모두 비우기
 	$("#deleteAll_Btn").on('click', function() {
-		var ca_idx_Array = [];
+		if (confirm("비우시겠습니까?")) {
 
-		// 모든 class="ca_idx" 요소를 선택하고, 각 요소의 값을 배열에 추가합니다.
-		$(".ca_idx").each(function() {
-			var ca_idx = $(this).val(); // 각 요소의 값을 가져옵니다.
-			ca_idx_Array.push(ca_idx); // 값을 배열에 추가합니다.
-		});
+			var ca_idx_Array = [];
 
-		console.log(ca_idx_Array); // 배열을 콘솔에 출력하여 확인합니다.
-
-		if (ca_idx_Array.length > 0) {
-			$.ajax({
-				url : '?type=cartallDelete', 
-				type : 'POST',
-				data : {
-					ca_idx_list : ca_idx_Array
-				},
-				traditional : true,
-				success : function(response) {
-				
-					alert('장바구니가 비워졌습니다');
-					location.reload(); // 성공 후 페이지 새로고침
-				},
-				error : function() {
-					
-					alert('장바구니가 비우는데 실패했습니다.');
-				}
+			// 모든 class="ca_idx" 요소를 선택하고, 각 요소의 값을 배열에 추가합니다.
+			$(".ca_idx").each(function() {
+				var ca_idx = $(this).val(); // 각 요소의 값을 가져옵니다.
+				ca_idx_Array.push(ca_idx); // 값을 배열에 추가합니다.
 			});
-		} else {
-			alert('장바구니가 이미 비워져있습니다.');
+
+			console.log(ca_idx_Array); // 배열을 콘솔에 출력하여 확인합니다.
+
+			if (ca_idx_Array.length > 0) {
+				$.ajax({
+					url : '?type=cartallDelete',
+					type : 'POST',
+					data : {
+						ca_idx_list : ca_idx_Array
+					},
+					traditional : true,
+					success : function(response) {
+
+						alert('장바구니가 비워졌습니다');
+						location.reload(); // 성공 후 페이지 새로고침
+					},
+					error : function() {
+
+						alert('장바구니가 비우는데 실패했습니다.');
+					}
+				});
+
+			} else {
+				alert('장바구니가 이미 비워져있습니다.');
+			}
 		}
 
 	});
 	function allCheck() {
-	    if ($('.allCheckbox').is(':checked')) { // 선택자와 메서드 사용 수정
-	        $('.checkbox').prop('checked', true); // 모든 개별 체크박스를 체크 상태로 설정
-	    } else {
-	        $('.checkbox').prop('checked', false); // 모든 개별 체크박스를 체크 해제 상태로 설정
-	    }
-	}</script>
+		if ($('.allCheckbox').is(':checked')) { // 선택자와 메서드 사용 수정
+			$('.checkbox').prop('checked', true); // 모든 개별 체크박스를 체크 상태로 설정
+		} else {
+			$('.checkbox').prop('checked', false); // 모든 개별 체크박스를 체크 해제 상태로 설정
+		}
+	}
+</script>
