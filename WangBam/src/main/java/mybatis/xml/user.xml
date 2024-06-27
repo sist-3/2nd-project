@@ -79,6 +79,15 @@
 			</if>
         </where>
     </select>
+  
+    <select id="findByNameAndTel" parameterType="Map" resultType="mybatis.vo.UserVO">
+      SELECT * FROM user_t WHERE us_name = #{us_name} AND us_tel = #{us_tel} AND us_status = 1;
+    </select>
+
+    <select id="findByEmailAndName" parameterType="Map" resultType="mybatis.vo.UserVO">
+      SELECT * FROM user_t WHERE us_email = #{us_email} AND us_name = #{us_name} AND us_status = 1;
+    </select>
+    
     <!-- 페이징용 -->
     <select id="count" parameterType="Map" resultType="int">
         SELECT count(*) FROM user_t

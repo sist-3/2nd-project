@@ -13,9 +13,9 @@
         <button type="button" onclick="login(this.form)" >로그인</button>
     </form>
     <div class="login-links">
-        <a href="#">아이디찾기</a> 
-        <a href="#">비밀번찾기</a> 
-        <a href="#">회원가입</a>
+        <a href="/WangBam/?type=findEmail">아이디찾기</a> 
+        <a href="/WangBam/?type=findPwd">비밀번찾기</a> 
+        <a href="/WangBam/?type=signup">회원가입</a>
     </div>
 </div>
 <%@include file="/jsp/common/footer.jsp" %>
