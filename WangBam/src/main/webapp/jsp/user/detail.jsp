@@ -66,7 +66,7 @@
 						
 						<div class="buttons">
 							<button class="buy-now">바로 구매하기</button>
-							<button class="add-to-cart" onclick="javascript:location.href='?type=cart&pd_idx=${pvo.pd_idx}&us_idx=${sessionScope.user.us_idx}'">장바구니 담기</button>
+							<button class="add-to-cart" onclick="check()">장바구니 담기</button>
 							
 						</div>
 						
@@ -131,6 +131,7 @@
 						
 					</div>
 					
+					
 
 
 				</div>
@@ -140,7 +141,7 @@
 <%@include file="/jsp/common/footer.jsp" %>
 
 	
-	<script>
+<script>
 	 $( function() {
 		    $( "#tabs" ).tabs();
 		  } );
@@ -154,7 +155,7 @@
 		    totalPrice = quantity * price;	
 	    }else{
 	    	
-	    	totalPrice = quantity * price;
+	    	totalPrice = quantity  * price;
 	    	discount = quantity * price-(price*sale.innerText.substring(0,2)/100);
 	    document.getElementById("discount").innerText = discount.toLocaleString() + '원'; // 총 금액을 화면에 표시합니다.
 	    }
@@ -165,9 +166,34 @@
 	
 
     window.onload = updateTotalPrice; // 함수를 직접 할당
-   // 함수를 직접 할당
-    document.getElementById("quantity").addEventListener("input", updateTotalPrice);
-    
+  	document.getElementById("quantity").addEventListener("input", updateTotalPrice);
+ 
+  	 function check() {
+         let count = document.getElementById('quantity').value;
+
+         if (${sessionScope.user != null }) {
+             // AJAX 요청을 사용하여 장바구니에 상품을 추가하고, 성공 시 페이지를 리다이렉트합니다.
+             $.ajax({
+                 url: "?type=cartAdd",
+                 type: "GET",
+                 data: {
+                     pd_idx: "${pvo.pd_idx}",
+                     pd_cnt: count
+                 },
+                 success: function() {
+                     // 장바구니 추가가 성공하면 장바구니 목록 페이지로 이동합니다.
+                     location.href = "?type=cartList";
+                 },
+                 error: function() {
+                     alert("장바구니 추가에 실패했습니다.");
+                 }
+             });
+         } else {
+             alert("로그인 먼저 해주세요!");
+             location.href = "?type=login";
+         }
+     }
+
 </script>
 
 

@@ -9,10 +9,11 @@
 	height: 90px;
 }
 </style>
+
 <table class="table1">
 	<thead>
 		<tr>
-			<th>선택</th>
+			<th><input type="checkbox" class="allCheckbox" onclick="allCheck()"/> 모두선택</th>
 			<th>이미지</th>
 			<th>상품명</th>
 			<th>가격</th>
@@ -180,4 +181,10 @@
 		}
 
 	});
-</script>
+	function allCheck() {
+	    if ($('.allCheckbox').is(':checked')) { // 선택자와 메서드 사용 수정
+	        $('.checkbox').prop('checked', true); // 모든 개별 체크박스를 체크 상태로 설정
+	    } else {
+	        $('.checkbox').prop('checked', false); // 모든 개별 체크박스를 체크 해제 상태로 설정
+	    }
+	}</script>

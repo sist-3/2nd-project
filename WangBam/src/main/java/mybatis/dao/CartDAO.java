@@ -24,7 +24,7 @@ public class CartDAO {
  //장바구니 추가
  public static int addCart(Map<String, String> map) {
 	 SqlSession ss = FactoryService.getFactory().openSession();
-	 int cnt = ss.insert("cart.insert",map);
+	 int cnt = ss.insert("cart.add",map);
 		if(cnt>0) {
 			ss.commit();
 		}else{
@@ -69,7 +69,14 @@ public class CartDAO {
 		ss.close();
 		return cnt;
 	}
-
+ //장바구니 상품 확인
+ public static CartVO cartCheck(Map<String, String>map) {
+	 SqlSession ss = FactoryService.getFactory().openSession();
+	 CartVO vo = ss.selectOne("cart.cartCheck",map);
+	 ss.close();
+	 return vo;
+	 
+ }
 
 
 
