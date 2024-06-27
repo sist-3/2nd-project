@@ -74,7 +74,7 @@
 
             <c:if test="${fn:length(ar) < 1 }">
                 <tr class="no_data">
-                    <td colspan="6">
+                    <td colspan="7">
                         <b>등록된 리뷰가 없습니다.</b>
                     </td>
                 </tr>
@@ -208,7 +208,7 @@
 	        }
         }
     });
-	$('#searchCategory').change(function ProductOption() {
+	function ProductOption() {
 		var selectedCategory = document.getElementById("searchCategory").value;
         var productOptions = document.getElementsByClassName("product_option");
 		$('#searchProduct').val("allProduct").attr("selected", "selected");
@@ -221,7 +221,8 @@
                 option.style.display = "none";
             }
         }
-    });
+    }
+	$('#searchCategory').change(ProductOption());
     // 초기 로드 시 선택된 카테고리에 따라 제품 필터링
     document.addEventListener("DOMContentLoaded", function() {
     	ProductOption();
