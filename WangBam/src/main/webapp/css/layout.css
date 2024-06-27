@@ -98,6 +98,9 @@ body {
 .footer {
 	border-top: 1px solid #eee;
 }
+.admin-main + .footer {
+	background-color : #fafafc;
+}
 .inner-footer {
 	max-width: 1260px;
 	height: 98px;
