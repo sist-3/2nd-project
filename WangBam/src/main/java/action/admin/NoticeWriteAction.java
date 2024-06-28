@@ -1,6 +1,5 @@
 package action.admin;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,10 +12,6 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import action.Action;
 import mybatis.dao.BoardsDAO;
-import mybatis.dao.CategoryDAO;
-import mybatis.dao.ProductDAO;
-import mybatis.vo.CategoryVO;
-import mybatis.vo.ProductVO;
 
 public class NoticeWriteAction implements Action {
 
@@ -51,23 +46,13 @@ public class NoticeWriteAction implements Action {
 				String bo_content = mr.getParameter("bo_content");
 				String pd_idx = mr.getParameter("pd_idx");
 
-				File f = mr.getFile("upload"); //null
-				String fname = null;
-				//String oname = null;
-
-				if (f != null) {
-					fname = f.getName();
-					//oname = mr.getOriginalFileName("upload"); 
-				}
-				
 				Map<String, String> map = new HashMap<>();
 				map.put("us_idx", us_idx );
 				map.put("pd_idx", pd_idx );
 				map.put("bo_type", "0");
 				map.put("bo_title", bo_title );
 				map.put("bo_content", bo_content );
-				map.put("bo_img", fname);
-				//System.out.println(fname);
+				
 				BoardsDAO.add(map);
 
 				viewPath = "/jsp/admin/add_success.jsp";
