@@ -7,14 +7,15 @@
 <%@include file="/jsp/common/adminHeader.jsp"%>
 
 <c:set var="deliAr" value="${requestScope.deliAr}" />
-<c:set var="statusLabels" value="${requestScope.STATUS_CODES}" />
+<c:set var="statusCodes" value="${requestScope.STATUS_CODES}" />
+<c:set var="statusLabels" value="${requestScope.STATUS_CODES_KO}" />
 <section>
 	<div class="title">
 		<h3>판매진행현황</h3>
 	</div>
 	<ul class="order-state">
 		<c:forEach var="status" items="${statusLabels}" varStatus="statusIndex">
-            <li>${status} : ${deliAr[statusIndex.index]}건</li>
+            <li><a href="admin?type=orderList&searchType=or_status_code&searchValue=${statusCodes[statusIndex.index]}">${status} : ${deliAr[statusIndex.index]}건</a></li>
         </c:forEach>
 	</ul>
 </section>

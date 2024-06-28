@@ -154,9 +154,24 @@ public class BoardsDAO {
 			ss.rollback();
 		
 		ss.close();
-
+		
 		return cnt;
 	}
+	// 답변상태 변경 (미답변 상태로 변경)
+		public static int updateByidx2(String bo_idx) {
+			SqlSession ss = FactoryService.getFactory().openSession();
+
+			int cnt = ss.update("boards.updateByidx2", bo_idx);
+			
+			if(cnt>0)
+				ss.commit();
+			else
+				ss.rollback();
+			
+			ss.close();
+
+			return cnt;
+		}
 
 	// 상품상세페이지 문의,리뷰 게시판
 	public static BoardsVO[] findBypdidx(String pd_idx) {
