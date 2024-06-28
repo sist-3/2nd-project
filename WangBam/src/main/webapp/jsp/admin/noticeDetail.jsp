@@ -75,7 +75,7 @@
 
 		<c:if test="${sessionScope.user != null}">
 			<label for="comment">댓글작성</label>
-			<form name="writeCommentForm" action="Controller" method="post" onsubmit="return writeComment()">
+			<form name="writeCommentForm" action="admin" method="post" onsubmit="return writeComment()">
 				작성자: ${sessionScope.user.us_nickname }<br/>
 				내용:<textarea rows="4" cols="30" name="co_content" id="co_content"></textarea><br/>
 				<input type="hidden" name="us_idx" value="${sessionScope.user.us_idx }"/>
@@ -135,16 +135,7 @@
         	input.disabled = true;
         });
         
-        /* document.querySelectorAll(".comment").forEach(comment => {
-            const edit_btn = document.querySelector(".commentEdit_btn");
-            const content_input = document.querySelector("input");
-            if (edit_btn) {
-                edit_btn.style.display = "none";
-            }
-            if (content_input) {
-                content_input.disabled = true;
-            }
-        }); */
+       
         
         // 해당 댓글에만 버튼을 보이게 하고 입력 필드를 활성화
         const commentElement = document.getElementById("comment_"+co_idx);
@@ -179,7 +170,7 @@
 	    const newContent = content_input.value;
 	    const edit_btn = document.getElementById("btn_"+co_idx);
 	    $.ajax({
-			url: "?type=saveEditComment",
+			url: "admin?type=saveEditComment",
 			type: "post",
 			data: {co_idx: co_idx,
 				newContent: newContent,
@@ -201,7 +192,7 @@
 		    const newContent = content_input.value;
 		    const edit_btn = document.getElementById("btn_"+co_idx);
 		    $.ajax({
-				url: "?type=deleteComment",
+				url: "admin?type=deleteComment",
 				type: "post",
 				data: {co_idx: co_idx,
 					newContent: newContent,
