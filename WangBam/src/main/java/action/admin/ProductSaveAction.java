@@ -1,5 +1,6 @@
 package action.admin;
 
+import java.io.File;
 import java.util.HashMap;
 
 import javax.servlet.ServletContext;
@@ -18,6 +19,7 @@ public class ProductSaveAction implements Action {
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewPath = null;
 		String enc_type = request.getContentType();
+		String imgPath = "C:/2nd-project/WangBam/src/main/webapp/img";
 		
 		if(enc_type ==null) {
 			viewPath = "/jsp/admin/productAdd.jsp";
@@ -26,8 +28,6 @@ public class ProductSaveAction implements Action {
 			// 폼에 enctype이 multipart....로 지정되었다면
 			// 절대로 request.getParameter()로 값을 받지 못한다.
 			try {
-				ServletContext application = request.getServletContext();
-				String imgPath = application.getRealPath("/img");
 				
 				// 첨부파일과 다른 파라미터들을 받기 위해
 				// MultipartRequest 객체를 생
@@ -39,10 +39,11 @@ public class ProductSaveAction implements Action {
 				String pd_cnt = mr.getParameter("pd_cnt");
 				String pd_sale = mr.getParameter("pd_sale");
 				String pd_price = mr.getParameter("pd_price");
-				
 				// 이미 업로드된 첨부파일이 파일명이 변경됐을 것 같은 느낌.
-				String f = mr.getOriginalFileName("pd_thumbnail_img");
-				String f2 = mr.getOriginalFileName("pd_detail_img");
+				File f = mr.getFile("pd_thumbnail_img"); 
+				File f2 = mr.getFile("pd_detail_img"); 
+				String pd_thumbnail_img = f.getName();
+				String pd_detail_img = f2.getName();
 				
 				HashMap<String, String> map = new HashMap<>();
 				map.put("pd_name", pd_name);
@@ -50,8 +51,8 @@ public class ProductSaveAction implements Action {
 				map.put("pd_cnt", pd_cnt);
 				map.put("pd_sale", pd_sale);
 				map.put("pd_price", pd_price);
-				map.put("pd_thumbnail_img", f);
-				map.put("pd_detail_img", f2);
+				map.put("pd_thumbnail_img", pd_thumbnail_img);
+				map.put("pd_detail_img", pd_detail_img);
 				
 				ProductDAO.addProduct(map);
 			
