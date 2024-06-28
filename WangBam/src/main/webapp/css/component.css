@@ -22,6 +22,9 @@ caption {
 	text-indent: -9999px;
 	height: 0;
 }
+#table_col_title{
+	width: 45% !important;
+}
 /* 테이블위 검색영역 */
 .search-group {
 	display: flex;

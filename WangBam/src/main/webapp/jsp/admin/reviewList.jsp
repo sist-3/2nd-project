@@ -27,7 +27,7 @@
 				<th><input type="checkbox" id="selectAll"
 					onclick="toggleSelectAll(this)" /> 선택</th>
 				<th>번호</th>
-				<th>제목</th>
+				<th id="table_col_title">제목</th>
 				<th>작성자</th>
 				<th>작성날짜</th>
 				<th>평점</th>
