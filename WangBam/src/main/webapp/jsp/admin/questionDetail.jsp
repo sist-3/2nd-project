@@ -6,7 +6,7 @@
 <%@include file="/jsp/common/adminHeader.jsp"%>
 <c:if test="${sessionScope.user.us_type == 0 }">
 	<div class="form-group">
-		<h1>공지 상세보기 (관리자)</h1>
+		<h1>문의사항 관리</h1>
 		
 		<div>
 			<label for="title">제목</label>
@@ -23,8 +23,18 @@
 		</div>
 		<div>
 			<label for="content">내용</label>
-			<%-- <input type="text" name="content" value="${vo.bo_content}" disabled /> --%>
 			<div style="border: 1px solid black">${vo.bo_content}</div>
+		</div>
+		<div>
+			<label for="content">답변여부</label>
+			<c:choose>
+				<c:when test="${vo.bo_answer == 0}">
+					<input type="text" name="answer" value="답변완료" disabled />
+				</c:when>
+				<c:when test="${vo.bo_answer == 1}">
+					<input type="text" name="answer" value="답변대기중" disabled />
+				</c:when>
+			</c:choose>
 		</div>
 		
 	
@@ -69,28 +79,25 @@
 							</div>
 						</div>
 					</div>
+					<c:if test="${vs.last}">
+						<c:set var="commAnswer" value="${cvo.uvo.us_type }" scope="request"/>
+					</c:if>
+					
+					
+					
+					<c:set var="targetIndex" value="${vo.c_list.size() - 2 }" />
+
+					<c:forEach var="comment" items="${vo.c_list}" varStatus="status">
+					    <c:if test="${status.index == targetIndex}">
+					        <c:set var="commAnswer2" value="${comment.uvo.us_type}" scope="request" />
+					    </c:if>
+					</c:forEach>
+					
+					
 			</c:forEach>
 		</div>
 		
-		
-		<div>
-			<form name="answer_form" action="admin" method="post">
-				<c:set var="answer" value="${vo.bo_answer }" />
-				<input type="hidden" name="bo_idx" value="${vo.bo_idx}"/>
-				<input type="hidden" name="type" value="answerUpdate"/>
-				<input type="hidden" name="bo_type" value="1"/>
-				<input type="hidden" name="cPage" value="${requestScope.cPage}"/>
-				
-		   	 	<label for="radio-1">답변대기</label>
-	   			<input type="radio" name="answer" id="answer_N" value="1" ${answer == 1 ? 'checked' : '' }>
-			
-	   	 		<label for="radio-2">답변완료</label>
-	   			<input type="radio" name="answer" id="answer_Y" value="0" ${answer == 0 ? 'checked' : '' }>
-	   			
-	   			<input type="submit" value="저장"/> 
-			</form>
-		</div>
-	
+		<input type="hidden" id="answerInput" name="us_type" value="${commAnswer2 }"/>
 
 		<c:if test="${sessionScope.user != null}">
 			<label for="comment">댓글작성</label>
@@ -101,6 +108,7 @@
 				<input type="hidden" name="bo_idx" value="${vo.bo_idx}"/>
 				<input type="hidden" name="bo_type" value="1"/>
 				<input type="hidden" name="cPage" value="${requestScope.cPage}"/>
+				<input type="hidden" name="us_type" value="${sessionScope.user.us_type }"/>
 				<input type="hidden" name="type" value="writeComment"/>
 				<input type="submit" value="댓글등록"/> 
 			</form>
@@ -129,9 +137,6 @@
 	</div>
 <%@include file="/jsp/common/footer.jsp"%>
 <script>
-	$( function() {
-	    document.getElementByType("radio").checkboxradio();
-	  } );
 	//댓글 유효성 검사
 	function writeComment() {
 		var val = document.getElementById("co_content");
@@ -200,6 +205,7 @@
 			edit_btn.style.display = "none";
 			content_input.disabled = true;
 			$("#commentList").html($(res).find("#commentList").html());
+			window.location.reload(true);
 		});
 	};
 
@@ -209,6 +215,7 @@
 	    	const content_input = document.getElementById("contentInput_"+co_idx);
 		    const newContent = content_input.value;
 		    const edit_btn = document.getElementById("btn_"+co_idx);
+		    const commAnswer = document.getElementById("answerInput").value;
 		    $.ajax({
 				url: "admin?type=deleteComment",
 				type: "post",
@@ -216,12 +223,15 @@
 					newContent: newContent,
 					bo_idx: ${vo.bo_idx },
 					bo_type: 0 ,
-					cPage: ${requestScope.cPage}},
-				
+					cPage: ${requestScope.cPage},
+					us_type: commAnswer,
+				}
 			}).done(function(res) {
 				edit_btn.style.display = "none";
 				content_input.disabled = true;
 				$("#commentList").html($(res).find("#commentList").html());
+				location.href=`admin?type=boardsDetail&bo_idx=${vo.bo_idx }&bo_type=${vo.bo_type}&cPage=${requestScope.cPage}`;
+				
 			});
     	}
     };
