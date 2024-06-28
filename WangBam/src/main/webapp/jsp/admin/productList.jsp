@@ -16,23 +16,45 @@
 </div>
 <table class="table" id="productList">
 	<tr>
-		<th>선택</th>
-		<th>no</th>
+		<th><input type="checkbox" class="allCheckbox" onclick="allCheck()"/>선택</th>
+		<th>상품번호</th>
 		<th>썸네일</th>
 		<th>상품명</th>
-		<th>가격</th>
+		<th>가격</th> 
+		<th>할인가</th>
+		<th>할인율</th>
 		<th>재고</th>
+		<th>상세 이미지</th>
+		<th>상품 등록일</th>
+		<th>최신 작성일</th>
+		
+		
 	</tr>
 	<!-- 상품 리스트 출력 -->
 	<c:forEach var="product" items="${p_ar}">
 		<tr>
 			<td><input type="checkbox" class="checkbox" /></td>
 			<td>${product.pd_idx}</td>
-			<td><img src="${pageContext.request.contextPath}/img/${product.pd_thumbnail_img }" width="100" /></td>
-			<td><a href="admin?type=productDetail&pd_idx=${product.pd_idx}">${product.pd_name}</a>
-			</td>
+			<c:if test="${product.pd_thumbnail_img eq ''}">
+				<td>등록되지 않았습니다.</td>			
+			</c:if>
+			<c:if test="${product.pd_thumbnail_img ne ''}">
+			<td><img src="${pageContext.request.contextPath}/img/${product.pd_thumbnail_img }" width="100" /></td>		
+			</c:if>
+			<td><a href="admin?type=productDetail&pd_idx=${product.pd_idx}">${product.pd_name}</a></td>
 			<td>${product.pd_price}</td>
+			<td>${product.pd_sale_price}</td>
+			<td>${product.pd_sale }</td>
 			<td>${product.pd_cnt }</td>
+			<c:if test="${product.pd_detail_img eq ''}">
+				<td>등록되지 않았습니다.</td>			
+			</c:if>
+			<c:if test="${product.pd_detail_img ne ''}">
+			<td><img src="${pageContext.request.contextPath}/img/${product.pd_detail_img }" width="100" /></td>		
+			</c:if>
+			<td>${product.pd_date}</td>
+			<td>${product.pd_last_update}</td>
+			
 		</tr>
 	</c:forEach>
 </table>
@@ -60,7 +82,7 @@
 			<c:if test="${page.nowPage ne vs.index}">
 				<div>
 					<a
-						href="admin?type=productList&cPage=${vs.index}&ct_idx=${requestScope.ct_idx}">${vs.index}</a>
+						href="admin?type=productList&cPage=${vs.index}">${vs.index}</a>
 				</div>
 			</c:if>
 		</c:forEach>
@@ -68,7 +90,7 @@
 		<c:if test="${page.endPage < page.totalPage }">
 			<div>
 				<a
-					href="admin?type=productList&cPage=${page.nowPage + page.pagePerBlock - 1}&ct_idx=${requestScope.ct_idx}">&gt;</a>
+					href="admin?type=productList&cPage=${page.nowPage + page.pagePerBlock - 1}">&gt;</a>
 			</div>
 		</c:if>
 		<c:if test="${page.endPage >= page.totalPage }">
@@ -153,6 +175,13 @@
 			}
 		});
 	});
+	function allCheck() {
+		if ($('.allCheckbox').is(':checked')) { // 선택자와 메서드 사용 수정
+			$('.checkbox').prop('checked', true); // 모든 개별 체크박스를 체크 상태로 설정
+		} else {
+			$('.checkbox').prop('checked', false); // 모든 개별 체크박스를 체크 해제 상태로 설정
+		}
+	}
 </script>
 
 

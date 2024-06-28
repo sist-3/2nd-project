@@ -43,7 +43,7 @@
 			</div>
 
 			<div class="buttons">
-				<button type="button" class="admin-btn submit" onclick="add()">추가</button>
+				<button type="button" class="admin-btn submit" onclick="add()">저장</button>
 				<button type="button" class="admin-btn cancel" onclick="javascript:location.href='admin?type=productList'">취소</button>
 			</div>
 		</form>
