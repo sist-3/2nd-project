@@ -26,7 +26,7 @@ public class IndexAction implements Action {
 
 		// 배송 상태
 		final String[] STATUS_CODES_KO = {"주문완료", "배송중", "배송완료", "주문취소","환불요청" };
-		final String[] STATUS_CODES = {"UNKNOWN", "INFOMATION_RECEIVED", "DELIVERED", "CANCEL","UNKNOWN_WAIT" };
+		final String[] STATUS_CODES = {"UNKNOWN", "INFORMATION_RECEIVED", "DELIVERED", "CANCEL","UNKNOWN_WAIT" };
 
 		// 배송 상태 초기화 배열
 		int[] deliAr = new int[STATUS_CODES_KO.length];
