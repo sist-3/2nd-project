@@ -238,7 +238,7 @@
 </div>
 <div class="product-page">
 	<div class="product-image">
-		<img src="img/${pvo.pd_thumbnail_img}" alt="Product Image">
+		<img src="img/${pvo.pd_thumbnail_img}" alt="Product Image" width="90%" height="90%">
 	</div>
 	<div class="product-details">
 		<h1>
@@ -496,12 +496,12 @@
 									pd_cnt: count
 								},
 								success: function () {
-									if (confirm("장바구니에 담았습니다.계속 이용하시겠습니까?")) {
-
-									} else {
+									if (confirm("장바구니에 담았습니다. 장바구니로 이동하시겠습니까?")) {
 
 										// 장바구니 추가가 성공하면 장바구니 목록 페이지로 이동합니다.
 										location.href = "?type=cartList";
+									} else {
+
 									}
 								},
 								error: function () {
