@@ -30,13 +30,15 @@
 			<div>
 				<label for="img">썸네일이미지</label>
 				<div>
-					<input type="file" name="pd_thumbnail_img" id="pdThumbnailImg">
+					<label class="file-select" for="pdThumbnailImg">파일선택 +</label>
+					<input type="file" name="pd_thumbnail_img" id="pdThumbnailImg" onchange="selectImg(this)">
 				</div>
 			</div>
 			<div>
 				<label for="img">상세이미지</label>
 				<div>
-					<input type="file" name="pd_detail_img" id="pdDetailImg">
+					<label class="file-select" for="pdDetailImg">파일선택 +</label>
+					<input type="file" name="pd_detail_img" id="pdDetailImg" onchange="selectImg(this)">
 				</div>
 			</div>
 
@@ -51,6 +53,16 @@
 </div>
 <%@include file="/jsp/common/footer.jsp"%>
 <script>
+	function selectImg(input){
+		const fileName = $(input).val().slice($(input).val().lastIndexOf('\\')+1);
+		const elem = "<p id='filename'>"+fileName+"</p>"
+		if($(input).parent().find($('#filename')).length > 0){
+			$('#filename').text(fileName)
+		}else {
+			$(input).parent().append(elem);
+		}
+	}
+
 	function add(){
 		const addForm = document.addForm;
 		const elem = addForm.elements;
