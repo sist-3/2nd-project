@@ -21,6 +21,7 @@ public class PaymentAction implements Action {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
+		
 		// 구매한 장바구니 목록 삭제
 		Object obj = session.getAttribute("cartIdxList");
 		List<String> cartIdxList = null;
@@ -33,7 +34,9 @@ public class PaymentAction implements Action {
 		}
 		
 		// 사용했던 세션 삭제
-		session.removeAttribute("cvo");
+		if(session.getAttribute("cvo") != null) {
+			session.removeAttribute("cvo");
+		}
 		
 		// 주문 정보 insert 하기
 		OrderDAO.add(makeMapOrderData(request));
