@@ -45,6 +45,7 @@ body:has(.admin) {
 .admin-main .form-group > h1 {
 	border:0;
 	padding:0;
+	border-left: 4px solid #e2e2e2;
 }
 
 .admin-main form {
