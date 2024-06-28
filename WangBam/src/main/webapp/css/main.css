@@ -681,3 +681,71 @@ input::placeholder {
 .address-group ~ input {
 	margin-top: 8px;
 }
+
+.comment-form-section h2 {
+    color: #d2691e;
+    margin-bottom: 15px;
+}
+
+.comment-form .form-group {
+    margin-bottom: 15px;
+    padding:0;
+    background-color:transparent;
+}
+
+.comment-form label {
+    display: block;
+    margin-bottom: 5px;
+    color: #8b4513;
+}
+
+.comment-form input,
+.comment-form textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.comment-form button {
+    width: 100%;
+    background-color: #ff7f50;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.comment-form button:hover {
+    background-color: #ff6347;
+}
+
+.comment-list-section h2 {
+    color: #d2691e;
+    margin-bottom: 15px;
+}
+
+.comments-list .comment {
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.comments-list .comment p {
+    margin: 0;
+    color: #8b4513;
+}
+.commentEdit_btn {
+	text-align:right;
+}
+.content > .form-group {
+	background-color: #fff7e6;
+    border: 1px solid #ffcc99;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
