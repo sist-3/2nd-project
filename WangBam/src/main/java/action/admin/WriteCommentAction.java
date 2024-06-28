@@ -7,9 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import mybatis.dao.BoardsDAO;
 import mybatis.dao.CommentDAO;
 
-public class WriteComment implements Action {
+public class WriteCommentAction implements Action {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -18,6 +19,13 @@ public class WriteComment implements Action {
 		String co_content = request.getParameter("co_content");
 		String cPage = request.getParameter("cPage");
 		String bo_type = request.getParameter("bo_type");
+		String us_type = request.getParameter("us_type");
+		
+		if(us_type.equals("0")) {
+			BoardsDAO.updateByidx(bo_idx);
+		}else {
+			BoardsDAO.updateByidx2(bo_idx);
+		}
 		
 		Map<String, String> map = new HashMap<>();
 		map.put("us_idx", us_idx);
