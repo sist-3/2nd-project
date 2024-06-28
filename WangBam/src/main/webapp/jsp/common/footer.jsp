@@ -25,4 +25,6 @@
 <script
 	src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="js/summernote-lite.js"></script>
+<script src="js/lang/summernote-ko-KR.js"></script>
 <script src="${pageContext.request.contextPath}/js/ui.js"></script>
