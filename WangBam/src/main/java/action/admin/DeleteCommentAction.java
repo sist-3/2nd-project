@@ -18,8 +18,13 @@ public class DeleteCommentAction implements Action {
 		String bo_idx = request.getParameter("bo_idx");
 		String bo_type = request.getParameter("bo_type");
 		String cPage = request.getParameter("cPage");
+		String us_type = request.getParameter("us_type");
 		
-		
+		if(us_type.equals("0")) {
+			BoardsDAO.updateByidx(bo_idx);
+		}else {
+			BoardsDAO.updateByidx2(bo_idx);
+		}
 		CommentDAO.delete(co_idx);
 		BoardsVO vo = BoardsDAO.findByidx(bo_idx);
 		
