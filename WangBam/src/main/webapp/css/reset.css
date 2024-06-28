@@ -148,6 +148,13 @@ a {
 	color: #000;
 }
 
+td>a{
+	text-decoration: underline;
+    color: #7376a0;
+}
+
+
+
 @font-face {
 	font-family: 'NanumGothic';
 	src: url('/font/NanumGothic-Regular.ttf') format('ttf');

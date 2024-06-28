@@ -55,7 +55,7 @@
 </form>
 
 <%@include file="/jsp/common/footer.jsp"%>
-
+<script src="${pageContext.request.contextPath}/js/Payment.js"></script>
 <script>
 	
 	function okOrder() {
@@ -70,15 +70,32 @@
 	}
 
 	function cancelOrder() {
+		let chk = false;
 		if (confirm("정말 취소하시겠습니까?")) {
             const form = document.getElementById('orderForm');
             const idx = document.getElementById("or_idx").value;
 
 	        form.method = 'POST';
 	        form.action = 'admin?type=orderUpdate&or_status_code=CANCEL&or_idx='+idx;
-	        form.submit();
+	       
+	        if(check(idx) == 'CANCELLED' ){
+            	chk = true;
+            }else{
+            	chk = false;
+            }
+	        
+	    	if(chk){
+	 	       form.submit();
+	        	}
 		}
 	}
+	
+
+	function check(value){
+		let result = getPaymentByOrIdx(value);
+		return result.status;
+	}
+
 </script>
 </body>
 
