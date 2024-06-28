@@ -71,6 +71,25 @@
 					</div>
 			</c:forEach>
 		</div>
+		
+		
+		<div>
+			<form name="answer_form" action="admin" method="post">
+				<c:set var="answer" value="${vo.bo_answer }" />
+				<input type="hidden" name="bo_idx" value="${vo.bo_idx}"/>
+				<input type="hidden" name="type" value="answerUpdate"/>
+				<input type="hidden" name="bo_type" value="1"/>
+				<input type="hidden" name="cPage" value="${requestScope.cPage}"/>
+				
+		   	 	<label for="radio-1">답변대기</label>
+	   			<input type="radio" name="answer" id="answer_N" value="1" ${answer == 1 ? 'checked' : '' }>
+			
+	   	 		<label for="radio-2">답변완료</label>
+	   			<input type="radio" name="answer" id="answer_Y" value="0" ${answer == 0 ? 'checked' : '' }>
+	   			
+	   			<input type="submit" value="저장"/> 
+			</form>
+		</div>
 	
 
 		<c:if test="${sessionScope.user != null}">
@@ -80,7 +99,7 @@
 				내용:<textarea rows="4" cols="30" name="co_content" id="co_content"></textarea><br/>
 				<input type="hidden" name="us_idx" value="${sessionScope.user.us_idx }"/>
 				<input type="hidden" name="bo_idx" value="${vo.bo_idx}"/>
-				<input type="hidden" name="bo_type" value="0"/>
+				<input type="hidden" name="bo_type" value="1"/>
 				<input type="hidden" name="cPage" value="${requestScope.cPage}"/>
 				<input type="hidden" name="type" value="writeComment"/>
 				<input type="submit" value="댓글등록"/> 
@@ -97,21 +116,22 @@
 		
 		
 		<form name="boardDataForm" action="admin" method="post">
-			<input type="hidden" name="type" value="noticeEdit"/>
+			<input type="hidden" name="type" value="questionEdit"/>
 			<input type="hidden" name="bo_idx" value="${vo.bo_idx}"/>
 			<input type="hidden" name="cPage" value="${requestScope.cPage}"/>
 		</form>
 		
 		<button type="button" class="btn cancel"
-				onclick="javascript:window.location.href='admin?type=noticeEdit&bo_idx=${vo.bo_idx }'">수정</button>
-		<button type="button" class="btn cancel"
 				onclick="deleteBoards()">삭제</button>
 		<button type="button" class="btn "
-				onclick="javascript:window.location.href='admin?type=noticeList&cPage=${requestScope.cPage }'">목록</button>
+				onclick="javascript:window.location.href='admin?type=questionList&cPage=${requestScope.cPage }'">목록</button>
 
 	</div>
 <%@include file="/jsp/common/footer.jsp"%>
 <script>
+	$( function() {
+	    document.getElementByType("radio").checkboxradio();
+	  } );
 	//댓글 유효성 검사
 	function writeComment() {
 		var val = document.getElementById("co_content");
@@ -134,8 +154,6 @@
         document.querySelectorAll(".edit_comment > input").forEach(input => {
         	input.disabled = true;
         });
-        
-       
         
         // 해당 댓글에만 버튼을 보이게 하고 입력 필드를 활성화
         const commentElement = document.getElementById("comment_"+co_idx);
@@ -209,7 +227,7 @@
     };
     function deleteBoards() {
     	if(confirm("삭제 하시겠습니까?")){
-    		location.href=`admin?type=noticeDelete&bo_idx=${vo.bo_idx }`;
+    		location.href=`admin?type=questionDelete&bo_idx=${vo.bo_idx }`;
     	}
 	};
 </script>
