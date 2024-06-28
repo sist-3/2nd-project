@@ -67,7 +67,7 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 var timer;
-function emailCheck(email_address){     
+function emailCheck(email_address){
 	email_regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
 	if(!email_regex.test(email_address)){ 
 		return false; 
@@ -294,6 +294,25 @@ $(document).ready(function(){
       $('#nickname').focus();
       return;
     }
+    if($('#phone-middle').val().length !== 4 || $('#phone-last').val().length !== 4){
+      $('#phone-check').css('display', 'block');
+      $('#phone-check').text('올바른 전화번호를 입력하세요');
+      $('#phone-middle').css('border-color', '#FFA500');
+      $('#phone-last').css('border-color', '#FFA500');
+      $('#phone-middle').val('');
+      $('#phone-last').val('');
+      $('#phone-middle').focus();
+      return;
+    }
+    if($('#phone-last').val().length !== 4){
+      $('#phone-check').css('display', 'block');
+      $('#phone-check').text('올바른 전화번호를 입력하세요');
+      $('#phone-last').css('border-color', '#FFA500');
+      $('#phone-last').val('');
+      $('#phone-last').focus();
+      return;
+    }
+
     if(postcode.trim().length == 0){
       $('#postcode-check').css('display', 'block');
       $('#postcode-check').text('우편번호를 입력하세요');
@@ -315,7 +334,7 @@ $(document).ready(function(){
         us_email: email,
         us_pwd: password,
         us_nickname: nickname,
-        us_tel: phone,
+        us_tel: $('#phone').val() + $('#phone-middle').val() + $('#phone-last').val(),
         postcode: postcode,
         address: address,
         extraAddress: extraAddress,
