@@ -79,6 +79,9 @@ public class SearchAction implements Action {
 			case"0": //공지사항
 				viewPath = "/jsp/admin/noticeList.jsp";
 				break;
+			case"1": //문의사항
+				viewPath = "/jsp/admin/questionList.jsp";
+				break;
 			case"2": //리뷰
 				viewPath = "/jsp/admin/reviewList.jsp";
 				break;
