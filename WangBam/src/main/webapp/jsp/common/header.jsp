@@ -29,7 +29,7 @@
 					<nav class="global-nav">
 						<div class="global-nav-links">
 							<a href="?type=notice" class="${currentPage.contains('notice') ? 'global-nav-item on' : 'global-nav-item'}">공지사항</a>
-							<a href="?type=item" class="${currentPage.contains('item') ? 'global-nav-item on' : 'global-nav-item'}">상품보기</a>
+							<a href="?type=productList" class="${currentPage.contains('product') ? 'global-nav-item on' : 'global-nav-item'}">상품보기</a>
 							<a href="?type=review" class="${currentPage.contains('review') ? 'global-nav-item on' : 'global-nav-item'}">리뷰보기</a>
 							<a href="?type=question" class="${currentPage.contains('question') ? 'global-nav-item on' : 'global-nav-item'}">1:1문의</a>
 							<a href="?type=brand" class="${currentPage.contains('brand') ? 'global-nav-item on' : 'global-nav-item'}">브랜드소개</a>
