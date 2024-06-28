@@ -4,11 +4,13 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <%@include file="/jsp/common/adminHeader.jsp"%>
+<c:if test="${sessionScope.us_type == 0 }">
+
 
 	<div class="admin">
         <h1>공지사항 작성</h1>
         <form action="admin?type=noticeWrite" method="post" class="form-group" enctype="multipart/form-data" name=form>
-        	<input type="hidden" name="us_idx" value="1"> 
+        	<input type="hidden" name="us_idx" value="${sessionScope.us_idx }"> 
         	<input type="hidden" name="pd_idx" value="1"> 
             <div>
                 <label for="text">제목 :</label>
@@ -92,5 +94,11 @@ function saveBorads() {
         
     };
 </script>
+</c:if>
+<c:if test="${sessionScope.us_type != 0 }">
+	<script type="text/javascript">
+        window.location.href = 'Controller?type=index';
+    </script>
+</c:if>
 </body>
 </html>

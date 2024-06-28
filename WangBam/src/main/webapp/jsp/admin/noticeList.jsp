@@ -28,7 +28,7 @@
             <tr>
             	<th><input type="checkbox" id="allCheck" name="allCheck"/></th>
                 <th>번호</th>
-                <th>제목</th>
+                <th style="width:40%">제목</th>
                 <th>작성자</th>
                 <th>작성날짜</th>
                 <th>조회수</th>

@@ -24,7 +24,7 @@
         <thead>
             <tr>
                 <th>번호</th>
-                <th>제목</th>
+                <th id="table_col_title">제목</th>
                 <th>작성자</th>
                 <th>작성날짜</th>
                 <th>조회수</th>

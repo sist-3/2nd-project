@@ -1,6 +1,5 @@
 package action.admin;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,8 +23,7 @@ public class NoticeEditAction implements Action {
 		String bo_idx = request.getParameter("bo_idx");
 		String cPage = request.getParameter("cPage");
 		
-		
-		if(!enc_type.startsWith("multipart")) {
+		if(enc_type == null) {
 			BoardsVO vo = BoardsDAO.findByidx(bo_idx);
 			
 			request.setAttribute("vo", vo);
@@ -40,20 +38,12 @@ public class NoticeEditAction implements Action {
 			try {
 				MultipartRequest mr = new MultipartRequest(request, realPath, 1024*1024*5, "utf-8", new DefaultFileRenamePolicy());
 				
-				String bo_title = mr.getParameter("title");
-				String bo_content = mr.getParameter("content");
+				String bo_title = mr.getParameter("bo_title");
+				String bo_content = mr.getParameter("bo_content");
 				String bo_idx2 = mr.getParameter("bo_idx");
 				
-				File f = mr.getFile("file");
-				String fname = null;
-				String oname = null;
-				if(f!=null) {
-					fname = f.getName();
-					oname = mr.getOriginalFileName("file");
-				}
 				
 				Map<String, String> map = new HashMap<>();
-				//map.put("us_idx",us_idx); 이거 가능한가?
 				map.put("bo_idx", bo_idx2);
 				map.put("bo_title", bo_title);
 				map.put("bo_content", bo_content);
@@ -61,7 +51,7 @@ public class NoticeEditAction implements Action {
 				
 				BoardsDAO.update(map);
 				
-				viewPath = "admin?type=noticeDetail&bo_idx="+bo_idx2;
+				viewPath = "admin?type=boardsDetail&bo_type=0&bo_idx="+bo_idx2;
 				
 			}catch(Exception e) {
 				e.printStackTrace();
