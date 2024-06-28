@@ -118,7 +118,7 @@
 		                        AND bo_score BETWEEN #{searchValue3} AND #{searchValue3}+0.49
 		                    </when>
 		                    <when test= "searchType == 'answer'"> <!-- 미답변 목록 검색 -->
-		                        AND bo_answer = 1
+		                        AND bo_answer = #{searchValue3}
 		                    </when>
 		                    <when test= "searchType == 'category' and searchProduct != 'allProduct'"> <!-- 카테고리(상품) 검색 -->
 		                    	AND pd_idx = #{searchProduct}
@@ -195,6 +195,12 @@
 	<update id="updateByidx" parameterType="String">
 		UPDATE boards_t
 		SET bo_answer = 0
+		WHERE bo_idx = #{bo_idx}
+	</update>
+	
+	<update id="updateByidx2" parameterType="String">
+		UPDATE boards_t
+		SET bo_answer = 1
 		WHERE bo_idx = #{bo_idx}
 	</update>
 	
