@@ -221,3 +221,17 @@ body:has(.admin) {
 .table{
     background-color: #fff;
 }
+
+.detail-txt{
+	border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 12px;
+}
+
+form.writeCommentForm{
+	display: block;
+}
+
+form.writeCommentForm > input{
+	float:right;
+}
