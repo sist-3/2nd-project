@@ -27,8 +27,8 @@
 </div>
 <table class="table" id="orderList">
 	<tr>
-		<th><input type="checkbox" id="selectSendAll"/> 발송</th>
-		<th><input type="checkbox" id="selectCancelAll"/> 주문취소</th>
+		<th><input type="checkbox" id="selectSendAll" /> 발송</th>
+		<th><input type="checkbox" id="selectCancelAll" /> 주문취소</th>
 		<th>no</th>
 		<th>받는사람</th>
 		<th>주문번호</th>
@@ -41,8 +41,7 @@
 			<td><input type="checkbox" value="${vo.or_idx}" name="or_idx_ar" /></td>
 			<td><input type="checkbox" value="${vo.or_idx}" name="or_idx_ar" /></td>
 			<td>${vs.index + 1 + (page.pagePerBlock * (page.nowPage - 1))}</td>
-			<td><a
-				href="admin?type=orderDetail&or_idx=${vo.or_idx }">${vo.or_name}
+			<td><a href="admin?type=orderDetail&or_idx=${vo.or_idx }">${vo.or_name}
 			</a></td>
 			<td>${vo.or_payment_code}</td>
 			<td>${vo.or_status_code}</td>
@@ -98,8 +97,9 @@
 
 
 <%@include file="/jsp/common/footer.jsp"%>
-
+<script src="${pageContext.request.contextPath}/js/Payment.js"></script>
 <script>
+
 $(function(){
 	selectCancelAll();
 	selectSendAll();
@@ -185,6 +185,7 @@ function or_ok(){
 }
 
 function or_cancel(){
+	let chk = false;
 	if (confirm("정말 취소하시겠습니까?")) {
         const checkboxes = document.querySelectorAll('input[name="or_idx_ar"]:checked');
         if (checkboxes.length === 0) {
@@ -202,11 +203,24 @@ function or_cancel(){
             hiddenInput.name = 'or_idx_ar';
             hiddenInput.value = checkbox.value;
             form.appendChild(hiddenInput);
+            if(check(hiddenInput.value) == 'CANCELLED' ){
+            	chk = true;
+            }else{
+            	chk = false;
+            }
+            
         });
-
-        document.body.appendChild(form);
-        form.submit();
+        	document.body.appendChild(form);
+       	if(chk){
+	       form.submit();
+       	}
+        
 	}
+}
+
+function check(value){
+	let result = getPaymentByOrIdx(value);
+	return result.status;
 }
 
 		

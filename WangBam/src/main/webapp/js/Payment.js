@@ -28,7 +28,7 @@ async function requestCardPayment(data) {
 };
 
 // 단건 조회
-function getPaymentByOrIdx(or_idx) {
+ function getPaymentByOrIdx(or_idx) {
 	const settings = {
 	  async: false,
 	  crossDomain: true,
