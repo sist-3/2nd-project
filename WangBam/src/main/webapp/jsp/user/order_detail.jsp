@@ -6,7 +6,21 @@
         <h2>주문번호: ${ovo.or_idx}</h2>
     </div>
     <div class="order-status">
-        <span class="status-value">${ovo.or_status_code}</span>
+        <c:if test="${ovo.or_status_code == 'UNKNOWN'}">
+            <span class="status-value">주문완료</span>
+        </c:if>
+        <c:if test="${ovo.or_status_code == 'INFOMATION_RECEIVED'}">
+            <span class="status-value">배송중</span>
+        </c:if>
+        <c:if test="${ovo.or_status_code == 'DELIVERED'}">
+            <span class="status-value">배송완료</span>
+        </c:if>
+        <c:if test="${ovo.or_status_code == 'CANCELLED'}">
+            <span class="status-value">주문취소</span>
+        </c:if>
+        <c:if test="${ovo.or_status_code == 'UNKNOWN_WAIT'}">
+            <span class="status-value">환불대기</span>
+        </c:if>
     </div>
     <c:forEach var="odvo" items="${ovo.od_list}">
     <div class="order-item">
@@ -20,7 +34,7 @@
 				${odvo.pvo.pd_price}원
 				</c:if>
                 &nbsp; &nbsp;  ${odvo.od_cnt}개</p>
-        </div>
+        </div> 
         <div class="order-actions">
     		<button onclick="location.href='order'">리뷰 작성</button>
 		</div>
@@ -29,11 +43,13 @@
     <div class="order-total-price">
             <fmt:formatNumber value="${ovo.or_total_price}" pattern="###" var="totalPrice"/>
             <span>총 결제금액: ${totalPrice+4000}원</span>
-        </div>
+    </div>
 </div>
 <%-- 배송조회--%>
 <h2 style="text-align: center; margin-top: 20px;">배송조회</h2>
+<c:if test="${ovo.or_status_code != 'UNKNOWN'}">
 <iframe src="https://service.epost.go.kr/trace.RetrieveDomRigiTraceList.comm?sid1=${ovo.or_tracking_number}&displayHeader=N" class="order-delivery-info" id="order-delivery-info" name="order-delivery-info" style="width: 100%; height: 1250px; display: block; margin-top: 10px;"></iframe>
+</c:if>
 <div class="order-recipient-info">
     <h3>받는사람 정보</h3>
     <h>받는사람: ${ovo.or_name}</h>
