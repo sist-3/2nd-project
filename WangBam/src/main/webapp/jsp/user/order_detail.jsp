@@ -13,7 +13,13 @@
         <img src="https://via.placeholder.com/50" alt="Product Image">
         <div class="order-item-details">
             <h3>${odvo.pvo.pd_name}</h3>
-            <p>${odvo.pvo.pd_sale_price}원  &nbsp; &nbsp;  ${odvo.od_cnt}개</p>
+            <p><c:if test="${odvo.pvo.pd_sale_price != null}">
+				${odvo.pvo.pd_sale_price}원
+				</c:if>
+                <c:if test="${odvo.pvo.pd_price != null&&odvo.pvo.pd_sale_price == null}">
+				${odvo.pvo.pd_price}원
+				</c:if>
+                &nbsp; &nbsp;  ${odvo.od_cnt}개</p>
         </div>
         <div class="order-actions">
     		<button onclick="location.href='order'">리뷰 작성</button>
@@ -21,7 +27,8 @@
     </div>
     </c:forEach>
     <div class="order-total-price">
-            <span>총 결제금액: ${ovo.or_total_price}원</span>
+            <fmt:formatNumber value="${ovo.or_total_price}" pattern="###" var="totalPrice"/>
+            <span>총 결제금액: ${totalPrice+4000}원</span>
         </div>
 </div>
 <%-- 배송조회--%>
