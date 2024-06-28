@@ -468,9 +468,9 @@ font-weight: bold;
 	padding:0;
 	border-radius:20px;
 	overflow:hidden;
-	left:50% !important;
+	/* left:50% !important;
 	top:50% !important;
-	transform:translate(-50%, -50%);
+	transform:translate(-50%, -50%); */
 	position:fixed;
 }
 .ui-dialog .ui-dialog-titlebar {
