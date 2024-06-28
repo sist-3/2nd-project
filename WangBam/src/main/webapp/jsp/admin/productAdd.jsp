@@ -55,9 +55,9 @@
 <script>
 	function selectImg(input){
 		const fileName = $(input).val().slice($(input).val().lastIndexOf('\\')+1);
-		const elem = "<p id='filename'>"+fileName+"</p>"
-		if($(input).parent().find($('#filename')).length > 0){
-			$('#filename').text(fileName)
+		const elem = "<p>"+fileName+"</p>"
+		if($(input).parent().find('p').length > 0){
+			$(input).parent().find('p').text(fileName)
 		}else {
 			$(input).parent().append(elem);
 		}

@@ -11,6 +11,9 @@
 	margin-bottom: 100px;
 	background-color: #fff;
 }
+.swiper-slide {
+	text-align:center;
+}
 .swiper-button-next:after, .swiper-button-prev:after{
 	color:#999;
 }
