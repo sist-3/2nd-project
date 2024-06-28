@@ -213,7 +213,9 @@ function or_cancel(){
         	document.body.appendChild(form);
        	if(chk){
 	       form.submit();
-       	}
+       	}else{
+        	alert("주문 취소가 가능한 상태가 아닙니다.");
+        }
         
 	}
 }
@@ -223,7 +225,17 @@ function check(value){
 	return result.status;
 }
 
-		
+// 예시 비동기 함수 (getPaymentByOrIdx는 실제 비동기 함수여야 합니다)
+async function getPaymentByOrIdx(value) {
+    // 여기서 실제 서버 요청을 수행해야 합니다.
+    // 아래는 예시 응답 객체입니다.
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve({ status: 'CANCELLED' });
+        }, 1000);
+    });
+}
+	
 </script>
 </body>
 </html>
