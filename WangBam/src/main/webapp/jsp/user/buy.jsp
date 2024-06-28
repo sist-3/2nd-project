@@ -7,6 +7,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="/jsp/common/header.jsp"%>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -15,20 +16,14 @@
 <title>결제페이지</title>
 <link rel="stylesheet" href="/css/style.css">
 </head>
-
 <body>
-	<%-- 
-        받아야할 정보
-        1. 구매할 상세 주문 리스트 => List<order_detail> 
-           -> 내부데이터 productVO, 수량, 상품 계산 후 가격
-     --%>
 	<%
 	final int deliveryFee = 4000;
 	
 	int idx = OrderDAO.findLastIdx() + 1;
 	
 	// 세션에 저장된 로그인 정보 검사 및 저장
-	Object obj = session.getAttribute("uvo");
+	Object obj = session.getAttribute("user");
 	UserVO uvo = null;
 	if (obj == null) {
 	%>
@@ -43,7 +38,7 @@
 	}
 
 	// 요청에 저장된 orderVO 리스트 검사 및 저장
-	obj = request.getAttribute("odvoList");
+	obj = session.getAttribute("odvoList");
 	List<OrderDetailVO> odvoList = null;
 	if (obj == null) {
 		%>
@@ -55,8 +50,6 @@
 		return;
 	} else {		
 		odvoList = (List<OrderDetailVO>) obj;
-		request.setAttribute("odvoList", odvoList);
-		session.setAttribute("odvoList", odvoList);
 	}
 	%>
 	<div class="buy-con">
@@ -79,7 +72,7 @@
 				int totalPrice = 0;
 				for (OrderDetailVO odvo : odvoList) {
 					int price = 0;
-					totalPrice += Integer.parseInt(odvo.getOd_price());
+						totalPrice += Integer.parseInt(odvo.getOd_price());
 				%>
 				<tr>
 					<td><img src="<%=odvo.getPvo().getPd_thumbnail_img()%>"></td>
@@ -103,7 +96,7 @@
 		<div class="delivery-info">
 			<h2>배송 정보</h2>
 			<br>
-			<form class="form-group" action="/WangBam/?type=buy" method="post">
+			<form class="form-group" action="/WangBam/?type=payment" method="post">
 				<input type="hidden" name="type" value="buy">
 				<input type="hidden" name="us_idx" value="<%=uvo.getUs_idx()%>"> 
 				<input type="hidden" name="total_price" value="<%=totalPrice%>"> 
@@ -156,7 +149,6 @@
 		</div>
 	</div>
 	<%@include file="/jsp/common/footer.jsp"%>
-	<script src="https://cdn.portone.io/v2/browser-sdk.js"></script>
 	<script>
 		function validateForm(form) {
 			const requiredFields = [ // 필수 입력 필드 목록
@@ -192,36 +184,22 @@
 			return true;
 		}
 		
-		function requestPayment(){
+		async function requestPayment(){
 			let form = document.forms[0];
-			
 			// 폼 유효성 검사
 			if (!validateForm(form)) {
 				return false; // 유효성 검사 실패 시, 폼 제출 중단
 			}
-			
 			if(form.payment.value == 2) {
-				requestCardPayment();
+				const data = {
+					or_idx : <%=idx%>,
+					pd_name : "<%=odvoList.get(0).getPvo().getPd_name()%>",
+					price : "<%=totalPrice+deliveryFee%>" 
+				}
+				const response = await requestCardPayment(data);
+				sendOrder(response);
 			}
 		}
-		
-		async function requestCardPayment() {
-			const response = await PortOne.requestPayment({
-				storeId : "store-23c8eb3a-0cc2-4cb0-902d-6a7b553a8703",
-				channelKey : "channel-key-373bd11f-eb47-4c2d-962a-f630fd0d7a49",
-				paymentId : `PAYMENT`+<%=idx%>,
-				orderName : "[히트상품] <%=odvoList.get(0).getPvo().getPd_name()%>",
-				totalAmount : <%=totalPrice + deliveryFee%>,
-				currency : "CURRENCY_KRW",
-				payMethod : "CARD",
-			});
-
-			if (response.code != null) {
-				return alert(response.message);
-			}
-
-			sendOrder(response);
-		};
 
 		function sendOrder(response) {
 			let form = document.forms[0];
