@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@include file="/jsp/common/header.jsp"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -53,14 +52,14 @@ body {
 }
 </style>
 </head>
-<body>
+	<%@include file="/jsp/common/header.jsp"%>
 	<div class="container">
         <div class="success-message">
         	<img src="img/logo.png" alt="성공 이미지">
             <h1>주문이 완료되었습니다!</h1>
             <p>주문 번호: <span id="order-number">${idx}</p>
             <p>주문해주셔서 감사합니다. 주문 내역은 이메일로 발송되었습니다.</p>
-            <a class="final-btn" href="/WangBam/">주문 내역 보기</a>
+            <a class="final-btn" href="/WangBam/?type=orderdetail&or_idx=${idx}">주문 내역 보기</a>
             <a class="final-btn" href="/WangBam/">계속 쇼핑하기</a>
         </div>
     </div>

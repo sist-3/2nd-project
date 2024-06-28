@@ -7,12 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.mysql.cj.Session;
-
 import action.Action;
 import mybatis.dao.CartDAO;
 import mybatis.vo.CartVO;
-import mybatis.vo.ProductVO;
 import mybatis.vo.UserVO;
 
 public class CartListAction implements Action {
@@ -30,21 +27,13 @@ public class CartListAction implements Action {
 		
 		String us_idx = user.getUs_idx();
 		
-		
-		
 		Map<String, String> map = new HashMap<>();
 		
 		map.put("us_idx", us_idx);
-		
-		
-		
 
 		CartVO[] cvo = CartDAO.allCart(us_idx);
-		request.setAttribute("cvo", cvo);
+		session.setAttribute("cvo", cvo);
 
 		return "jsp/user/cart.jsp";
-
-		
 	}
-
 }

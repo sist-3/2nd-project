@@ -27,5 +27,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="js/summernote-lite.js"></script>
 <script src="js/lang/summernote-ko-KR.js"></script>
+<script src="https://cdn.portone.io/v2/browser-sdk.js"></script>
+<script src="${pageContext.request.contextPath}/js/Payment.js"></script>
 <script src="${pageContext.request.contextPath}/js/ui.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
