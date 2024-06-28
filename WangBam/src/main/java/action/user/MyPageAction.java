@@ -42,7 +42,7 @@ public class MyPageAction implements Action{
 				map.put("us_idx", user.getUs_idx());
 				int cnt = UserDAO.update(map);
 				if(cnt > 0){
-					viewPath = "jsp/user/redirectMain";
+					viewPath = "jsp/user/redirectMain.jsp";
 				}else{
 					request.setAttribute("msg", "회원정보 수정에 실패하였습니다.");
 					viewPath = "jsp/user/mypage.jsp";

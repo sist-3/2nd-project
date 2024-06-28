@@ -3,12 +3,7 @@
 <%@include file="/jsp/common/header.jsp"%>
 <div>
         <h1 style="text-align: center;">회원 정보 수정</h1>
-        <form id="updateForm" class="form-group" action="/WangBam/" method="post">
-            <input type="hidden" id="type" name="type" value="my">
-            <div>
-                <label for="username">아이디</label>
-                <input type="text" id="us_name" value="${sessionScope.user.us_email}" readonly>
-            </div>
+        <form id="updateForm" class="form-group" action="/WangBam/?type=my" method="post">
             <div>
                 <label for="username">아이디</label>
                 <input type="text" id="us_name" value="${sessionScope.user.us_email}" readonly>
@@ -46,14 +41,18 @@
                 <input type="hidden" id="us_tel" value="${sessionScope.user.us_tel}">
             </div>
             <div class="buttons">
-                <button type="button" class="btn-submit">정보변경수정</button>
+                <button type="button" class="btn-submit" >정보변경수정</button>
                 <button type="button" class="btn-cancel" onclick="location.href='/WangBam/'">취소</button>
                 <div class="out-buttons">
                     <label type="text" id="out-btn" class="out-btn">회원탈퇴</label>
                 </div>
             </div>
         </form>
+        
     </div>
+    <form action="/WangBam/" method="post" id="resign-form" style="display: none;">
+        	<input type="hidden" name="type" value="resign"/>
+        </form>
 	<%@include file="/jsp/common/footer.jsp"%>
     <script>
     function passwordCheck(password){
@@ -151,8 +150,9 @@
                 $('#us_tel').val($('#phone-prefix').val() + $('#phone-middle').val() + $('#phone-last').val());
                 $("#updateForm").submit();
             });
+            
             $('#out-btn').on('click', function(){
-                alert('회원탈퇴는 아직 구현되지 않았습니다.');
+               $("#resign-form").submit();
             });
         });
     </script>
