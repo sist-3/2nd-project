@@ -76,8 +76,9 @@
 	font-size: 25px;
 	color: red;
 }
-.remove_price{
-	text-decoration:line-through
+
+.remove_price {
+	text-decoration: line-through
 }
 
 /* 리뷰 */
@@ -229,7 +230,6 @@
 
 <%@include file="/jsp/common/header.jsp"%>
 
-
 <div class="top">
 	<div class="icons">
 
@@ -238,7 +238,8 @@
 </div>
 <div class="product-page">
 	<div class="product-image">
-		<img src="img/${pvo.pd_thumbnail_img}" alt="Product Image" width="90%" height="90%">
+		<img src="img/${pvo.pd_thumbnail_img}" alt="Product Image" width="90%"
+			height="90%">
 	</div>
 	<div class="product-details">
 		<h1>
@@ -252,12 +253,12 @@
 			<tr>
 				<th>판매가</th>
 				<td><c:if test="${pvo.pd_sale != null}">
-				<p class="remove_price">${pvo.pd_price}원</p>&nbsp;<p class="price">${pvo.pd_sale_price}원<p>
-				</c:if>
-				<c:if test="${pvo.pd_sale == null}">
-				${pvo.pd_price}원
+						<p class="remove_price">${pvo.pd_price}원</p>&nbsp;
+						<p class="price">${pvo.pd_sale_price}원</p>
+				</c:if> <c:if test="${pvo.pd_sale == null}">
+					${pvo.pd_price}원
 				</c:if></td>
-				
+
 			</tr>
 			<tr>
 				<th>상품요약정보</th>
@@ -287,13 +288,12 @@
 
 				</c:if>
 				<c:if test="${pvo.pd_sale == null}">
-
 					<td class="total-price"><span id="totalPrice"></span></td>
 				</c:if>
 			</tr>
 		</table>
 		<div class="buttons">
-			<button class="buy-now">바로 구매하기</button>
+			<button id ="order_Btn" class="buy-now">바로 구매하기</button>
 			<button class="add-to-cart" onclick="check()">장바구니 담기</button>
 		</div>
 	</div>
@@ -308,16 +308,15 @@
 			<li><a href="#tabs-5">상품문의</a></li>
 		</ul>
 		<div id="tabs-1">
-			
-				<c:if test="${pvo.pd_detail_img eq '' }">
-					<h3>등록된 상품 상세 이미지가 없습니다.</h3>					
-				</c:if>								
-				<c:if test="${pvo.pd_detail_img != null}">
-						<img
-							src="${pageContext.request.contextPath}/img/${pvo.pd_detail_img}"
-							width="100%" alt="상세 이미지" />
-				</c:if>
-		
+
+			<c:if test="${pvo.pd_detail_img eq '' }">
+				<h3>등록된 상품 상세 이미지가 없습니다.</h3>
+			</c:if>
+			<c:if test="${pvo.pd_detail_img != null}">
+				<img
+					src="${pageContext.request.contextPath}/img/${pvo.pd_detail_img}"
+					width="100%" alt="상세 이미지" />
+			</c:if>
 		</div>
 		<div id="tabs-2">
 			<h4>상품결제정보</h4>
@@ -336,8 +335,6 @@
 				확인후 배송해 드립니다. 다만, 상품종류에 따라서 상품의 배송이 다소 지연될 수 있습니다.
 			</p>
 			</br>
-
-
 		</div>
 		<div id="tabs-3">
 			<h4>교환 및 반품정보</h4>
@@ -375,13 +372,11 @@
 			<div class="review-container">
 				<c:set var="hasReview" value="false" />
 				<!-- 리뷰 존재 여부를 확인하는 플래그 초기화 -->
-
 				<c:forEach var="board" items="${bvo}">
 					<c:if test="${board.bo_type == 2}">
 						<div class="review-item">
 							<a
 								href="?type=boardsDetail&bo_idx=${board.bo_idx}&cPage=1&bo_type=2">
-
 								<p>${board.us_idx}&nbsp;|&nbsp;${board.bo_write_date}</p>
 								<h3>${board.bo_title}</h3> <br />
 								<h5>${board.bo_content}</h5>
@@ -397,7 +392,6 @@
 						<!-- bo_type이 2인 요소가 있으면 플래그를 true로 설정 -->
 					</c:if>
 				</c:forEach>
-
 				<c:if test="${not hasReview}">
 					<!-- 리뷰가 없는 경우 메시지 출력 -->
 					<h3>아직 리뷰가 등록되지 않았습니다.</h3>
@@ -439,80 +433,95 @@
 				<h3>아직 문의가 등록되지 않았습니다.</h3>
 			</c:if>
 		</div>
-
-
-
-
 	</div>
 </div>
-
-
-
-
-
-
 <%@include file="/jsp/common/footer.jsp"%>
+		<script>
+			$(function () {
+				$("#tabs").tabs();
+				
+				$("#order_Btn").on('click', function() {
+					let price = null;
+					
+				    if(${pvo.pd_sale != null}) {	  
+						price = $("#discount").text();
+				    } else {
+				    	price = $("#totalPrice").text();
+				    }
+				    
+				    price = price.replace(',', '');
+					price = price.replace('원', '');
+					
+				    const data = {
+				    	cnt : $("#quantity").val(),
+				    	price : price
+				    }
+				    $.ajax({
+				        url : '/WangBam/?type=buy',
+				        type: 'POST',
+				        contentType: 'application/json',
+				        data: JSON.stringify(data),
+				        success: function(response) {
+				            location.replace("/WangBam/?type=buy");
+				        },
+				        error:function(request,status,error){
+				        }
+				    });
+				});
+			});
 
-
-<script>
-					$(function () {
-						$("#tabs").tabs();
+			function updateTotalPrice() {
+				let price = ${ pvo.pd_price };
+				let quantity = document.getElementById("quantity").value; // 수량 입력 필드에서 값을 가져옵니다.
+				let sale = document.getElementById("sale");
+				let discount = 0;
+				let totalPrice = 0;
+				if (sale == null) {
+					totalPrice = quantity * price;
+				} else {
+					totalPrice = quantity * price;
+					discount = totalPrice - (totalPrice * (${ pvo.pd_sale / 100 }));
+					document.getElementById("discount").innerText = discount.toLocaleString() + '원'; // 총 금액을 화면에 표시합니다.
+				}
+			
+				document.getElementById("totalPrice").innerText = totalPrice.toLocaleString() + '원'; // 총 금액을 화면에 표시합니다.
+			}
+			
+			
+			window.onload = updateTotalPrice; // 함수를 직접 할당
+			document.getElementById("quantity").addEventListener("input", updateTotalPrice);
+			
+			function check() {
+				let count = document.getElementById('quantity').value;
+			
+				if (${ sessionScope.user != null }) {
+			
+					// AJAX 요청을 사용하여 장바구니에 상품을 추가하고, 성공 시 페이지를 리다이렉트합니다.
+					$.ajax({
+						url: "?type=cartAdd",
+						type: "GET",
+						data: {
+							pd_idx: "${pvo.pd_idx}",
+							pd_cnt: count
+						},
+						success: function () {
+							if (confirm("장바구니에 담았습니다. 장바구니로 이동하시겠습니까?")) {
+			
+								// 장바구니 추가가 성공하면 장바구니 목록 페이지로 이동합니다.
+								location.href = "?type=cartList";
+							} else {
+			
+							}
+						},
+						error: function () {
+							alert("장바구니 추가에 실패했습니다.");
+						}
 					});
-					function updateTotalPrice() {
-						let price = ${ pvo.pd_price };
-						let quantity = document.getElementById("quantity").value; // 수량 입력 필드에서 값을 가져옵니다.
-						let sale = document.getElementById("sale");
-						let discount = 0;
-						let totalPrice = 0;
-						if (sale == null) {
-							totalPrice = quantity * price;
-						} else {
-
-							totalPrice = quantity * price;
-							//discount = quantity * price - (price * sale.innerText.substring(0, 2) / 100);
-							discount = totalPrice - (totalPrice * (${ pvo.pd_sale / 100 }));
-							document.getElementById("discount").innerText = discount.toLocaleString() + '원'; // 총 금액을 화면에 표시합니다.
-						}
-
-						document.getElementById("totalPrice").innerText = totalPrice.toLocaleString() + '원'; // 총 금액을 화면에 표시합니다.
-
-					}
-
-
-					window.onload = updateTotalPrice; // 함수를 직접 할당
-					document.getElementById("quantity").addEventListener("input", updateTotalPrice);
-
-					function check() {
-						let count = document.getElementById('quantity').value;
-
-						if (${ sessionScope.user != null }) {
-
-							// AJAX 요청을 사용하여 장바구니에 상품을 추가하고, 성공 시 페이지를 리다이렉트합니다.
-							$.ajax({
-								url: "?type=cartAdd",
-								type: "GET",
-								data: {
-									pd_idx: "${pvo.pd_idx}",
-									pd_cnt: count
-								},
-								success: function () {
-									if (confirm("장바구니에 담았습니다. 장바구니로 이동하시겠습니까?")) {
-
-										// 장바구니 추가가 성공하면 장바구니 목록 페이지로 이동합니다.
-										location.href = "?type=cartList";
-									} else {
-
-									}
-								},
-								error: function () {
-									alert("장바구니 추가에 실패했습니다.");
-								}
-							});
-						}else {
-							alert("로그인 먼저 해주세요!");
-							location.href = "?type=login";
-						}
-					}
-
-
-				</script>
+				}else {
+					alert("로그인 먼저 해주세요!");
+					location.href = "?type=login";
+				}
+			}
+		</script>
+	</body>
+</html>

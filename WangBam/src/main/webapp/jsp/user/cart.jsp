@@ -48,7 +48,6 @@
 				</form>
 			</c:forEach>
 		</c:if>
-
 		<c:if test="${cvo == null}">
 			<tr class="no_item">
 				<td colspan="7"><b>장바구니가 비었습니다.</b></td>
@@ -115,14 +114,12 @@
 		$("#delete_Btn").on('click', function() {
 			if (confirm("선택된 상품을 삭제하시겠습니까?")) {
 				var ca_idx_array = [];
-
 				$(".checkbox:checked").each(function() {
 					var $row = $(this).closest('tr');
 					var ca_idx = $row.find('.ca_idx').val();
 					ca_idx_array.push(ca_idx);
 
 				});
-
 				if (ca_idx_array.length > 0) {
 					$.ajax({
 						url : '?type=cartselectDelete', // 수정된 서버의 URL
@@ -214,7 +211,7 @@
 		    }
 		    
 		    $.ajax({
-		        url : '/WangBam/?type=buy',
+		        url : '/WangBam/?type=buy&buy=cart',
 		        type: 'POST',
 		        contentType: 'application/json',
 		        data: JSON.stringify(data),
