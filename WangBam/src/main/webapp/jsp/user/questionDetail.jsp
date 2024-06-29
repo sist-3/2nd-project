@@ -97,6 +97,8 @@
 		<c:if test="${sessionScope.user.us_idx == vo.uvo.us_idx}">
 			<button type="button" class="btn submit"
 					onclick="javascript:window.location.href='Controller?type=questionEdit&bo_idx=${vo.bo_idx }&cPage=${requestScope.cPage }'">수정</button>
+			<button type="button" class="btn cancel"
+					onclick="javascript:window.location.href='Controller?type=questionDelete&bo_idx=${vo.bo_idx }&cPage=${requestScope.cPage }'">삭제</button>
 		</c:if>
 				
 		<button type="button" class="btn cancel"
