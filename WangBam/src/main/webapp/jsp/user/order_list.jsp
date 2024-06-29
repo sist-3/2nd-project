@@ -25,7 +25,7 @@
             </div>
             <div class="order-item-actions">
             	<button style="background-color: #8B4513; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; transition: background-color 0.3s ease;">리뷰작성</button>
-        	</div>	
+        	</div>	<!-- 리뷰 작성하려는 제품의 pd_idx를 reviewWriteAction으로 넘겨주시면 감사하겠오. -->
         </div>
         </c:forEach>
         <div class="order-total-price">
