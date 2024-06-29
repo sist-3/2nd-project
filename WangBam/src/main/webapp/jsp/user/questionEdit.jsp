@@ -11,7 +11,6 @@
         	<input type="hidden" name="pd_idx" id="pd_idx" value=""/>
 			<input type="hidden" name="bo_idx" value="${vo.bo_idx}"/>
 			<input type="hidden" name="cPage" value="${requestScope.cPage }"/>
-			${requestScope.cPage } 11
             <div>
                 <label for="text">제목 :</label>
                 <input type="text" name="bo_title" value="${vo.bo_title}" />
