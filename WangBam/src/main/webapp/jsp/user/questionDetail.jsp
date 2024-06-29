@@ -22,8 +22,11 @@
 			value="<c:if test='${vo.uvo.us_nickname != null}'>${vo.uvo.us_nickname}</c:if><c:if test='${vo.uvo.us_nickname == null}'>탈퇴한회원</c:if>" disabled />
 		</div>
 		<div>
+			<label for="product">문의상품</label>
+			<input type="text" name="product"	value="${vo.pvo.pd_name }" disabled />
+		</div>
+		<div>
 			<label for="content">내용</label>
-			<%-- <input type="text" name="content" value="${vo.bo_content}" disabled /> --%>
 			<div class="content">${vo.bo_content}</div>
 		</div>
 		
@@ -91,6 +94,11 @@
 			</form>
 		</c:if>
 		
+		<c:if test="${sessionScope.user.us_idx == vo.uvo.us_idx}">
+			<button type="button" class="btn submit"
+					onclick="javascript:window.location.href='Controller?type=questionEdit&bo_idx=${vo.bo_idx }&cPage=${requestScope.cPage }'">수정</button>
+		</c:if>
+				
 		<button type="button" class="btn cancel"
 				onclick="javascript:window.location.href='Controller?type=question&cPage=${requestScope.cPage }'">목록</button>
 		
