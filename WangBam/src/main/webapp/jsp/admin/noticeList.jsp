@@ -5,7 +5,6 @@
 
 <%@include file="/jsp/common/adminHeader.jsp"%>
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
-<c:if test="${sessionScope.user.us_type == 0 }">
 <div class="search-group">
    	<h2><a href="admin?type=noticeList">공지사항 관리</a></h2>
     <div id="searchBox" class="search-bar">
@@ -201,16 +200,5 @@
  		}
 	};
 </script>
-</c:if>
-<c:if test="${sessionScope.user.us_type == 1 }">
-	<script type="text/javascript">
-        window.location.href = 'Controller?type=index';
-    </script>
-</c:if>
-<c:if test="${sessionScope.user.us_idx == null }">
-	<script type="text/javascript">
-        window.location.href = 'Controller?type=login';
-    </script>
-</c:if>
 </body>
 </html>

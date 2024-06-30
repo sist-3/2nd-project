@@ -22,6 +22,7 @@
     <table class="table1">
         <thead>
             <tr>
+            	<th><input type="checkbox" id="allCheck" name="allCheck"/></th>
                 <th>번호</th>
                 <th>상품</th>
                 <th id="table_col_title">제목</th>
@@ -35,6 +36,7 @@
             <c:if test="${fn:length(ar) > 0 }">
                 <c:forEach var="vo" items="${requestScope.ar }" varStatus="vs">
                     <tr class="question">
+                    	<td><input type="checkbox" name="rowCheck" value="${vo.bo_idx }"/></td>
                         <td>${page.totalRecord-((page.nowPage-1)*page.numPerPage+vs.index) }</td>
                         <td>${vo.pvo.pd_name }</td>
                         <td><a href="?type=boardsDetail&bo_type=1&bo_idx=${vo.bo_idx }&cPage=${page.nowPage}">${vo.bo_title }</a></td>
@@ -102,6 +104,10 @@
 				<div class="disable">&gt;</div>
 			</c:if>
   	</div>
+			<div class="button-container">
+				<button type="button" class="btn cancel" onclick="del()">삭제</button>
+				<button type="button" class="btn submit" onclick="window.location.href='Controller?type=questionWrite'">문의하기</button>
+			</div>
 </div>
 <%@include file="/jsp/common/footer.jsp" %>
 <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
@@ -149,6 +155,57 @@
         	}
         }
     });
+	 $(function(){
+         $("#allCheck").click(function(){
+             let ar = $(".table1>tbody").find(":checkbox");
+
+             ar.prop("checked", this.checked);
+         });
+     });
+     $(function(){
+         $(".table1>tbody").find(":checkbox").click(function(){
+             
+             let ch_ar = $(".table1>tbody").find(":checkbox");
+             let chk = true;
+
+             for(let i=0; i<ch_ar.length; i++){
+                 if(!ch_ar[i].checked){
+                     chk = false;
+                     break;
+                 }
+             };
+             if(chk){
+                 $("#allCheck").prop("checked",true);
+             }else{
+                 $("#allCheck").prop("checked",false);
+             }
+         });
+     });
+     
+     function del() {
+    	 if (confirm("정말 삭제하시겠습니까?")) {
+ 	        const checkboxes = document.querySelectorAll('input[name="rowCheck"]:checked');
+ 	        if (checkboxes.length === 0) {
+ 	            alert("삭제할 항목을 선택하세요.");
+ 	            return;
+ 	        }
+
+ 	        const form = document.createElement('form');
+ 	        form.method = 'POST';
+ 	        form.action = '?type=questionDelete';
+
+ 	        checkboxes.forEach(checkbox => {
+ 	            const hiddenInput = document.createElement('input');
+ 	            hiddenInput.type = 'hidden';
+ 	            hiddenInput.name = 'bo_idx_ar';
+ 	            hiddenInput.value = checkbox.value;
+ 	            form.appendChild(hiddenInput);
+ 	        });
+
+ 	        document.body.appendChild(form);
+ 	        form.submit();
+ 		}
+	};
 </script>
 </body>
 </html>

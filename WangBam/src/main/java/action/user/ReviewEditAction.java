@@ -1,4 +1,4 @@
-package action.admin;
+package action.user;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,9 +12,13 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import action.Action;
 import mybatis.dao.BoardsDAO;
+import mybatis.dao.CategoryDAO;
+import mybatis.dao.ProductDAO;
 import mybatis.vo.BoardsVO;
+import mybatis.vo.CategoryVO;
+import mybatis.vo.ProductVO;
 
-public class NoticeEditAction implements Action {
+public class ReviewEditAction implements Action {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -26,8 +30,10 @@ public class NoticeEditAction implements Action {
 		if(enc_type == null) {
 			BoardsVO vo = BoardsDAO.findByidx(bo_idx);
 			
+			request.setAttribute("cPage", cPage);
 			request.setAttribute("vo", vo);
-			viewPath = "/jsp/admin/noticeEdit.jsp";
+			
+			viewPath = "/jsp/user/reviewEdit.jsp";
 			
 			
 			
@@ -41,17 +47,18 @@ public class NoticeEditAction implements Action {
 				String bo_title = mr.getParameter("bo_title");
 				String bo_content = mr.getParameter("bo_content");
 				String bo_idx2 = mr.getParameter("bo_idx");
-				
+				String pd_idx = mr.getParameter("pd_idx");
+				String cPage2 = mr.getParameter("cPage");
 				
 				Map<String, String> map = new HashMap<>();
 				map.put("bo_idx", bo_idx2);
+				map.put("pd_idx", pd_idx );
 				map.put("bo_title", bo_title);
 				map.put("bo_content", bo_content);
 				
-				
 				BoardsDAO.update(map);
 				
-				viewPath = "admin?type=boardsDetail&bo_type=0&bo_idx="+bo_idx2;
+				viewPath = "?type=boardsDetail&bo_type=1&bo_idx="+bo_idx2+"&cPage="+cPage2;
 				
 			}catch(Exception e) {
 				e.printStackTrace();
