@@ -36,7 +36,7 @@
 			<td><input type="checkbox" class="checkbox" /></td>
 			<td>${product.pd_idx}</td>
 			<c:if test="${product.pd_thumbnail_img eq ''}">
-				<td>등록되지 않았습니다.</td>			
+				<td><img src="https://media.istockphoto.com/id/1131230925/ko/%EB%B2%A1%ED%84%B0/%ED%99%95%EC%9D%B8-%ED%91%9C%EC%8B%9C-%EB%B9%A8%EA%B0%84%EC%83%89-%EC%8B%AD%EC%9E%90%EA%B0%80-%EC%95%84%EC%9D%B4%EC%BD%98-%EA%B0%84%EB%8B%A8%ED%95%9C-%EB%B2%A1%ED%84%B0.jpg?s=612x612&w=0&k=20&c=W6siNWFVPZfN6FAQoPqkNaXnWsxl27wIUsRYNd4zahA=" width="100" /></td>			
 			</c:if>
 			<c:if test="${product.pd_thumbnail_img ne ''}">
 			<td><img src="${pageContext.request.contextPath}/img/${product.pd_thumbnail_img }" width="100" /></td>		
@@ -47,7 +47,7 @@
 			<td>${product.pd_sale }</td>
 			<td>${product.pd_cnt }</td>
 			<c:if test="${product.pd_detail_img eq ''}">
-				<td>등록되지 않았습니다.</td>			
+				<td><img src="https://media.istockphoto.com/id/1131230925/ko/%EB%B2%A1%ED%84%B0/%ED%99%95%EC%9D%B8-%ED%91%9C%EC%8B%9C-%EB%B9%A8%EA%B0%84%EC%83%89-%EC%8B%AD%EC%9E%90%EA%B0%80-%EC%95%84%EC%9D%B4%EC%BD%98-%EA%B0%84%EB%8B%A8%ED%95%9C-%EB%B2%A1%ED%84%B0.jpg?s=612x612&w=0&k=20&c=W6siNWFVPZfN6FAQoPqkNaXnWsxl27wIUsRYNd4zahA=" width="100" /></td>			
 			</c:if>
 			<c:if test="${product.pd_detail_img ne ''}">
 			<td><img src="${pageContext.request.contextPath}/img/${product.pd_detail_img }" width="100" /></td>		
