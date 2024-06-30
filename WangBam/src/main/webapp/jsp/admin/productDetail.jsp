@@ -4,7 +4,7 @@
 <%@include file="/jsp/common/adminHeader.jsp"%>
 <div class="admin">
 	<h1>상품 상세 정보</h1>
-	<form id="productForm" class="form-group" action="admin?type=productUpdate" method="post"
+	<form id="updateForm" class="form-group" action="admin?type=productUpdate" method="post"
 		enctype="multipart/form-data" name="updateForm">
 		<input type="hidden" name="pd_idx" value="${pvo.pd_idx}">
 		<div>
@@ -28,7 +28,7 @@
 		</div>
 		<div>
 			<label for="price">가격</label> <input type="text" id="pd_price"
-				placeholder="가격" name="pd_price" value="${pvo.pd_price}">
+				placeholder="가격" name="pd_price"  data-label="가격" value="${pvo.pd_price}">
 		</div>
 		<div>
 			<label for="productImg">썸네일이미지</label>
@@ -42,8 +42,8 @@
 		<div>
 			<label for="productDetailImg">상세이미지</label>
 			<div>
-				<label for="productDetailImg" class="file-select">파일 선택 +</label> <input
-					type="file" id="productDetailImg" name="productDetailImg"
+				<label for="updateDetailImg" class="file-select">파일 선택 +</label> <input
+					type="file" id="updateDetailImg" name="updateDetailImg"
 					onchange="selectImg(this)">
 				<p>${pvo.pd_detail_img }</p>
 			</div>
@@ -58,6 +58,9 @@
 		</div>
 	</form>
 </div>
+<div id="dialog-confirm" title="수정" class="dialog" style="display:none">
+	<p>변경하시겠습니까?</p>
+  </div>
 <%@include file="/jsp/common/footer.jsp"%>
 <script>
 function selectImg(input){
@@ -93,16 +96,47 @@ function selectImg(input){
 		}
 	});
 //상품 수정
-	function update(){
+function update(){
 		const updateForm = document.updateForm;
 		const elem = updateForm.elements;
+		console.log(elem)
 		let pass = false;
-		document.updateForm.submit();
-		
+		for(i=1;i<elem.length-7;i++){
+			if(elem[i].id === "pd_sale") {
+				continue; // pd_sale 요소를 건너뜁니다.
+			}
+			if(elem[i].value.trim().length < 1) {
+				alert(elem[i].dataset.label+"을 입력하세요");
+				elem[i].value= "";
+				elem[i].focus();
+				pass= false;
+				break;
+			}else {
+				pass = true;
+			}
 			
 		}
-		
+		if(pass){
+			$( "#dialog-confirm" ).dialog({
+		      resizable: false,
+		      draggable: false,
+		      height: "auto",
+		      width: 400,
+		      modal: true,
+		      buttons: {
+		        "확인": function() {
+		          $( this ).dialog( "close" );
+					document.updateForm.submit();
+		        },
+		        "취소": function() {
+		          $( this ).dialog( "close" );
+		        }
+		      }
+		    });
+		}
 	}
+		
+	
 
 
 
