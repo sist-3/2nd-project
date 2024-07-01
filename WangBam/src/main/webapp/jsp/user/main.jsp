@@ -7,17 +7,17 @@
 <!-- 여기에 작업 -->
 <div class="quick-menu">
 	<div class="quick-item">
-		<a href="?type=item"> <img
+		<a href="?type=productList"> <img
 			src="${pageContext.request.contextPath}/img/quick_01.png" alt="빠른메뉴1">
 		</a>
 	</div>
 	<div class="quick-item">
-		<a href="?type=item"> <img
+		<a href="?type=productList"> <img
 			src="${pageContext.request.contextPath}/img/quick_02.png" alt="빠른메뉴2">
 		</a>
 	</div>
 	<div class="quick-item">
-		<a href="?type=item"> <img
+		<a href="?type=productList"> <img
 			src="${pageContext.request.contextPath}/img/quick_03.png" alt="빠른메뉴3">
 		</a>
 	</div>
