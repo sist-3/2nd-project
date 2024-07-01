@@ -550,3 +550,23 @@ font-weight: bold;
     display: block;
     margin-bottom: 20px;
 }
+.order-btns{
+	 display: flex;
+    margin-top: 20px;
+    justify-content: center;
+    
+}
+.order-btns button {
+    margin-left: 8px;
+    padding: 8px 16px;
+    border: 1px solid #8B4513;
+    background-color: #8B4513;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.order-btns button:hover {
+    background-color: #A0522D;
+}
