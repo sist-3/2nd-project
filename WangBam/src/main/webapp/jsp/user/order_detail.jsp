@@ -70,7 +70,7 @@
     <iframe id="receipt-url" src="" style="width: 100%; height: 100%; display: block; margin-top: 10px;"></iframe> 
 </div>
 
-<div class="order-actions">
+<div class="order-btns">
     <button onclick="location.href='?type=order'">주문목록 돌아가기</button>
     <button id="order-cancel-button">주문취소</button>
 </div>
