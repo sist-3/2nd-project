@@ -17,7 +17,7 @@
 				</c:forEach>
 			</select>
 		</form>
-		<button type="button" class="search-btn" onclick="send()">&#128269;</button>
+		<button type="button" class="search-btn btn search" onclick="send()"></button>
 	</div>
 </div>
 <div id="review_list">
