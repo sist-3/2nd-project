@@ -50,7 +50,7 @@
 <%-- 배송조회--%>
 <c:if test="${ovo.or_status_code != 'UNKNOWN'}">
 <h2 style="text-align: center; margin-top: 20px;">배송조회</h2>
-<iframe src="https://service.epost.go.kr/trace.RetrieveDomRigiTraceList.comm?sid1=${ovo.or_tracking_number}&displayHeader=N" class="order-delivery-info" id="order-delivery-info" name="order-delivery-info" style="width: 100%; height: 1250px; display: block; margin-top: 10px;"></iframe>
+<iframe src="https://service.epost.go.kr/trace.RetrieveDomRigiTraceList.comm?sid1=${ovo.or_tracking_number}&displayHeader=N" class="delivery-status" id="order-delivery-info" name="order-delivery-info"></iframe>
 </c:if>
 <div class="order-recipient-info">
     <h3>받는사람 정보</h3>
