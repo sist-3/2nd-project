@@ -24,6 +24,7 @@
             <tr>
             	<th><input type="checkbox" id="allCheck" name="allCheck"/></th>
                 <th>번호</th>
+                <th>카테고리</th>
                 <th>상품</th>
                 <th id="table_col_title">제목</th>
                 <th>작성자</th>
@@ -38,6 +39,7 @@
                     <tr class="question">
                     	<td><input type="checkbox" name="rowCheck" value="${vo.bo_idx }"/></td>
                         <td>${page.totalRecord-((page.nowPage-1)*page.numPerPage+vs.index) }</td>
+                        <td>${vo.pvo.cvo.ct_name }</td>
                         <td>${vo.pvo.pd_name }</td>
                         <td><a href="?type=boardsDetail&bo_type=1&bo_idx=${vo.bo_idx }&cPage=${page.nowPage}">${vo.bo_title }</a></td>
                         <c:if test="${vo.uvo.us_nickname != null }">
@@ -63,7 +65,7 @@
 
             <c:if test="${fn:length(ar) < 1 }">
                 <tr class="no_data">
-                    <td colspan="7">
+                    <td colspan="8">
                         <b>문의사항이 없습니다.</b>
                     </td>
                 </tr>

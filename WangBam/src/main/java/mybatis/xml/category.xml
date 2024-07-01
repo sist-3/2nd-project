@@ -9,6 +9,11 @@
 		FROM category_t;
    </select>
    
+    <select id="findByIdx" resultType="mybatis.vo.CategoryVO" parameterType="String">
+   		SELECT *
+		FROM category_t
+		WHERE ct_idx = #{ct_idx}
+   </select>
    <!-- 카테고리 별 판매량 대비 재고수량 구하기 -->
 	<select id="findPdcntPerOdcntByCategory" resultType="mybatis.vo.CategoryVO">
 		SELECT ct_idx, ct_name, sum(pd_cnt) as pd_cnt , sum(sales_cnt) as sales_cnt, sum(sales_cnt) / sum(pd_cnt) as odCnt_per_pdCnt

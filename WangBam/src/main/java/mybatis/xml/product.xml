@@ -4,8 +4,13 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="product">
 
+
+	<resultMap type="mybatis.vo.ProductVO" id="findCategory">
+		<id property="pd_idx" column="pd_idx"/>
+		<association property="cvo" javaType="mybatis.vo.CategoryVO" select="category.findByIdx" column="ct_idx"/>
+	</resultMap>
 	<!-- 상품상세정보페이지 조회 -->
-	<select id="findByid" parameterType="String" resultType="mybatis.vo.ProductVO">
+	<select id="findByid" parameterType="String" resultMap="findCategory">
 		select * from product_t
 		where pd_idx = #{pd_idx}
 	</select>
