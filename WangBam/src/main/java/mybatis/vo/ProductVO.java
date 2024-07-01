@@ -87,10 +87,10 @@ public class ProductVO {
 	public void setPd_status(String pd_status) {
 		this.pd_status = pd_status;
 	}
-	public CategoryVO getCatevo() {
+	public CategoryVO getCvo() {
 		return cvo;
 	}
-	public void setCatevo(CategoryVO cvo) {
+	public void setCvo(CategoryVO cvo) {
 		this.cvo = cvo;
 	}
 }
