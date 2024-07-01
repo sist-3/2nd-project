@@ -1,7 +1,3 @@
-// 가져가서 사용 전 스크립트 선언 필수
-// <script src="https://cdn.portone.io/v2/browser-sdk.js"></script>
-// <script src="${pageContext.request.contextPath}/js/Payment.js"></script>
-
 // Key 모음
 const storeId = "store-23c8eb3a-0cc2-4cb0-902d-6a7b553a8703";
 const channelKey = "channel-key-373bd11f-eb47-4c2d-962a-f630fd0d7a49";
