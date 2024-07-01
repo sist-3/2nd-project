@@ -28,10 +28,12 @@
         <div class="order-item-details">
             <h3>${odvo.pvo.pd_name}</h3>
             <p><c:if test="${odvo.pvo.pd_sale_price != null}">
-				${odvo.pvo.pd_sale_price}원
-				</c:if> 
+				<fmt:formatNumber value="${odvo.pvo.pd_sale_price}" var="sale_price"/>
+				${ sale_price }원
+				</c:if>
                 <c:if test="${odvo.pvo.pd_price != null&&odvo.pvo.pd_sale_price == null}">
-				${odvo.pvo.pd_price}원
+				<fmt:formatNumber value="${odvo.pvo.pd_price}" var="price"/>
+				${ price } 원
 				</c:if>
                 &nbsp; &nbsp;  ${odvo.od_cnt}개</p>
         </div> 
@@ -66,8 +68,10 @@
     <span>결제상태: </span><span id="payment-status"></span>
     <br/>
     <br/>
+    <%-- 
     <h3>결제영수증 정보</h3>
-    <iframe id="receipt-url" src="" style="width: 100%; height: 100%; display: block; margin-top: 10px;"></iframe> 
+    <iframe id="receipt-url" src="" style="width: 100%; height: 100%; display: block; margin-top: 10px;"></iframe>
+    --%> 
 </div>
 
 <div class="order-btns">
@@ -106,7 +110,7 @@
         }else if(data.method.type == 'PaymentMethodEasyPay'){
             $('#payment-method').text(data.method.provider);
         }
-        $('#receipt-url').attr('src', data.receiptUrl);
+        //$('#receipt-url').attr('src', data.receiptUrl);
         
         $('#order-cancel-button').click(function(){
         	if(confirm('주문을 취소하시겠습니까?')){
