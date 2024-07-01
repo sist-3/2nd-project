@@ -38,7 +38,7 @@
 	<c:choose>
 		<c:when test="${paging.startPage >= paging.pagePerBlock }">
 			<div>
-				<a href="?type=item&cPage=${paging.nowPage-paging.pagePerBlock}">&lt;</a>
+				<a href="?type=productList&cPage=${paging.nowPage-paging.pagePerBlock}">&lt;</a>
 			</div>
 		</c:when>
 		<c:when test="${paging.startPage < paging.pagePerBlock }">
@@ -50,12 +50,12 @@
 		<c:choose>
 			<c:when test="${paging.nowPage != st.index }">
 				<div>
-					<a href="?type=item&cPage=${st.index}">${st.index}</a>
+					<a href="?type=productList&cPage=${st.index}">${st.index}</a>
 				</div>
 			</c:when>
 			<c:when test="${paging.nowPage == st.index }">
 				<div class="on">
-					<a href="?type=item&cPage=${st.index}">${st.index}</a>
+					<a href="?type=productList&cPage=${st.index}">${st.index}</a>
 				</div>
 			</c:when>
 		</c:choose>
@@ -64,13 +64,13 @@
 		<c:if test="${paging.nowPage+paging.pagePerBlock > paging.totalPage }">
 			<div>
 				<a
-					href="admin?type=item&cPage=${paging.totalPage }">&gt;</a>
+					href="admin?type=productList&cPage=${paging.totalPage }">&gt;</a>
 			</div>
 		</c:if>
 		<c:if test="${paging.nowPage+paging.pagePerBlock <= paging.totalPage }">
 			<div>
 				<a
-					href="admin?type=item&cPage=${paging.nowPage+paging.pagePerBlock}">&gt;</a>
+					href="admin?type=productList&cPage=${paging.nowPage+paging.pagePerBlock}">&gt;</a>
 			</div>
 		</c:if>
 	</c:if>
