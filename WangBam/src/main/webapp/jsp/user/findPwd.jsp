@@ -19,7 +19,7 @@
     <div id="email-check-result" style="margin-top: 16px;"></div>
     <span id="email-check" style="display: none; color: red;margin-top: 5px;"></span>
   </div>
-  <div class="buttons">
+  <div class="order-actions" style="text-align: center;">
     <button type="button" id="findPwd" class="findPwd-btn">비밀번호 찾기</button>
     <button type="button" class="cancel-btn" onclick="location.href='/WangBam/?type=login'">취소</button>
   </div>

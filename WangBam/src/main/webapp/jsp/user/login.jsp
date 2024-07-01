@@ -14,7 +14,7 @@
     </form>
     <div class="login-links">
         <a href="/WangBam/?type=findEmail">아이디찾기</a> 
-        <a href="/WangBam/?type=findPwd">비밀번찾기</a> 
+        <a href="/WangBam/?type=findPwd">비밀번호찾기</a> 
         <a href="/WangBam/?type=signup">회원가입</a>
     </div>
 </div>
