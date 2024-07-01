@@ -44,6 +44,7 @@ public class ReviewWriteAction implements Action {
 				String us_idx = mr.getParameter("us_idx");
 				String bo_content = mr.getParameter("bo_content");
 				String pd_idx = mr.getParameter("pd_idx");
+				String bo_score = mr.getParameter("bo_score");
 
 				Map<String, String> map = new HashMap<>();
 				map.put("us_idx", us_idx );
@@ -51,6 +52,7 @@ public class ReviewWriteAction implements Action {
 				map.put("bo_type", "2");
 				map.put("bo_title", bo_title );
 				map.put("bo_content", bo_content );
+				map.put("bo_score", bo_score );
 				
 				BoardsDAO.add(map);
 
