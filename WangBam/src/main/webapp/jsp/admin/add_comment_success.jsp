@@ -12,7 +12,7 @@
 <script>
 	
 	document.addEventListener("DOMContentLoaded", function () {
-	    location.href = "?type=boardsDetail&bo_idx=" +
+	    location.href = "admin?type=boardsDetail&bo_idx=" +
 	        "${requestScope.bo_idx}" + "&cPage=" + "${requestScope.cPage}" + "&bo_type=" + "${requestScope.bo_type}";
 	});
 	
