@@ -22,7 +22,7 @@
 		</div>
 		<div>
 			<label for="content">내용</label>
-			<div class="detail-txt">${vo.bo_content}</div>
+			<div style="border: 1px solid #ddd; border-radius:8px; background:#fff; padding: 12px;">${vo.bo_content}</div>
 		</div>
 		<div>
 			<label for="content">답변여부</label>
