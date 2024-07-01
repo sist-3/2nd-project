@@ -4,9 +4,9 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <%@include file="/jsp/common/adminHeader.jsp"%>
+	<h1>문의사항 관리</h1>
 	<div class="form-group">
-		<h1>문의사항 관리</h1>
-
+		
 		<div>
 			<label for="title">제목</label> <input type="text" name="title"
 				value="${vo.bo_title }" disabled />
@@ -110,29 +110,16 @@
 			value="${commAnswer2 }" />
 
 		<c:if test="${sessionScope.user != null}">
-			<label for="comment">댓글작성</label>
-			<form name="writeCommentForm" action="admin" method="post" class="writeCommentForm"
-				onsubmit="return writeComment()">
-				작성자: ${sessionScope.user.us_nickname }<br /> 내용:
-				<textarea rows="4" cols="30" name="co_content" id="co_content"></textarea>
-				<br /> <input type="hidden" name="us_idx"
-					value="${sessionScope.user.us_idx }" /> <input type="hidden"
-					name="bo_idx" value="${vo.bo_idx}" /> <input type="hidden"
-					name="bo_type" value="1" /> <input type="hidden" name="cPage"
-					value="${requestScope.cPage}" /> <input type="hidden"
-					name="us_type" value="${sessionScope.user.us_type }" /> <input
-					type="hidden" name="type" value="writeComment" /> <input
-					type="submit" value="댓글등록" />
-			</form>
-		</c:if>
-
-
-		<c:if test="${sessionScope.user == null}">
-			<form name="loginFrm" action="Controller" method="get">
-				댓글작성:
-				<textarea name="co_content" id="co_content" disabled>로그인이 필요합니다.</textarea>
-				<br /> <input type="hidden" name="type" value="login" /> <input
-					type="submit" value="로그인" />
+			<h2>댓글 쓰기</h2><h4>작성자: ${sessionScope.user.us_nickname }</h4>
+			<form name="writeCommentForm" action="admin" method="post" class="writeCommentForm"	onsubmit="return writeComment()"  style="display: flex; align-items: flex-start; flex-direction: row;">
+				<textarea rows="4" cols="30" name="co_content" id="co_content"   style="resize: none; margin-right: 10px; display: inline-block; width: calc(100% - 80px);"></textarea>
+				<input type="hidden" name="us_idx" value="${sessionScope.user.us_idx }" /> 
+				<input type="hidden" name="bo_idx" value="${vo.bo_idx}" />
+				<input type="hidden" name="bo_type" value="1" /> 
+				<input type="hidden" name="cPage" value="${requestScope.cPage}" /> 
+				<input type="hidden" name="us_type" value="${sessionScope.user.us_type }" /> 
+				<input type="hidden" name="type" value="writeComment" />
+				<button type="submit" class="admin-btn submit" style="height: 98px; width: 70px; float: right;">댓글등록</button>
 			</form>
 		</c:if>
 
@@ -143,8 +130,8 @@
 				type="hidden" name="cPage" value="${requestScope.cPage}" />
 		</form>
 		<div class="btn-box" style="margin: 0 auto;">
-			<button type="button" class="admin-btn submit" onclick="deleteBoards()">삭제</button>
-			<button type="button" class="admin-btn cancel"
+			<button type="button" class="admin-btn cancel" onclick="deleteBoards()">삭제</button>
+			<button type="button" class="admin-btn submit"
 				onclick="javascript:window.location.href='admin?type=questionList&cPage=${requestScope.cPage }'">목록</button>
 		</div>
 	</div>

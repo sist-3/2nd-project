@@ -598,3 +598,15 @@ font-weight: bold;
   height: 50px;
   object-fit: cover;
 }
+.star-score {
+	display:flex;
+	gap:8px;
+}
+.icon-star {
+	width:32px;
+	height:32px;
+	background:url(../img/icon_star.png) no-repeat;
+}
+.icon-star.on {
+	background:url(../img/icon_star_on.png) no-repeat;
+}
