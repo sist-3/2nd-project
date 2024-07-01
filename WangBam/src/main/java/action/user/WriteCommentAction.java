@@ -25,8 +25,15 @@ public class WriteCommentAction implements Action {
 		map.put("co_content", co_content);
 		
 		CommentDAO.add(map);
+		
+		//String redirectUrl = "boardsDetail?type=boardsDetail&bo_idx=" + bo_idx + "&cPage=" + cPage + "&bo_type=" + bo_type;
+        //response.sendRedirect(redirectUrl);
 
-		return "?type=boardsDetail&bo_idx="+bo_idx+"&cPage="+cPage+"&bo_type="+bo_type;
+		request.setAttribute("bo_type", bo_type);
+		request.setAttribute("bo_idx", bo_idx);
+		request.setAttribute("cPage", cPage);
+		
+        return "/jsp/user/add_comment_success.jsp";
 	}
 
 }
