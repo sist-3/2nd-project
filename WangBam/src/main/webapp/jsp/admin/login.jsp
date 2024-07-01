@@ -60,12 +60,40 @@
 </head>
 <body>
     <div class="login-container">
+    	<%
+    		Object obj = request.getAttribute("msg");
+			if(obj != null) {
+    	%>
+	    		<script>
+	    			alert('${msg}');
+	    		</script>
+				
+			<% 
+			}
+			%>
         <h2>로그인</h2>
         <form action="admin?type=login" method="post">
             <input type="email" name="us_id" placeholder="이메일" required>
             <input type="password" name="us_pw" placeholder="비밀번호" required>
-            <button type="submit">로그인</button>
+            <button type="button" onclick="login(this.form)">로그인</button>
         </form>
     </div>
+    <script>
+    	function login(form) {
+			let id = form.us_id.value;
+			let pw = form.us_pw.value;
+			
+			console.log(id.length);
+			if(pw.length < 1) {
+				if(id.length < 1) {
+					alert("아이디를 입력해주세요.");
+					return ;
+				}
+				alert("비밀번호를 입력해주세요.");
+				return ;
+			}
+			form.submit();
+		}
+    </script>
 </body>
 </html>

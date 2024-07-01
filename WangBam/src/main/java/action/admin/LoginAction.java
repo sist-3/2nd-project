@@ -1,5 +1,6 @@
 package action.admin;
 
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,25 +17,29 @@ public class LoginAction implements Action {
 	@Override 
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewPath=null;
+		final String ADMIN = "0";
 		if(request.getMethod().equals("POST")) {
 			String us_id = request.getParameter("us_id");
 			String us_pw = request.getParameter("us_pw");
-			HttpSession session = request.getSession();
+
 			Map<String, String> map = new HashMap<>();
 			map.put("us_email", us_id);
 			map.put("us_pwd", us_pw);
 			UserVO user = UserDAO.login(map);
-			if(user != null) {
+			
+			if(user != null && user.getUs_type().equals(ADMIN)) {
+				HttpSession session = request.getSession();
 				session.setAttribute("user", user);
-				System.out.println("성공");
 				viewPath="/admin?type=index";
 			}else {
-				System.out.println("실패");
+				request.setAttribute("msg", "관리자만 로그인 가능합니다.");
 				viewPath="/jsp/admin/login.jsp";
 			}
+			
 		}else if(request.getMethod().equals("GET")) {
 			viewPath="/jsp/admin/login.jsp";
 		}
+		
 		return viewPath;
 	}
 }
