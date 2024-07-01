@@ -37,6 +37,7 @@
 			<label for="content">조회수</label>
 			<input type="text" name="scroe" value="${vo.bo_hit}" disabled />
 		</div>
+		
 			<div class="comment-list-section" id="commentList">
 		        <h2>댓글 목록 [${vo.c_list.size() }]</h2>
 		        <div class="comments-list">
@@ -59,6 +60,7 @@
 							</c:choose>
 							<p><strong>작성일</strong>: ${cvo.co_write_date }</p>
 						</div>
+						
 						<div class="edit_comment">
 							<div class="split-box">
 								<input id="contentInput_${cvo.co_idx }" type="text" value="${cvo.co_content }" disabled/>
@@ -82,41 +84,41 @@
 	
 		<c:if test="${sessionScope.user != null}">
 			<div class="comment-form-section">
-		        <h2>댓글 쓰기</h2>
-		        <form class="comment-form" name="writeCommentForm" action="Controller" method="post" onsubmit="return writeComment()">
-		            <div class="form-group">
-		                <textarea rows="4" cols="30" name="co_content" id="co_content"></textarea>
-		            </div>
+		        <h2>댓글 쓰기</h2><h4>작성자: ${sessionScope.user.us_nickname }</h4>
+		        <form class="comment-form" name="writeCommentForm" action="Controller" method="post" onsubmit="return writeComment()" style="display: flex; align-items: flex-start;">
+	                <textarea rows="4" cols="30" name="co_content" id="co_content" style="resize: none; margin-right: 10px"></textarea>
 		            <input type="hidden" name="us_idx" value="${sessionScope.user.us_idx }"/>
 					<input type="hidden" name="bo_idx" value="${vo.bo_idx}"/>
 					<input type="hidden" name="bo_type" value="2"/>
 					<input type="hidden" name="cPage" value="${requestScope.cPage}"/>
 					<input type="hidden" name="type" value="writeComment"/>
-		            <button type="submit">댓글등록</button>
+		            <button type="submit" style="height: 80px; width: 70px">댓글등록</button> 
 		        </form>
 		    </div>
 		</c:if>
 		
 		<c:if test="${sessionScope.user == null}">
-	        <form class="comment-form" name="writeCommentForm" action="Controller" method="get" onsubmit="return writeComment()">
-	            <div class="form-group">
-	                댓글작성<textarea name="co_content" id="co_content" disabled>로그인이 필요합니다.</textarea>
-	            </div>
-	            <input type="hidden" name="type" value="login"/>
-	            <button type="submit">로그인</button>
-	        </form>
+			<div class="comment-form-section">
+			<h2>댓글 쓰기</h2>
+				<form name="loginFrm" action="Controller" method="get"  class="comment-form"  style="display: flex; align-items: flex-start;">
+					<textarea name="co_content" id="co_content" disabled style="resize: none; margin-right: 10px">로그인이 필요합니다.</textarea>
+					<input type="hidden" name="type" value="login"/>
+					<button type="submit" style="height: 50px; width: 70px; padding: 0">로그인</button>
+				</form>
+			</div>
 		</c:if>
 		
-		<c:if test="${sessionScope.user.us_idx == vo.uvo.us_idx}">
-			<button type="button" class="btn submit"
-					onclick="javascript:window.location.href='?type=reviewEdit&bo_idx=${vo.bo_idx }&cPage=${requestScope.cPage }'">수정</button>
+		<div class="buttons">
+			<c:if test="${sessionScope.user.us_idx == vo.uvo.us_idx}">
+				<button type="button" class="btn submit"
+						onclick="javascript:window.location.href='?type=reviewEdit&bo_idx=${vo.bo_idx }&cPage=${requestScope.cPage }'">수정</button>
+				<button type="button" class="btn cancel"
+						onclick="javascript:window.location.href='?type=reviewDelete&bo_idx=${vo.bo_idx }&cPage=${requestScope.cPage }'">삭제</button>
+			</c:if>
+			
 			<button type="button" class="btn cancel"
-					onclick="javascript:window.location.href='?type=reviewDelete&bo_idx=${vo.bo_idx }&cPage=${requestScope.cPage }'">삭제</button>
-		</c:if>
-		
-		
-		<button type="button" class="btn cancel"
-				onclick="javascript:window.location.href='Controller?type=review&cPage=${requestScope.cPage }'">목록</button>
+					onclick="javascript:window.location.href='Controller?type=review&cPage=${requestScope.cPage }'">목록</button>
+		</div>
 		
 	</div>
 <script>
