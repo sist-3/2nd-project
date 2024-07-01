@@ -36,4 +36,19 @@ public class CategoryDAO {
 		ss.close();
 		return ar;
 	}
+	
+	// 카테고리 추가
+	public static int addCategory(String ct_name) {
+		SqlSession ss = FactoryService.getFactory().openSession();
+		
+		int cnt = ss.insert("category.addCategory", ct_name);
+		if(cnt > 0) 
+			ss.commit();
+		else
+			ss.rollback();
+		
+		ss.close();
+		
+		return cnt;
+	}
 }
