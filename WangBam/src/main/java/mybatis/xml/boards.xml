@@ -205,7 +205,7 @@
 	</update>
 	
 	<!-- 상품상세페이지 문의,리뷰 게시판  -->
-	<select id="findBypdidx" parameterType="String" resultType="mybatis.vo.BoardsVO">
+	<select id="findBypdidx" parameterType="String" resultMap="findWithBoard">
 		SELECT *
 		FROM boards_t 
 		WHERE pd_idx = #{pd_idx}
