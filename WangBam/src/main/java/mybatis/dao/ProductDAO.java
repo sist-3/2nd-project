@@ -39,6 +39,7 @@ public class ProductDAO {
 		}else{
 			ss.rollback();
 		}
+		
 		ss.close();
 		return cnt;
 	}
@@ -48,12 +49,15 @@ public class ProductDAO {
 		SqlSession ss = FactoryService.getFactory().openSession();
 		int cnt = ss.update("product.update",map);
 		if(cnt>0) {
+			System.out.println(cnt);
 			ss.commit();
 		}else{
 			ss.rollback();
 		}
 		ss.close();
+		
 		return cnt;
+		
 	}
 	//상품 리스트 삭제
 	public static int deleteProducts(Map<String, Object> map) {
