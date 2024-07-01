@@ -70,7 +70,7 @@ public class ProductDAO {
 	}
 
 	//상품 삭제
-	public static int deleteProduct(Map<String, String>map) {
+	public static int deleteProduct(Map<String, String> map) {
 		SqlSession ss = FactoryService.getFactory().openSession();
 		int cnt = ss.update("product.delete",map);
 		if(cnt>0) {
@@ -82,9 +82,9 @@ public class ProductDAO {
 		return cnt;
 	}
 	// 검색조건에 맞는 목록카운트
-	public static int allCount(String searchValue) {
+	public static int allCount(Map<String, String> map) {
 		SqlSession ss = FactoryService.getFactory().openSession();
-		int cnt = ss.selectOne("product.allCount", searchValue);
+		int cnt = ss.selectOne("product.allCount", map);
 		ss.close();
 		return cnt;
 	}
