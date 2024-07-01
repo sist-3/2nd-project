@@ -304,7 +304,19 @@
 			<li><a href="#tabs-1">상품상세정보</a></li>
 			<li><a href="#tabs-2">상품구매안내</a></li>
 			<li><a href="#tabs-3">교환/반품</a></li>
-			<li><a href="#tabs-4">상품후기</a></li>
+			<li>
+				<a href="#tabs-4">
+					<span>상품후기
+						<c:set var="reviewCount" value="0" />
+						<c:forEach var="vo" items="${bvo}">
+							<c:if test="${vo.bo_type == 2}">
+								<c:set var="reviewCount" value="${reviewCount + 1}" />
+							</c:if>
+						</c:forEach>
+						<span class="review-count">(<c:out value="${reviewCount}" />)</span>
+					</span>
+				</a>
+			</li>
 			<li><a href="#tabs-5">상품문의</a></li>
 		</ul>
 		<div id="tabs-1">
@@ -356,17 +368,7 @@
 		<div id="tabs-4">
 			<div class="review-header">
 				<h2>상품평</h2>
-				<c:set var="reviewCount" value="0" />
-				<c:forEach var="vo" items="${bvo}">
-					<c:if test="${vo.bo_type == 2}">
-						<c:set var="reviewCount" value="${reviewCount + 1}" />
-					</c:if>
-				</c:forEach>
-				<div class="review-count">
-					총
-					<c:out value="${reviewCount}" />
-					개
-				</div>
+				
 			</div>
 
 			<div class="review-container">
@@ -382,9 +384,9 @@
 								<h5>${board.bo_content}</h5>
 								<div class="review-content">${board.bo_content}</div>
 								<div class="review-images">
-									<c:forEach var="image" items="${board_img}">
-										<img src="${image.url}" alt="리뷰 이미지">
-									</c:forEach>
+										<c:if test="${board.bo_img != null}">
+										<img src="${pageContext.request.contextPath}/img/${board.bo_img}" width="100" />										
+										</c:if>
 								</div>
 							</a>
 						</div>
@@ -409,7 +411,7 @@
 					삭제 등의 조치가 취해질 수 있습니다.</p>
 				<p>공개 게시판이므로 전화번호, 메일 주소 등 고객님의 소중한 개인정보는 절대 남기지 말아주세요.</p>
 			</div>
-			<button onclick="location.href='문의하기 URL'" class="btn-inquiry">문의하기</button>
+			<button onclick="questionCheck()" class="btn-inquiry">문의하기</button>
 			<c:set var="hasquestion" value="false" />
 			<!-- 문의 존재 여부를 확인하는 플래그 초기화 -->
 
@@ -421,6 +423,11 @@
 							<h3>${board.bo_title}</h3>
 							<h5>${board.bo_content}</h5>
 							<p>${board.bo_write_date}</p>
+							<div class="question-images">
+										<c:if test="${board.bo_img != null}">
+										<img src="${pageContext.request.contextPath}/img/${board.bo_img}" width="100" />										
+										</c:if>
+							</div>	
 						</a>
 					</div>
 					<c:set var="hasquestion" value="true" />
@@ -522,6 +529,17 @@
 					location.href = "?type=login";
 				}
 			}
+			 function questionCheck() {
+		            <c:choose>
+		                <c:when test="${sessionScope.user != null}">
+		                    location.href = "?type=questionWrite&us_idx=${sessionScope.user.us_idx}";
+		                </c:when>
+		                <c:otherwise>
+		                	alert("로그인 해주세요!")
+		                    location.href = "?type=login";
+		                </c:otherwise>
+		            </c:choose>
+		        }
 		</script>
 	</body>
 </html>

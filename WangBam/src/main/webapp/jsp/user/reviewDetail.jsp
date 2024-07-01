@@ -31,7 +31,7 @@
 		<div>
 			<label for="contents">내용</label>
 			<%-- <input type="text" name="content" value="${vo.bo_content}" disabled /> --%>
-			<div class="contents">${vo.bo_content}</div>
+			<div class="contents" style="border: 1px solid #ddd; border-radius:8px; background:#fff">${vo.bo_content}</div>
 		</div>
 		<div>
 			<label for="content">조회수</label>
@@ -98,7 +98,7 @@
 		</c:if>
 		
 		<c:if test="${sessionScope.user == null}">
-	        <form class="comment-form" name="writeCommentForm" action="Controller" method="post" onsubmit="return writeComment()">
+	        <form class="comment-form" name="writeCommentForm" action="Controller" method="get" onsubmit="return writeComment()">
 	            <div class="form-group">
 	                댓글작성<textarea name="co_content" id="co_content" disabled>로그인이 필요합니다.</textarea>
 	            </div>
