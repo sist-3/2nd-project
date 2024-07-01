@@ -30,4 +30,8 @@
 		) AS turn
 		GROUP BY ct_idx
 	</select>
+	
+	<select id="addCategory" parameterType="String">
+		INSERT INTO category_t(ct_name) VALUES(#{ct_name}) 
+	</select>
 </mapper>

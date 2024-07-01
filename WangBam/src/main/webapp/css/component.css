@@ -550,3 +550,25 @@ font-weight: bold;
     display: block;
     margin-bottom: 20px;
 }
+.popup-container {
+	position:fixed;
+	display:none;
+	top:50%;
+	left:50%;
+	transform:translate(-50%, -50%);
+    width: 400px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+.popup-container label + input {
+	margin-top:8px;
+}
+.popup-container .buttons {
+	text-align:center;
+}
+.popup-container h2 {
+    margin-top: 0;
+}

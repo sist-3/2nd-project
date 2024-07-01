@@ -10,10 +10,15 @@
 					 name="pd_name"placeholder="상품명" data-label="상품명">
 			</div>
 			<div>
-				<label for="category">카테고리</label> <select name="ct_idx" data-label="카테고리">
-					<option value="1">일반빵</option>
-					<option value="2">특수빵</option>
-				</select>
+				<label for="category">카테고리</label>
+				<div class="address-group">
+					<select id="category" name="ct_idx">
+			        	<c:forEach var="cvo" items="${requestScope.c_list}" varStatus="st">
+			        		<option value="${cvo.ct_idx}">${cvo.ct_name}</option>
+			        	</c:forEach>
+			        </select>
+					<button type="button" class="admin-btn submit" id="popOpenBtn">추가</button>
+				</div>
 			</div>
 			<div>
 				<label for="cnt">수량</label> <input type="text" id="cnt"
@@ -51,6 +56,19 @@
 <div id="dialog-confirm" title="알림" class="dialog" style="display:none">
   <p>저장하시겠습니까?</p>
 </div>
+<div class="popup-container" id="categoryAddPop">
+    <form>
+	    <div>
+			<label for="ct_name">카테고리명</label>
+			<input type="text" id="ct_name" name="ct_name">
+		</div>
+	    <div class="buttons">
+	        <button type="button" class="admin-btn submit" id="addCategoryBtn">추가</button>
+	        <button type="button" class="admin-btn cancel" id="popCloseBtn">닫기</button>
+	    </div>
+    </form>
+</div>
+
 <%@include file="/jsp/common/footer.jsp"%>
 <script>
 	function selectImg(input){
@@ -98,6 +116,35 @@
 		    });
 		}
 	}
+	$("#popOpenBtn").on("click", function(){
+		$("#categoryAddPop").show();
+	})
+	$("#popCloseBtn").on("click", function(){
+		$("#categoryAddPop").hide();
+	})
+	$("#addCategoryBtn").on("click", function(){
+		if($("#ct_name").val().length < 1){
+			alert("카테고리명을 입력하세요");
+			$("#ct_name").focus();
+			return;
+		}else {
+			const ct_name = $("#ct_name").val();
+			const param = {
+				"ct_name" : ct_name
+			}
+			$.ajax({
+				url: "admin?type=categoryAdd",
+				type: "POST",
+				data:param
+			}).done(function(res){
+				$("#category").html(res);
+				alert("추가 완료되었습니다.");
+				$("#categoryAddPop").hide();
+				$("#category").focus();
+			})
+		}
+	})
+
 	 
 </script>
 </body>
