@@ -21,7 +21,7 @@
             </div>
             <div>
             	<label for="text">제품 :</label>
-	            <input type="text" name="pd_idx" value="${requestScope.pd_idx }" disabled/>
+	            <input type="text" name="pd_idx" value="${sessionScope.product.pd_name }" disabled/>
             </div>
             <div>
                 <label for="text">내용 :</label>

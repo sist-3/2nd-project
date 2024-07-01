@@ -34,13 +34,20 @@
 	</div>
 
 	<div class="btn_div">
-		<button type="button" class="admin-btn submit" onclick="location.href='admin?type=userDelete&us_idx=${vo.us_idx}'">삭제</button>
+		<button type="button" class="admin-btn submit" onclick="delBtn('${vo.us_idx}','${vo.us_name}')">삭제</button>
 		<button type="button" class="admin-btn cancel" onclick="location.href='admin?type=userList'">목록</button>
 	</div>
 </form>
 
 <%@include file="/jsp/common/footer.jsp"%>
 
+	<script>
+		function delBtn(us_idx, us_name){
+			if(confirm(us_name+"회원님을 삭제하시겠습니까?")){
+				window.location.href="admin?type=userDelete&us_idx="+us_idx;
+			}
+		}
+	</script>
 </body>
 
 </html>
