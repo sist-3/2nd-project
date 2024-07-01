@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%@include file="/jsp/common/header.jsp" %>
 <div class="login-container">
@@ -43,10 +44,10 @@
             if(data==0){
             	alert("아이디 또는 비밀번호가 일치하지 않습니다.");
             }else{
-            	<c:if test="${us_type == '0'}">
+            	<c:if test="${user.us_type == '0'}">
             		location.href = '/WangBam/admin';
             	</c:if>
-            	<c:if test="${us_type == '1'}">
+            	<c:if test="${user.us_type == '1'}">
             		location.href = '/WangBam/';
             	</c:if>
             }
