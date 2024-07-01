@@ -22,7 +22,7 @@
     </div>
     <span id="phone-check" style="display: none; color: red;margin-top: 5px;"></span>
   </div>
-  <div class="buttons">
+  <div class="order-actions">
     <button type="button" id="findEmail" class="findEmail-btn">아이디 찾기</button>
     <button type="button" class="cancel-btn" onclick="location.href='/WangBam/?type=login'">취소</button>
   </div>

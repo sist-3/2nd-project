@@ -37,9 +37,11 @@
 				</c:if>
                 &nbsp; &nbsp;  ${odvo.od_cnt}개</p>
             </div>
-            <div class="order-actions">
-    		<button onclick="location.href='?type=reviewWrite&pd_idx=${odvo.pvo.pd_idx}'">리뷰 작성</button>
-			</div>	<!-- 리뷰 작성하려는 제품의 pd_idx를 reviewWriteAction으로 넘겨주시면 감사하겠오. -->
+            <c:if test="${ovo.or_status_code == 'DELIVERED'}">
+	        <div class="order-actions">
+	    		<button onclick="location.href='order'">리뷰 작성</button>
+			</div>
+			</c:if>	
         </div>
         </c:forEach>
         <div class="order-total-price">
