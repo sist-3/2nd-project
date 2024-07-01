@@ -159,6 +159,18 @@
 }
 
 /* 문의사항 */
+.clearFix {
+    display: block;
+}
+
+.clearFix:after {
+    content: ".";
+    display: block;
+    clear: both;
+    height: 0;
+    visibility: hidden;
+}
+
 .total {
 	margin: 0;
 	height: 90px;
@@ -174,22 +186,34 @@
 
 .btn-inquiry {
 	display: inline-block;
-	padding: 10px 20px;
-	margin-bottom: 20px;
-	background-color: #007bff;
-	color: white;
-	border: none;
-	border-radius: 5px;
-	cursor: pointer;
-}
+	box-shadow: rgb(221, 221, 221) 0px -1px inset;
+	line-height: 1.8em;
+	vertical-align: middle;
+	color: rgb(52, 106, 255);
+	background-color: rgb(255, 255, 255);
+	font-family: "apple sd gothic neo", "malgun gothic", "맑은 고딕",
+		nanumgothic, 나눔고딕, dotum, 돋움, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	float: right;
+	padding: 0px 6px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: rgb(52, 106, 255);
+	border-image: initial;
+	border-radius: 2px;
 
-.btn-inquiry:hover {
-	background-color: #0056b3;
-}
 
+}
 .question {
 	border-bottom: 1px solid #ddd;
 	padding: 10px 0;
+
+}
+.questionItem {
+    margin-top: 30px;
+    border-top: 2px solid #777;
+    border-bottom: 1px solid #ddd;
 }
 
 .question h3 {
@@ -226,6 +250,25 @@
 	border: 1px solid #007bff;
 	/* 테두리 색상 변경 */
 }
+/*문의사항 답변*/
+.questionMark {
+    left: 1em;
+    background-color: #777;
+}
+.replyMark{
+	left: 1em;
+    background-color: #346AFF;
+}
+.questionMark, .replyMark{
+    top: 20px;
+    display: inline-block;
+    padding: 4px;
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: #fff;
+}
+
+
 </style>
 
 <%@include file="/jsp/common/header.jsp"%>
@@ -317,7 +360,14 @@
 					</span>
 				</a>
 			</li>
-			<li><a href="#tabs-5">상품문의</a></li>
+			<li><a href="#tabs-5">상품문의 <c:set var="questionCount"
+						value="0" /> <c:forEach var="vo" items="${bvo}">
+						<c:if test="${vo.bo_type == 1}">
+							<c:set var="questionCount" value="${questionCount + 1}" />
+						</c:if>
+					</c:forEach> <span class="question-count">(<c:out
+							value="${questionCount}" />)
+				</span></a></li>
 		</ul>
 		<div id="tabs-1">
 
@@ -402,7 +452,10 @@
 			</div>
 		</div>
 		<div id="tabs-5">
-			<h2>상품문의</h2>
+			<h2 class="clearFix">
+				상품문의
+				<button onclick="questionCheck()" class="btn-inquiry">문의하기</button>
+			</h2>
 			<div class="inquiry-info">
 				<p>구매한 상품의 취소/반품은 마이쿠팡 구매내역에서 신청 가능합니다.</p>
 				<p>상품문의 및 후기게시판을 통해 취소나 환불, 반품 등은 처리되지 않습니다.</p>
@@ -412,35 +465,50 @@
 					삭제 등의 조치가 취해질 수 있습니다.</p>
 				<p>공개 게시판이므로 전화번호, 메일 주소 등 고객님의 소중한 개인정보는 절대 남기지 말아주세요.</p>
 			</div>
-			<button onclick="questionCheck()" class="btn-inquiry">문의하기</button>
-			<c:set var="hasquestion" value="false" />
-			<!-- 문의 존재 여부를 확인하는 플래그 초기화 -->
+			<div class="questionItem">
+				<c:set var="hasquestion" value="false" />
+				<!-- 문의 존재 여부를 확인하는 플래그 초기화 -->
 
-			<c:forEach var="board" items="${bvo}">
-				<c:if test="${board.bo_type == 1}">
-					<div class="question">
-						<a
-							href="?type=boardsDetail&bo_idx=${board.bo_idx}&bo_type=1&cPage=3">
-							<h3>${board.bo_title}</h3>
-							<h5>${board.bo_content}</h5>
-							<p>${board.bo_write_date}</p>
-							<div class="question-images">
-										<c:if test="${board.bo_img != null}">
-										<img src="${pageContext.request.contextPath}/img/${board.bo_img}" width="100" />										
-										</c:if>
-							</div>	
-						</a>
-					</div>
-					<c:set var="hasquestion" value="true" />
-					<!-- bo_type이 1인 요소가 있으면 플래그를 true로 설정 -->
+				<c:forEach var="board" items="${bvo}">
+					<c:if test="${board.bo_type == 1}">
+						<div class="question">
+							<a
+								href="?type=boardsDetail&bo_idx=${board.bo_idx}&bo_type=1&cPage=3">
+								<c:if test="${board.bo_answer eq '0'}">
+								<em class="questionMark">미답변</em> 
+								</c:if>
+								<c:if test="${board.bo_answer eq '1'}">
+								<em class="replyMark">답변완료</em> 
+								</c:if>
+								<c:if test="${board.uvo.us_status eq '1'}">
+								${fn:substring(board.uvo.us_name,0,1)}** | ${board.bo_write_date}
+								</c:if> 
+								<c:if test="${board.uvo.us_name == null}">
+								탈퇴한 회원 | ${board.bo_write_date}
+								</c:if>
+								
+								<h3>${board.bo_title}</h3>
+								<h5>${board.bo_content}</h5>
+								<div class="question-images">
+									<c:if test="${board.bo_img != null}">
+										<img
+											src="${pageContext.request.contextPath}/img/${board.bo_img}"
+											width="100" />
+									</c:if>
+								</div>
+							</a>
+						</div>
+						<c:set var="hasquestion" value="true" />
+						<!-- bo_type이 1인 요소가 있으면 플래그를 true로 설정 -->
+					</c:if>
+				</c:forEach>
+
+				<c:if test="${not hasquestion}">
+					<!-- 문의가 없는 경우 메시지 출력 -->
+					<h3>아직 문의가 등록되지 않았습니다.</h3>
 				</c:if>
-			</c:forEach>
+			</div>
 
-			<c:if test="${not hasquestion}">
-				<!-- 문의가 없는 경우 메시지 출력 -->
-				<h3>아직 문의가 등록되지 않았습니다.</h3>
-			</c:if>
-		</div>
 	</div>
 </div>
 <%@include file="/jsp/common/footer.jsp"%>
