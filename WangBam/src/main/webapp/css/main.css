@@ -30,6 +30,10 @@
 }
 .quick-item {
 	flex: 1;
+	border-right:1px solid #e2e2e2;
+}
+.quick-item:first-child {
+	border-left:1px solid #e2e2e2;
 }
 .quick-item a {
 	display:block;
