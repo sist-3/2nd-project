@@ -87,7 +87,7 @@
 			const searchValue = $("#searchProductName").val();
 			const productPerBlock = $("#productPerBlock").val();
 			const param = {
-				"type" : "item",
+				"type" : "productList",
 				"searchValue" : searchValue,
 				"productPerBlock" : productPerBlock,
 			}

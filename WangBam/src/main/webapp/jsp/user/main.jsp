@@ -69,18 +69,24 @@
 				<strong>WEEKLY</strong> HOT ITEMS
 			</p>
 			<p>
-				<span>금주의 핫 아이템</span> <br> <span><a href="?type=item">MORE</a></span>
+				<span>금주의 핫 아이템</span> <br> <span><a href="?type=productList">MORE</a></span>
 			</p>
 		</div>
 		<div>
-			<img src="${pageContext.request.contextPath}/img/hot_02.png" alt="핫1">
+			<a href="?type=productList">
+				<img src="${pageContext.request.contextPath}/img/hot_02.png" alt="핫1">
+			</a>
 		</div>
 		<div>
-			<img src="${pageContext.request.contextPath}/img/hot_01.png" alt="핫2">
+			<a href="?type=productList">
+				<img src="${pageContext.request.contextPath}/img/hot_01.png" alt="핫2">
+			</a>
 		</div>
 	</div>
 	<div class="hot-right">
-		<img src="${pageContext.request.contextPath}/img/hot_03.png" alt="핫3">
+		<a href="?type=productList">
+			<img src="${pageContext.request.contextPath}/img/hot_03.png" alt="핫3">
+		</a>
 	</div>
 </div>
 <div class="product-list" id="productList">
