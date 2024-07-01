@@ -18,7 +18,7 @@ public class ProductUpdateAction implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String viewPath = null;
-        String imgPath = "D:/2nd-project/WangBam/src/main/webapp/img";
+        String imgPath = "C:/2nd-project/WangBam/src/main/webapp/img";
 
         try {
             // MultipartRequest 객체를 생성하여 파일 업로드 및 폼 데이터를 처리합니다.
@@ -40,7 +40,7 @@ public class ProductUpdateAction implements Action {
             // 파일이 null일 경우 처리
             String pd_thumbnail_img = (f != null) ? f.getName() : "";
             String pd_detail_img = (f2 != null) ? f2.getName() : "";
-
+            System.out.println();
             // 파라미터 값을 맵에 저장
             Map<String, String> map = new HashMap<>();
             map.put("pd_idx", pd_idx);

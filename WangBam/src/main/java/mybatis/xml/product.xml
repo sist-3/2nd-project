@@ -33,9 +33,11 @@
 	   		ct_idx = #{ct_idx},
 	   		pd_price = #{pd_price},
 	   		pd_cnt = #{pd_cnt},
-			<if test="pd_sale!=null">
-		   		pd_sale = #{pd_sale}	
+	   		pd_thumbnail_img = #{pd_thumbnail_img},
+			<if test="pd_sale != null">
+		   		pd_sale = #{pd_sale},
 			</if>
+	   		pd_detail_img = #{pd_detail_img}
 		</set>
 		WHERE pd_idx = #{pd_idx}
 	</update>
