@@ -6,7 +6,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import mybatis.dao.CategoryDAO;
 import mybatis.dao.ProductDAO;
+import mybatis.vo.CategoryVO;
 import mybatis.vo.ProductVO;
 import util.Paging;
 
@@ -23,8 +25,17 @@ public class ProductListAction implements Action {
 		
 		String cPage = request.getParameter("cPage");
 		String searchValue = request.getParameter("searchValue");
+		String ct_idx = request.getParameter("ct_idx");
+		request.setAttribute("searchValue", searchValue);
+		request.setAttribute("ct_idx", ct_idx);
+		if(ct_idx == null) {
+			ct_idx = "전체";
+		}
+		HashMap<String, String> map2 = new HashMap<>();
+		map2.put("searchValue", searchValue);
+		map2.put("ct_idx", ct_idx);
 		
-		page.setTotalRecord(ProductDAO.allCount(searchValue));
+		page.setTotalRecord(ProductDAO.allCount(map2));
 		
 		if(cPage != null) { //시작 페이지 설정
 			page.setNowPage(Integer.parseInt(cPage));
@@ -39,6 +50,7 @@ public class ProductListAction implements Action {
 		map.put("start", String.valueOf(start));
 		map.put("end", String.valueOf(end));
 		map.put("searchValue", searchValue);
+		map.put("ct_idx", ct_idx);
 		
 		ProductVO[] p_ar = ProductDAO.findProductByName(map);
 		
@@ -47,6 +59,8 @@ public class ProductListAction implements Action {
 		if(p_ar != null) {
 			request.setAttribute("p_ar", p_ar);
 		}
+		CategoryVO[] c_list = CategoryDAO.allCategory();
+		request.setAttribute("c_list", c_list);
 		
 		return "/jsp/user/productList.jsp";
 	}
