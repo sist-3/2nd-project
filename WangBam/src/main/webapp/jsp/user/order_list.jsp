@@ -26,7 +26,7 @@
     	</div>
         <c:forEach var="odvo" items="${ovo.od_list}">
         <div class="order-item">
-            <img src="https://via.placeholder.com/50" alt="Product Image">
+            <img src="img/${odvo.pvo.pd_thumbnail_img}" class="order-img" alt="Product Image">
             <div class="order-item-details">
                 <h3>${odvo.pvo.pd_name}</h3>
                 <p><c:if test="${odvo.pvo.pd_sale_price != null}">
