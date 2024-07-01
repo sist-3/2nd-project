@@ -399,16 +399,19 @@ color: #28a745;
 font-weight: bold;
 }
 
-.order-recipient-info, .order-payment-info, .order-receipt-info {
-    border: 1px solid #ccc;
+.order-recipient-info{
+    width: 77%;
+    margin: 0 auto;
+    border: 1px solid #ddd;
     padding: 20px;
-    margin-top: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+    border-radius: 20px;
+    display: block;
+    margin-top: 40px;
 }
 
-.order-recipient-info h3, .order-payment-info h3, .order-receipt-info h3 {
+.order-recipient-info h3 {
     margin-top: 0;
     font-size: 20px;
     border-bottom: 2px solid #eee;
@@ -416,7 +419,7 @@ font-weight: bold;
     color: #333;
 }
 
-.order-recipient-info p, .order-payment-info p, .order-receipt-info p {
+.order-recipient-info p{
     margin: 10px 0;
     color: #555;
     font-size: 16px;
@@ -532,4 +535,18 @@ font-weight: bold;
 	position: absolute;
     width: 0;
     height: 0;
+}
+
+.delivery-status {
+    width: 76%;
+    height: 1250px;
+    margin: 20px auto;
+    border: 1px solid #ddd;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+    background-color: #fff;
+    border-radius: 20px;
+    display: block;
+    margin-bottom: 20px;
 }

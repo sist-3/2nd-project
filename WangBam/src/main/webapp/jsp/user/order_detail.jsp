@@ -29,7 +29,7 @@
             <h3>${odvo.pvo.pd_name}</h3>
             <p><c:if test="${odvo.pvo.pd_sale_price != null}">
 				${odvo.pvo.pd_sale_price}원
-				</c:if>
+				</c:if> 
                 <c:if test="${odvo.pvo.pd_price != null&&odvo.pvo.pd_sale_price == null}">
 				${odvo.pvo.pd_price}원
 				</c:if>

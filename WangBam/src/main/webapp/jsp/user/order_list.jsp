@@ -8,8 +8,22 @@
             <a href="http://localhost:8080/WangBam/?type=orderdetail&or_idx=${ovo.or_idx}">주문 상세보기 &gt;</a>
         </div>
         <div class="order-status">
-            <span class="status-value">${ovo.or_status_code}</span>
-        </div>
+        <c:if test="${ovo.or_status_code == 'UNKNOWN'}">
+            <span class="status-value">주문완료</span>
+        </c:if>
+        <c:if test="${ovo.or_status_code == 'INFOMATION_RECEIVED'}">
+            <span class="status-value">배송중</span>
+        </c:if>
+        <c:if test="${ovo.or_status_code == 'DELIVERED'}">
+            <span class="status-value">배송완료</span>
+        </c:if>
+        <c:if test="${ovo.or_status_code == 'CANCELLED'}">
+            <span class="status-value">주문취소</span>
+        </c:if>
+        <c:if test="${ovo.or_status_code == 'UNKNOWN_WAIT'}">
+            <span class="status-value">환불대기</span>
+        </c:if>
+    	</div>
         <c:forEach var="odvo" items="${ovo.od_list}">
         <div class="order-item">
             <img src="https://via.placeholder.com/50" alt="Product Image">
@@ -23,9 +37,9 @@
 				</c:if>
                 &nbsp; &nbsp;  ${odvo.od_cnt}개</p>
             </div>
-            <div class="order-item-actions">
-            	<button style="background-color: #8B4513; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; transition: background-color 0.3s ease;">리뷰작성</button>
-        	</div>	<!-- 리뷰 작성하려는 제품의 pd_idx를 reviewWriteAction으로 넘겨주시면 감사하겠오. -->
+            <div class="order-actions">
+    		<button onclick="location.href='?type=reviewWrite&pd_idx=${odvo.pvo.pd_idx}'">리뷰 작성</button>
+			</div>	<!-- 리뷰 작성하려는 제품의 pd_idx를 reviewWriteAction으로 넘겨주시면 감사하겠오. -->
         </div>
         </c:forEach>
         <div class="order-total-price">
