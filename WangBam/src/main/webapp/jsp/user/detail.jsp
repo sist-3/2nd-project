@@ -379,8 +379,9 @@
 						<div class="review-item">
 							<a
 								href="?type=boardsDetail&bo_idx=${board.bo_idx}&cPage=1&bo_type=2">
-								<p>${board.us_idx}&nbsp;|&nbsp;${board.bo_write_date}</p>
+								<p>${board.uvo.us_name}&nbsp;|&nbsp;${board.bo_write_date}</p>
 								<h3>${board.bo_title}</h3> <br />
+								
 								<h5>${board.bo_content}</h5>
 								<div class="review-content">${board.bo_content}</div>
 								<div class="review-images">
