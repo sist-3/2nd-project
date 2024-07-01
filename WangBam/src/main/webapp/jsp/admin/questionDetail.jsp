@@ -4,7 +4,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <%@include file="/jsp/common/adminHeader.jsp"%>
-<c:if test="${sessionScope.user.us_type == 0 }">
 	<div class="form-group">
 		<h1>문의사항 관리</h1>
 
@@ -255,16 +254,5 @@
     	}
 	};
 </script>
-</c:if>
-<c:if test="${sessionScope.user.us_type == 1 }">
-	<script type="text/javascript">
-        window.location.href = 'Controller?type=index';
-    </script>
-</c:if>
-<c:if test="${sessionScope.user.us_idx == null }">
-	<script type="text/javascript">
-        window.location.href = 'Controller?type=login';
-    </script>
-</c:if>
 </body>
 </html>

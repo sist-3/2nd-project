@@ -154,7 +154,7 @@
 		INSERT INTO boards_t
 			(us_idx, pd_idx, bo_type, bo_title, bo_content, bo_write_date, bo_img, bo_score, bo_answer, bo_status, bo_hit)
 		VALUES
-			(#{us_idx}, #{pd_idx}, #{bo_type}, #{bo_title}, #{bo_content}, NOW(), #{bo_img}, #{bo_score}, 0, 1, 0)
+			(#{us_idx}, #{pd_idx}, #{bo_type}, #{bo_title}, #{bo_content}, NOW(), #{bo_img}, #{bo_score}, 1, 1, 0)
 	</insert>
 <!-- Insert end -->
 

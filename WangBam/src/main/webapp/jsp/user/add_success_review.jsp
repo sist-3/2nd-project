@@ -34,13 +34,13 @@
         .btn a {
             text-decoration: none;
             color: white;
-            background-color: #333;
+            background-color: #673a11;
             padding: 10px 20px;
             border-radius: 5px;
             transition: background-color 0.3s;
         }
         .btn a:hover {
-            background-color: #0056b3;
+            background-color: #8b5228;
         }
     </style>
 <body>
@@ -59,7 +59,7 @@
 	</div>
 <script>
 	function closeWin(){
-		location.href="admin?type=noticeList";
+		location.href="?type=review";
 	}
 </script>	
 </body>
