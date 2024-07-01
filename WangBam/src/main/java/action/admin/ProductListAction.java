@@ -1,12 +1,15 @@
 package action.admin;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import mybatis.dao.CategoryDAO;
 import mybatis.dao.ProductDAO;
+import mybatis.vo.CategoryVO;
 import mybatis.vo.ProductVO;
 import util.Paging;
 
@@ -14,17 +17,27 @@ public class ProductListAction implements Action {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		// TODO Auto-generated method stub
+		String productPerBlock = request.getParameter("productPerBlock");
+		int numPerPage = 6;
+		if( productPerBlock != null) {
+			numPerPage = Integer.valueOf(productPerBlock);
+		}
+		Paging page = new Paging(numPerPage,5);
 		
-		//페이징 처리를 위한 객체생성
-		Paging page = new Paging(12,5);
-		//현재 페이지 번호 구하기
 		String cPage = request.getParameter("cPage");
-		//검색어 구하기
 		String searchValue = request.getParameter("searchValue");
+		String ct_idx = request.getParameter("ct_idx");
+		request.setAttribute("searchValue", searchValue);
+		request.setAttribute("ct_idx", ct_idx);
+		if(ct_idx == null) {
+			ct_idx = "전체";
+		}
+		HashMap<String, String> map2 = new HashMap<>();
+		map2.put("searchValue", searchValue);
+		map2.put("ct_idx", ct_idx);
 		
 		//검색으로 나온 리스트 전체 게시물 수 구하기 
-		page.setTotalRecord(ProductDAO.allCount(searchValue));
+		page.setTotalRecord(ProductDAO.allCount(map2));
 		
 		//시작 페이지 설정
 		if(cPage != null){
@@ -40,15 +53,20 @@ public class ProductListAction implements Action {
 		String end = Integer.toString(page.getEnd());
 		//맵 생성
 		HashMap<String,String> map = new HashMap<>();
+		map.put("start", String.valueOf(start));
+		map.put("end", String.valueOf(end));
 		map.put("searchValue", searchValue);
-		map.put("start", start);
-		map.put("end", end);
+		map.put("ct_idx", ct_idx);
+		
 		ProductVO[] p_ar = ProductDAO.findProductByName(map);
+		
 		request.setAttribute("paging", page);
 		
 		if(p_ar != null) {
 			request.setAttribute("p_ar", p_ar);
 		}
+		CategoryVO[] c_list = CategoryDAO.allCategory();
+		request.setAttribute("c_list", c_list);
 		
 		return "jsp/admin/productList.jsp";
 	}

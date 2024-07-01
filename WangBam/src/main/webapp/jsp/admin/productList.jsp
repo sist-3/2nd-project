@@ -8,11 +8,21 @@
 
 <div class="search-group">
 	<h2>상품 관리</h2>
-	<div class="search-bar">
-
-		<input type="text" placeholder="Search..." id="searchProductName" />
-		<button class="search-btn" id="searchBtn">&#128269;</button>
-	</div>
+	<form class="search-bar">
+        <select name="productPerBlock" id="productPerBlock">
+            <option value="6">6개씩 보기</option>
+            <option value="12">12개씩 보기</option>
+            <option value="18">18개씩 보기</option>
+        </select>
+        <select name="ct_idx" id="ct_idx">
+            <option>전체</option>
+            <c:forEach var="cvo" items="${requestScope.c_list}" varStatus="st">
+                <option value="${cvo.ct_idx}">${cvo.ct_name}</option>
+            </c:forEach>
+        </select>
+        <input type="text" id="searchProductName" name="searchValue" placeholder="Search..." />
+        <button type="button" class="search-btn" id="searchBtn">&#128269;</button>
+    </form>
 </div>
 <table class="table" id="productList">
 	<tr>
@@ -112,15 +122,19 @@
 	//검색 버튼 클릭 시 상품 검색
 	$(function() {
 		$("#searchBtn").on('click', function() {
-
+			loadProductList(1);
+        });
+	});
+	 function loadProductList(page) {
 			const searchValue = $("#searchProductName").val();
-
-			//const productPerBlock = $("#productPerBlock").val();
-			const cPage = $(".on").text();
+			const productPerBlock = $("#productPerBlock").val();
+		    const ct_idx = $("#ct_idx").val();
 			const param = {
-				"type" : "productList",
-				"searchValue" : searchValue,
-			// "productPerBlock":productPerBlock,
+				"type": "productList",
+	            "searchValue": searchValue,
+	            "productPerBlock": productPerBlock,
+	            "ct_idx": ct_idx,
+	            "cPage": page
 			}
 
 			$.ajax({
@@ -131,8 +145,11 @@
 				$("#productList").html($(res).find("#productList").html());
 				$("#pagination").html($(res).find("#pagination").html());
 			});
-		});
-	});
+		}
+	
+	function changePage(page) {
+        loadProductList(page);
+    }
 	//상품 추가 메세지 출력
 	let addMsg = "${addmsg}"
 	document.addEventListener("DOMContentLoaded", function() {
@@ -182,6 +199,7 @@
 			$('.checkbox').prop('checked', false); // 모든 개별 체크박스를 체크 해제 상태로 설정
 		}
 	}
+	
 </script>
 
 
