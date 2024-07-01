@@ -80,6 +80,7 @@
 				<input type="hidden" name="us_idx" value="${sessionScope.user.us_idx }"/>
 				<input type="hidden" name="bo_idx" value="${vo.bo_idx}"/>
 				<input type="hidden" name="bo_type" value="0"/>
+				<input type="hidden" name="us_type" value="0"/>
 				<input type="hidden" name="cPage" value="${requestScope.cPage}"/>
 				<input type="hidden" name="type" value="writeComment"/>
 				<input type="submit" value="댓글등록"/> 
@@ -175,6 +176,7 @@
 				newContent: newContent,
 				bo_idx: ${vo.bo_idx },
 				bo_type: 0 ,
+				us_type: 0,
 				cPage: ${requestScope.cPage}},
 			
 		}).done(function(res) {
@@ -197,6 +199,7 @@
 					newContent: newContent,
 					bo_idx: ${vo.bo_idx },
 					bo_type: 0 ,
+					us_type: 0 ,
 					cPage: ${requestScope.cPage}},
 				
 			}).done(function(res) {
