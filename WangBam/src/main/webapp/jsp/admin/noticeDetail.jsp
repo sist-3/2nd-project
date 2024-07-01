@@ -4,8 +4,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <%@include file="/jsp/common/adminHeader.jsp"%>
+	<h1>공지 상세보기</h1>
 	<div class="form-group">
-		<h1>공지 상세보기 (관리자)</h1>
 		
 		<div>
 			<label for="title">제목</label>
@@ -54,14 +54,14 @@
 						</div>
 						
 						<c:if test="${cvo.uvo.us_idx == sessionScope.user.us_idx and cvo.uvo.us_idx != null }">
-					    	<button class="btn cancel" type="button" onclick="editComment('${cvo.co_idx}')">수정 및 삭제</button><br/>
+					    	<button class="admin-btn submit" type="button" onclick="editComment('${cvo.co_idx}')" style="float: right; margin-top: 20px;">수정</button><br/>
 						</c:if>
 						<c:if test="${sessionScope.user.us_type == 0 and cvo.uvo.us_idx != sessionScope.user.us_idx}">
-							<button class="btn cancel" type="button" onclick="deleteComment('${cvo.co_idx}')">삭제</button><br/>
+							<button class="admin-btn submit" type="button" onclick="deleteComment('${cvo.co_idx}')" style="float: right; margin-top: 20px;">삭제</button><br/>
 						</c:if>
 						<div class="edit_comment">
-							<input id="contentInput_${cvo.co_idx }" type="text" value="${cvo.co_content }" disabled/>
-							<div class="commentEdit_btn" id="btn_${cvo.co_idx }" style=display:none >
+							<input id="contentInput_${cvo.co_idx }" type="text" value="${cvo.co_content }" style="width: 80%" disabled/>
+							<div class="commentEdit_btn" id="btn_${cvo.co_idx }" style="display:none; float: right;">
 								<button type="button" onclick="cancelEdit('${cvo.co_idx }')">취소</button>
 								<button type="button" onclick="saveEditComment('${cvo.co_idx}')">저장</button>
 								<button type="button" onclick="deleteComment('${cvo.co_idx}')">삭제</button>
@@ -71,30 +71,21 @@
 			</c:forEach>
 		</div>
 	
+	<br/>
 
 		<c:if test="${sessionScope.user != null}">
-			<label for="comment">댓글작성</label>
-			<form name="writeCommentForm" action="admin" method="post" onsubmit="return writeComment()">
-				작성자: ${sessionScope.user.us_nickname }<br/>
-				내용:<textarea rows="4" cols="30" name="co_content" id="co_content"></textarea><br/>
-				<input type="hidden" name="us_idx" value="${sessionScope.user.us_idx }"/>
-				<input type="hidden" name="bo_idx" value="${vo.bo_idx}"/>
-				<input type="hidden" name="bo_type" value="0"/>
-				<input type="hidden" name="us_type" value="0"/>
-				<input type="hidden" name="cPage" value="${requestScope.cPage}"/>
-				<input type="hidden" name="type" value="writeComment"/>
-				<input type="submit" value="댓글등록"/> 
-			</form>
+			<h2>댓글 쓰기</h2><h4>작성자: ${sessionScope.user.us_nickname }</h4>
+				<form class="comment-form" name="writeCommentForm" action="admin" method="post" onsubmit="return writeComment()" style="display: flex; align-items: flex-start; flex-direction: row;">
+					<textarea rows="4" cols="30" name="co_content" id="co_content"  style="resize: none; margin-right: 10px; display: inline-block; width: calc(100% - 80px);"></textarea>
+					<input type="hidden" name="us_idx" value="${sessionScope.user.us_idx }"/>
+					<input type="hidden" name="bo_idx" value="${vo.bo_idx}"/>
+					<input type="hidden" name="bo_type" value="0"/>
+					<input type="hidden" name="us_type" value="0"/>
+					<input type="hidden" name="cPage" value="${requestScope.cPage}"/>
+					<input type="hidden" name="type" value="writeComment"/>
+					<button type="submit" class="admin-btn submit" style="height: 98px; width: 70px; float: right;">댓글등록</button>
+				</form>
 		</c:if>
-		
-		<c:if test="${sessionScope.user == null}">
-			<form name="loginFrm" action="Controller" method="get">
-				댓글작성:<textarea name="co_content" id="co_content" disabled>로그인이 필요합니다.</textarea><br/>
-				<input type="hidden" name="type" value="login"/>
-				<input type="submit" value="로그인"/>
-			</form>
-		</c:if>
-		
 		
 		<form name="boardDataForm" action="admin" method="post">
 			<input type="hidden" name="type" value="noticeEdit"/>
@@ -102,13 +93,14 @@
 			<input type="hidden" name="cPage" value="${requestScope.cPage}"/>
 		</form>
 		
-		<button type="button" class="btn cancel"
-				onclick="javascript:window.location.href='admin?type=noticeEdit&bo_idx=${vo.bo_idx }'">수정</button>
-		<button type="button" class="btn cancel"
-				onclick="deleteBoards()">삭제</button>
-		<button type="button" class="btn "
-				onclick="javascript:window.location.href='admin?type=noticeList&cPage=${requestScope.cPage }'">목록</button>
-
+		<div class="buttons">
+			<button type="button" class="admin-btn cancel"
+					onclick="javascript:window.location.href='admin?type=noticeEdit&bo_idx=${vo.bo_idx }'">수정</button>
+			<button type="button" class="admin-btn cancel"
+					onclick="deleteBoards()">삭제</button>
+			<button type="button" class="admin-btn submit"
+					onclick="javascript:window.location.href='admin?type=noticeList&cPage=${requestScope.cPage }'">목록</button>
+		</div>
 	</div>
 <%@include file="/jsp/common/footer.jsp"%>
 <script>
