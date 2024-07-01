@@ -279,7 +279,6 @@
 </style>
 
 <%@include file="/jsp/common/header.jsp"%>
-
 <div class="top">
 	<div class="icons">
 
@@ -434,8 +433,20 @@
 				<c:forEach var="board" items="${bvo}">
 					<c:if test="${board.bo_type == 2}">
 						<div class="review-item">
-							<a
-								href="?type=boardsDetail&bo_idx=${board.bo_idx}&cPage=1&bo_type=2">
+							<a href="?type=boardsDetail&bo_idx=${board.bo_idx}&cPage=1&bo_type=2">
+								<div id="starScore" class="star-score">
+									<c:set var="limit" value="${Math.floor(board.bo_score)}" />
+									<c:forEach begin="1" end="5" varStatus="st">
+										<c:choose>
+											<c:when test="${st.index-1 < limit}">
+												<div class="icon-star on"></div>
+											</c:when>
+											<c:when test="${st.index-1 >= limit}">
+												<div class="icon-star"></div>
+											</c:when>
+										</c:choose>
+									</c:forEach>
+								</div>
 								<p>${board.uvo.us_name}&nbsp;|&nbsp;${board.bo_write_date}</p>
 								<h3>${board.bo_title}</h3> <br />
 								
