@@ -4,6 +4,9 @@
 <div class="order-container">
     <div class="order-header">
         <h2>주문번호: ${ovo.or_idx}</h2>
+        <div class="order-btns">
+    	<button id="delivery-button">배송현황</button>
+</div>
     </div>
     <div class="order-status">
         <c:if test="${ovo.or_status_code == 'UNKNOWN'}">
@@ -50,10 +53,7 @@
     </div>
 </div>
 <%-- 배송조회--%>
-<c:if test="${ovo.or_status_code != 'UNKNOWN'}">
-<h2 style="text-align: center; margin-top: 20px;">배송조회</h2>
-<iframe src="https://service.epost.go.kr/trace.RetrieveDomRigiTraceList.comm?sid1=${ovo.or_tracking_number}&displayHeader=N" class="delivery-status" id="order-delivery-info" name="order-delivery-info"></iframe>
-</c:if>
+
 <div class="order-recipient-info">
     <h3>받는사람 정보</h3>
     <h>받는사람: ${ovo.or_name}</h>
@@ -117,6 +117,10 @@
                 $('#order-cancel-form').submit();
             }
         });
+        $('#delivery-button').click(function(){
+        	console.log("클릭")
+        	window.open("https://service.epost.go.kr/trace.RetrieveDomRigiTraceList.comm?sid1=${ovo.or_tracking_number}&displayHeader=N", "new", "toolbar=no, menubar=no, scrollbars=yes, resizable=no, width=700, height=700, left=500, top=150");
+        })
     });
   </script>
   </body>
