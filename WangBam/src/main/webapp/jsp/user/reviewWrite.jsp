@@ -23,11 +23,18 @@
             	<label for="text">제품 :</label>
 	            <input type="text" name="pd_idx" value="${requestScope.product.pd_name }" disabled/>
             </div>
+			<div>
+            	<label for="text">평점 :</label>
+	            <select name="bo_score">
+	            	<c:forEach begin="1" end="10" varStatus="vs">
+       					<option value="${vs.count/2}">${vs.count/2}점</option>
+    				</c:forEach>
+	            </select>
+            </div>
             <div>
                 <label for="text">내용 :</label>
                 <textarea id="content" name="bo_content" placeholder="내용을 입력하세요."></textarea>
             </div>
-
             <div class="btn_div">
                 <button type="button" class="btn cancel" onclick="javascript:window.location.href='Controller?type=review'">취소</button>
                 <button type="button" class="btn submit" onclick="saveBorads()">저장</button>

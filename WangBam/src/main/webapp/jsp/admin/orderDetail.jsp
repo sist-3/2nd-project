@@ -32,7 +32,7 @@
 			</c:forEach>
 	</div>
 	<div>
-		<label for="or_status_code">배송상태</label> <input type="text" name="or_status_code"
+		<label for="or_status_code">배송상태</label> <input type="text" name="or_status_code" id="or_status_code"
 			value="${vo.or_status_code }" disabled />
 
 
@@ -55,16 +55,33 @@
 </form>
 
 <%@include file="/jsp/common/footer.jsp"%>
-<script src="${pageContext.request.contextPath}/js/Payment.js"></script>
 <script>
 	
 	function okOrder() {
 		if (confirm("정말 발송하시겠습니까?")) {
             const form = document.getElementById('orderForm');
             const idx = document.getElementById("or_idx").value;
-
+			const status = document.getElementById("or_status_code").value;
+			
 	        form.method = 'POST';
 	        form.action = 'admin?type=orderUpdate&or_status_code=INFORMATION_RECEIVED&or_idx='+idx;
+	        
+	        if(status != 'UNKNOWN'){
+	        	if(status == 'INFORMATION_RECEIVED'){
+		        	alert("이미 발송되었습니다.");
+		        	return;
+		        }
+	        	
+	        	if(status == 'CANCEL'){
+		        	alert("취소된 주문입니다.");
+		        	return;
+		        }
+	        	
+	        	alert("발송가능한 상태가 아닙니다.");
+	        	return;
+	        	
+	        }
+	        
 	        form.submit();
 		}
 	}
@@ -92,22 +109,11 @@
 		}
 	}
 	
-
 	function check(value){
 		let result = getPaymentByOrIdx(value);
 		return result.status;
 	}
 	
-	  // 예시 비동기 함수 (getPaymentByOrIdx는 실제 비동기 함수여야 합니다)
-    async function getPaymentByOrIdx(value) {
-        // 여기서 실제 서버 요청을 수행해야 합니다.
-        // 아래는 예시 응답 객체입니다.
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                resolve({ status: 'CANCELLED' });
-            }, 1000);
-        });
-    }
 
 </script>
 </body>

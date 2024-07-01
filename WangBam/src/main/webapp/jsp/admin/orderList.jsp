@@ -22,7 +22,7 @@
 		</select> <input type="text" name="searchValue" id="searchValue"
 			placeholder="Search..."
 			value="<c:if test='${(requestScope.searchValue != null)}'>${param.searchValue }</c:if>" />
-		<button type="button" class="search-btn" id="sendBtn">&#128269;</button>
+		<button type="button" class="search-btn btn search" id="sendBtn"></button>
 	</form>
 </div>
 <table class="table" id="orderList">
@@ -159,8 +159,8 @@ function selectCancelAll() {
         });
     });
 }
-function or_ok(){
-	if (confirm("정말 발송하시겠습니까?")) {
+function or_ok() {
+    if (confirm("정말 발송하시겠습니까?")) {
         const checkboxes = document.querySelectorAll('input[name="or_idx_ar"]:checked');
         if (checkboxes.length === 0) {
             alert("발송할 항목을 선택하세요.");
@@ -171,7 +171,18 @@ function or_ok(){
         form.method = 'POST';
         form.action = 'admin?type=orderUpdate&or_status_code=INFORMATION_RECEIVED';
 
+        let canProceed = true;
         checkboxes.forEach(checkbox => {
+            const row = checkbox.closest('tr');
+            const cells = row.querySelectorAll('td');
+            const orderStatus = cells[5].textContent.trim();
+            
+            if (orderStatus !== 'UNKNOWN') {
+                alert("발송가능한 상태가 아닙니다.");
+                canProceed = false;
+                return;
+            }
+
             const hiddenInput = document.createElement('input');
             hiddenInput.type = 'hidden';
             hiddenInput.name = 'or_idx_ar';
@@ -179,9 +190,11 @@ function or_ok(){
             form.appendChild(hiddenInput);
         });
 
-        document.body.appendChild(form);
-        form.submit();
-	}
+        if (canProceed) {
+            document.body.appendChild(form);
+            form.submit();
+        }
+    }
 }
 
 function or_cancel(){

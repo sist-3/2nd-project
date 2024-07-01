@@ -123,11 +123,6 @@ body:has(.admin) {
 	transition: background-color 0.3s ease-in-out;
 }
 
-.address-group button:hover,
-.phone-group button:hover {
-	background-color: #763b00;
-}
-
 .out-btn {
 	right: 3px;
 	position: absolute;
