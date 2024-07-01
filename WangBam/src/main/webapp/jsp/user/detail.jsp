@@ -3,11 +3,78 @@
 	pageEncoding="UTF-8"%>
 <style>
 /*탭*/
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active {
+    border: initial !important;
+    background: initial !important;
+    font-weight: initial !important;
+    color: initial !important;
+	/*탭버튼 외곽선 */
+}
+.ui-widget-header {
+    border: initial !important;
+   /* 탭 버튼 위아래 외곽선  */
+}
+.ui-widget.ui-widget-content {
+	border: initial !important; 
+	/* 탭 내용 외곽선 */
+}
+.ui-tabs .ui-tabs-nav {
+	margin: 0;
+	padding: 0;
+	display: flex; /* Flexbox를 사용하여 가로로 배치 */
+	background-color: white;
+	height: 50;
+}
+.ui-tabs .ui-tabs-nav li {
+	flex: 1; /* 모든 탭이 동일한 너비를 가지도록 설정 */
+	list-style: none;
+}
+.ui-tabs .ui-tabs-nav li a {
+	position: relative; 
+    overflow: hidden; 
+	display: block;
+	width: 100%;
+	padding: 0.5em 0; /* 필요에 따라 조정 */
+	text-align: center;
+	box-sizing: border-box;
+	background-color: #ffffff; /* 비활성 탭 배경색 */
+	border: 1px solid #c5c5c5; /* 비활성 탭 테두리 */
+	border-radius: 20px; /* 둥근 모서리 */
+	margin: 0 5px; /* 탭 사이의 간격 */
+	color: #333; /* 텍스트 색상 */
+	text-decoration: none; /* 텍스트 밑줄 제거 */
+	font-size: large; /* 탭 버튼 글자 크기 */
+}
+.ui-tabs .ui-tabs-nav li.ui-tabs-active a {
+	background: #fdd835; /* 활성 탭 배경색 */
+	border: 1px solid #fdd835; /* 활성 탭 테두리 */
+	color: #333; /* 활성 탭 텍스트 색상 */
+}
+/* content 정위치를 위해 css무시 */
 #tabs.ui-widget.ui-widget-content {
 	padding: initial !important;
 	border-radius: initial !important;
 	overflow: initial !important;
 	position: initial !important;
+}
+/* 탭을 누르면 터지는 효과 */
+.bread {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100px;
+    height: 100px;
+    background: url('./upload/wangbam.png') no-repeat center center; /* 빵 이미지 URL */
+    background-size: contain;
+    transform: translate(-50%, -50%) scale(0);
+    pointer-events: none;
+    animation: bread-animation 0.6s ease-out forwards;
+}
+@keyframes bread-animation { 
+    to {
+        transform: translate(-50%, -50%) scale(2);
+        opacity: 0;
+    }
 }
 /*배경*/
 .main {
@@ -16,6 +83,9 @@
 	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
 }
 /*구매*/
+.product-details{
+	align-content: center;
+}
 .product-details th {
 	width: 120px;
 	margin: -1px 0 0;
@@ -287,8 +357,13 @@
 </div>
 <div class="product-page">
 	<div class="product-image">
-		<img src="img/${pvo.pd_thumbnail_img}" alt="Product Image" width="90%"
-			height="90%">
+		<c:if test="${pvo.pd_thumbnail_img eq '' }">
+		<img src="https://png.pngtree.com/png-vector/20190820/ourmid/pngtree-no-image-vector-illustration-isolated-png-image_1694547.jpg" width="100%" height="100%">
+		</c:if>
+		<c:if test="${pvo.pd_thumbnail_img ne ''}">
+			<img src="img/${pvo.pd_thumbnail_img}"  width="100%"
+				height="100%">
+		</c:if>
 	</div>
 	<div class="product-details">
 		<h1>
@@ -386,7 +461,7 @@
 					width="100%" alt="상세 이미지" />
 			</c:if>
 		</div>
-		<div id="tabs-2">
+		<div id="tabs-2"> 
 			<h4>상품결제정보</h4>
 			<p>고액결제의 경우 안전을 위해 카드사에서 확인전화를 드릴 수도 있습니다. 확인과정에서 도난 카드의 사용이나 타인
 				명의의 주문등 정상적인 주문이 아니라고 판단될 경우 임의로 주문을 보류 또는 취소할 수 있습니다.</p>
@@ -447,7 +522,7 @@
 										</c:choose>
 									</c:forEach>
 								</div>
-								<p>${board.uvo.us_name}&nbsp;|&nbsp;${board.bo_write_date}</p>
+								<p>${board.uvo.us_nickname}&nbsp;|&nbsp;${board.bo_write_date}</p>
 								<h3>${board.bo_title}</h3> <br />
 								
 								<h5>${board.bo_content}</h5>
@@ -535,6 +610,21 @@
 </div>
 <%@include file="/jsp/common/footer.jsp"%>
 		<script>
+			//애니메이션
+			
+			$(function() {
+				$("#tabs").tabs();
+
+				$(".ui-tabs-nav li a").on("click", function(e) {
+					var bread = $("<div class='bread'></div>"); // 추가된 부분
+					$(this).append(bread); // 추가된 부분
+					setTimeout(function() {
+						bread.remove(); // 추가된 부분
+					}, 600); // 애니메이션 지속 시간과 일치시킴
+				});
+			});
+
+
 			$(function () {
 				$("#tabs").tabs();
 				
