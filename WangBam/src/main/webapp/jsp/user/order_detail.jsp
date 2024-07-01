@@ -29,15 +29,17 @@
             <h3>${odvo.pvo.pd_name}</h3>
             <p><c:if test="${odvo.pvo.pd_sale_price != null}">
 				${odvo.pvo.pd_sale_price}원
-				</c:if>
+				</c:if> 
                 <c:if test="${odvo.pvo.pd_price != null&&odvo.pvo.pd_sale_price == null}">
 				${odvo.pvo.pd_price}원
 				</c:if>
                 &nbsp; &nbsp;  ${odvo.od_cnt}개</p>
         </div> 
+        <c:if test="${ovo.or_status_code == 'DELIVERED'}">
         <div class="order-actions">
     		<button onclick="location.href='order'">리뷰 작성</button>
 		</div>
+		</c:if>
     </div>
     </c:forEach>
     <div class="order-total-price">
@@ -46,9 +48,9 @@
     </div>
 </div>
 <%-- 배송조회--%>
-<h2 style="text-align: center; margin-top: 20px;">배송조회</h2>
 <c:if test="${ovo.or_status_code != 'UNKNOWN'}">
-<iframe src="https://service.epost.go.kr/trace.RetrieveDomRigiTraceList.comm?sid1=${ovo.or_tracking_number}&displayHeader=N" class="order-delivery-info" id="order-delivery-info" name="order-delivery-info" style="width: 100%; height: 1250px; display: block; margin-top: 10px;"></iframe>
+<h2 style="text-align: center; margin-top: 20px;">배송조회</h2>
+<iframe src="https://service.epost.go.kr/trace.RetrieveDomRigiTraceList.comm?sid1=${ovo.or_tracking_number}&displayHeader=N" class="delivery-status" id="order-delivery-info" name="order-delivery-info"></iframe>
 </c:if>
 <div class="order-recipient-info">
     <h3>받는사람 정보</h3>
