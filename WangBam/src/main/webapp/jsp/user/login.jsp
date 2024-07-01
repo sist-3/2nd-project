@@ -43,7 +43,12 @@
             if(data==0){
             	alert("아이디 또는 비밀번호가 일치하지 않습니다.");
             }else{
-            	location.href = '/WangBam/';
+            	<c:if test="${us_type == '0'}">
+            		location.href = '/WangBam/admin';
+            	</c:if>
+            	<c:if test="${us_type == '1'}">
+            		location.href = '/WangBam/';
+            	</c:if>
             }
         }).fail(function(){
             
