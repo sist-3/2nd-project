@@ -267,7 +267,14 @@
     letter-spacing: 1px;
     color: #fff;
 }
-
+/*dialog*/
+.ui-dialog {
+    position: fixed;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    margin: 0 !important;
+}
 
 </style>
 
@@ -511,12 +518,19 @@
 
 	</div>
 </div>
+</div>
+<div id="dialog-confirm" title="알림" class="dialog" style="display:none">
+<p></p>
+</div>
 <%@include file="/jsp/common/footer.jsp"%>
 		<script>
 			$(function () {
 				$("#tabs").tabs();
 				
 				$("#order_Btn").on('click', function() {
+					if(${sessionScope.user != null}){
+						
+					
 					let price = null;
 					
 				    if(${pvo.pd_sale != null}) {	  
@@ -543,9 +557,36 @@
 				        error:function(request,status,error){
 				        }
 				    });
+					}else{
+						dialog("dialog-confirm", 
+							"로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?", 
+							{
+								"확인": function() {
+							      $( this ).dialog( "close" );
+							      location.href = "?type=login";
+							    },
+								"취소": function() {
+						          $( this ).dialog( "close" );						         
+						        }
+							  }
+						);
+					}
+					
 				});
 			});
-
+			
+			function dialog(className, msg, callback){
+				$("#"+className+" p").text(msg);
+				$( "#"+className).dialog({
+				      resizable: false,
+				      draggable: false,
+				      height: "auto",
+				      width: 400,
+				      modal: true,
+				      buttons: callback
+				});
+			}
+			
 			function updateTotalPrice() {
 				let price = ${ pvo.pd_price };
 				let quantity = document.getElementById("quantity").value; // 수량 입력 필드에서 값을 가져옵니다.
@@ -581,21 +622,37 @@
 							pd_cnt: count
 						},
 						success: function () {
-							if (confirm("장바구니에 담았습니다. 장바구니로 이동하시겠습니까?")) {
-			
-								// 장바구니 추가가 성공하면 장바구니 목록 페이지로 이동합니다.
-								location.href = "?type=cartList";
-							} else {
-			
-							}
+							dialog("dialog-confirm", 
+									"장바구니에 담았습니다. 장바구니로 이동하시겠습니까?", 
+									{
+										"확인": function() {
+									      $( this ).dialog( "close" );
+									      location.href = "?type=cartList";
+									    },
+										"취소": function() {
+								          $( this ).dialog( "close" );						         
+								        }
+									  }
+								);
 						},
 						error: function () {
 							alert("장바구니 추가에 실패했습니다.");
 						}
 					});
 				}else {
-					alert("로그인 먼저 해주세요!");
-					location.href = "?type=login";
+					dialog("dialog-confirm", 
+							"로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?", 
+							{
+								"확인": function() {
+							      $( this ).dialog( "close" );
+							      location.href = "?type=login";
+							    },
+								"취소": function() {
+						          $( this ).dialog( "close" );						         
+						        }
+							  }
+						);
+					
 				}
 			}
 			 function questionCheck() {
@@ -604,8 +661,18 @@
 		                    location.href = "?type=questionWrite&us_idx=${sessionScope.user.us_idx}";
 		                </c:when>
 		                <c:otherwise>
-		                	alert("로그인 해주세요!")
-		                    location.href = "?type=login";
+		                dialog("dialog-confirm", 
+								"로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?", 
+								{
+									"확인": function() {
+								      $( this ).dialog( "close" );
+								      location.href = "?type=login";
+								    },
+									"취소": function() {
+							          $( this ).dialog( "close" );						         
+							        }
+								  }
+							);
 		                </c:otherwise>
 		            </c:choose>
 		        }
