@@ -26,33 +26,36 @@
 			<div class="content">${vo.bo_content}</div>
 		</div>
 		
-	
-		<label for="comment">댓글 [${vo.c_list.size() }]</label>
-		<div class="comment" id="commentList">
+	<div class="comment-list-section" id="commentList">
+			<h2>댓글 목록 [${vo.c_list.size() }]</h2>
+		<div class="comments-list">
 			<c:forEach var="cvo" items="${vo.c_list }" varStatus="vs">
-					<div id="comment_${cvo.co_idx }">
-						<c:choose>
-							<c:when test="${cvo.uvo.us_idx == vo.uvo.us_idx && cvo.uvo.us_type == 1}">
-								작성자: <b style="color: #ff0044">${vo.uvo.us_nickname }</b>&nbsp;&nbsp;
-							</c:when>
-							<c:when test="${cvo.uvo.us_type == 0 }">
-								작성자: <b style="color: #4400ff">${cvo.uvo.us_nickname }</b> &nbsp;&nbsp;
-							</c:when>
-							<c:when test="${cvo.uvo.us_nickname != null}">
-								작성자: ${cvo.uvo.us_nickname } &nbsp;&nbsp;
-							</c:when>
-							<c:when test="${cvo.uvo.us_nickname == null}">
-								작성자: 탈퇴한 회원 &nbsp;&nbsp;
-							</c:when>
-						</c:choose>
+					<div id="comment_${cvo.co_idx }" class="comment">
+						<div class="split-box">
+							<c:choose>
+								<c:when test="${cvo.uvo.us_idx == vo.uvo.us_idx && cvo.uvo.us_type == 1}">
+									<p><strong>작성자</strong>: <b style="color: #ff0044">${vo.uvo.us_nickname }</b></p>
+								</c:when>
+								<c:when test="${cvo.uvo.us_type == 0 }">
+									<p><strong>작성자</strong>: <b style="color: #4400ff">${cvo.uvo.us_nickname }</b></p>
+								</c:when>
+								<c:when test="${cvo.uvo.us_nickname != null}">
+									<p><strong>작성자</strong>: ${cvo.uvo.us_nickname }</p>
+								</c:when>
+								<c:when test="${cvo.uvo.us_nickname == null}">
+									<p><strong>작성자</strong>: 탈퇴한 회원</p>
+								</c:when>
+							</c:choose>
+							<p><strong>작성일</strong>: ${cvo.co_write_date }</p>
+						</div>
 						작성일: ${cvo.co_write_date } &nbsp;&nbsp;
+						<div class="edit_comment">
 						<c:if test="${cvo.uvo.us_idx == sessionScope.user.us_idx and cvo.uvo.us_idx != null }">
 					    	<button class="btn cancel" type="button" onclick="editComment('${cvo.co_idx}')">수정 및 삭제</button><br/>
 						</c:if>
 						<c:if test="${sessionScope.user.us_type == 0 and cvo.uvo.us_idx != sessionScope.user.us_idx}">
 							<button class="btn cancel" type="button" onclick="deleteComment('${cvo.co_idx}')">삭제</button><br/>
 						</c:if>
-						<div class="edit_comment">
 							<input id="contentInput_${cvo.co_idx }" type="text" value="${cvo.co_content }" disabled/>
 							<div class="commentEdit_btn" id="btn_${cvo.co_idx }" style=display:none >
 								<button type="button" onclick="cancelEdit('${cvo.co_idx }')">취소</button>
@@ -61,34 +64,39 @@
 							</div>
 						</div>
 						
-						<c:if test="${!vs.last}">
+						<%-- <c:if test="${!vs.last}">
 							<hr/>
-						</c:if>
+						</c:if> --%>
 					</div>
 			</c:forEach>
+			</div>
 		</div>
 	
 
 		<c:if test="${sessionScope.user != null}">
-			<label for="comment">댓글작성</label>
-			<form name="writeCommentForm" action="Controller" method="post" onsubmit="return writeComment()">
-				작성자: ${sessionScope.user.us_nickname }<br/>
-				내용:<textarea rows="4" cols="30" name="co_content" id="co_content"></textarea><br/>
-				<input type="hidden" name="us_idx" value="${sessionScope.user.us_idx }"/>
-				<input type="hidden" name="bo_idx" value="${vo.bo_idx}"/>
-				<input type="hidden" name="bo_type" value="0"/>
-				<input type="hidden" name="cPage" value="${requestScope.cPage}"/>
-				<input type="hidden" name="type" value="writeComment"/>
-				<input type="submit" value="댓글등록"/> 
-			</form>
+			<div class="comment-form-section">
+				<h2>댓글 쓰기</h2>
+				<form class="comment-form" name="writeCommentForm" action="Controller" method="post" onsubmit="return writeComment()">
+					작성자: ${sessionScope.user.us_nickname }<br/>
+					내용:<textarea rows="4" cols="30" name="co_content" id="co_content"></textarea><br/>
+					<input type="hidden" name="us_idx" value="${sessionScope.user.us_idx }"/>
+					<input type="hidden" name="bo_idx" value="${vo.bo_idx}"/>
+					<input type="hidden" name="bo_type" value="0"/>
+					<input type="hidden" name="cPage" value="${requestScope.cPage}"/>
+					<input type="hidden" name="type" value="writeComment"/>
+					<input type="submit" value="댓글등록"/> 
+				</form>
+			</div>
 		</c:if>
 		
 		<c:if test="${sessionScope.user == null}">
-			<form name="loginFrm" action="Controller" method="get">
-				댓글작성:<textarea name="co_content" id="co_content" disabled>로그인이 필요합니다.</textarea><br/>
-				<input type="hidden" name="type" value="login"/>
-				<input type="submit" value="로그인"/>
-			</form>
+			<div class="comment-form-section">
+				<form name="loginFrm" action="Controller" method="get">
+					댓글작성:<textarea name="co_content" id="co_content" disabled>로그인이 필요합니다.</textarea><br/>
+					<input type="hidden" name="type" value="login"/>
+					<input type="submit" value="로그인"/>
+				</form>
+			</div>
 		</c:if>
 		
 		

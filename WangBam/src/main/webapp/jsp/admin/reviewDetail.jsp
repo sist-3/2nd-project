@@ -12,8 +12,16 @@
 				value="${vo.bo_title }" disabled />
 		</div>
 		<div>
+			<label for="writeDate">작성일</label>
+			<input type="text" name="writeDate"	value="${vo.bo_write_date }" disabled />
+		</div>
+		<div>
 			<label for="writer">작성자</label> <input type="text" name="writer"
 				value="<c:if test='${null eq vo.uvo.us_name}'>탈퇴한 회원</c:if><c:if test='${null ne vo.uvo.us_name}'>${vo.uvo.us_name}</c:if>"disabled />
+		</div>
+		<div>
+			<label for="content">상품</label>
+			<input type="text" name="scroe" value="${vo.pvo.pd_name}" disabled />
 		</div>
 		<div>
 			<label for="score">평점</label> <input type="text" name="Score"
