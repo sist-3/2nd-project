@@ -25,7 +25,9 @@ public class ReviewWriteAction implements Action {
 		 
 		if (enc_type == null || !enc_type.startsWith("multipart")) {
 			String pd_idx = request.getParameter("pd_idx");
-			request.setAttribute("pd_idx", pd_idx);
+			//request.setAttribute("pd_idx", pd_idx);
+			ProductVO product = ProductDAO.findByid(pd_idx);
+			request.setAttribute("product", product);
 			
 			viewPath = "/jsp/user/reviewWrite.jsp";
 			
