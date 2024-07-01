@@ -9,7 +9,7 @@
         <c:if test="${ovo.or_status_code == 'UNKNOWN'}">
             <span class="status-value">주문완료</span>
         </c:if>
-        <c:if test="${ovo.or_status_code == 'INFOMATION_RECEIVED'}">
+        <c:if test="${ovo.or_status_code == 'INFORMATION_RECEIVED'}">
             <span class="status-value">배송중</span>
         </c:if>
         <c:if test="${ovo.or_status_code == 'DELIVERED'}">
@@ -85,6 +85,7 @@
   <script>
     $(document).ready(function(){
     	let data = getPaymentByOrIdx(${ovo.or_idx})
+    	console.log(data);
         if(data.status == 'PAID'){
             $('#payment-status').text('결제 완료');
         }else if(data.status == 'CANCELLED'){
@@ -100,7 +101,7 @@
         }else if(data.status == 'VIRTUAL_ACCOUNT_ISSUED'){
             $('#payment-status').text('가상계좌 발급 완료');
         }
-        if(data.method.type == 'PaymentMethodCARD'){
+        if(data.method.type == 'PaymentMethodCard'){
             $('#payment-method').text(data.method.card.name);
         }else if(data.method.type == 'PaymentMethodEasyPay'){
             $('#payment-method').text(data.method.provider);

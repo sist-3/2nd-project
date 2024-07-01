@@ -11,7 +11,7 @@
         <c:if test="${ovo.or_status_code == 'UNKNOWN'}">
             <span class="status-value">주문완료</span>
         </c:if>
-        <c:if test="${ovo.or_status_code == 'INFOMATION_RECEIVED'}">
+        <c:if test="${ovo.or_status_code == 'INFORMATION_RECEIVED'}">
             <span class="status-value">배송중</span>
         </c:if>
         <c:if test="${ovo.or_status_code == 'DELIVERED'}">
