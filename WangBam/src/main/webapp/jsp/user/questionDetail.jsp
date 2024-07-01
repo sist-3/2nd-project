@@ -39,17 +39,17 @@
 							<div class="split-box">
 								<c:choose>
 									<c:when test="${cvo.uvo.us_idx == vo.uvo.us_idx && cvo.uvo.us_type == 1}">
-									<p><strong>작성자</strong>: <b style="color: #ff0044">${vo.uvo.us_nickname }</b></p>
-								</c:when>
-								<c:when test="${cvo.uvo.us_type == 0 }">
-									<p><strong>작성자</strong>: <b style="color: #4400ff">${cvo.uvo.us_nickname }</b></p>
-								</c:when>
-								<c:when test="${cvo.uvo.us_nickname != null}">
-									<p><strong>작성자</strong>: ${cvo.uvo.us_nickname }</p>
-								</c:when>
-								<c:when test="${cvo.uvo.us_nickname == null}">
-									<p><strong>작성자</strong>: 탈퇴한 회원</p>
-								</c:when>
+										<p><strong>작성자</strong>: <b style="color: #ff0044">${vo.uvo.us_nickname }</b></p>
+									</c:when>
+									<c:when test="${cvo.uvo.us_type == 0 }">
+										<p><strong>작성자</strong>: <b style="color: #4400ff">${cvo.uvo.us_nickname }</b></p>
+									</c:when>
+									<c:when test="${cvo.uvo.us_nickname != null}">
+										<p><strong>작성자</strong>: ${cvo.uvo.us_nickname }</p>
+									</c:when>
+									<c:when test="${cvo.uvo.us_nickname == null}">
+										<p><strong>작성자</strong>: 탈퇴한 회원</p>
+									</c:when>
 								</c:choose>
 								<p><strong>작성일</strong>: ${cvo.co_write_date }</p>
 							</div>
