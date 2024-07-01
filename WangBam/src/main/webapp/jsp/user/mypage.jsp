@@ -116,9 +116,7 @@
                 //유효성검사
                 if($('#us_nickname').val() === ''){
                     alert('유효하지않은 닉네임입니다.');
-                    $('#us_nickname').val(${sessionScope.user.us_nickname});
-                    $('#nickname').focus();
-                    return;
+                    $('#us_nickname').val(${sessionScope.user.us_nickname});   
                 }
                 if($('#us_nickname').val().length > 10){
                     alert('닉네임은 최대 10자까지 가능합니다.');
