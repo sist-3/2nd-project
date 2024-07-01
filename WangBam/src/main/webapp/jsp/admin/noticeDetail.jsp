@@ -23,7 +23,7 @@
 		<div>
 			<label for="content">내용</label>
 			<%-- <input type="text" name="content" value="${vo.bo_content}" disabled /> --%>
-			<div style="border: 1px solid black">${vo.bo_content}</div>
+			<div style="border: 1px solid #ddd; border-radius:8px; background:#fff; padding: 12px;">${vo.bo_content}</div>
 		</div>
 		
 	
