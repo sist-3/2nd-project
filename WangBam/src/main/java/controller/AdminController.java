@@ -16,8 +16,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import action.Action;
+import mybatis.vo.UserVO;
 
 /**
  * Servlet implementation class Controller
@@ -78,12 +80,26 @@ private static final long serialVersionUID = 1L;
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		final String ADMIN = "0";
+		
 		request.setCharacterEncoding("utf-8");
 		
 		String type = request.getParameter("type");
-
-		if(type == null)
+		
+		if(type == null) {
 			type = "index";
+		}
+		
+		HttpSession session = request.getSession();
+		Object obj = session.getAttribute("user");
+		if(obj != null) {
+			UserVO uvo = (UserVO)obj;
+			if(!uvo.getUs_type().equals(ADMIN)) {
+				type = "login";
+			}
+		}else {
+			type = "login";
+		}
 		
 		Action action = actionMap.get(type);
 		
