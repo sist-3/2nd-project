@@ -23,11 +23,11 @@
 		</div>
 		<div>
 			<label for="content">내용</label>
-			<div style="border: 1px solid #ddd; border-radius:8px; background:#fff">${vo.bo_content}</div>
+			<div style="border: 1px solid #ddd; border-radius:8px; background:#fff; padding: 12px;">${vo.bo_content}</div>
 		</div>
 		
 	<div class="comment-list-section" id="commentList">
-			<h2>댓글 목록 [${vo.c_list.size() }]</h2>
+		<h2>댓글 목록 [${vo.c_list.size() }]</h2>
 		<div class="comments-list">
 			<c:forEach var="cvo" items="${vo.c_list }" varStatus="vs">
 					<div id="comment_${cvo.co_idx }" class="comment">
@@ -48,15 +48,17 @@
 							</c:choose>
 							<p><strong>작성일</strong>: ${cvo.co_write_date }</p>
 						</div>
-						작성일: ${cvo.co_write_date } &nbsp;&nbsp;
+
 						<div class="edit_comment">
-						<c:if test="${cvo.uvo.us_idx == sessionScope.user.us_idx and cvo.uvo.us_idx != null }">
-					    	<button class="btn cancel" type="button" onclick="editComment('${cvo.co_idx}')">수정 및 삭제</button><br/>
-						</c:if>
-						<c:if test="${sessionScope.user.us_type == 0 and cvo.uvo.us_idx != sessionScope.user.us_idx}">
-							<button class="btn cancel" type="button" onclick="deleteComment('${cvo.co_idx}')">삭제</button><br/>
-						</c:if>
-							<input id="contentInput_${cvo.co_idx }" type="text" value="${cvo.co_content }" disabled/>
+							<div class="split-box">
+								<input id="contentInput_${cvo.co_idx }" type="text" value="${cvo.co_content }" disabled/>
+								<c:if test="${cvo.uvo.us_idx == sessionScope.user.us_idx and cvo.uvo.us_idx != null }">
+							    	<button class="btn cancel" type="button" onclick="editComment('${cvo.co_idx}')">수정 및 삭제</button>
+								</c:if>
+								<c:if test="${sessionScope.user.us_type == 0 and cvo.uvo.us_idx != sessionScope.user.us_idx}">
+									<button class="btn cancel" type="button" onclick="deleteComment('${cvo.co_idx}')">삭제</button>
+								</c:if>
+							</div>
 							<div class="commentEdit_btn" id="btn_${cvo.co_idx }" style=display:none >
 								<button type="button" onclick="cancelEdit('${cvo.co_idx }')">취소</button>
 								<button type="button" onclick="saveEditComment('${cvo.co_idx}')">저장</button>
@@ -75,26 +77,26 @@
 
 		<c:if test="${sessionScope.user != null}">
 			<div class="comment-form-section">
-				<h2>댓글 쓰기</h2>
-				<form class="comment-form" name="writeCommentForm" action="Controller" method="post" onsubmit="return writeComment()">
-					작성자: ${sessionScope.user.us_nickname }<br/>
-					내용:<textarea rows="4" cols="30" name="co_content" id="co_content"></textarea><br/>
+				<h2>댓글 쓰기</h2><h4>작성자: ${sessionScope.user.us_nickname }</h4>
+				<form class="comment-form" name="writeCommentForm" action="Controller" method="post" onsubmit="return writeComment()" style="display: flex; align-items: flex-start;">
+					<textarea rows="4" cols="30" name="co_content" id="co_content" style="resize: none; margin-right: 10px"></textarea>
 					<input type="hidden" name="us_idx" value="${sessionScope.user.us_idx }"/>
 					<input type="hidden" name="bo_idx" value="${vo.bo_idx}"/>
 					<input type="hidden" name="bo_type" value="0"/>
 					<input type="hidden" name="cPage" value="${requestScope.cPage}"/>
 					<input type="hidden" name="type" value="writeComment"/>
-					<input type="submit" value="댓글등록"/> 
+					<button type="submit" style="height: 80px; width: 70px">댓글등록</button> 
 				</form>
 			</div>
 		</c:if>
 		
 		<c:if test="${sessionScope.user == null}">
 			<div class="comment-form-section">
-				<form name="loginFrm" action="Controller" method="get">
-					댓글작성:<textarea name="co_content" id="co_content" disabled>로그인이 필요합니다.</textarea><br/>
+			<h2>댓글 쓰기</h2>
+				<form name="loginFrm" action="Controller" method="get"  class="comment-form"  style="display: flex; align-items: flex-start;">
+					<textarea name="co_content" id="co_content" disabled style="resize: none; margin-right: 10px">로그인이 필요합니다.</textarea>
 					<input type="hidden" name="type" value="login"/>
-					<input type="submit" value="로그인"/>
+					<button type="submit" style="height: 50px; width: 70px; padding: 0">로그인</button>
 				</form>
 			</div>
 		</c:if>
@@ -105,9 +107,10 @@
 			<input type="hidden" name="bo_idx" value="${vo.bo_idx}"/>
 			<input type="hidden" name="cPage" value="${requestScope.cPage}"/>
 		</form>
-		
-		<button type="button" class="btn cancel"
-				onclick="javascript:window.location.href='Controller?type=notice&cPage=${requestScope.cPage }'">목록</button>
+		<div class="buttons">
+			<button type="button" class="btn cancel"  
+					onclick="javascript:window.location.href='Controller?type=notice&cPage=${requestScope.cPage }'">목록</button>
+		</div>
 		
 	</div>
 <%@include file="/jsp/common/footer.jsp"%>
