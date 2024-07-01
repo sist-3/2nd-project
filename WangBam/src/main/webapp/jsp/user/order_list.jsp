@@ -30,16 +30,18 @@
             <div class="order-item-details">
                 <h3>${odvo.pvo.pd_name}</h3>
                 <p><c:if test="${odvo.pvo.pd_sale_price != null}">
-				${odvo.pvo.pd_sale_price}원
+				<fmt:formatNumber value="${odvo.pvo.pd_sale_price}" var="sale_price"/>
+				${ sale_price }원
 				</c:if>
                 <c:if test="${odvo.pvo.pd_price != null&&odvo.pvo.pd_sale_price == null}">
-				${odvo.pvo.pd_price}원
+				<fmt:formatNumber value="${odvo.pvo.pd_price}" var="price"/>
+				${ price } 원
 				</c:if>
                 &nbsp; &nbsp;  ${odvo.od_cnt}개</p>
             </div>
             <c:if test="${ovo.or_status_code == 'DELIVERED'}">
 	        <div class="order-actions">
-	    		<button onclick="location.href='order'">리뷰 작성</button>
+	    		<button onclick="location.href='/WangBam/?type=reviewWrite&pd_idx=${odvo.pvo.pd_idx}'">리뷰 작성</button>
 			</div>
 			</c:if>	
         </div>

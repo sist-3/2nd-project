@@ -144,7 +144,7 @@
             or_tracking_number = #{or_tracking_number} 
         WHERE or_idx = #{or_idx}
     </if>
-    <if test="or_status_code == 'CANCEL'">
+    <if test="or_status_code == 'CANCEL'||or_status_code =='UNKNOWN_WAIT'">
         UPDATE order_t 
         SET or_status_code = #{or_status_code} 
         WHERE or_idx = #{or_idx}

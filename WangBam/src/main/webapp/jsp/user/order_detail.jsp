@@ -42,7 +42,7 @@
         </div> 
         <c:if test="${ovo.or_status_code == 'DELIVERED'}">
         <div class="order-actions">
-    		<button onclick="location.href='order'">리뷰 작성</button>
+    		<button onclick="location.href='/WangBam/?type=reviewWrite&pd_idx=${odvo.pvo.pd_idx}'">리뷰 작성</button>
 		</div>
 		</c:if>
     </div>
