@@ -26,11 +26,7 @@ public class IndexAction implements Action {
 			request.setAttribute("b_ar", b_ar);
 		}
 		
-		HashMap<String, String> map2 = new HashMap<>();
-		map2.put("start", "1");
-		map2.put("end", "6");
-		
-		ProductVO[] p_ar = ProductDAO.findProductByName(map2);
+		ProductVO[] p_ar = ProductDAO.findproductByMonth();
 		if(p_ar != null) {
 			request.setAttribute("p_ar", p_ar);
 		}
