@@ -16,7 +16,7 @@
 			<option value="nickname">닉네임</option>
 		</select> 
 		<input type="text" name="searchValue" id="searchValue" placeholder="Search..." style="display:none"/>
-		<button type="button" class="search-btn" id="userSendBtn">&#128269;</button>
+		<button type="button" class="btn search" id="userSendBtn"></button>
 	</form>
 </div>
 <table class="table" id="userList">
