@@ -12,9 +12,18 @@
 
 <table class="table1">
 	<thead>
+		<colgroup>
+			<col width="130px">
+			<col >
+			<col width="340px">
+			<col width="150px">
+			<col width="160px">
+			<col width="150px">
+			<col width="160px">
+		</colgroup>
 		<tr>
 			<th><input type="checkbox" class="allCheckbox"
-				onclick="allCheck()" /> 모두선택</th>
+				onclick="allCheck()" checked /> 모두선택</th>
 			<th>이미지</th>
 			<th>상품명</th>
 			<th>가격</th>
@@ -30,7 +39,7 @@
 			<c:forEach var="vo" items="${cvo}">
 				<form action="/WangBam/?type=buy" method="get">
 					<tr class="item">
-						<td><input type="checkbox" class="checkbox" value="<%= index++ %>"/></td>
+						<td><input type="checkbox" class="checkbox"  value="<%= index++ %>" checked/></td>
 						<td>getImage</td>
 						<td>${vo.pvo.pd_name}</td>
 						<td class="price">${vo.pvo.pd_price}</td>
@@ -222,7 +231,28 @@
 		        }
 		    });
 		});
+
+		$(".checkbox").on('click', function() {
+			let check = false;
+			let checkAll = $(".checkbox").prop('checked');
+			if(!checkAll){
+				check = false;
+			}else{
+				for(let i=0;i<$(".checkbox").length;i++){
+					if($(".checkbox")[i].checked == false){
+						check = false;
+						break;
+					}else{
+						check = true;
+					}
+				}
+			}
+			$(".allCheckbox").prop('checked', check);
+		});
+
 	});
+	
+	
 	
 	function allCheck() {
 		if ($('.allCheckbox').is(':checked')) { // 선택자와 메서드 사용 수정
