@@ -340,7 +340,6 @@ $(document).ready(function(){
         extraAddress: extraAddress,
       }
      }).done(function(data){
-    	console.log(data);
       if(data==1){
         location.href = '/WangBam/';
       }else if(data==2){

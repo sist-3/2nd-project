@@ -34,7 +34,6 @@
 function saveBorads() {
     var form = document.forms[0];
     var elements = form.elements;
-    console.log(elements);
 
     if (elements['bo_title'].value.trim() == "") {
         alert("제목을 입력하세요.");

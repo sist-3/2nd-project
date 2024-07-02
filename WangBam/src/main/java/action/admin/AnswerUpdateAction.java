@@ -14,7 +14,6 @@ public class AnswerUpdateAction implements Action {
 		String bo_idx = request.getParameter("bo_idx");
 		String cPage = request.getParameter("cPage");
 		String bo_type = request.getParameter("bo_type");
-		System.out.println(ans);
 		switch(ans) {
 		case "0":
 			BoardsDAO.updateByidx(bo_idx);

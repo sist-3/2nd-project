@@ -50,8 +50,6 @@ public class ProductSaveAction implements Action {
                 String pd_thumbnail_img = (f != null) ? f.getName() : "";
                 String pd_detail_img = (f2 != null) ? f2.getName() : "";
 
-				System.out.println("f는?" + f);
-
 				HashMap<String, String> map = new HashMap<>();
 				map.put("pd_name", pd_name);
 				map.put("ct_idx", ct_idx);

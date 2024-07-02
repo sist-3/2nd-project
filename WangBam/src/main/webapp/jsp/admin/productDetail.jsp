@@ -99,7 +99,6 @@ function selectImg(input){
 function update(){
 		const updateForm = document.updateForm;
 		const elem = updateForm.elements;
-		console.log(elem)
 		let pass = false;
 		for(i=1;i<elem.length-7;i++){
 			if(elem[i].id === "pd_sale") {
