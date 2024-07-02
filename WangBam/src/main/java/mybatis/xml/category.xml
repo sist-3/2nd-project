@@ -39,4 +39,10 @@
 	<select id="addCategory" parameterType="String">
 		INSERT INTO category_t(ct_name) VALUES(#{ct_name}) 
 	</select>
+	
+	<update id="updateCategory" parameterType="Map">
+		UPDATE category_t
+		SET ct_name = #{ct_name}
+		WHERE ct_idx = #{ct_idx}
+	</update>
 </mapper>
