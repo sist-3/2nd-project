@@ -3,13 +3,27 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%@include file="/jsp/common/header.jsp"%>
-<!-- <style>
-.total {
-	margin: 0;
-	height: 90px;
+<style>
+.count{
+	font-size: large;
 }
-</style> -->
-
+.summary {
+	text-align: center;
+    font-size: 20px;
+    margin-top: 20px;
+    background-color: #f9eeb0;
+    border-radius: 10px;
+    border: 4px solid #8b5228;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+</style>
+<div class="btn_div" style="text-align: end">
+	<button id="delete_Btn" class="btn submit">선택상품삭제</button>
+	<button id="deleteAll_Btn" class="btn cancel">장바구니비우기</button>
+</div>
 <table class="table1">
 	<thead>
 		<colgroup>
@@ -17,7 +31,7 @@
 			<col >
 			<col width="340px">
 			<col width="150px">
-			<col width="160px">
+			<col width="100px">
 			<col width="150px">
 			<col width="160px">
 		</colgroup>
@@ -40,16 +54,22 @@
 				<form action="/WangBam/?type=buy" method="get">
 					<tr class="item">
 						<td><input type="checkbox" class="checkbox"  value="<%= index++ %>" checked/></td>
-						<td>getImage</td>
+						<c:if test="${vo.pvo.pd_thumbnail_img ne ''}">
+							<td><img src="../img/${vo.pvo.pd_thumbnail_img}" width="100"></td>
+						</c:if>
+						<c:if test="${vo.pvo.pd_thumbnail_img eq ''}">
+							<td><img src="https://png.pngtree.com/png-vector/20190820/ourmid/pngtree-no-image-vector-illustration-isolated-png-image_1694547.jpg" width="100"></td>
+						</c:if>						
 						<td>${vo.pvo.pd_name}</td>
-						<td class="price">${vo.pvo.pd_price}</td>
+						<td class="price">${vo.pvo.pd_price}원</td>
 						<td>
 							<input type="hidden" name="type"value="cartList" /> 
 							<input type="hidden" name="p_num"value="${vo.pvo.pd_idx}" /> 
-							<input type="hidden" name="c_num" value="${vo.ca_idx}" class="ca_idx" />
-							<input type="number" class="count" name="count" value="${vo.ca_cnt}" min="1" onchange="calculateTotal(this)" />
-							<button type="button" class="btn" onclick="increase(this)">△</button>
-							<button type="button" class="btn" onclick="decrease(this)">▽</button>
+							<input type="hidden" name="c_num" value="${vo.ca_idx}" class="ca_idx" />															
+							<input type="number" class="count" name="count" value="${vo.ca_cnt}" min="1" onchange="handleInputChange(this)" />												
+							<!-- <input type="number" class="count" name="count" value="${vo.ca_cnt}" min="1"  onchange="handleInputChange(this)" /> -->
+							<!-- <button type="button" class="btn" onclick="increase(this)">△</button> -->
+							<!-- <button type="button" class="btn" onclick="decrease(this)">▽</button> -->
 						</td>
 						<td class="total_price">${vo.pvo.pd_price * vo.ca_cnt}원</td>
 						<td><button type="button" class="btn cancel"
@@ -66,15 +86,14 @@
 	</tbody>
 </table>
 
-<div class="btn_div">
-	<button id="delete_Btn" class="btn submit">선택상품삭제</button>
-	<button id="deleteAll_Btn" class="btn cancel">장바구니비우기</button>
-</div>
-<div>
-	<div>장바구니 상품 ${fn:length(cvo)} 개</div>
-	<br />
-	<div>
-		합계금액 : <span id="totalSum">0</span>
+<div class="summary">
+    <div>장바구니 상품 
+		<img src="https://www.urbanbrush.net/web/wp-content/uploads/edd/2019/04/urbanbrush-20190422000146487286.png" width="30">
+		${fn:length(cvo)} 개
+	</div>
+    
+    <div>합계금액 : <span id="totalSum">0</span>
+		<img src="../img/달러.png" width="32">
 	</div>
 </div>
 <br />
@@ -84,19 +103,25 @@
 
 <%@include file="/jsp/common/footer.jsp"%>
 <script>
-	function increase(button) {
-		let countElement = button.parentElement.querySelector('.count');
-		countElement.value = parseInt(countElement.value) + 1;
-		calculateTotal(countElement);
-	}
+	function handleInputChange(input) {
+        if (input.value === "" || input.value == 0) {
+            input.value = 1;
+        }
+        calculateTotal(input);
+    }									
+	// function increase(button) {
+	// 	let countElement = button.parentElement.querySelector('.count');
+	// 	countElement.value = parseInt(countElement.value) + 1;
+	// 	calculateTotal(countElement);
+	// }
 
-	function decrease(button) {
-		let countElement = button.parentElement.querySelector('.count');
-		if (parseInt(countElement.value) > 1) {
-			countElement.value = parseInt(countElement.value) - 1;
-			calculateTotal(countElement);
-		}
-	}
+	// function decrease(button) {
+	// 	let countElement = button.parentElement.querySelector('.count');
+	// 	if (parseInt(countElement.value) > 1) {
+	// 		countElement.value = parseInt(countElement.value) - 1;
+	// 		calculateTotal(countElement);
+	// 	}
+	// }
 
 	function calculateTotal(countElement) {
 		let row = countElement.closest('tr');
@@ -156,7 +181,6 @@
 				}
 			}
 		});
-
 		//장바구니 모두 비우기
 		$("#deleteAll_Btn").on('click', function() {
 			if (confirm("비우시겠습니까?")) {
@@ -253,9 +277,7 @@
 		});
 
 	});
-	
-	
-	
+			
 	function allCheck() {
 		if ($('.allCheckbox').is(':checked')) { // 선택자와 메서드 사용 수정
 			$('.checkbox').prop('checked', true); // 모든 개별 체크박스를 체크 상태로 설정
