@@ -113,4 +113,11 @@
 		) c
 		where c.rnum BETWEEN #{start} AND #{end}
 	</select>
+	
+	<!-- 이달의 상품 6개 -->
+	<select id="findproductByMonth" resultType="mybatis.vo.ProductVO">
+		SELECT * FROM product_t
+		ORDER BY pd_date desc
+		limit 6;
+	</select>
 </mapper>
