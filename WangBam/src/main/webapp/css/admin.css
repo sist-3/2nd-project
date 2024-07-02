@@ -266,3 +266,30 @@ form.writeCommentForm > input{
 	padding: 4px 12px;
     height: 32px;
 }
+.ui-widget.ui-widget-content:has(.admin-dialog) {
+	left:50% !important;
+	top:50% !important;
+	transform:translate(-50%, -50%);
+	z-index:101;
+}
+.ui-widget.ui-widget-content:has(.admin-dialog) .ui-dialog-titlebar {
+	background-color:#25496f;
+}
+.ui-widget.ui-widget-content:has(.admin-dialog) .ui-dialog-buttonset > .ui-button:first-child {
+	background-color:#25496f;
+}
+.ui-widget.ui-widget-content:has(.admin-dialog) .ui-dialog-content {
+	background-color:#fff;
+}
+.ui-widget.ui-widget-content:has(.admin-dialog) .ui-dialog-buttonpane {
+	background:#fff;
+}
+label + .split-box {
+	margin-top:8px;
+}
+.popup-container .buttons {
+	margin-top:16px;
+}
+.popup-container table + form {
+	margin-top:32px;
+}
