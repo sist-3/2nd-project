@@ -28,7 +28,7 @@
         <c:forEach var="product" items="${p_ar}" varStatus="i">
             <div class="item">
                 <div class="img-box">
-                    <a href="?type=detail&pd_idx=${product.pd_idx}"> <img
+                    <a href="?type=productDetail&pd_idx=${product.pd_idx}"> <img
                         src="${pageContext.request.contextPath}/img/${product.pd_thumbnail_img}"
                         alt="${product.pd_name}">
                     </a>
