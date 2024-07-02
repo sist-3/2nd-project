@@ -19,7 +19,6 @@ public class ProductSaveAction implements Action {
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewPath = null;
 		String enc_type = request.getContentType();
-		String imgPath = "C:/2nd-project/WangBam/src/main/webapp/img";
 
 		if (enc_type == null) {
 			viewPath = "/jsp/admin/productAdd.jsp";
@@ -29,6 +28,8 @@ public class ProductSaveAction implements Action {
 			// 절대로 request.getParameter()로 값을 받지 못한다.
 			try {
 
+				ServletContext application = request.getServletContext();
+				String imgPath = application.getRealPath("/img");
 				// 첨부파일과 다른 파라미터들을 받기 위해
 				// MultipartRequest 객체를 생
 				MultipartRequest mr = new MultipartRequest(request, imgPath, 5 * 1024 * 1024, "utf-8",
