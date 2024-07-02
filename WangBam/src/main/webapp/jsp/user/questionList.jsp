@@ -41,7 +41,7 @@
                         <td>${page.totalRecord-((page.nowPage-1)*page.numPerPage+vs.index) }</td>
                         <td>${vo.pvo.cvo.ct_name }</td>
                         <td>${vo.pvo.pd_name }</td>
-                        <td><a href="?type=boardsDetail&bo_type=1&bo_idx=${vo.bo_idx }&cPage=${page.nowPage}">${vo.bo_title }</a></td>
+                        <td><a href="?type=questionDetail&bo_type=1&bo_idx=${vo.bo_idx }&cPage=${page.nowPage}">${vo.bo_title }</a></td>
                         <c:if test="${vo.uvo.us_nickname != null }">
                         	<td>${vo.uvo.us_nickname }</td>
                         </c:if>

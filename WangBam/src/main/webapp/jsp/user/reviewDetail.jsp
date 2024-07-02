@@ -103,7 +103,7 @@
 				<form name="loginFrm" action="Controller" method="get"  class="comment-form"  style="display: flex; align-items: flex-start;">
 					<textarea name="co_content" id="co_content" disabled style="resize: none; margin-right: 10px">로그인이 필요합니다.</textarea>
 					<input type="hidden" name="type" value="login"/>
-					<input type="hidden" name="url" value="?type=boardsDetail&bo_idx=${vo.bo_idx}&bo_type=${vo.bo_type}&cPage=${requestScope.cPage}"/>
+					<input type="hidden" name="url" value="?type=reviewDetail&bo_idx=${vo.bo_idx}&bo_type=${vo.bo_type}&cPage=${requestScope.cPage}"/>
 					<button type="submit" style="height: 50px; width: 70px; padding: 0">로그인</button>
 				</form>
 			</div>

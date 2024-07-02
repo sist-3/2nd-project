@@ -222,7 +222,7 @@
 				data: {co_idx: co_idx,
 					newContent: newContent,
 					bo_idx: ${vo.bo_idx },
-					bo_type: 0 ,
+					bo_type: 1 ,
 					cPage: ${requestScope.cPage},
 					us_type: commAnswer,
 				}
@@ -230,7 +230,7 @@
 				edit_btn.style.display = "none";
 				content_input.disabled = true;
 				$("#commentList").html($(res).find("#commentList").html());
-				location.href=`admin?type=boardsDetail&bo_idx=${vo.bo_idx }&bo_type=${vo.bo_type}&cPage=${requestScope.cPage}`;
+				location.href=`admin?type=questionDetail&bo_idx=${vo.bo_idx }&bo_type=${vo.bo_type}&cPage=${requestScope.cPage}`;
 				
 			});
     	}
