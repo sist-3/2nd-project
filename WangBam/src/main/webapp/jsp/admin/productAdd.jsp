@@ -53,20 +53,47 @@
 			</div>
 		</form>
 	</div>
-<div id="dialog-confirm" title="알림" class="dialog" style="display:none">
+<div id="dialog-confirm" title="알림" class="admin-dialog" style="display:none">
   <p>저장하시겠습니까?</p>
 </div>
 <div class="popup-container" id="categoryAddPop">
-    <form>
+	<table class="table" id="categoryList">
+		<colgroup>
+			<col>
+			<col width="120">
+		</colgroup>
+		<thead>
+			<tr>
+				<th>카테고리명</th>
+				<th>삭제</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach var="cvo" items="${requestScope.c_list}" varStatus="st">
+				<tr>
+					<td class="split-box">
+						<input type="text" value="${cvo.ct_name}" name="ct_name${cvo.ct_idx}" id="ct_name${cvo.ct_idx}">
+						<button type="button" class="admin-btn cancel" onclick="updateCategory('${cvo.ct_idx}')">수정</button>
+					</td>
+					<td>
+						<button type="button" class="admin-btn cancel" onclick="delCategory('${cvo.ct_idx}')">삭제</button>
+					</td>
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
+	<form>
 	    <div>
 			<label for="ct_name">카테고리명</label>
-			<input type="text" id="ct_name" name="ct_name">
+			<div class="split-box">
+				<input type="text" id="ct_name" name="ct_name">
+		        <button type="button" class="admin-btn submit" id="addCategoryBtn">추가</button>
+			</div>
 		</div>
-	    <div class="buttons">
-	        <button type="button" class="admin-btn submit" id="addCategoryBtn">추가</button>
-	        <button type="button" class="admin-btn cancel" id="popCloseBtn">닫기</button>
-	    </div>
     </form>
+	<div class="buttons">
+        <button type="button" class="admin-btn cancel" id="popCloseBtn">닫기</button>
+    </div>
 </div>
 
 <%@include file="/jsp/common/footer.jsp"%>
@@ -84,7 +111,6 @@
 	function add(){
 		const addForm = document.addForm;
 		const elem = addForm.elements;
-		console.log(elem);
 		let pass = false;
 		for(i=0;i<elem.length-5;i++){
 			if (elem[i].id === "sale" || elem[i].id === "category" || elem[i].id === "popOpenBtn") {
@@ -120,6 +146,22 @@
 		    });
 		}
 	}
+	function updateCategory(ct_idx){
+		const ct_name = $("#ct_name"+ct_idx).val();
+		const param = {
+			"ct_idx" : ct_idx,
+			"ct_name" : ct_name
+		}
+		console.log(ct_idx, ct_name)
+		$.ajax({
+			url:"admin?type=categoryUpdate",
+			type:"GET",
+			data:param,
+		}).done(function(res){
+			$("#categoryList").html($(res).find("#categoryList").html());
+			alert("수정완료되었습니다.");
+		});
+	}
 	$("#popOpenBtn").on("click", function(){
 		$("#categoryAddPop").show();
 	})
@@ -141,10 +183,10 @@
 				type: "POST",
 				data:param
 			}).done(function(res){
-				$("#category").html(res);
+				$("#category").html($(res).find("#category").html());
+				$("#categoryList").html($(res).find("#categoryList").html());
 				alert("추가 완료되었습니다.");
-				$("#categoryAddPop").hide();
-				$("#category").focus();
+				$("#ct_name").val("");
 			})
 		}
 	})

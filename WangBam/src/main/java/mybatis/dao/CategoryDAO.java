@@ -1,5 +1,6 @@
 package mybatis.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -42,6 +43,21 @@ public class CategoryDAO {
 		SqlSession ss = FactoryService.getFactory().openSession();
 		
 		int cnt = ss.insert("category.addCategory", ct_name);
+		if(cnt > 0) 
+			ss.commit();
+		else
+			ss.rollback();
+		
+		ss.close();
+		
+		return cnt;
+	}
+	
+	// 카테고리명 수정
+	public static int updateCategory(HashMap<String, String> map) {
+		SqlSession ss = FactoryService.getFactory().openSession();
+		
+		int cnt = ss.update("category.updateCategory", map);
 		if(cnt > 0) 
 			ss.commit();
 		else
