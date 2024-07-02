@@ -3,21 +3,26 @@
 	pageEncoding="UTF-8"%>
 <style>
 /*탭*/
-.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active {
-    border: initial !important;
-    background: initial !important;
-    font-weight: initial !important;
-    color: initial !important;
+.ui-state-default, .ui-widget-content .ui-state-default,
+	.ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover,
+	html .ui-button.ui-state-disabled:active {
+	border: initial !important;
+	background: initial !important;
+	font-weight: initial !important;
+	color: initial !important;
 	/*탭버튼 외곽선 */
 }
+
 .ui-widget-header {
-    border: initial !important;
-   /* 탭 버튼 위아래 외곽선  */
+	border: initial !important;
+	/* 탭 버튼 위아래 외곽선  */
 }
+
 .ui-widget.ui-widget-content {
-	border: initial !important; 
+	border: initial !important;
 	/* 탭 내용 외곽선 */
 }
+
 .ui-tabs .ui-tabs-nav {
 	margin: 0;
 	padding: 0;
@@ -25,13 +30,15 @@
 	background-color: white;
 	height: 50;
 }
+
 .ui-tabs .ui-tabs-nav li {
 	flex: 1; /* 모든 탭이 동일한 너비를 가지도록 설정 */
 	list-style: none;
 }
+
 .ui-tabs .ui-tabs-nav li a {
-	position: relative; 
-    overflow: hidden; 
+	position: relative;
+	overflow: hidden;
 	display: block;
 	width: 100%;
 	padding: 0.5em 0; /* 필요에 따라 조정 */
@@ -45,6 +52,7 @@
 	text-decoration: none; /* 텍스트 밑줄 제거 */
 	font-size: large; /* 탭 버튼 글자 크기 */
 }
+
 .ui-tabs .ui-tabs-nav li.ui-tabs-active a {
 	background: #fdd835; /* 활성 탭 배경색 */
 	border: 1px solid #fdd835; /* 활성 탭 테두리 */
@@ -59,22 +67,24 @@
 }
 /* 탭을 누르면 터지는 효과 */
 .bread {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100px;
-    height: 100px;
-    background: url('./upload/wangbam.png') no-repeat center center; /* 빵 이미지 URL */
-    background-size: contain;
-    transform: translate(-50%, -50%) scale(0);
-    pointer-events: none;
-    animation: bread-animation 0.6s ease-out forwards;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 100px;
+	height: 100px;
+	background: url('./upload/wangbam.png') no-repeat center center;
+	/* 빵 이미지 URL */
+	background-size: contain;
+	transform: translate(-50%, -50%) scale(0);
+	pointer-events: none;
+	animation: bread-animation 0.6s ease-out forwards;
 }
-@keyframes bread-animation { 
-    to {
-        transform: translate(-50%, -50%) scale(2);
-        opacity: 0;
-    }
+
+@
+keyframes bread-animation {to { transform:translate(-50%, -50%)scale(2);
+	opacity: 0;
+}
+
 }
 /*배경*/
 .main {
@@ -83,9 +93,10 @@
 	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
 }
 /*구매*/
-.product-details{
+.product-details {
 	align-content: center;
 }
+
 .product-details th {
 	width: 120px;
 	margin: -1px 0 0;
@@ -152,18 +163,20 @@
 }
 
 /* 리뷰 */
-.review-section{
-    text-align: center;
+.review-section {
+	text-align: center;
 	display: flex;
 	width: 100%;
 	height: 200;
 	background-color: #FDF9E3;
-    align-items: center;
-    justify-content: space-around;
+	align-items: center;
+	justify-content: space-around;
 }
-.review-section:nth-child(1){
-	magin-bottom = 20px;
+
+.review-section:nth-child(1) {magin-bottom = 20px;
+	
 }
+
 .review-container {
 	margin-bottom: 20px;
 }
@@ -173,7 +186,6 @@
 	justify-content: space-between;
 	align-items: center;
 	margin-bottom: 20px;
-	
 }
 
 .review-header h2 {
@@ -243,15 +255,15 @@
 
 /* 문의사항 */
 .clearFix {
-    display: block;
+	display: block;
 }
 
 .clearFix:after {
-    content: ".";
-    display: block;
-    clear: both;
-    height: 0;
-    visibility: hidden;
+	content: ".";
+	display: block;
+	clear: both;
+	height: 0;
+	visibility: hidden;
 }
 
 .total {
@@ -285,18 +297,17 @@
 	border-color: rgb(52, 106, 255);
 	border-image: initial;
 	border-radius: 2px;
-
-
 }
+
 .question {
 	border-bottom: 1px solid #ddd;
 	padding: 10px 0;
-
 }
+
 .questionItem {
-    margin-top: 30px;
-    border-top: 2px solid #777;
-    border-bottom: 1px solid #ddd;
+	margin-top: 30px;
+	border-top: 2px solid #777;
+	border-bottom: 1px solid #ddd;
 }
 
 .question h3 {
@@ -335,30 +346,31 @@
 }
 /*문의사항 답변*/
 .questionMark {
-    left: 1em;
-    background-color: #777;
-}
-.replyMark{
 	left: 1em;
-    background-color: #346AFF;
+	background-color: #777;
 }
-.questionMark, .replyMark{
-    top: 20px;
-    display: inline-block;
-    padding: 4px;
-    font-size: 11px;
-    letter-spacing: 1px;
-    color: #fff;
+
+.replyMark {
+	left: 1em;
+	background-color: #346AFF;
+}
+
+.questionMark, .replyMark {
+	top: 20px;
+	display: inline-block;
+	padding: 4px;
+	font-size: 11px;
+	letter-spacing: 1px;
+	color: #fff;
 }
 /*dialog*/
 .ui-dialog {
-    position: fixed;
-    top: 50% !important;
-    left: 50% !important;
-    transform: translate(-50%, -50%) !important;
-    margin: 0 !important;
+	position: fixed;
+	top: 50% !important;
+	left: 50% !important;
+	transform: translate(-50%, -50%) !important;
+	margin: 0 !important;
 }
-
 </style>
 
 <%@include file="/jsp/common/header.jsp"%>
@@ -371,11 +383,12 @@
 <div class="product-page">
 	<div class="product-image">
 		<c:if test="${pvo.pd_thumbnail_img eq '' }">
-		<img src="https://png.pngtree.com/png-vector/20190820/ourmid/pngtree-no-image-vector-illustration-isolated-png-image_1694547.jpg" width="100%" height="100%">
+			<img
+				src="https://png.pngtree.com/png-vector/20190820/ourmid/pngtree-no-image-vector-illustration-isolated-png-image_1694547.jpg"
+				width="100%" height="100%">
 		</c:if>
 		<c:if test="${pvo.pd_thumbnail_img ne ''}">
-			<img src="img/${pvo.pd_thumbnail_img}"  width="100%"
-				height="100%">
+			<img src="img/${pvo.pd_thumbnail_img}" width="70%" height="70%">
 		</c:if>
 	</div>
 	<div class="product-details">
@@ -392,7 +405,7 @@
 				<td><c:if test="${pvo.pd_sale != null}">
 						<p class="remove_price">${pvo.pd_price}원</p>&nbsp;
 						<p class="price">${pvo.pd_sale_price}원</p>
-				</c:if> <c:if test="${pvo.pd_sale == null}">
+					</c:if> <c:if test="${pvo.pd_sale == null}">
 					${pvo.pd_price}원
 				</c:if></td>
 
@@ -430,7 +443,7 @@
 			</tr>
 		</table>
 		<div class="buttons">
-			<button id ="order_Btn" class="buy-now">바로 구매하기</button>
+			<button id="order_Btn" class="buy-now">바로 구매하기</button>
 			<button class="add-to-cart" onclick="check()">장바구니 담기</button>
 		</div>
 	</div>
@@ -441,19 +454,16 @@
 			<li><a href="#tabs-1">상품상세정보</a></li>
 			<li><a href="#tabs-2">상품구매안내</a></li>
 			<li><a href="#tabs-3">교환/반품</a></li>
-			<li>
-				<a href="#tabs-4">
-					<span>상품후기
-						<c:set var="reviewCount" value="0" />
-						<c:forEach var="vo" items="${bvo}">
+			<li><a href="#tabs-4"> <span>상품후기 <c:set
+							var="reviewCount" value="0" /> <c:forEach var="vo"
+							items="${bvo}">
 							<c:if test="${vo.bo_type == 2}">
 								<c:set var="reviewCount" value="${reviewCount + 1}" />
 							</c:if>
-						</c:forEach>
-						<span class="review-count">(<c:out value="${reviewCount}" />)</span>
+						</c:forEach> <span class="review-count">(<c:out value="${reviewCount}" />)
 					</span>
-				</a>
-			</li>
+				</span>
+			</a></li>
 			<li><a href="#tabs-5">상품문의 <c:set var="questionCount"
 						value="0" /> <c:forEach var="vo" items="${bvo}">
 						<c:if test="${vo.bo_type == 1}">
@@ -464,7 +474,9 @@
 				</span></a></li>
 		</ul>
 		<div id="tabs-1">
-			<img src="https://shop-phinf.pstatic.net/20230719_143/16897388968237mdHc_JPEG/%EC%A2%85%EB%A5%98.jpg?type=w860" width="100%">
+			<img
+				src="https://shop-phinf.pstatic.net/20230719_143/16897388968237mdHc_JPEG/%EC%A2%85%EB%A5%98.jpg?type=w860"
+				width="100%">
 			<c:if test="${pvo.pd_detail_img eq '' }">
 				<h3>등록된 상품 상세 이미지가 없습니다.</h3>
 			</c:if>
@@ -474,7 +486,7 @@
 					width="100%" alt="상세 이미지" />
 			</c:if>
 		</div>
-		<div id="tabs-2"> 
+		<div id="tabs-2">
 			<h4>상품결제정보</h4>
 			<p>고액결제의 경우 안전을 위해 카드사에서 확인전화를 드릴 수도 있습니다. 확인과정에서 도난 카드의 사용이나 타인
 				명의의 주문등 정상적인 주문이 아니라고 판단될 경우 임의로 주문을 보류 또는 취소할 수 있습니다.</p>
@@ -512,19 +524,20 @@
 		<div id="tabs-4">
 			<c:forEach var="board" items="${bvo}">
 				<c:if test="${board.bo_type == 2}">
-				<c:set var="reviewCount" value="${reviewCount + 1}" />
+					<c:set var="reviewCount" value="${reviewCount + 1}" />
 				</c:if>
 			</c:forEach>
 			<div class="review-header">
-				<h2>상품평</h2>
+				<h2>상품후기</h2>
 				<p>동일한 상품에 대해 작성된 상품평으로, 판매자는 다를 수 있습니다.</p>
-				
+
 			</div>
 			<div class="review-section">
-				
-				<div class="total-score">사용자 총 평점
-				
-					<div id="starScore" class="star-score" style="margin-top:10px">
+
+				<div class="total-score">
+					사용자 총 평점
+
+					<div id="starScore" class="star-score" style="margin-top: 10px">
 						<c:set var="totalScore" value="0" />
 						<c:set var="reviewCount" value="0" />
 						<c:forEach var="board" items="${bvo}">
@@ -546,22 +559,32 @@
 							</c:choose>
 						</c:forEach>
 					</div>
-				
-					<h2 style="margin-top: 10px"><c:out value="${averageScore}"/> / 5</h2>
+
+					<h2 style="margin-top: 10px">
+						<c:out value="${averageScore}" />
+						/ 5
+					</h2>
 				</div>
 				<div class="review-count">
-				<h2>베스트 리뷰</h2>
+					<span style="display: flex; align-items: center;">
+					    <h2 style="margin: 0;">베스트 리뷰</h2>
+					    <img src="./img/트로피.png" width="32" style="margin-left: 10px;">
+					</span>
 					<c:set var="maxHit" value="0" />
 					<c:set var="maxHitTitle" value="" />
-					
+
 					<c:forEach var="board" items="${bvo}">
-					    <c:if test="${board.bo_hit > maxHit}">
-					        <c:set var="maxHit" value="${board.bo_hit}" />
-					        <c:set var="maxHitTitle" value="${board.bo_title}" />
-					    </c:if>
+						<c:if test="${board.bo_type == '2'}">
+							<c:if test="${board.bo_hit > maxHit}">
+								<c:set var="maxHit" value="${board.bo_hit}" />
+								<c:set var="maxHitTitle" value="${board.bo_title}" />
+							</c:if>
+						</c:if>
 					</c:forEach>
 					<br>
-					<p style="margin-top:20px"><c:out value="${maxHitTitle}" /></p>
+					<p style="margin-top: 20px">
+						<c:out value="${maxHitTitle}" />
+					</p>
 				</div>
 			</div>
 
@@ -571,7 +594,8 @@
 				<c:forEach var="board" items="${bvo}">
 					<c:if test="${board.bo_type == 2}">
 						<div class="review-item">
-							<a href="?type=boardsDetail&bo_idx=${board.bo_idx}&cPage=1&bo_type=2">
+							<a
+								href="?type=boardsDetail&bo_idx=${board.bo_idx}&cPage=1&bo_type=2">
 								<div id="starScore" class="star-score">
 									<c:set var="limit" value="${Math.floor(board.bo_score)}" />
 									<c:forEach begin="1" end="5" varStatus="st">
@@ -587,13 +611,15 @@
 								</div>
 								<p>${board.uvo.us_nickname}&nbsp;|&nbsp;${board.bo_write_date}</p>
 								<h3>${board.bo_title}</h3> <br />
-								
+
 								<h5>${board.bo_content}</h5>
 								<div class="review-content">${board.bo_content}</div>
 								<div class="review-images">
-										<c:if test="${board.bo_img != null}">
-										<img src="${pageContext.request.contextPath}/img/${board.bo_img}" width="100" />										
-										</c:if>
+									<c:if test="${board.bo_img != null}">
+										<img
+											src="${pageContext.request.contextPath}/img/${board.bo_img}"
+											width="100" />
+									</c:if>
 								</div>
 							</a>
 						</div>
@@ -631,18 +657,15 @@
 							<a
 								href="?type=boardsDetail&bo_idx=${board.bo_idx}&bo_type=1&cPage=3">
 								<c:if test="${board.bo_answer eq '0'}">
-								<em class="questionMark">미답변</em> 
-								</c:if>
-								<c:if test="${board.bo_answer eq '1'}">
-								<em class="replyMark">답변완료</em> 
-								</c:if>
-								<c:if test="${board.uvo.us_status eq '1'}">
+									<em class="questionMark">미답변</em>
+								</c:if> <c:if test="${board.bo_answer eq '1'}">
+									<em class="replyMark">답변완료</em>
+								</c:if> <c:if test="${board.uvo.us_status eq '1'}">
 								${fn:substring(board.uvo.us_name,0,1)}** | ${board.bo_write_date}
-								</c:if> 
-								<c:if test="${board.uvo.us_name == null}">
+								</c:if> <c:if test="${board.uvo.us_name == null}">
 								탈퇴한 회원 | ${board.bo_write_date}
 								</c:if>
-								
+
 								<h3>${board.bo_title}</h3>
 								<h5>${board.bo_content}</h5>
 								<div class="question-images">
@@ -665,14 +688,14 @@
 				</c:if>
 			</div>
 
+		</div>
 	</div>
 </div>
-</div>
-<div id="dialog-confirm" title="알림" class="dialog" style="display:none">
-<p></p>
+<div id="dialog-confirm" title="알림" class="dialog" style="display: none">
+	<p></p>
 </div>
 <%@include file="/jsp/common/footer.jsp"%>
-		<script>
+<script>
 			//애니메이션
 			
 			$(function() {
@@ -841,5 +864,5 @@
 		            </c:choose>
 		        }
 		</script>
-	</body>
+</body>
 </html>
