@@ -20,7 +20,7 @@
             </c:forEach>
         </select>
         <input type="text" id="searchProductName" name="searchValue" placeholder="Search..." />
-        <button type="button" class="search-btn" id="searchBtn">&#128269;</button>
+        <button type="button" class="btn search" id="searchBtn"></button>
     </form>
 </div>
 <div class="product-list" id="productList">
