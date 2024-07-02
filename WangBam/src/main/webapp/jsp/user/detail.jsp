@@ -152,6 +152,18 @@
 }
 
 /* 리뷰 */
+.review-section{
+    text-align: center;
+	display: flex;
+	width: 100%;
+	height: 200;
+	background-color: #FDF9E3;
+    align-items: center;
+    justify-content: space-around;
+}
+.review-section:nth-child(1){
+	magin-bottom = 20px;
+}
 .review-container {
 	margin-bottom: 20px;
 }
@@ -161,6 +173,7 @@
 	justify-content: space-between;
 	align-items: center;
 	margin-bottom: 20px;
+	
 }
 
 .review-header h2 {
@@ -497,9 +510,59 @@
 		</div>
 
 		<div id="tabs-4">
+			<c:forEach var="board" items="${bvo}">
+				<c:if test="${board.bo_type == 2}">
+				<c:set var="reviewCount" value="${reviewCount + 1}" />
+				</c:if>
+			</c:forEach>
 			<div class="review-header">
 				<h2>상품평</h2>
+				<p>동일한 상품에 대해 작성된 상품평으로, 판매자는 다를 수 있습니다.</p>
 				
+			</div>
+			<div class="review-section">
+				
+				<div class="total-score">사용자 총 평점
+				
+					<div id="starScore" class="star-score" style="margin-top:10px">
+						<c:set var="totalScore" value="0" />
+						<c:set var="reviewCount" value="0" />
+						<c:forEach var="board" items="${bvo}">
+							<c:if test="${board.bo_type == 2}">
+								<c:set var="totalScore" value="${totalScore + board.bo_score}" />
+								<c:set var="reviewCount" value="${reviewCount + 1}" />
+							</c:if>
+						</c:forEach>
+						<c:set var="averageScore" value="${totalScore / reviewCount}" />
+						<c:set var="limit" value="${Math.floor(averageScore)}" />
+						<c:forEach begin="1" end="5" varStatus="st">
+							<c:choose>
+								<c:when test="${st.index <= limit}">
+									<div class="icon-star on"></div>
+								</c:when>
+								<c:otherwise>
+									<div class="icon-star"></div>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+					</div>
+				
+					<h2 style="margin-top: 10px"><c:out value="${averageScore}"/> / 5</h2>
+				</div>
+				<div class="review-count">
+				<h2>베스트 리뷰</h2>
+					<c:set var="maxHit" value="0" />
+					<c:set var="maxHitTitle" value="" />
+					
+					<c:forEach var="board" items="${bvo}">
+					    <c:if test="${board.bo_hit > maxHit}">
+					        <c:set var="maxHit" value="${board.bo_hit}" />
+					        <c:set var="maxHitTitle" value="${board.bo_title}" />
+					    </c:if>
+					</c:forEach>
+					<br>
+					<p style="margin-top:20px"><c:out value="${maxHitTitle}" /></p>
+				</div>
 			</div>
 
 			<div class="review-container">
