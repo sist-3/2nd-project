@@ -45,7 +45,6 @@ public class ProductSaveAction implements Action {
 				  // 파일 객체 선언 및 초기화
                 File f = mr.getFile("pd_thumbnail_img");
                 File f2 = mr.getFile("pd_detail_img");
-
                 // 파일이 null일 경우 처리
                 String pd_thumbnail_img = (f != null) ? f.getName() : "";
                 String pd_detail_img = (f2 != null) ? f2.getName() : "";
