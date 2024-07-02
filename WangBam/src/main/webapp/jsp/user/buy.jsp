@@ -77,18 +77,18 @@
 				<tr>
 					<td><img src="<%=odvo.getPvo().getPd_thumbnail_img()%>"></td>
 					<td><%=odvo.getPvo().getPd_name()%></td>
-					<td><%=Integer.parseInt(odvo.getOd_price()) / Integer.parseInt(odvo.getOd_cnt())%></td>
+					<td class="comma"><%=Integer.parseInt(odvo.getOd_price()) / Integer.parseInt(odvo.getOd_cnt())%></td>
 					<td><%=odvo.getOd_cnt()%></td>
 					<td>-</td>
 					<td>기본배송</td>
 					<td>착불(수령인)</td>
-					<td><%=odvo.getOd_price()%></td>
+					<td class="comma"><%=odvo.getOd_price()%></td>
 				</tr>
 				<%
 				}
 				%>
 				<tr>
-					<td colspan="8">상품구매금액 <%=totalPrice%>+ 배송비 4000 = 합계 : <%=totalPrice + deliveryFee%>원
+					<td colspan="8" >상품구매금액 <span class="comma"><%=totalPrice%></span>+ 배송비 4,000원 = 합계 : <span class="comma"><%=totalPrice + deliveryFee%></span>
 					</td>
 				</tr>
 			</tbody>
@@ -107,12 +107,12 @@
 					<input type="text" id="postal_code" name="postal_code"
 						<c:if test="${avo != null}">value="${avo.getAd_postal_code()}"</c:if>
 						placeholder="우편번호">
-					<button type="button">우편번호</button>
+					<button id="address-btn" name="address-btn" type="button">우편번호</button>
 				</div>
 				<input type="text" class="address-input" name="addr"
 					<c:if test="${avo != null}">value="${avo.getAd_addr()}"</c:if>
-					placeholder="기본주소" /> <input type="text" class="address-input2"
-					name="addr_detail"
+				placeholder="기본주소" /> 
+					<input type="text" class="address-input2" name="addr_detail"
 					<c:if test="${avo != null}">value="${avo.getAd_addr_detail()}"</c:if>
 					placeholder="상세주소" /> <label for="phone">휴대폰</label>
 				<div class="phone-input">
@@ -140,9 +140,7 @@
 				</div>
 				<div class="total">
 					<p>총 결제금액</p>
-					<p class="total-amount"><%=totalPrice + deliveryFee%>
-						원
-					</p>
+					<p class="total-amount comma"><%=totalPrice + deliveryFee%></p>
 				</div>
 				<button type="button" class="final-btn" onclick="requestPayment()">결제하기</button>
 			</form>
@@ -150,6 +148,32 @@
 	</div>
 	<%@include file="/jsp/common/footer.jsp"%>
 	<script>
+		$(window).on('load', function(){
+		    $('.comma').each(function(){
+		        var txt = $(this).text();
+		        $(this).html(txt.replace(/,/g, ''));
+	
+		        var len = $(this).text().length;
+		        for (i = 0; i < len; i ++){
+		            $(this).eq(i).text(commaNum($(this).eq(i).text()));
+	        	}
+	    	});
+
+		    function commaNum(num){
+		        var len, point, str;
+		        num = num + '';
+		        point = num.length % 3
+		        len = num.length;
+		        str = num.substring(0, point);
+		        while (point < len){
+		            if (str != '') str += ',';
+		            str += num.substring(point, point + 3);
+		            point += 3;
+		        }
+		        return str+"원";
+		    }
+		});
+	    
 		function validateForm(form) {
 			const requiredFields = [ // 필수 입력 필드 목록
 			{
@@ -197,7 +221,10 @@
 					price : "<%=totalPrice+deliveryFee%>" 
 				}
 				const response = await requestCardPayment(data);
-				sendOrder(response);
+				
+				if(response != null) {					
+					sendOrder(response);
+				}
 			}
 		}
 
@@ -214,6 +241,39 @@
 			// 모든 검사를 통과하면 form 제출
 			form.submit();
 		}
+		
+		$('#address-btn').on('click', function(){
+			let form = document.forms[0];
+			
+			new daum.Postcode({
+			oncomplete: function(data) {
+					var addr = ''; // 주소 변수
+					var extraAddr = ''; // 참고항목 변수
+				
+					if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+						addr = data.roadAddress;
+					} else { // 사용자가 지번 주소를 선택했을 경우(J)
+						addr = data.jibunAddress;
+					}
+				
+					if(data.userSelectedType === 'R'){
+						if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+							extraAddr += data.bname;
+						}
+						if(data.buildingName !== '' && data.apartment === 'Y'){
+							extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+						}
+						if(extraAddr !== ''){
+							extraAddr = ' (' + extraAddr + ')';
+						}
+					}
+					form.postal_code.value = data.zonecode;
+					form.addr.value = addr+extraAddr;
+					form.addr_detail.value="";
+				    form.addr_detail.focus(); 	
+			    }
+			}).open();
+		});
 	</script>
 </body>
 
