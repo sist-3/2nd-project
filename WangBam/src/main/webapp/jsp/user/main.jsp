@@ -17,7 +17,7 @@
 		</a>
 	</div>
 	<div class="quick-item">
-		<a href="?type=detail&pd_idx=${Math.ceil(Math.random() * requestScope.cnt + 1)}"> <img
+		<a href="?type=detail&pd_idx=<fmt:formatNumber value='${Math.ceil(Math.random() * requestScope.cnt + 1)}'/>"> <img
 			src="${pageContext.request.contextPath}/img/quick_03.png" alt="빠른메뉴3">
 		</a>
 	</div>
@@ -84,7 +84,7 @@
 		</div>
 	</div>
 	<div class="hot-right">
-		<a href="?type=productList">
+		<a href="?type=productList&searchValue=롤케익">
 			<img src="${pageContext.request.contextPath}/img/hot_03.png" alt="핫3">
 		</a>
 	</div>
