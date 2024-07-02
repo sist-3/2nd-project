@@ -3,12 +3,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%@include file="/jsp/common/header.jsp"%>
-<style>
+<!-- <style>
 .total {
 	margin: 0;
 	height: 90px;
 }
-</style>
+</style> -->
 
 <table class="table1">
 	<thead>
@@ -44,13 +44,14 @@
 						<td>${vo.pvo.pd_name}</td>
 						<td class="price">${vo.pvo.pd_price}</td>
 						<td>
+							<input type="hidden" name="type"value="cartList" /> 
 							<input type="hidden" name="p_num"value="${vo.pvo.pd_idx}" /> 
 							<input type="hidden" name="c_num" value="${vo.ca_idx}" class="ca_idx" />
 							<input type="number" class="count" name="count" value="${vo.ca_cnt}" min="1" onchange="calculateTotal(this)" />
 							<button type="button" class="btn" onclick="increase(this)">△</button>
 							<button type="button" class="btn" onclick="decrease(this)">▽</button>
 						</td>
-						<td class="total">${vo.pvo.pd_price * vo.ca_cnt}원</td>
+						<td class="total_price">${vo.pvo.pd_price * vo.ca_cnt}원</td>
 						<td><button type="button" class="btn cancel"
 								onclick="javascript:if(confirm('삭제하시겠습니까?')){location.href='?type=cartDelete&us_idx=${vo.us_idx}&ca_idx=${vo.ca_idx}'}">삭제</button></td>
 					</tr>
@@ -101,17 +102,20 @@
 		let row = countElement.closest('tr');
 		let price = parseInt(row.querySelector('.price').textContent);
 		let count = parseInt(countElement.value);
+		if(isNaN(count)){
+			count = 1;
+		}
 		let total = price * count;
-		row.querySelector('.total').textContent = total + " 원";
+		row.querySelector('.total_price').textContent = total + "원";
 		calculateTotalSum();
 	}
 
 	function calculateTotalSum() {
 		let totalSum = 0;
-		document.querySelectorAll('.total').forEach(function(totalElement) {
+		document.querySelectorAll('.total_price').forEach(function(totalElement) {
 			totalSum += parseInt(totalElement.textContent);
 		});
-		document.getElementById('totalSum').textContent = totalSum + " 원";
+		document.getElementById('totalSum').textContent = totalSum + "원";
 	}
 
 	// 페이지 로드 시 총합 계산
@@ -204,7 +208,7 @@
 		        indexArray.push(index);
 		        let cnt = $(".count")[index].value;
 		        cntArray.push(cnt);
-		        let total = $(".total")[index].innerText.slice(0, -1);
+		        let total = $(".total_price")[index].innerText.slice(0, -1);
 		        totalArray.push(total);
 		        let cart = $(".ca_idx")[index].value;
 		        cartIdxArray.push(cart);
@@ -259,4 +263,11 @@
 			$('.checkbox').prop('checked', false); // 모든 개별 체크박스를 체크 해제 상태로 설정
 		}
 	}
+	
+	$('input[type="number"]').keydown(function(e) {   // input 태그의 text 타입에 키다운 이벤트라면
+	     if (e.keyCode === 13) {   // 엔터키 이벤트라면
+	          e.preventDefault();   // submit을 막아라.
+	     };
+	});
+	
 </script>
