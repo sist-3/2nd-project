@@ -90,7 +90,7 @@
 	</div>
 </div>
 <div class="product-list" id="productList">
-	<h2>이달의 상품</h2>
+	<h2>추천 상품</h2>
 	<div class="item-list">
 		<c:forEach var="product" items="${requestScope.p_ar}" varStatus="i">
 			<div class="item">

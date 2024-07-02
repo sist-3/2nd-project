@@ -101,5 +101,17 @@ public class ProductDAO {
 		ss.close();
 		return ar;
 	}
+	// 신상품
+	public static ProductVO[] findproductByMonth() {
+		SqlSession ss = FactoryService.getFactory().openSession();
+		ProductVO[] ar = null;
+		List<ProductVO> list = ss.selectList("product.findproductByMonth");
+		if(list != null) {
+			ar = new ProductVO[list.size()];
+			list.toArray(ar);
+		}
+		ss.close();
+		return ar;
+	}
 
 }
