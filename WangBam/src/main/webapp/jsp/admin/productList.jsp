@@ -178,12 +178,10 @@
 					},
 					traditional : true,
 					success : function(response) {
-						console.log('삭제 성공');
 						alert('상품이 성공적으로 삭제되었습니다.');
 						location.reload(); // 성공 후 페이지 새로고침
 					},
 					error : function() {
-						console.log('삭제 실패');
 						alert('상품 삭제에 실패했습니다.');
 					}
 				});

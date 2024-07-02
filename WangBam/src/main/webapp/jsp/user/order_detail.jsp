@@ -89,7 +89,6 @@
   <script>
     $(document).ready(function(){
     	let data = getPaymentByOrIdx(${ovo.or_idx})
-    	console.log(data);
         if(data.status == 'PAID'){
             $('#payment-status').text('결제 완료');
         }else if(data.status == 'CANCELLED'){
@@ -118,7 +117,6 @@
             }
         });
         $('#delivery-button').click(function(){
-        	console.log("클릭")
         	window.open("https://service.epost.go.kr/trace.RetrieveDomRigiTraceList.comm?sid1=${ovo.or_tracking_number}&displayHeader=N", "new", "toolbar=no, menubar=no, scrollbars=yes, resizable=no, width=700, height=700, left=500, top=150");
         })
     });

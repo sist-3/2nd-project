@@ -51,7 +51,6 @@ public class OrderDAO {
 
     public static int updateStatusCode(Map<String, String> map) {
         SqlSession ss = FactoryService.getFactory().openSession();
-        System.out.println(map);
         int result = ss.update("order.updateStatusCode", map);
         
         if (result > 0) {

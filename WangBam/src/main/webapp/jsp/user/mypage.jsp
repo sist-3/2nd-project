@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="/jsp/common/header.jsp"%>
-<div>
+<div class="form-group">
         <h1 style="text-align: center;">회원 정보 수정</h1>
         <form id="updateForm" class="form-group" action="/WangBam/?type=my" method="post">
             <div>
@@ -41,12 +41,13 @@
                 <input type="hidden" id="us_tel" value="${sessionScope.user.us_tel}">
             </div>
             <div class="buttons">
-                <button type="button" class="btn-submit" >정보변경수정</button>
-                <button type="button" class="btn-cancel" onclick="location.href='/WangBam/'">취소</button>
+                <button type="button" class="btn submit" >정보변경수정</button>
+                <button type="button" class="btn cancel" onclick="location.href='/WangBam/'">취소</button>
                 <div class="out-buttons">
                     <label type="text" id="out-btn" class="out-btn">회원탈퇴</label>
                 </div>
             </div>
+             
         </form>
         
     </div>

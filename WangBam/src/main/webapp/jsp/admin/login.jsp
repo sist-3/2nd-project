@@ -83,7 +83,6 @@
 			let id = form.us_id.value;
 			let pw = form.us_pw.value;
 			
-			console.log(id.length);
 			if(pw.length < 1) {
 				if(id.length < 1) {
 					alert("아이디를 입력해주세요.");

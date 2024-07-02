@@ -27,9 +27,7 @@ public class FindEmailAction implements Action{
 			Map<String, Object> map = new HashMap<>();
 			map.put("us_name", us_name);
 			map.put("us_tel", us_tel);
-			System.out.println(map);
 			UserVO[] u_list = UserDAO.findByNameAndTel(map);
-			System.out.println(u_list.length);
 			if(u_list.length == 0){
 				request.setAttribute("message", "해당하는 사용자가 없습니다.");
 				viewPath = "jsp/user/findEmail.jsp";

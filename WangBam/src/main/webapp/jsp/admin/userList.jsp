@@ -94,7 +94,6 @@
 				type: "GET",
 				data: param
 			}).done(function(res){
-				console.log($(res).find("#userList").html());
 				$("#userList").html($(res).find("#userList").html());
 				$("#userPagination").html($(res).find("#userPagination").html());
 			})
