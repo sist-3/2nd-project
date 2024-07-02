@@ -20,7 +20,7 @@ public class CategoryAddAction implements Action {
 		CategoryVO[] c_list = CategoryDAO.allCategory();
 		request.setAttribute("c_list", c_list);
 		
-		return "/jsp/admin/categoryAdd.jsp";
+		return "/jsp/admin/productAdd.jsp";
 	}
 
 }
