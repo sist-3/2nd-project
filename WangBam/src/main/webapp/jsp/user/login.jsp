@@ -44,12 +44,11 @@
             if(data==0){
             	alert("아이디 또는 비밀번호가 일치하지 않습니다.");
             }else{
-            	if('${sessionScope.url != null}'){
-            		location.href = "/WangBam/${sessionScope.url}";
-            		<%session.removeAttribute("url");%>
-            	}else{
-	            	location.href = '/WangBam/';
-            	}
+                if(${requestScope.oldUrl!= null && requestScope.oldUrl!='http://localhost:8080/WangBam/?type=login'}){
+                    location.href='${requestScope.oldUrl}';	
+                }else{
+                    location.href='/WangBam/';
+                }
             }
         }).fail(function(){
             
