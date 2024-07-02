@@ -31,10 +31,13 @@ public class LoginAction implements Action {
 				viewPath="/jsp/user/loginFail.jsp";
 			}
 		}else if(request.getMethod().equals("GET")) {
+			String url = request.getParameter("url");
+			if(url != null) {
+				HttpSession session = request.getSession();
+				session.setAttribute("url", url);
+			}
 			viewPath="/jsp/user/login.jsp";
 		}
-		
-		
 		return viewPath;
 	}
 }
