@@ -7,17 +7,17 @@
 <!-- 여기에 작업 -->
 <div class="quick-menu">
 	<div class="quick-item">
-		<a href="?type=detail&pd_idx=21"> <img
+		<a href="?type=productDetail&pd_idx=21"> <img
 			src="${pageContext.request.contextPath}/img/quick_01.png" alt="소보루">
 		</a>
 	</div>
 	<div class="quick-item">
-		<a href="?type=detail&pd_idx=22"> <img
+		<a href="?type=productDetail&pd_idx=22"> <img
 			src="${pageContext.request.contextPath}/img/quick_02.png" alt="왕밤빵">
 		</a>
 	</div>
 	<div class="quick-item">
-		<a href="?type=detail&pd_idx=<fmt:formatNumber value='${Math.ceil(Math.random() * requestScope.cnt + 1)}'/>"> <img
+		<a href="?type=productDetail&pd_idx=<fmt:formatNumber value='${Math.ceil(Math.random() * requestScope.cnt + 1)}'/>"> <img
 			src="${pageContext.request.contextPath}/img/quick_03.png" alt="빠른메뉴3">
 		</a>
 	</div>
@@ -95,7 +95,7 @@
 		<c:forEach var="product" items="${requestScope.p_ar}" varStatus="i">
 			<div class="item">
 				<div class="img-box">
-				<a href="?type=detail&pd_idx=${product.pd_idx}">
+				<a href="?type=productDetail&pd_idx=${product.pd_idx}">
 					<img src="${pageContext.request.contextPath}/img/${product.pd_thumbnail_img}"
 						alt="${product.pd_name }">
 				</a>
