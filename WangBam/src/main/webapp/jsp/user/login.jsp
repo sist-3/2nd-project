@@ -44,7 +44,12 @@
             if(data==0){
             	alert("아이디 또는 비밀번호가 일치하지 않습니다.");
             }else{
-                location.href = data;
+            	if('${sessionScope.url != null}'){
+            		location.href = "/WangBam/${sessionScope.url}";
+            		<%session.removeAttribute("url");%>
+            	}else{
+	            	location.href = '/WangBam/';
+            	}
             }
         }).fail(function(){
             
