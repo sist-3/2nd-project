@@ -4,7 +4,6 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="product">
 
-
 	<resultMap type="mybatis.vo.ProductVO" id="findCategory">
 		<id property="pd_idx" column="pd_idx"/>
 		<association property="cvo" javaType="mybatis.vo.CategoryVO" select="category.findByIdx" column="ct_idx"/>
@@ -23,15 +22,12 @@
 
 	<!-- 상품 추가 -->
 	<insert id="add" parameterType="map">
-		insert into product_t(ct_idx, pd_name, pd_price, pd_sale, pd_date, pd_cnt, pd_thumbnail_img, pd_detail_img ,pd_last_update, pd_status)
-		values(#{ct_idx},#{pd_name}, #{pd_price},#{pd_sale},NOW(),#{pd_cnt}, #{pd_thumbnail_img},#{pd_detail_img},NOW(),1)
-
+		insert into product_t(ct_idx, pd_name, pd_price, pd_sale, pd_date, pd_cnt, pd_thumbnail_img, pd_detail_img ,pd_last_update, pd_status, pd_sale_price)
+		values(#{ct_idx},#{pd_name}, #{pd_price},#{pd_sale},NOW(),#{pd_cnt}, #{pd_thumbnail_img},#{pd_detail_img},NOW(),1, #{pd_price}-(#{pd_price}*#{pd_sale}/100))
 	</insert>
-
 
 	<!-- 상품 수정 -->
 	<update id="update" parameterType="Map">
-	
 		UPDATE product_t
 		<set>
 			pd_name = #{pd_name},
@@ -41,6 +37,7 @@
 	   		pd_thumbnail_img = #{pd_thumbnail_img},
 			<if test="pd_sale != null">
 		   		pd_sale = #{pd_sale},
+		   		pd_sale_price = #{pd_price}-(#{pd_price}*#{pd_sale}/100),
 			</if>
 	   		pd_detail_img = #{pd_detail_img}
 		</set>
@@ -52,7 +49,6 @@
 		update product_t
 		set pd_status = 0
 		where pd_idx = #{pd_idx}
-
 	</update>
 
 	<!-- 상품리스트 삭제 -->
@@ -64,8 +60,6 @@
         #{item}
     </foreach>
 	</update>
-
-	
 
 	<!-- 모든 상품 리스트 조회해서 페이지네이션 하기 -->
 	<select id="allCount" resultType="int" parameterType="Map">
@@ -88,7 +82,6 @@
 			</if>
 		</where>
 	</select>
-
 
 	<!-- 상품 이름(pd_name)으로 검색하는 기능 -->
 	<select id="findProductByName" parameterType="Map"
@@ -120,4 +113,5 @@
 		ORDER BY pd_date desc
 		limit 6;
 	</select>
+	
 </mapper>
