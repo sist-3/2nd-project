@@ -44,7 +44,7 @@
             if(data==0){
             	alert("아이디 또는 비밀번호가 일치하지 않습니다.");
             }else{
-            	location.href = '/WangBam/';
+                location.href = data;
             }
         }).fail(function(){
             
