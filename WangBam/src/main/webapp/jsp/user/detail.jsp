@@ -525,6 +525,7 @@ keyframes bread-animation {to { transform:translate(-50%, -50%)scale(2);
 			<c:forEach var="board" items="${bvo}">
 				<c:if test="${board.bo_type == 2}">
 					<c:set var="reviewCount" value="${reviewCount + 1}" />
+					<c:set var="reviewCheck" value="${board.bo_idx}"/>
 				</c:if>
 			</c:forEach>
 			<div class="review-header">
@@ -532,6 +533,7 @@ keyframes bread-animation {to { transform:translate(-50%, -50%)scale(2);
 				<p>동일한 상품에 대해 작성된 상품평으로, 판매자는 다를 수 있습니다.</p>
 
 			</div>
+			<c:if test="${reviewCheck != null}">
 			<div class="review-section">
 
 				<div class="total-score">
@@ -587,6 +589,7 @@ keyframes bread-animation {to { transform:translate(-50%, -50%)scale(2);
 					</p>
 				</div>
 			</div>
+			</c:if>
 
 			<div class="review-container">
 				<c:set var="hasReview" value="false" />
