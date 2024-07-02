@@ -23,9 +23,7 @@ public class FindPwdAction implements Action{
 			Map<String, Object> map = new HashMap<>();
 			map.put("us_name", us_name);
 			map.put("us_email", us_email);
-			System.out.println(map);
 			UserVO[] u_list = UserDAO.findByEmailAndName(map);
-			System.out.println(u_list.length);
 			if(u_list.length == 0){
 				request.setAttribute("message", "해당하는 사용자가 없습니다.");
 				viewPath = "jsp/user/findPwd.jsp";

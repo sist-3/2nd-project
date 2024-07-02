@@ -165,8 +165,6 @@
 					ca_idx_Array.push(ca_idx); // 값을 배열에 추가합니다.
 				});
 				
-				console.log(ca_idx_Array); // 배열을 콘솔에 출력하여 확인합니다.
-	
 				if (ca_idx_Array.length > 0) {
 					$.ajax({
 						url : '?type=cartallDelete',

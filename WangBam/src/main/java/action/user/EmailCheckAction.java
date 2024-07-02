@@ -90,7 +90,6 @@ public class EmailCheckAction implements Action {
             message.setContent(sb.toString(), "text/html; charset=UTF-8");
             // send the message
             Transport.send(message);
-            System.out.println("Success Message Send");
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
