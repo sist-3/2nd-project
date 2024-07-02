@@ -84,8 +84,12 @@
 	function add(){
 		const addForm = document.addForm;
 		const elem = addForm.elements;
+		console.log(elem);
 		let pass = false;
-		for(i=0;i<elem.length-4;i++){
+		for(i=0;i<elem.length-5;i++){
+			if (elem[i].id === "sale" || elem[i].id === "category" || elem[i].id === "popOpenBtn") {
+	            continue; // pd_sale, category, popOpenBtn 요소를 건너뜁니다.
+	        }
 			if(elem[i].value.trim().length < 1) {
 				alert(elem[i].dataset.label+"을 입력하세요");
 				elem[i].value= "";
