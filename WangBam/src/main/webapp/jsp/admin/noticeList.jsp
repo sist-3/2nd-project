@@ -40,7 +40,7 @@
                     <tr class="notice">
                     	<td><input type="checkbox" name="rowCheck" value="${vo.bo_idx }"/></td>
                         <td>${page.totalRecord-((page.nowPage-1)*page.numPerPage+vs.index) }</td>
-                        <td><a href="admin?type=boardsDetail&bo_idx=${vo.bo_idx }&cPage=${page.nowPage}&bo_type=0">${vo.bo_title }</a></td>
+                        <td><a href="admin?type=noticeDetail&bo_idx=${vo.bo_idx }&cPage=${page.nowPage}&bo_type=0">${vo.bo_title }</a></td>
                         <c:if test="${vo.uvo.us_nickname != null }">
                         	<td>${vo.uvo.us_nickname }</td>
                         </c:if>
