@@ -32,9 +32,22 @@
                         src="${pageContext.request.contextPath}/img/${product.pd_thumbnail_img}"
                         alt="${product.pd_name}">
                     </a>
+                    <c:if test="${product.pd_sale ne null}">
+                    	<p class="item-sale">
+                    		${product.pd_sale}%
+                    	</p>
+                    </c:if>
                 </div>
                 <p>[왕밤빵 베이커리]${product.pd_name}</p>
-                <p>${product.pd_price}만원</p>
+                <c:choose>
+                	<c:when test="${product.pd_sale eq null}">
+		                <p>${product.pd_price}원</p>
+                	</c:when>
+                	<c:when test="${product.pd_sale ne null}">
+		                <del>${product.pd_price}원</del>
+		                <p style="color:red">${product.pd_sale_price}원</p>
+                	</c:when>
+                </c:choose>
             </div>
         </c:forEach>
     </div>
