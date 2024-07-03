@@ -113,5 +113,12 @@ public class ProductDAO {
 		ss.close();
 		return ar;
 	}
+	// 카테고리로 상품들 수 체크
+	public static int findproductByCtidx(String ct_idx) {
+		SqlSession ss = FactoryService.getFactory().openSession();
+		int cnt = ss.selectOne("product.findproductByCtidx", ct_idx);
+		ss.close();
+		return cnt;
+	}
 
 }
