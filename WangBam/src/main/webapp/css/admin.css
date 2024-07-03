@@ -74,6 +74,7 @@ body:has(.admin) {
 .admin-main input[type='text'],
 .admin-main input[type='password'],
 .admin-main input[type='email'],
+.admin-main input[type='number'],
 .admin-main textarea,
 .admin-main select {
 	width: 100%;
@@ -89,6 +90,7 @@ body:has(.admin) {
 .admin-main input[type='text']:focus,
 .admin-main input[type='password']:focus,
 .admin-main input[type='email']:focus,
+.admin-main input[type='number']:focus,
 .admin-main textarea:focus,
 .admin-main select:focus {
 	border-color: #007bff;

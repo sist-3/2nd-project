@@ -26,13 +26,8 @@
 	Object obj = session.getAttribute("user");
 	UserVO uvo = null;
 	if (obj == null) {
-	%>
-		<script>
-			alert("결제를 위해 로그인이 필요합니다. \n 로그인 페이지로 이동합니다.");
-		</script>
-		<%
-			response.sendRedirect("?type=login");
-			return;
+		response.sendRedirect("?type=login");
+		return;
 	} else {
 		uvo = (UserVO) obj;
 	}
@@ -41,11 +36,6 @@
 	obj = session.getAttribute("odvoList");
 	List<OrderDetailVO> odvoList = null;
 	if (obj == null) {
-		%>
-		<script>
-			alert("잘못된 접근입니다. \n 메인페이지로 이동합니다.");
-		</script>
-		<%
 		response.sendRedirect("/");
 		return;
 	} else {		
@@ -53,12 +43,12 @@
 	}
 	%>
 	<div class="buy-con">
-		<h1>결제페이지</h1>
-		<table class="order-table">
+		<h1>상품 정보</h1>
+		<table class="order-table" style="width: 80%; margin: auto;">
 			<thead>
 				<tr>
 					<th>이미지</th>
-					<th>상품정보</th>
+					<th>상품이름</th>
 					<th>판매가</th>
 					<th>수량</th>
 					<th>적립금</th>
@@ -75,7 +65,7 @@
 						totalPrice += Integer.parseInt(odvo.getOd_price());
 				%>
 				<tr>
-					<td><img src="<%=odvo.getPvo().getPd_thumbnail_img()%>"></td>
+					<td><img src="${pageContext.request.contextPath}/img/<%=odvo.getPvo().getPd_thumbnail_img()%>"></td>
 					<td><%=odvo.getPvo().getPd_name()%></td>
 					<td class="comma"><%=Integer.parseInt(odvo.getOd_price()) / Integer.parseInt(odvo.getOd_cnt())%></td>
 					<td><%=odvo.getOd_cnt()%></td>
@@ -94,9 +84,8 @@
 			</tbody>
 		</table>
 		<div class="delivery-info">
-			<h2>배송 정보</h2>
-			<br>
-			<form class="form-group" action="/WangBam/?type=payment" method="post">
+			<form class="form-group" action="/WangBam/?type=payment" method="post" style="max-width: 870px;">
+				<h2 style="text-align: center;">배송지 정보</h2>
 				<input type="hidden" name="type" value="buy">
 				<input type="hidden" name="us_idx" value="<%=uvo.getUs_idx()%>"> 
 				<input type="hidden" name="total_price" value="<%=totalPrice%>"> 
@@ -124,8 +113,8 @@
 					<span>-</span> <input type="text" name="tel3"
 						<c:if test="${avo != null}">value="${avo.getAd_tel().substring(6)}"</c:if>>
 				</div>
-				<label for="request">배송시요구사항</label> <select id="request"
-					name="request">
+				<label for="request">배송시요구사항</label> 
+				<select id="request" name="request">
 					<option value="">배송메모를 선택해주세요</option>
 					<option>문 앞에 놓아주세요</option>
 					<option>부재 시 연락 부탁드려요</option>
