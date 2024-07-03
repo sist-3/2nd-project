@@ -41,11 +41,11 @@
                 <p>[왕밤빵 베이커리]${product.pd_name}</p>
                 <c:choose>
                 	<c:when test="${product.pd_sale eq null}">
-		                <p>${product.pd_price}원</p>
+		                <p><fmt:formatNumber value="${product.pd_price}" pattern="#,###" />원</p>
                 	</c:when>
                 	<c:when test="${product.pd_sale ne null}">
-		                <del>${product.pd_price}원</del>
-		                <p style="color:red">${product.pd_sale_price}원</p>
+		                <del><fmt:formatNumber value="${product.pd_price}" pattern="#,###" />원</del>
+		                <p style="color:red"><fmt:formatNumber value="${product.pd_sale_price}" pattern="#,###" />원</p>
                 	</c:when>
                 </c:choose>
             </div>
