@@ -300,17 +300,6 @@ caption {
     padding: 50px;
     border-radius: 20px;
 }
-
-.item > .img-box {
-	min-height:300px;
-}
-.item > .img-box img {
-	max-width:70%;
-	transition:0.5s;
-}
-.item > .img-box img:hover {
-	max-width:100%;
-}
 select {
 	appearance:none;
 	background:url(../img/icon_arrow_down.png) no-repeat center right 8px/24px;
