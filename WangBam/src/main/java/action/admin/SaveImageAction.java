@@ -17,7 +17,8 @@ public class SaveImageAction implements Action {
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
 		
 		ServletContext app = request.getServletContext();
-		String realPath = "C:/2nd-project/WangBam/src/main/webapp/img";
+		//String realPath = "C:/2nd-project/WangBam/src/main/webapp/img";
+		String realPath = app.getRealPath("/img/upload");
 		try {
 			MultipartRequest mr = new MultipartRequest(
 					request, realPath, 1024 * 1024 * 5, "utf-8", new DefaultFileRenamePolicy());

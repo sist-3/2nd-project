@@ -159,6 +159,7 @@
 			type:"GET",
 			data:param,
 		}).done(function(res){
+			$("#category").html($(res).find("#category").html());
 			$("#categoryList").html($(res).find("#categoryList").html());
 			alert("수정완료되었습니다.");
 		});
@@ -176,6 +177,7 @@
 			if(ctList === $(res).find("#categoryList").html())
 				alert("하위 상품이 존재해 삭제가 불가능합니다.")
 			else{
+				$("#category").html($(res).find("#category").html());
 				$("#categoryList").html($(res).find("#categoryList").html());
 				alert("삭제완료되었습니다.");
 			}
