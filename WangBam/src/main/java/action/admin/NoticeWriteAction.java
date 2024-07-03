@@ -35,8 +35,9 @@ public class NoticeWriteAction implements Action {
 		} else if (enc_type.startsWith("multipart")) {
 	
 			try {
-				//ServletContext app = request.getServletContext();
-				String realPath = "C:/2nd-project/WangBam/src/main/webapp/img";
+				ServletContext app = request.getServletContext();
+				//String realPath = "C:/2nd-project/WangBam/src/main/webapp/img";
+				String realPath = app.getRealPath("/img/upload");
 
 				MultipartRequest mr = new MultipartRequest(
 						request, realPath, 1024 * 1024 * 5, "utf-8", new DefaultFileRenamePolicy());
