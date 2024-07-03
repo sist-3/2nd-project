@@ -36,7 +36,7 @@
 			<%--현재 날짜를 일수로 변경--%>
 			<fmt:parseNumber value="${nowPlanDate.time / (1000*60*60*24)}" integerOnly="true" var="nowDate"></fmt:parseNumber>
 			<c:choose>
-				<c:when test="${requestScope.b_ar[0] ne null}">
+				<c:when test="${fn:length(requestScope.b_ar) > 0}">
 					<c:forEach var="notice" items="${requestScope.b_ar}" varStatus="idx">
 					<%--기준이 되는 날짜 준비--%>
 						<fmt:parseDate value="${notice.bo_write_date }" var="bWriteDate" pattern="yyyy-MM-dd"/>
@@ -62,7 +62,7 @@
 						</c:choose>
 					</c:forEach>
 				</c:when>
-				<c:when test="${requestScope.b_ar[0] eq null}">
+				<c:when test="${fn:length(requestScope.b_ar) < 1}">
 					<li>
 						<span>공지사항이 없습니다.</span> 
 					</li>
