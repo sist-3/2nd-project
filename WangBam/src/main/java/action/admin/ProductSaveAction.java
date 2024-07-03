@@ -19,7 +19,6 @@ public class ProductSaveAction implements Action {
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewPath = null;
 		String enc_type = request.getContentType();
-		String imgPath = "C:/2nd-project/WangBam/src/main/webapp/img";
 
 		if (enc_type == null) {
 			viewPath = "/jsp/admin/productAdd.jsp";
@@ -30,6 +29,9 @@ public class ProductSaveAction implements Action {
 			try {
 				// 첨부파일과 다른 파라미터들을 받기 위해
 				// MultipartRequest 객체를 생
+				ServletContext application = request.getServletContext();
+				String imgPath = application.getRealPath("/img");
+				
 				MultipartRequest mr = new MultipartRequest(request, imgPath, 5 * 1024 * 1024, "utf-8",
 						new DefaultFileRenamePolicy());
 				// 이떄 이미 첨부파일은 upload라는 폴더에 저장된 상태다.

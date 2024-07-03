@@ -17,7 +17,7 @@
 		</a>
 	</div>
 	<div class="quick-item">
-		<a href="?type=productDetail&pd_idx=<fmt:formatNumber value='${Math.ceil(Math.random() * requestScope.cnt + 1)}'/>"> <img
+		<a href="?type=productDetail&pd_idx=<fmt:formatNumber value='${Math.ceil(Math.random() * requestScope.cnt + 1) - 1}'/>"> <img
 			src="${pageContext.request.contextPath}/img/quick_03.png" alt="빠른메뉴3">
 		</a>
 	</div>
