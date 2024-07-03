@@ -51,7 +51,7 @@ public class NoticeEditAction implements Action {
 				
 				BoardsDAO.update(map);
 				
-				viewPath = "admin?type=boardsDetail&bo_type=0&bo_idx="+bo_idx2;
+				viewPath = "admin?type=noticeDetail&bo_type=0&bo_idx="+bo_idx2;
 				
 			}catch(Exception e) {
 				e.printStackTrace();

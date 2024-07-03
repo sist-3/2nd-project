@@ -100,7 +100,7 @@
     	$('#searchType').change(function() {
 	        var selectType = $(this).val();
 	        if (selectType == 'writeDate') {
-	            $('#searchValue').datepicker({
+	            $('#searchValue').val('').datepicker({
 	                changeYear: true,
 	                changeMonth: true,
 	                dateFormat: 'yy-mm-dd',
@@ -117,7 +117,7 @@
 	                }
 	              });
 	        } else {
-	        	$('#searchValue').prop('readonly', false).datepicker('destroy').attr('type', 'text');
+	        	$('#searchValue').prop('readonly', false).datepicker('destroy').attr('type', 'text').val('');
 	            $('#searchValue2').hide().val('');
 	        }
     	}).trigger('change');

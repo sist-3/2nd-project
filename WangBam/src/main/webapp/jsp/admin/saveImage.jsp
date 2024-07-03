@@ -5,6 +5,6 @@
 
 <c:if test="${not empty f_name}">
 {
-    "img_url": "${pageContext.request.contextPath}/upload/${f_name}"
+    "img_url":"/img/${requestScope.f_name}"
 }
 </c:if>
