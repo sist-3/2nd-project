@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="/jsp/common/header.jsp" %>
+<c:set var="count" value="0" scope="page"/>
 <c:forEach var="ovo" items="${requestScope.o_list}">
+<c:set var="count" value="${count+1}" scope="page"/>
 <div class="order-container" style="margin-bottom: 10px;">
         <div class="order-header">
             <h2>주문번호: ${ovo.or_idx}</h2>
@@ -52,6 +54,11 @@
         </div>
     </div>
 </c:forEach>
+<c:if test="${count == 0}">
+<div class="order-container" style="text-align: center;">
+    <h2>주문내역이 없습니다.</h2>
+</div>
+</c:if>
 <div class="pagination">
 			<c:set var="page" value="${requestScope.page }"/>
 			
