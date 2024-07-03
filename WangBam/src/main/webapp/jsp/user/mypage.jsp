@@ -145,11 +145,11 @@
                     $('#phone-last').focus();
                     return;
                 }
-                
-                $('#us_tel').val($('#phone-prefix').val() + $('#phone-middle').val() + $('#phone-last').val());
-                $("#updateForm").submit();
+                if(confirm('정보를 수정하시겠습니까?')){
+                    $('#us_tel').val($('#phone-prefix').val() + $('#phone-middle').val() + $('#phone-last').val());
+                    $("#updateForm").submit();
+                }
             });
-            
             $('#out-btn').on('click', function(){
                $("#resign-form").submit();
             });

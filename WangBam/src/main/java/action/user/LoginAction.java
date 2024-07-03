@@ -32,7 +32,11 @@ public class LoginAction implements Action {
 			}
 		}else if(request.getMethod().equals("GET")) {
 			String oldurl = request.getHeader("referer");
-			request.setAttribute("oldUrl", oldurl);
+			if(oldurl != null && !oldurl.contains("login")&&!oldurl.contains("signup")&&!oldurl.contains("findPwd")&&!oldurl.contains("findEmail")) {
+				request.setAttribute("oldUrl", oldurl);
+			}else {
+				request.setAttribute("oldUrl", "/WangBam");
+			}
 			viewPath="/jsp/user/login.jsp";
 		}
 		
