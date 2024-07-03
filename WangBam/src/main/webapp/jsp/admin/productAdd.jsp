@@ -7,7 +7,7 @@
 		<form class="form-group" method="POST" action="admin?type=productSave" enctype="multipart/form-data" name="addForm">
 			<div>
 				<label for="username">상품명</label> <input type="text" id="item_name"
-					 name="pd_name"placeholder="상품명" data-label="상품명">
+					 name="pd_name" placeholder="상품명" data-label="상품명">
 			</div>
 			<div>
 				<label for="category">카테고리</label>
@@ -21,29 +21,29 @@
 				</div>
 			</div>
 			<div>
-				<label for="cnt">수량</label> <input type="text" id="cnt"
+				<label for="cnt">수량</label> <input type="number" id="cnt"
 					 name="pd_cnt" placeholder="수량" data-label="수량">
 			</div>
 			<div>
-				<label for="sale">할인율</label> <input type="text" id="sale"
+				<label for="sale">할인율</label> <input type="number" id="sale"
 					 name="pd_sale" placeholder="할인율" data-label="할인율">
 			</div>
 			<div>
-				<label for="price">가격</label> <input type="text" id="price" name="pd_price" 
+				<label for="price">가격</label> <input type="number" id="price" name="pd_price" 
 					placeholder="가격" data-label="가격">
 			</div>
 			<div>
 				<label for="img">썸네일이미지</label>
 				<div>
 					<label class="file-select" for="pdThumbnailImg">파일선택 +</label>
-					<input type="file" name="pd_thumbnail_img" id="pdThumbnailImg" onchange="selectImg(this)">
+					<input type="file" name="pd_thumbnail_img" id="pdThumbnailImg" data-label="썸네일이미지" onchange="selectImg(this)">
 				</div>
 			</div>
 			<div>
 				<label for="img">상세이미지</label>
 				<div>
 					<label class="file-select" for="pdDetailImg">파일선택 +</label>
-					<input type="file" name="pd_detail_img" id="pdDetailImg" onchange="selectImg(this)">
+					<input type="file" name="pd_detail_img" id="pdDetailImg" data-label="상세이미지" onchange="selectImg(this)">
 				</div>
 			</div>
 
@@ -113,10 +113,24 @@
 		const addForm = document.addForm;
 		const elem = addForm.elements;
 		let pass = false;
-		for(i=0;i<elem.length-5;i++){
+		for(i=0;i<elem.length-2;i++){
 			if (elem[i].id === "sale" || elem[i].id === "category" || elem[i].id === "popOpenBtn") {
 	            continue; // pd_sale, category, popOpenBtn 요소를 건너뜁니다.
 	        }
+			if (elem[i].type === "number"){
+				if(elem[i].value < 0){
+					alert("0 이상 입력하세요");
+					elem[i].value= "";
+					elem[i].focus();
+					return;
+				}
+			}
+			if(elem[i].id === "item_name"){
+				if(elem[i].value.trim().length > 20){
+					alert("상품명을 10자 이하로 입력하세요");
+					return;
+				}
+			}
 			if(elem[i].value.trim().length < 1) {
 				alert(elem[i].dataset.label+"을 입력하세요");
 				elem[i].value= "";

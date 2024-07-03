@@ -40,7 +40,11 @@ public class ProductSaveAction implements Action {
 				String ct_idx = mr.getParameter("ct_idx");
 				String pd_cnt = mr.getParameter("pd_cnt");
 				String pd_sale = mr.getParameter("pd_sale");
+				if(pd_sale.trim().length() < 1) {
+					pd_sale = "0";
+				}
 				String pd_price = mr.getParameter("pd_price");
+				
 				// 이미 업로드된 첨부파일이 파일명이 변경됐을 것 같은 느낌.
 				  // 파일 객체 선언 및 초기화
                 File f = mr.getFile("pd_thumbnail_img");
