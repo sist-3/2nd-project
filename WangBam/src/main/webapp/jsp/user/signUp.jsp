@@ -112,7 +112,10 @@ $(document).ready(function(){
     $.ajax({  
         	url: '/WangBam/',
         	type: 'POST',
-        	data: "type=emailcheck&email="+email,
+        	data: {type:'emailcheck',
+        			email:email,
+        			sign:'sign',
+        	}
         }).done(function(data){
           if(data == 2){
             $('#email-check-result').css('display', 'block');
