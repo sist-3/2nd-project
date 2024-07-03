@@ -24,6 +24,8 @@ import javax.servlet.http.HttpServletResponse;
 
 
 import action.Action;
+import mybatis.dao.UserDAO;
+import mybatis.vo.UserVO;
 
 
 public class EmailCheckAction implements Action {
@@ -31,6 +33,10 @@ public class EmailCheckAction implements Action {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String email = request.getParameter("email");
+        UserVO user = UserDAO.findByEmail(email);
+		if(user != null){
+			return "jsp/user/signupFailByEmail.jsp";
+		}
 		String code = naverMailSend(email);
 		request.setAttribute("code", code);
 		return "/jsp/user/emailcheck.jsp";

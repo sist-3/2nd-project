@@ -114,6 +114,15 @@ $(document).ready(function(){
         	type: 'POST',
         	data: "type=emailcheck&email="+email,
         }).done(function(data){
+          if(data == 2){
+            $('#email-check-result').css('display', 'block');
+            $('#email-check-result').html('이메일이 이미 존재합니다');
+            $('#email-check-result').css('color', 'red');
+            $('#email-check-result').css('margin-top', '5px');
+            $('#email-check-result').css('font-size', '12px');
+            $('#email-check-result').css('font-weight', 'bold');
+            return;
+          }
         	$('#email-check-result').css('display', 'block');
         	$('#email-check-result').html(data);
                 
