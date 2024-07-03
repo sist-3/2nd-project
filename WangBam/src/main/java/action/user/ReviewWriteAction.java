@@ -3,6 +3,7 @@ package action.user;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -34,12 +35,13 @@ public class ReviewWriteAction implements Action {
 		} else if (enc_type.startsWith("multipart")) {
 	
 			try {
-				  //ServletContext app = request.getServletContext();
-				 //String realPath = app.getRealPath("/upload");
+				ServletContext app = request.getServletContext();
+				//String realPath = "C:/2nd-project/WangBam/src/main/webapp/img";
+				String realPath = app.getRealPath("/img/upload");
 
 				MultipartRequest mr = new MultipartRequest(
-						request, "C:/2nd-project/WangBam/src/main/webapp/img", 1024 * 1024 * 5, "utf-8", new DefaultFileRenamePolicy());
-
+						request, realPath, 1024 * 1024 * 5, "utf-8", new DefaultFileRenamePolicy());
+				
 				String bo_title = mr.getParameter("bo_title");
 				String us_idx = mr.getParameter("us_idx");
 				String bo_content = mr.getParameter("bo_content");

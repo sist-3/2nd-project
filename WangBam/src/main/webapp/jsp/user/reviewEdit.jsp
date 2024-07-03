@@ -74,7 +74,7 @@
 	function sendImage(file) {
         let frm = new FormData();
         frm.append("upload", file);
-        document.form.append("upload", file);
+       // document.form.append("upload", file);
 
         $.ajax({
             url: "?type=saveImage",
