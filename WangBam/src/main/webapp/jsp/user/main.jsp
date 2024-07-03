@@ -7,12 +7,12 @@
 <!-- 여기에 작업 -->
 <div class="quick-menu">
 	<div class="quick-item">
-		<a href="?type=productDetail&pd_idx=21"> <img
+		<a href="?type=productDetail&pd_idx=10"> <img
 			src="${pageContext.request.contextPath}/img/quick_01.png" alt="소보루">
 		</a>
 	</div>
 	<div class="quick-item">
-		<a href="?type=productDetail&pd_idx=22"> <img
+		<a href="?type=productDetail&pd_idx=1"> <img
 			src="${pageContext.request.contextPath}/img/quick_02.png" alt="왕밤빵">
 		</a>
 	</div>
@@ -43,7 +43,7 @@
 				<c:choose>
 					<c:when test="${nowDate < writeDate + 30}">
 						<li class="new">
-							<a href="?type=boardsDetail&bo_type=0&bo_idx=${notice.bo_idx }">
+							<a href="?type=noticeDetail&bo_type=0&bo_idx=${notice.bo_idx }">
 								<span><c:out value="${notice.bo_title}" /></span> 
 								<span class="sub-date"><c:out value="${notice.bo_write_date}" /></span>
 							</a>
@@ -51,7 +51,7 @@
 					</c:when>
 					<c:when test="${nowDate > writeDate + 30}">
 						<li>
-							<a href="?type=boardsDetail&bo_type=0&bo_idx=${notice.bo_idx }">
+							<a href="?type=noticeDetail&bo_type=0&bo_idx=${notice.bo_idx }">
 								<span><c:out value="${notice.bo_title}" /></span> 
 								<span class="sub-date"><c:out value="${notice.bo_write_date}" /></span>
 							</a>
