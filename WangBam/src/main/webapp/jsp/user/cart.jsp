@@ -215,7 +215,10 @@
 		});
 		//선택한 상품 주문하기
 		$("#order_Btn").on('click', function() {
-		    // 1. 선택한 체크박스에서 인덱스 가져오기
+		    if($('.checkbox:checked').length == 0){
+				alert('상품을 선택해주세요.');
+			}else{
+			// 1. 선택한 체크박스에서 인덱스 가져오기
 		    let selectItem = $(".checkbox:checked")
 
 		    let indexArray = [];
@@ -252,8 +255,8 @@
 		        error:function(request,status,error){
 		        }
 		    });
+		}
 		});
-		
 	});
 	//체크박스 기능
 	$(".checkbox").on('click', function() {
