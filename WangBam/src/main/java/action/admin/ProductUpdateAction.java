@@ -60,7 +60,7 @@ public class ProductUpdateAction implements Action {
 				}
 				map.put("pd_thumbnail_img", pd_thumbnail_img);
 				map.put("pd_detail_img", pd_detail_img);
-
+				System.out.println(map);
 				// 데이터베이스에 상품 정보 업데이트
 				int cnt = ProductDAO.updateProduct(map);
 				if (cnt > 0) {
