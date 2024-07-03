@@ -3,9 +3,6 @@
 
 <%@include file="/jsp/common/adminHeader.jsp"%>
 
-
-
-
 <div class="search-group">
 	<h2>상품 관리</h2>
 	<form class="search-bar">
@@ -13,7 +10,8 @@
 			<option value="6">6개씩 보기</option>
 			<option value="12">12개씩 보기</option>
 			<option value="18">18개씩 보기</option>
-		</select> <select name="ct_idx" id="ct_idx">
+		</select> 
+		<select name="ct_idx" id="ct_idx">
 			<option>전체</option>
 			<c:forEach var="cvo" items="${requestScope.c_list}" varStatus="st">
 				<option value="${cvo.ct_idx}">${cvo.ct_name}</option>
@@ -37,7 +35,6 @@
 		<th>상세 이미지</th>
 		<th>상품 등록일</th>
 		<th>최신 작성일</th>
-
 
 	</tr>
 	<!-- 상품 리스트 출력 -->
@@ -77,43 +74,48 @@
 	</c:forEach>
 </table>
 
-<!-- 페이지네이션 -->
-<div class="admin-pagination">
-	<c:set var="page" value="${paging}" />
-	<c:if test="${page.startPage < page.pagePerBlock }">
-		<div class="disable">&lt;</div>
-	</c:if>
-	<c:if test="${page.startPage >= page.pagePerBlock }">
-		<div>
-			<a
-				href="admin?type=productList&cPage=${page.nowPage - page.pagePerBlock }&ct_idx=${requestScope.ct_idx}">&lt;</a>
-		</div>
-	</c:if>
-
-	<c:forEach begin="${page.startPage }" end="${page.endPage }"
-		varStatus="vs">
-		<c:if test="${page.nowPage eq vs.index}">
-			<div>
-				<a class="on">${vs.index}</a>
-			</div>
-		</c:if>
-		<c:if test="${page.nowPage ne vs.index}">
-			<div>
-				<a href="admin?type=productList&cPage=${vs.index}">${vs.index}</a>
-			</div>
-		</c:if>
-	</c:forEach>
-
-	<c:if test="${page.endPage < page.totalPage }">
-		<div>
-			<a
-				href="admin?type=productList&cPage=${page.nowPage + page.pagePerBlock - 1}">&gt;</a>
-		</div>
-	</c:if>
-	<c:if test="${page.endPage >= page.totalPage }">
-		<div class="disable">&gt;</div>
-	</c:if>
-
+<div class="admin-pagination" id="pagination">
+    <c:set var="paging" value="${requestScope.paging}" />
+    <c:choose>
+        <c:when test="${paging.startPage >= paging.pagePerBlock }">
+            <div>
+                <a href="javascript:void(0);" onclick="changePage(${paging.nowPage - paging.pagePerBlock})">&lt;</a>
+            </div>
+        </c:when>
+        <c:when test="${paging.startPage < paging.pagePerBlock }">
+            <div class="disable">&lt;</div>
+        </c:when>
+    </c:choose>
+    <c:forEach begin="${paging.startPage }" end="${paging.endPage}"
+        varStatus="st">
+        <c:choose>
+            <c:when test="${paging.nowPage != st.index }">
+                <div>
+                    <a href="javascript:void(0);" onclick="changePage(${st.index})">${st.index}</a>
+                </div>
+            </c:when>
+            <c:when test="${paging.nowPage == st.index }">
+                
+                    <a class="on" href="javascript:void(0);" onclick="changePage(${st.index})">${st.index}</a>
+                
+            </c:when>
+        </c:choose>
+    </c:forEach>
+    <c:if test="${paging.endPage < paging.totalPage}">
+        <c:if test="${paging.nowPage + paging.pagePerBlock > paging.totalPage }">
+            <div>
+                <a href="javascript:void(0);" onclick="changePage(${paging.totalPage})">&gt;</a>
+            </div>
+        </c:if>
+        <c:if test="${paging.nowPage + paging.pagePerBlock <= paging.totalPage }">
+            <div>
+                <a href="javascript:void(0);" onclick="changePage(${paging.nowPage + paging.pagePerBlock})">&gt;</a>
+            </div>
+        </c:if>
+    </c:if>
+    <c:if test="${paging.endPage >= paging.totalPage }">
+        <div class="disable">&gt;</div>
+    </c:if>
 </div>
 
 <!-- 상품 추가 및 삭제 버튼 -->
@@ -148,7 +150,10 @@
 			url : "?", // 올바른 서블릿 경로를 지정하세요.
 			type : "GET",
 			data : param,
+			dataType: "html"
 		}).done(function(res) {
+			const newProductList = $(res).find("#productList").html();
+            const newPagination = $(res).find("#pagination").html();
 			$("#productList").html($(res).find("#productList").html());
 			$("#pagination").html($(res).find("#pagination").html());
 		});
@@ -200,6 +205,25 @@
 			}
 		});
 	});
+
+	$(".checkbox").on('click', function() {
+			let check = false;
+			let checkAll = $(".checkbox").prop('checked');
+			if(!checkAll){
+				check = false;
+			}else{
+				for(let i=0;i<$(".checkbox").length;i++){
+					if($(".checkbox")[i].checked == false){
+						check = false;
+						break;
+					}else{
+						check = true;
+					}
+				}
+			}
+			$(".allCheckbox").prop('checked', check);
+		});
+
 	function allCheck() {
 		if ($('.allCheckbox').is(':checked')) { // 선택자와 메서드 사용 수정
 			$('.checkbox').prop('checked', true); // 모든 개별 체크박스를 체크 상태로 설정
