@@ -474,9 +474,6 @@ keyframes bread-animation {to { transform:translate(-50%, -50%)scale(2);
 				</span></a></li>
 		</ul>
 		<div id="tabs-1">
-			<img
-				src="./img/wangbamDetail.jpg"
-				width="100%">
 			<c:if test="${pvo.pd_detail_img eq '' }">
 				<h3>등록된 상품 상세 이미지가 없습니다.</h3>
 			</c:if>
