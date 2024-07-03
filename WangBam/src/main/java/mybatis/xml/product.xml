@@ -35,10 +35,15 @@
 	   		pd_price = #{pd_price},
 	   		pd_cnt = #{pd_cnt},
 	   		pd_thumbnail_img = #{pd_thumbnail_img},
-			<if test="pd_sale != null">
-		   		pd_sale = #{pd_sale},
+	   		<choose>
+	   		<when test="pd_sale != null">
+	   		pd_sale = #{pd_sale},
 		   		pd_sale_price = #{pd_price}-(#{pd_price}*#{pd_sale}/100),
-			</if>
+	   		</when>
+	   		<otherwise>
+	   		Pd_sale = null,
+	   		</otherwise>
+	   		</choose>
 	   		pd_detail_img = #{pd_detail_img}
 		</set>
 		WHERE pd_idx = #{pd_idx}

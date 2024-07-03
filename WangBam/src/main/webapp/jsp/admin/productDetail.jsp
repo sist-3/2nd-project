@@ -143,8 +143,9 @@ function update(){
 		const updateForm = document.updateForm;
 		const elem = updateForm.elements;
 		let pass = false;
-		for(i=1;i<elem.length-7;i++){
-			if(elem[i].id === "pd_sale") {
+		console.log(elem);
+		for(i=1;i<elem.length-8;i++){
+			if(elem[i].id === "pd_sale"||elem[i].id === "ct_idx"||elem[i].id === "popOpenBtn") {
 				continue; // pd_sale 요소를 건너뜁니다.
 			}
 			if(elem[i].value.trim().length < 1) {
