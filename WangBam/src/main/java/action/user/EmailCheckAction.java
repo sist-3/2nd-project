@@ -33,9 +33,9 @@ public class EmailCheckAction implements Action {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String email = request.getParameter("email");
-        String type = request.getParameter("type");
+		String sign = request.getParameter("sign");
         UserVO user = UserDAO.findByEmail(email);
-		if(user != null&&type.equals("signup")){
+		if(user != null&&sign!=null){
 			return "jsp/user/signupFailByEmail.jsp";
 		}
 		String code = naverMailSend(email);
