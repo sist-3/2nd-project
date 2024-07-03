@@ -62,7 +62,7 @@ public class QuestionEditAction implements Action {
 				
 				BoardsDAO.update(map);
 				
-				viewPath = "?type=boardsDetail&bo_type=1&bo_idx="+bo_idx2+"&cPage="+cPage2;
+				viewPath = "?type=questionDetail&bo_type=1&bo_idx="+bo_idx2+"&cPage="+cPage2;
 				
 			}catch(Exception e) {
 				e.printStackTrace();

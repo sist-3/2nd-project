@@ -108,7 +108,7 @@
     	$('#searchType').change(function() {
 	        var selectType = $(this).val();
 	        if (selectType == 'writeDate') {
-	            $('#searchValue').datepicker({
+	            $('#searchValue').val('').datepicker({
 	                changeYear: true,
 	                changeMonth: true,
 	                dateFormat: 'yy-mm-dd',
@@ -116,7 +116,7 @@
 	                    $(input).prop('readonly', true);
 	                }
 	              });
-	            $('#searchValue2').show().datepicker({
+	            $('#searchValue2').val('').show().datepicker({
 	                changeYear: true,
 	                changeMonth: true,
 	                dateFormat: 'yy-mm-dd',
