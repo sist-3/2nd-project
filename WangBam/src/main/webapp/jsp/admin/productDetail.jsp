@@ -13,15 +13,14 @@
 		</div>
 		<div>
 			<label for="ct_idx">카테고리</label> 
-			<select id="ct_idx"  name="ct_idx" data-label="카테고리">
-				<!--  <option value="1">일반빵</option>-->
-				<!--  <option value="2" <c:if test="${pvo.ct_idx == 2}">selected</c:if>>특수빵</option>-->
-				
-				<c:forEach var="ct" items="${ctvo}">
-					<option value="${ct.ct_idx}">${ct.ct_name} </option>
-				</c:forEach>
-				
-			</select>
+			<div class="address-group">
+				<select id="ct_idx"  name="ct_idx" data-label="카테고리">
+					<c:forEach var="ct" items="${ctvo}">				
+						<option value="${ct.ct_idx}" <c:if test="${ct.ct_idx eq pvo.cvo.ct_idx}">selected </c:if>>${ct.ct_name}</option>
+					</c:forEach>
+				</select>
+					<button type="button" class="admin-btn submit" id="popOpenBtn">수정</button>
+			</div>
 		</div>
 		<div>
 			<label for="pd_cnt">수량</label> <input type="text" id="pd_cnt" name="pd_cnt"
@@ -67,6 +66,45 @@
 <div id="dialog-confirm" title="수정" class="dialog" style="display:none">
 	<p>변경하시겠습니까?</p>
   </div>
+  <div class="popup-container" id="categoryAddPop">
+	<table class="table" id="categoryList">
+		<colgroup>
+			<col>
+			<col width="120">
+		</colgroup>
+		<thead>
+			<tr>
+				<th>카테고리명</th>
+				<th>삭제</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach var="cvo" items="${ctvo}" varStatus="st">
+				<tr>
+					<td class="split-box">
+						<input type="text" value="${cvo.ct_name}" name="ct_name${cvo.ct_idx}" id="ct_name${cvo.ct_idx}">
+						<button type="button" class="admin-btn cancel" onclick="updateCategory('${cvo.ct_idx}')">수정</button>
+					</td>
+					<td>
+						<button type="button" class="admin-btn cancel" onclick="delCategory('${cvo.ct_idx}')">삭제</button>
+					</td>
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
+	<form>
+	    <div>
+			<label for="ct_name">카테고리명</label>
+			<div class="split-box">
+				<input type="text" id="ct_name" name="ct_name">
+		        <button type="button" class="admin-btn submit" id="addCategoryBtn">추가</button>
+			</div>
+		</div>
+    </form>
+	<div class="buttons">
+        <button type="button" class="admin-btn cancel" id="popCloseBtn">닫기</button>
+    </div>
+</div>
 <%@include file="/jsp/common/footer.jsp"%>
 <script>
 function selectImg(input){
@@ -93,7 +131,6 @@ function selectImg(input){
 					alert("삭제 완료!")
 					// 장바구니 추가가 성공하면 장바구니 목록 페이지로 이동합니다.
 					location.href = "admin?type=productList";
-					
 				},
 				error: function () {
 					alert("삭제 실패...");
@@ -119,7 +156,6 @@ function update(){
 			}else {
 				pass = true;
 			}
-			
 		}
 		if(pass){
 			$( "#dialog-confirm" ).dialog({
@@ -140,6 +176,68 @@ function update(){
 		    });
 		}
 	}
+//카테고리 수정
+function updateCategory(ct_idx){
+	const ct_name = $("#ct_name"+ct_idx).val();
+	const param = {
+		"ct_idx" : ct_idx,
+		"ct_name" : ct_name
+	}
+	$.ajax({
+		url:"admin?type=categoryUpdate",
+		type:"GET",
+		data:param,
+	}).done(function(res){
+		$("#categoryList").html($(res).find("#categoryList").html());
+		alert("수정완료되었습니다.");
+	});
+}
+// 카테고리 삭제
+function delCategory(ct_idx){
+	const ctList = $("#categoryList").html();
+	$.ajax({
+		url:"admin?type=categoryDelete",
+		type:"GET",
+		data:{
+			"ct_idx" : ct_idx
+		},
+	}).done(function(res){
+		if(ctList === $(res).find("#categoryList").html())
+			alert("하위 상품이 존재해 삭제가 불가능합니다.")
+		else{
+			$("#categoryList").html($(res).find("#categoryList").html());
+			alert("삭제완료되었습니다.");
+		}
+	})
+}
+$("#popOpenBtn").on("click", function(){
+	$("#categoryAddPop").show();
+})
+$("#popCloseBtn").on("click", function(){
+	$("#categoryAddPop").hide();
+})
+$("#addCategoryBtn").on("click", function(){
+	if($("#ct_name").val().length < 1){
+		alert("카테고리명을 입력하세요");
+		$("#ct_name").focus();
+		return;
+	}else {
+		const ct_name = $("#ct_name").val();
+		const param = {
+			"ct_name" : ct_name
+		}
+		$.ajax({
+			url: "admin?type=categoryAdd",
+			type: "POST",
+			data:param
+		}).done(function(res){
+			$("#category").html($(res).find("#category").html());
+			$("#categoryList").html($(res).find("#categoryList").html());
+			alert("추가 완료되었습니다.");
+			$("#ct_name").val("");
+		})
+	}
+})
 		
 	
 

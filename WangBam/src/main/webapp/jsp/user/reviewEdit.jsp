@@ -28,7 +28,7 @@
             </div>
             <div class="btn_div">
                 <button type="button" class="btn cancel" 
-                onclick="javascript:window.location.href='?type=boardsDetail&bo_idx=${vo.bo_idx }&cPage=${requestScope.cPage}&bo_type=2'">취소</button>
+                onclick="javascript:window.location.href='?type=reviewDetail&bo_idx=${vo.bo_idx }&cPage=${requestScope.cPage}&bo_type=2'">취소</button>
                 <button type="button" class="btn submit" onclick="editSave()">저장</button>
             </div>
         </form>
@@ -74,7 +74,7 @@
 	function sendImage(file) {
         let frm = new FormData();
         frm.append("upload", file);
-        document.form.append("upload", file);
+       // document.form.append("upload", file);
 
         $.ajax({
             url: "?type=saveImage",

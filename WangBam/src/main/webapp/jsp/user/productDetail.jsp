@@ -474,9 +474,6 @@ keyframes bread-animation {to { transform:translate(-50%, -50%)scale(2);
 				</span></a></li>
 		</ul>
 		<div id="tabs-1">
-			<img
-				src="https://shop-phinf.pstatic.net/20230719_143/16897388968237mdHc_JPEG/%EC%A2%85%EB%A5%98.jpg?type=w860"
-				width="100%">
 			<c:if test="${pvo.pd_detail_img eq '' }">
 				<h3>등록된 상품 상세 이미지가 없습니다.</h3>
 			</c:if>

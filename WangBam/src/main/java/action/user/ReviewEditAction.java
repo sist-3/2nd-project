@@ -39,8 +39,8 @@ public class ReviewEditAction implements Action {
 			
 		}else if(enc_type.startsWith("multipart")){
 			ServletContext app = request.getServletContext();
-			
-			String realPath = "C:/2nd-project/WangBam/src/main/webapp/img";
+			//String realPath = "C:/2nd-project/WangBam/src/main/webapp/img";
+			String realPath = app.getRealPath("/img/upload");
 			try {
 				MultipartRequest mr = new MultipartRequest(request, realPath, 1024*1024*5, "utf-8", new DefaultFileRenamePolicy());
 				
@@ -58,7 +58,7 @@ public class ReviewEditAction implements Action {
 				
 				BoardsDAO.update(map);
 				
-				viewPath = "?type=boardsDetail&bo_type=1&bo_idx="+bo_idx2+"&cPage="+cPage2;
+				viewPath = "?type=reviewDetail&bo_type=1&bo_idx="+bo_idx2+"&cPage="+cPage2;
 				
 			}catch(Exception e) {
 				e.printStackTrace();

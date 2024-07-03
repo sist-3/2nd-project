@@ -27,7 +27,7 @@
             	<label for="text">평점 :</label>
 	            <select name="bo_score">
 	            	<c:forEach begin="1" end="10" varStatus="vs">
-       					<option value="${vs.count/2}">${vs.count/2}점</option>
+       					<option value="${vs.count/2}" ${vs.count/2 == '5' ? 'selected' : ''}>${vs.count/2}점</option>
     				</c:forEach>
 	            </select>
             </div>
@@ -81,7 +81,7 @@
 	function sendImage(file) {
         let frm = new FormData();
         frm.append("upload", file);
-        document.form.append("upload", file);
+       // document.form.append("upload", file);
 
         $.ajax({
             url: "Controller?type=saveImage",

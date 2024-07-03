@@ -33,8 +33,8 @@ public class NoticeEditAction implements Action {
 			
 		}else if(enc_type.startsWith("multipart")){
 			ServletContext app = request.getServletContext();
-			
-			String realPath = "C:/2nd-project/WangBam/src/main/webapp/img";
+			//String realPath = "C:/2nd-project/WangBam/src/main/webapp/img";
+			String realPath = app.getRealPath("/img/upload");
 			try {
 				MultipartRequest mr = new MultipartRequest(request, realPath, 1024*1024*5, "utf-8", new DefaultFileRenamePolicy());
 				
@@ -51,7 +51,7 @@ public class NoticeEditAction implements Action {
 				
 				BoardsDAO.update(map);
 				
-				viewPath = "admin?type=boardsDetail&bo_type=0&bo_idx="+bo_idx2;
+				viewPath = "admin?type=noticeDetail&bo_type=0&bo_idx="+bo_idx2;
 				
 			}catch(Exception e) {
 				e.printStackTrace();

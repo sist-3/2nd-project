@@ -38,11 +38,12 @@ public class QuestionWriteAction implements Action {
 		} else if (enc_type.startsWith("multipart")) {
 	
 			try {
-				  //ServletContext app = request.getServletContext();
-				 //String realPath = app.getRealPath("/upload");
+				ServletContext app = request.getServletContext();
+				//String realPath = "C:/2nd-project/WangBam/src/main/webapp/img";
+				String realPath = app.getRealPath("/img/upload");
 
 				MultipartRequest mr = new MultipartRequest(
-						request, "C:/2nd-project/WangBam/src/main/webapp/img", 1024 * 1024 * 5, "utf-8", new DefaultFileRenamePolicy());
+						request, realPath, 1024 * 1024 * 5, "utf-8", new DefaultFileRenamePolicy());
 
 				String bo_title = mr.getParameter("bo_title");
 				String us_idx = mr.getParameter("us_idx");
