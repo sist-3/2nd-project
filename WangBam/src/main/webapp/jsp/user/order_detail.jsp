@@ -6,8 +6,9 @@
         <h2>주문번호: ${ovo.or_idx}</h2>
         <div class="order-btns">
     	<button id="delivery-button">배송현황</button>
+    	
 </div>
-    </div>
+</div>
     <div class="order-status">
         <c:if test="${ovo.or_status_code == 'UNKNOWN'}">
             <span class="status-value">주문완료</span>
@@ -76,7 +77,9 @@
 
 <div class="order-btns">
     <button onclick="location.href='?type=order'">주문목록 돌아가기</button>
+    <c:if test="${ovo.or_status_code == 'UNKNOWN'}">
     <button id="order-cancel-button">주문취소</button>
+    </c:if>
 </div>
 <form id="order-cancel-form" action="/WangBam/" method="post" style="display: none;">
     <input type="hidden" name="or_idx" value="${ovo.or_idx}">
