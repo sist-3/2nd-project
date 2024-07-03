@@ -20,6 +20,7 @@
     justify-content: space-around;
 }
 </style>
+<h1 style="text-align: center;">장바구니</h1>
 <div class="btn_div" style="text-align: end">
 	<button id="delete_Btn" class="btn submit">선택상품삭제</button>
 	<button id="deleteAll_Btn" class="btn cancel">장바구니비우기</button>
@@ -55,7 +56,7 @@
 					<tr class="item">
 						<td><input type="checkbox" class="checkbox"  value="<%= index++ %>" checked/></td>
 						<c:if test="${vo.pvo.pd_thumbnail_img ne ''}">
-							<td><img src="../img/${vo.pvo.pd_thumbnail_img}" width="100"></td>
+							<td><img src="./img/${vo.pvo.pd_thumbnail_img}" width="100"></td>
 						</c:if>
 						<c:if test="${vo.pvo.pd_thumbnail_img eq ''}">
 							<td><img src="https://png.pngtree.com/png-vector/20190820/ourmid/pngtree-no-image-vector-illustration-isolated-png-image_1694547.jpg" width="100"></td>
@@ -87,13 +88,14 @@
 </table>
 
 <div class="summary">
-    <div>장바구니 상품 
-		<img src="https://www.urbanbrush.net/web/wp-content/uploads/edd/2019/04/urbanbrush-20190422000146487286.png" width="30">
-		${fn:length(cvo)} 개
+    <div><h4 style="margin-bottom: 40px;">장바구니 상품</h4>
+		<span><img src="./img/cart.png" width="32" height="32">
+		${fn:length(cvo)} 개</span>
 	</div>
     
-    <div>합계금액 : <span id="totalSum">0</span>
-		<img src="../img/달러.png" width="32">
+    <div><h4 style="margin-bottom: 40px;">합계금액</h4>
+		<img src="./img/dollar.png" width="32" height="32">
+		<span id="totalSum">0</span>
 	</div>
 </div>
 <br />
