@@ -12,9 +12,15 @@
 				placeholder="상품명" name="pd_name" value="${pvo.pd_name}" data-label="상품명">
 		</div>
 		<div>
-			<label for="ct_idx">카테고리</label> <select id="ct_idx"  name="ct_idx" data-label="카테고리">
-				<option value="1">일반빵</option>
-				<option value="2" <c:if test="${pvo.ct_idx == 2}">selected</c:if>>특수빵</option>
+			<label for="ct_idx">카테고리</label> 
+			<select id="ct_idx"  name="ct_idx" data-label="카테고리">
+				<!--  <option value="1">일반빵</option>-->
+				<!--  <option value="2" <c:if test="${pvo.ct_idx == 2}">selected</c:if>>특수빵</option>-->
+				
+				<c:forEach var="ct" items="${ctvo}">
+					<option value="${ct.ct_idx}">${ct.ct_name} </option>
+				</c:forEach>
+				
 			</select>
 		</div>
 		<div>
