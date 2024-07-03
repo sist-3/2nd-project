@@ -8,23 +8,18 @@
 	<div class="form-group">
 		
 		<div>
-			<label for="title">제목</label>
-			<input type="text" name="title"	value="${vo.bo_title }" disabled />
-		</div>
-		<div>
-			<label for="writeDate">작성일</label>
-			<input type="text" name="writeDate"	value="${vo.bo_write_date }" disabled />
-		</div>
-		<div>
-			<label for="writer">작성자</label>
-			<input type="text" name="writer" 
-			value="<c:if test='${vo.uvo.us_nickname != null}'>${vo.uvo.us_nickname}</c:if><c:if test='${vo.uvo.us_nickname == null}'>관리자</c:if>" disabled />
-		</div>
-		<div>
-			<label for="content">내용</label>
-			<%-- <input type="text" name="content" value="${vo.bo_content}" disabled /> --%>
-			<div style="border: 1px solid #ddd; border-radius:8px; background:#fff; padding: 12px;">${vo.bo_content}</div>
-		</div>
+	        <div style="background:#fff; padding: 12px;">
+				<div><h2 style="margin-bottom: 12px;">${vo.bo_title }</h2></div>
+				<div style="color: gray; border-bottom: 1px solid #ddd; padding-bottom: 12px; margin-bottom: 8px;">
+		            <span><c:if test='${vo.uvo.us_nickname != null}'>${vo.uvo.us_nickname}</c:if>
+						<c:if test='${vo.uvo.us_nickname == null}'>관리자</c:if></span>&nbsp;|&nbsp;
+					<span>댓글 : ${vo.c_list.size() }개</span>&nbsp;&nbsp;|&nbsp;
+					<span>조회 : ${vo.bo_hit }회</span>&nbsp;&nbsp;|&nbsp;
+	    	        <span >${vo.bo_write_date }</span>
+				</div>
+	            <p>${vo.bo_content}</p>
+	        </div>
+   		</div>
 		
 	
 		<label for="comment">댓글 [${vo.c_list.size() }]</label>
