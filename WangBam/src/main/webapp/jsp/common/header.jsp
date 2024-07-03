@@ -62,16 +62,22 @@
 						<div class="swiper-wrapper">
 							<!-- Slides -->
 							<div class="swiper-slide">
-								<img src="${pageContext.request.contextPath}/img/03.png"
-									alt="배너">
+								<a href="?type=notice">
+									<img src="${pageContext.request.contextPath}/img/01.png"
+										alt="배너">
+								</a>
 							</div>
 							<div class="swiper-slide">
-								<img src="${pageContext.request.contextPath}/img/02.png"
-									alt="배너">
+								<a href="?type=notice">
+									<img src="${pageContext.request.contextPath}/img/02.png"
+										alt="배너">
+								</a>
 							</div>
 							<div class="swiper-slide">
-								<img src="${pageContext.request.contextPath}/img/01.png"
-									alt="배너">
+								<a href="?type=notice">
+									<img src="${pageContext.request.contextPath}/img/03.png"
+										alt="배너">
+								</a>
 							</div>
 						</div>
 						<!-- If we need navigation buttons -->

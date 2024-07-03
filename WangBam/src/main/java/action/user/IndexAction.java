@@ -24,15 +24,10 @@ public class IndexAction implements Action {
 		BoardsVO[] b_ar = BoardsDAO.find(map);
 		ProductVO[] p_ar = ProductDAO.findproductByMonth();
 		int cnt = ProductDAO.allProduct().length;
-		request.setAttribute("cnt", cnt);
-		if(b_ar != null) {
-			request.setAttribute("b_ar", b_ar);
-		}
-		if(p_ar != null) {
-			request.setAttribute("p_ar", p_ar);
-		}
 		
-
+		request.setAttribute("b_ar", b_ar);
+		request.setAttribute("p_ar", p_ar);
+		request.setAttribute("cnt", cnt);
 		
 		return "/jsp/user/main.jsp";
 	}
