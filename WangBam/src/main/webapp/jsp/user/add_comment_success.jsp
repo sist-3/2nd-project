@@ -12,8 +12,22 @@
 <script>
 	
 	document.addEventListener("DOMContentLoaded", function () {
-	    location.href = "?type=boardsDetail&bo_idx=" +
-	        "${requestScope.bo_idx}" + "&cPage=" + "${requestScope.cPage}" + "&bo_type=" + "${requestScope.bo_type}";
+		switch(${requestScope.bo_type}){
+		case 0:
+			location.href = "?type=noticeDetail&bo_idx=" +
+	        "${requestScope.bo_idx}" + "&cPage=" + "${requestScope.cPage}" + "&bo_type=0"
+			break;
+		case 1:
+			location.href = "?type=questionDetail&bo_idx=" +
+	        "${requestScope.bo_idx}" + "&cPage=" + "${requestScope.cPage}" + "&bo_type=1"
+			break;
+		case 2:
+			location.href = "?type=reviewDetail&bo_idx=" +
+	        "${requestScope.bo_idx}" + "&cPage=" + "${requestScope.cPage}" + "&bo_type=2"
+			break;
+		}
+	    /* location.href = "?type=boardsDetail&bo_idx=" +
+	        "${requestScope.bo_idx}" + "&cPage=" + "${requestScope.cPage}" + "&bo_type=" + "${requestScope.bo_type}"; */
 	});
 	
 </script>	

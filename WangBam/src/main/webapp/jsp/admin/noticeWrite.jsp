@@ -8,7 +8,7 @@
 	<div class="admin">
         <h1>공지사항 작성</h1>
         <form action="admin?type=noticeWrite" method="post" class="form-group" enctype="multipart/form-data" name=form>
-        	<input type="hidden" name="us_idx" value="${sessionScope.us_idx }"> 
+        	<input type="hidden" name="us_idx" value="${sessionScope.user.us_idx }"> 
         	<input type="hidden" name="pd_idx" value="1"> 
             <div>
                 <label for="text">제목 :</label>
@@ -16,7 +16,7 @@
             </div>
             <div>
                 <label for="text">작성자 :</label>
-                <input type="text" name="writer" value="${sessionScope.us_name }" disabled/>
+                <input type="text" name="writer" value="${sessionScope.user.us_name }" disabled/>
             </div>
             <div>
                 <label for="text">내용 :</label>
@@ -75,7 +75,6 @@ function saveBorads() {
 	function sendImage(file) {
         let frm = new FormData();
         frm.append("upload", file);
-        document.form.append("upload", file);
 
         $.ajax({
             url: "admin?type=saveImage",

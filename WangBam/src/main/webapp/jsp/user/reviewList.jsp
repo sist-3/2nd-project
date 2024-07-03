@@ -140,7 +140,7 @@
 	        	$('#searchValue3').hide().val('');
 	        	$('#searchCategory').hide();
 	    		$('#searchProduct').hide();
-	            $('#searchValue').show().datepicker({
+	            $('#searchValue').val('').show().datepicker({
 	                changeYear: true,
 	                changeMonth: true,
 	                dateFormat: 'yy-mm-dd',
@@ -170,7 +170,7 @@
 	        	$('#searchCategory').show();
 	        	$('#searchProduct').show();
 	        }else {
-	        	$('#searchValue').show().prop('readonly', false).attr('type', 'text');
+	        	$('#searchValue').show().prop('readonly', false).attr('type', 'text').val('');
 	        	$('#searchProduct').show().prop('readonly', false).attr('type', 'text');
 	            $('#searchValue2').hide().val('');
 	            $('#searchValue3').hide().val('');

@@ -138,7 +138,7 @@ $(document).ready(function() {
         	$('#searchValue3').hide().val('');
         	$('#searchCategory').hide();
     		$('#searchProduct').hide();
-            $('#searchValue').show().datepicker({
+            $('#searchValue').val('').show().datepicker({
                 changeYear: true,
                 changeMonth: true,
                 dateFormat: 'yy-mm-dd',
@@ -146,7 +146,7 @@ $(document).ready(function() {
                     $(input).prop('readonly', true);
                 }
               });
-            $('#searchValue2').show().datepicker({
+            $('#searchValue2').val('').show().datepicker({
                 changeYear: true,
                 changeMonth: true,
                 dateFormat: 'yy-mm-dd',

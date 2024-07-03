@@ -35,7 +35,7 @@ public class NoticeWriteAction implements Action {
 		} else if (enc_type.startsWith("multipart")) {
 	
 			try {
-				ServletContext app = request.getServletContext();
+				//ServletContext app = request.getServletContext();
 				String realPath = "C:/2nd-project/WangBam/src/main/webapp/img";
 
 				MultipartRequest mr = new MultipartRequest(
