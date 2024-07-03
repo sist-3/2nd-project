@@ -114,4 +114,10 @@
 		limit 6;
 	</select>
 	
+	<!-- 카테고리로 상품들 체크 -->
+	<select id="findproductByCtidx" resultType="int" parameterType="String">
+		SELECT COUNT(*) FROM product_t
+		WHERE ct_idx = #{ct_idx}
+	</select>
+	
 </mapper>

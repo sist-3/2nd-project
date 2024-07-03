@@ -67,4 +67,19 @@ public class CategoryDAO {
 		
 		return cnt;
 	}
+	
+	// 카테고리 삭제
+	public static int deleteCategory(String ct_idx) {
+		SqlSession ss = FactoryService.getFactory().openSession();
+		
+		int cnt = ss.update("category.deleteCategory", ct_idx);
+		if(cnt > 0) 
+			ss.commit();
+		else
+			ss.rollback();
+		
+		ss.close();
+		
+		return cnt;
+	}
 }

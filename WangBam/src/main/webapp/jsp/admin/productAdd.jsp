@@ -17,7 +17,7 @@
 			        		<option value="${cvo.ct_idx}">${cvo.ct_name}</option>
 			        	</c:forEach>
 			        </select>
-					<button type="button" class="admin-btn submit" id="popOpenBtn">추가</button>
+					<button type="button" class="admin-btn submit" id="popOpenBtn">수정</button>
 				</div>
 			</div>
 			<div>
@@ -98,6 +98,7 @@
 
 <%@include file="/jsp/common/footer.jsp"%>
 <script>
+	// 이미지 선택시 하단에 파일명 보이게
 	function selectImg(input){
 		const fileName = $(input).val().slice($(input).val().lastIndexOf('\\')+1);
 		const elem = "<p>"+fileName+"</p>"
@@ -107,7 +108,7 @@
 			$(input).parent().append(elem);
 		}
 	}
-
+	// 카테고리 추가
 	function add(){
 		const addForm = document.addForm;
 		const elem = addForm.elements;
@@ -146,13 +147,13 @@
 		    });
 		}
 	}
+	// 카테고리 수정
 	function updateCategory(ct_idx){
 		const ct_name = $("#ct_name"+ct_idx).val();
 		const param = {
 			"ct_idx" : ct_idx,
 			"ct_name" : ct_name
 		}
-		console.log(ct_idx, ct_name)
 		$.ajax({
 			url:"admin?type=categoryUpdate",
 			type:"GET",
@@ -161,6 +162,24 @@
 			$("#categoryList").html($(res).find("#categoryList").html());
 			alert("수정완료되었습니다.");
 		});
+	}
+	// 카테고리 삭제
+	function delCategory(ct_idx){
+		const ctList = $("#categoryList").html();
+		$.ajax({
+			url:"admin?type=categoryDelete",
+			type:"GET",
+			data:{
+				"ct_idx" : ct_idx
+			},
+		}).done(function(res){
+			if(ctList === $(res).find("#categoryList").html())
+				alert("하위 상품이 존재해 삭제가 불가능합니다.")
+			else{
+				$("#categoryList").html($(res).find("#categoryList").html());
+				alert("삭제완료되었습니다.");
+			}
+		})
 	}
 	$("#popOpenBtn").on("click", function(){
 		$("#categoryAddPop").show();

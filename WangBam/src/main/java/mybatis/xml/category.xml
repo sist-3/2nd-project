@@ -45,4 +45,8 @@
 		SET ct_name = #{ct_name}
 		WHERE ct_idx = #{ct_idx}
 	</update>
+	
+	<delete id="deleteCategory" parameterType="String">
+		DELETE FROM category_t WHERE ct_idx = #{ct_idx}
+	</delete>
 </mapper>
