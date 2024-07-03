@@ -113,7 +113,7 @@
                     }
                 }).open();
             }); 
-            $('.btn-submit').on('click', function(){
+            $('.submit').on('click', function(){
                 //유효성검사
                 if($('#us_nickname').val() === ''){
                     alert('유효하지않은 닉네임입니다.');
