@@ -35,30 +35,39 @@
 			<fmt:parseDate value="${nowD }" var="nowPlanDate" pattern="yyyy-MM-dd"/>
 			<%--현재 날짜를 일수로 변경--%>
 			<fmt:parseNumber value="${nowPlanDate.time / (1000*60*60*24)}" integerOnly="true" var="nowDate"></fmt:parseNumber>
-			<c:forEach var="notice" items="${requestScope.b_ar}" varStatus="idx">
-			<%--기준이 되는 날짜 준비--%>
-				<fmt:parseDate value="${notice.bo_write_date }" var="bWriteDate" pattern="yyyy-MM-dd"/>
-				<%--기준이 되는 날짜를 일수로 변경--%>
-				<fmt:parseNumber value="${bWriteDate.time / (1000*60*60*24)}" integerOnly="true" var="writeDate"></fmt:parseNumber>
-				<c:choose>
-					<c:when test="${nowDate < writeDate + 30}">
-						<li class="new">
-							<a href="?type=noticeDetail&bo_type=0&bo_idx=${notice.bo_idx }">
-								<span><c:out value="${notice.bo_title}" /></span> 
-								<span class="sub-date"><c:out value="${notice.bo_write_date}" /></span>
-							</a>
-						</li>
-					</c:when>
-					<c:when test="${nowDate > writeDate + 30}">
-						<li>
-							<a href="?type=noticeDetail&bo_type=0&bo_idx=${notice.bo_idx }">
-								<span><c:out value="${notice.bo_title}" /></span> 
-								<span class="sub-date"><c:out value="${notice.bo_write_date}" /></span>
-							</a>
-						</li>
-					</c:when>
-				</c:choose>
-			</c:forEach>
+			<c:choose>
+				<c:when test="${fn:length(requestScope.b_ar) > 0}">
+					<c:forEach var="notice" items="${requestScope.b_ar}" varStatus="idx">
+					<%--기준이 되는 날짜 준비--%>
+						<fmt:parseDate value="${notice.bo_write_date }" var="bWriteDate" pattern="yyyy-MM-dd"/>
+						<%--기준이 되는 날짜를 일수로 변경--%>
+						<fmt:parseNumber value="${bWriteDate.time / (1000*60*60*24)}" integerOnly="true" var="writeDate"></fmt:parseNumber>
+						<c:choose>
+							<c:when test="${nowDate < writeDate + 30}">
+								<li class="new">
+									<a href="?type=noticeDetail&bo_type=0&bo_idx=${notice.bo_idx }">
+										<span><c:out value="${notice.bo_title}" /></span> 
+										<span class="sub-date"><c:out value="${notice.bo_write_date}" /></span>
+									</a>
+								</li>
+							</c:when>
+							<c:when test="${nowDate > writeDate + 30}">
+								<li>
+									<a href="?type=noticeDetail&bo_type=0&bo_idx=${notice.bo_idx }">
+										<span><c:out value="${notice.bo_title}" /></span> 
+										<span class="sub-date"><c:out value="${notice.bo_write_date}" /></span>
+									</a>
+								</li>
+							</c:when>
+						</c:choose>
+					</c:forEach>
+				</c:when>
+				<c:when test="${fn:length(requestScope.b_ar) < 1}">
+					<li>
+						<span>공지사항이 없습니다.</span> 
+					</li>
+				</c:when>
+			</c:choose>
 		</ul>
 	</div>
 </div>
