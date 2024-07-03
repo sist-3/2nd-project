@@ -110,7 +110,6 @@
 				</a>
 				</div>
 				<p>[왕밤빵 베이커리]${product.pd_name}</p>
-				<p><fmt:formatNumber value="${product.pd_price}" pattern="#,###" />원</p>
 			</div>
 		</c:forEach>
 	</div>
