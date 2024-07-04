@@ -6,8 +6,8 @@
 <%@include file="/jsp/common/adminHeader.jsp"%>
 
 	<div class="admin">
-        <h1>공지사항 작성</h1>
         <form action="admin?type=noticeWrite" method="post" class="form-group" enctype="multipart/form-data" name=form>
+        <h1>공지사항 작성</h1>
         	<input type="hidden" name="us_idx" value="${sessionScope.user.us_idx }"> 
         	<input type="hidden" name="pd_idx" value="1"> 
             <div>
