@@ -12,8 +12,9 @@ body:has(.admin) {
 }
 .admin-main {
 	padding: 40px;
-	min-height: calc(100vh - 144px);
-	background-color: #fafafc;
+    min-height: calc(100vh - 144px);
+    background-color: #fafafc;
+    box-sizing: border-box;
 }
 .admin-main > .content > section {
     border: 1px solid #e2e2e2;
