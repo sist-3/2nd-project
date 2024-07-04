@@ -56,7 +56,7 @@ public class OrderDetailDAO {
     public static OrderDetailVO findByIdxWithProduct(String or_idx) {
         SqlSession ss = FactoryService.getFactory().openSession();
         OrderDetailVO vo  = ss.selectOne("order_detail.findByIdxWithProduct", or_idx);
-        
+        ss.close();
         return vo;
     }
 }
