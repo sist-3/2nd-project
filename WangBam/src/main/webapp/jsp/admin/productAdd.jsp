@@ -21,16 +21,16 @@
 				</div>
 			</div>
 			<div>
-				<label for="cnt">수량</label> <input type="number" id="cnt"
-					 name="pd_cnt" placeholder="수량" data-label="수량">
+				<label for="cnt">수량</label> <input type="text" id="cnt"
+					 name="pd_cnt" placeholder="수량" data-label="수량" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/\d(?=(?:\d{3})+$)/g, '$&,')">
 			</div>
 			<div>
-				<label for="sale">할인율</label> <input type="number" id="sale"
-					 name="pd_sale" placeholder="할인율" data-label="할인율">
+				<label for="sale">할인율</label> <input type="text" id="sale"
+					 name="pd_sale" placeholder="할인율" data-label="할인율" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/\d(?=(?:\d{3})+$)/g, '$&,')" maxlength="3">
 			</div>
 			<div>
-				<label for="price">가격</label> <input type="number" id="price" name="pd_price" 
-					placeholder="가격" data-label="가격">
+				<label for="price">가격</label> <input type="text" id="price" name="pd_price" 
+					placeholder="가격" data-label="가격" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/\d(?=(?:\d{3})+$)/g, '$&,')">
 			</div>
 			<div>
 				<label for="img">썸네일이미지</label>
