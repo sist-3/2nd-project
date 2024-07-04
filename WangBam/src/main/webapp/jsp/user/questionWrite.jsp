@@ -7,8 +7,8 @@
 
 
 	<div class="user">
-        <h1>문의사항 작성</h1>
         <form action="?type=questionWrite" method="post" class="form-group" enctype="multipart/form-data" name=form>
+        	<h1>문의사항 작성</h1>
         	<input type="hidden" name="us_idx" value="${sessionScope.user.us_idx }"> 
         	<input type="hidden" id="pd_idx" name="pd_idx" value=""> 
             <div>

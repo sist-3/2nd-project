@@ -193,6 +193,7 @@
 				edit_btn.style.display = "none";
 				content_input.disabled = true;
 				$("#commentList").html($(res).find("#commentList").html());
+				location.href=`admin?type=noticeDetail&bo_idx=${vo.bo_idx }&bo_type=${vo.bo_type}&cPage=${requestScope.cPage}`;
 			});
     	}
     };
