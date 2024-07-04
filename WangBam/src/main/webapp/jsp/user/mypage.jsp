@@ -35,8 +35,8 @@
                     <select id="phone-prefix">
                         <option value="010">010</option>
                     </select>
-                    <input type="text" id="phone-middle" value="${fn:substring(sessionScope.user.us_tel, 3, 7)}" placeholder="1588">
-                    <input type="text" id="phone-last" value="${fn:substring(sessionScope.user.us_tel, 7, 11)}" placeholder="2222">
+                    <input type="text" id="phone-middle" value="${fn:substring(sessionScope.user.us_tel, 3, 7)}" placeholder="1588" maxlength="4">
+                    <input type="text" id="phone-last" value="${fn:substring(sessionScope.user.us_tel, 7, 11)}" placeholder="2222" maxlength="4">
                 </div>
                 <input type="hidden" id="us_tel" value="${sessionScope.user.us_tel}">
             </div>
@@ -68,6 +68,18 @@
         <c:if test="${requestScope.msg != null}">
             alert('${requestScope.msg}');
         </c:if>
+        $('input#phone-middle').on('propertychange change keyup paste input', function(){
+            if($(this).val().match(/[^0-9]/)){
+                $(this).val($(this).val().replace(/[^0-9]/g, ''));
+                return;
+            }
+        });
+        $('#phone-last').on('propertychange change keyup paste input', function(){
+            if($(this).val().match(/[^0-9]/)){
+                $(this).val($(this).val().replace(/[^0-9]/g, ''));
+                return;
+            }
+        });
         $('#address-btn').on('click', function(){
             //에러메세지 초기화
             $('#address-check').css('display', 'none');
