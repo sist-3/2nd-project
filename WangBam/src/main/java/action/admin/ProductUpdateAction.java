@@ -65,7 +65,6 @@ public class ProductUpdateAction implements Action {
                 if (pd_detail_img != null && !pd_detail_img.isEmpty()) {
                     map.put("pd_detail_img", pd_detail_img);
                 }
-                System.out.println(map);
 
                 // 데이터베이스에 상품 정보 업데이트
                 int cnt = ProductDAO.updateProduct(map);
