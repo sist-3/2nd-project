@@ -10,6 +10,7 @@
 	background: initial !important;
 	font-weight: initial !important;
 	color: initial !important;
+	
 	/*탭버튼 외곽선 */
 }
 
@@ -114,6 +115,7 @@ keyframes bread-animation {to { transform:translate(-50%, -50%)scale(2);
 	padding: 15px 0;
 	border-top: 1px solid #eee;
 	vertical-align: middle;
+	width: 450px;
 }
 
 #quantity {
@@ -123,6 +125,7 @@ keyframes bread-animation {to { transform:translate(-50%, -50%)scale(2);
 	padding: 0 2px 0 5px;
 	border: 1px solid #ccc;
 	border-radius: 3px 0 0 3px;
+	width: 50px;
 }
 
 #home {
@@ -377,7 +380,7 @@ keyframes bread-animation {to { transform:translate(-50%, -50%)scale(2);
 <div class="top">
 	<div class="icons">
 
-		<a href="?type=index" id="home"></a> > <a href="?type=item">카테고리</a>
+		<a href="?type=index" id="home"></a> > <a href="?type=productList">카테고리</a>
 	</div>
 </div>
 <div class="product-page">
@@ -403,10 +406,11 @@ keyframes bread-animation {to { transform:translate(-50%, -50%)scale(2);
 			<tr>
 				<th>판매가</th>
 				<td><c:if test="${pvo.pd_sale != null}">
-						<p class="remove_price">${pvo.pd_price}원</p>&nbsp;
+						<p class="remove_price" id="price">${pvo.pd_price}원</p>&nbsp;
 						<p class="price">${pvo.pd_sale_price}원</p>
-					</c:if> <c:if test="${pvo.pd_sale == null}">
-					${pvo.pd_price}원
+					</c:if>
+					 <c:if test="${pvo.pd_sale == null}">
+						<p class="price" id="price">${pvo.pd_price}원</p>
 				</c:if></td>
 
 			</tr>
@@ -424,12 +428,12 @@ keyframes bread-animation {to { transform:translate(-50%, -50%)scale(2);
 			</tr>
 			<tr>
 				<th>배송비</th>
-				<td>4,000원 (50,000원 이상 구매 시 무료)</td>
+				<td>4,000원</td>
 			</tr>
 			<tr>
 				<th>수량</th>
 				<td><input type="number" id="quantity" name="quantity"
-					value="1" min="1"></td>
+					value="1" min="1" max="${pvo.pd_cnt}" onclick="cntLimit(this)"></td>
 			</tr>
 			<tr>
 				<th>총 상품금액</th>
@@ -473,37 +477,37 @@ keyframes bread-animation {to { transform:translate(-50%, -50%)scale(2);
 							value="${questionCount}" />)
 				</span></a></li>
 		</ul>
-		<div id="tabs-1">
+		<div id="tabs-1" style="text-align: center;">
 			<c:if test="${pvo.pd_detail_img eq '' }">
 				<h3>등록된 상품 상세 이미지가 없습니다.</h3>
 			</c:if>
 			<c:if test="${pvo.pd_detail_img != null}">
-				<img
+				<img 
 					src="${pageContext.request.contextPath}/img/${pvo.pd_detail_img}"
-					width="100%" alt="상세 이미지" />
+					width="80%" alt="상세 이미지" 
+					/>
 			</c:if>
 		</div>
 		<div id="tabs-2">
-			<h4>상품결제정보</h4>
-			<p>고액결제의 경우 안전을 위해 카드사에서 확인전화를 드릴 수도 있습니다. 확인과정에서 도난 카드의 사용이나 타인
-				명의의 주문등 정상적인 주문이 아니라고 판단될 경우 임의로 주문을 보류 또는 취소할 수 있습니다.</p>
-			<p>
-				무통장 입금은 상품 구매 대금은 PC뱅킹, 인터넷뱅킹, 텔레뱅킹 혹은 가까운 은행에서 직접 입금하시면 됩니다. </br> 주문시
+			<h1 style="margin-top: 10px;">상품결제정보</h1>
+			<div>
+			고액결제의 경우 안전을 위해 카드사에서 확인전화를 드릴 수도 있습니다. 확인과정에서 도난 카드의 사용이나 타인
+				명의의 주문등 정상적인 주문이 아니라고 판단될 경우 임의로 주문을 보류 또는 취소할 수 있습니다.
+				무통장 입금은 상품 구매 대금은 PC뱅킹, 인터넷뱅킹, 텔레뱅킹 혹은 가까운 은행에서 직접 입금하시면 됩니다.  주문시
 				입력한 입금자명과 실제입금자의 성명이 반드시 일치하여야 하며, 7일 이내로 입금을 하셔야 하며 입금되지 않은 주문은
 				자동취소 됩니다.
-			</p>
-			</br>
-			<h4>배송정보</h4>
-			<p>
+			</div>
+			<h1 style="margin-top: 30px;">배송정보</h1>
+			<div>
 				배송 방법 : 택배</br> 배송 지역 : 전국지역</br> 배송 비용 : 4,000원 ~ 50,000원</br> 배송 기간 : 3일 ~ 7일</br> 배송
 				안내 : - 산간벽지나 도서지방은 별도의 추가금액을 지불하셔야 하는 경우가 있습니다.</br> 고객님께서 주문하신 상품은 입금
 				확인후 배송해 드립니다. 다만, 상품종류에 따라서 상품의 배송이 다소 지연될 수 있습니다.
-			</p>
-			</br>
+			</div>
+			
 		</div>
 		<div id="tabs-3">
-			<h4>교환 및 반품정보</h4>
-			<p>
+			<h1 style="margin-top: 10px;">교환 및 반품정보</h1>
+			<div>
 				교환 및 반품 주소 -쌍용교육센터</br> 교환 및 반품이 가능한 경우 - 계약내용에 관한 서면을 받은 날부터 7일. 단, 그
 				서면을 받은 때보다 재화등의 공급이 늦게 이루어진 경우에는 재화등을 공급받거나 재화등의 공급이 시작된 날부터 7일 이내 -
 				공급받으신 상품 및 용역의 내용이 표시.광고 내용과 다르거나 계약내용과 다르게 이행된 때에는 당해 재화 등을 공급받은 날
@@ -515,7 +519,7 @@ keyframes bread-animation {to { transform:translate(-50%, -50%)scale(2);
 				디지털 콘텐츠의 제공이 개시된 경우, (다만, 가분적 용역 또는 가분적 디지털콘텐츠로 구성된 계약의 경우 제공이 개시되지
 				아니한 부분은 청약철회를 할 수 있습니다.) ※ 고객님의 마음이 바뀌어 교환, 반품을 하실 경우 상품반송 비용은 고객님께서
 				부담하셔야 합니다. (색상 교환, 사이즈 교환 등 포함)
-			</p>
+			</div>
 		</div>
 
 		<div id="tabs-4">
@@ -526,7 +530,7 @@ keyframes bread-animation {to { transform:translate(-50%, -50%)scale(2);
 				</c:if>
 			</c:forEach>
 			<div class="review-header">
-				<h2>상품후기</h2>
+				<h1 style="margin-top: 10px;">상품후기</h1>
 				<p>동일한 상품에 대해 작성된 상품평으로, 판매자는 다를 수 있습니다.</p>
 
 			</div>
@@ -582,7 +586,7 @@ keyframes bread-animation {to { transform:translate(-50%, -50%)scale(2);
 					</c:forEach>
 					<br>
 					<p style="margin-top: 20px">
-						<c:out value="${maxHitTitle}" />
+						<a href=""><c:out value="${maxHitTitle}" /></a>
 					</p>
 				</div>
 			</div>
@@ -615,11 +619,12 @@ keyframes bread-animation {to { transform:translate(-50%, -50%)scale(2);
 								<h5>${board.bo_content}</h5>
 								<div class="review-content">${board.bo_content}</div>
 								<div class="review-images">
-									<c:if test="${board.bo_img != null}">
+									<c:if test="${board.bo_img != null && board.bo_img ne ''}">
 										<img
 											src="${pageContext.request.contextPath}/img/${board.bo_img}"
 											width="100" />
 									</c:if>
+									
 								</div>
 							</a>
 						</div>
@@ -634,10 +639,10 @@ keyframes bread-animation {to { transform:translate(-50%, -50%)scale(2);
 			</div>
 		</div>
 		<div id="tabs-5">
-			<h2 class="clearFix">
+			<h1 class="clearFix" style="margin-top: 10px;">
 				상품문의
 				<button onclick="questionCheck()" class="btn-inquiry">문의하기</button>
-			</h2>
+			</h1>
 			<div class="inquiry-info">
 				<p>구매한 상품의 취소/반품은 마이쿠팡 구매내역에서 신청 가능합니다.</p>
 				<p>상품문의 및 후기게시판을 통해 취소나 환불, 반품 등은 처리되지 않습니다.</p>
@@ -695,9 +700,17 @@ keyframes bread-animation {to { transform:translate(-50%, -50%)scale(2);
 	<p></p>
 </div>
 <%@include file="/jsp/common/footer.jsp"%>
-<script>
+<script> 
+			//상품재고 수량 제한
+			function cntLimit(input){
+				let max = parseInt(input.max);
+				let value = parseInt(input.value);
+				if(value > max){
+					alert("재고보다 많은 수량은 구매할 수 없습니다.");
+					input.value = max;
+				}
+			}
 			//애니메이션
-			
 			$(function() {
 				$("#tabs").tabs();
 
@@ -775,7 +788,7 @@ keyframes bread-animation {to { transform:translate(-50%, -50%)scale(2);
 			}
 			
 			function updateTotalPrice() {
-				let price = ${ pvo.pd_price };
+				let price = parseInt(document.getElementById("price").innerText);
 				let quantity = document.getElementById("quantity").value; // 수량 입력 필드에서 값을 가져옵니다.
 				let sale = document.getElementById("sale");
 				let discount = 0;
