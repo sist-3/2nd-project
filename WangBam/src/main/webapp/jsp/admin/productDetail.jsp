@@ -221,6 +221,7 @@ $("#popOpenBtn").on("click", function(){
 })
 $("#popCloseBtn").on("click", function(){
 	$("#categoryAddPop").hide();
+	location.reload(true);
 })
 $("#addCategoryBtn").on("click", function(){
 	if($("#ct_name").val().length < 1){
