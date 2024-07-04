@@ -65,32 +65,13 @@
 	overflow: initial !important;
 	position: initial !important;
 }
-/* 탭을 누르면 터지는 효과 */
-.bread {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	width: 100px;
-	height: 100px;
-	background: url('./upload/wangbam.png') no-repeat center center;
-	/* 빵 이미지 URL */
-	background-size: contain;
-	transform: translate(-50%, -50%) scale(0);
-	pointer-events: none;
-	animation: bread-animation 0.6s ease-out forwards;
-}
 
-@
-keyframes bread-animation {to { transform:translate(-50%, -50%)scale(2);
-	opacity: 0;
-}
-
-}
 /*배경*/
 .main {
+	width: 70%;
+	padding: 0 20px;
+	margin: 0 auto;
 	background-color: white;
-	opacity: 0.9;
-	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
 }
 /*구매*/
 .product-details {
@@ -114,6 +95,7 @@ keyframes bread-animation {to { transform:translate(-50%, -50%)scale(2);
 	padding: 15px 0;
 	border-top: 1px solid #eee;
 	vertical-align: middle;
+	width: 450px;
 }
 
 #quantity {
@@ -123,6 +105,7 @@ keyframes bread-animation {to { transform:translate(-50%, -50%)scale(2);
 	padding: 0 2px 0 5px;
 	border: 1px solid #ccc;
 	border-radius: 3px 0 0 3px;
+	width: 50px;
 }
 
 #home {
@@ -279,24 +262,16 @@ keyframes bread-animation {to { transform:translate(-50%, -50%)scale(2);
 	margin: 5px 0;
 }
 
-.btn-inquiry {
+.btn{
+	float: right !important;
 	display: inline-block;
-	box-shadow: rgb(221, 221, 221) 0px -1px inset;
-	line-height: 1.8em;
-	vertical-align: middle;
-	color: rgb(52, 106, 255);
-	background-color: rgb(255, 255, 255);
-	font-family: "apple sd gothic neo", "malgun gothic", "맑은 고딕",
-		nanumgothic, 나눔고딕, dotum, 돋움, sans-serif;
-	font-size: 12px;
-	font-weight: bold;
-	float: right;
-	padding: 0px 6px;
-	border-width: 1px;
-	border-style: solid;
-	border-color: rgb(52, 106, 255);
-	border-image: initial;
-	border-radius: 2px;
+    float: right;
+    width: 130px;
+    height: 50px;
+    font-size: 20px !important;
+    white-space: nowrap;
+    font-weight: bold;
+    padding: 8px !important;
 }
 
 .question {
@@ -371,13 +346,24 @@ keyframes bread-animation {to { transform:translate(-50%, -50%)scale(2);
 	transform: translate(-50%, -50%) !important;
 	margin: 0 !important;
 }
+
+#tabs-2, #tabs-3, #tabs-5{
+	padding: 30px;
+    line-height: 25px;
+    background-color: #f9f9f3db;
+    margin-top: 20px;
+}
+
+.tab-detail{
+	padding: 5px 20px;
+}
 </style>
 
 <%@include file="/jsp/common/header.jsp"%>
 <div class="top">
 	<div class="icons">
 
-		<a href="?type=index" id="home"></a> > <a href="?type=item">카테고리</a>
+		<a href="?type=index" id="home"></a> > <a href="?type=productList">카테고리</a>
 	</div>
 </div>
 <div class="product-page">
@@ -403,10 +389,11 @@ keyframes bread-animation {to { transform:translate(-50%, -50%)scale(2);
 			<tr>
 				<th>판매가</th>
 				<td><c:if test="${pvo.pd_sale != null}">
-						<p class="remove_price">${pvo.pd_price}원</p>&nbsp;
+						<p class="remove_price" id="price">${pvo.pd_price}원</p>&nbsp;
 						<p class="price">${pvo.pd_sale_price}원</p>
-					</c:if> <c:if test="${pvo.pd_sale == null}">
-					${pvo.pd_price}원
+					</c:if>
+					 <c:if test="${pvo.pd_sale == null}">
+						<p class="price" id="price">${pvo.pd_price}원</p>
 				</c:if></td>
 
 			</tr>
@@ -424,12 +411,12 @@ keyframes bread-animation {to { transform:translate(-50%, -50%)scale(2);
 			</tr>
 			<tr>
 				<th>배송비</th>
-				<td>4,000원 (50,000원 이상 구매 시 무료)</td>
+				<td>4,000원</td>
 			</tr>
 			<tr>
 				<th>수량</th>
 				<td><input type="number" id="quantity" name="quantity"
-					value="1" min="1"></td>
+					value="1" min="1" max="${pvo.pd_cnt}" oninput="cntLimit(this)"></td>
 			</tr>
 			<tr>
 				<th>총 상품금액</th>
@@ -473,37 +460,37 @@ keyframes bread-animation {to { transform:translate(-50%, -50%)scale(2);
 							value="${questionCount}" />)
 				</span></a></li>
 		</ul>
-		<div id="tabs-1">
+		<div id="tabs-1" style="text-align: center;">
 			<c:if test="${pvo.pd_detail_img eq '' }">
 				<h3>등록된 상품 상세 이미지가 없습니다.</h3>
 			</c:if>
 			<c:if test="${pvo.pd_detail_img != null}">
-				<img
+				<img 
 					src="${pageContext.request.contextPath}/img/${pvo.pd_detail_img}"
-					width="100%" alt="상세 이미지" />
+					width="80%" alt="상세 이미지" 
+					/>
 			</c:if>
 		</div>
 		<div id="tabs-2">
-			<h4>상품결제정보</h4>
-			<p>고액결제의 경우 안전을 위해 카드사에서 확인전화를 드릴 수도 있습니다. 확인과정에서 도난 카드의 사용이나 타인
-				명의의 주문등 정상적인 주문이 아니라고 판단될 경우 임의로 주문을 보류 또는 취소할 수 있습니다.</p>
-			<p>
-				무통장 입금은 상품 구매 대금은 PC뱅킹, 인터넷뱅킹, 텔레뱅킹 혹은 가까운 은행에서 직접 입금하시면 됩니다. </br> 주문시
+			<h1 style="margin-top: 10px;">상품결제정보</h1>
+			<div class="tab-detail">
+			고액결제의 경우 안전을 위해 카드사에서 확인전화를 드릴 수도 있습니다. 확인과정에서 도난 카드의 사용이나 타인
+				명의의 주문등 정상적인 주문이 아니라고 판단될 경우 임의로 주문을 보류 또는 취소할 수 있습니다.
+				무통장 입금은 상품 구매 대금은 PC뱅킹, 인터넷뱅킹, 텔레뱅킹 혹은 가까운 은행에서 직접 입금하시면 됩니다.  주문시
 				입력한 입금자명과 실제입금자의 성명이 반드시 일치하여야 하며, 7일 이내로 입금을 하셔야 하며 입금되지 않은 주문은
 				자동취소 됩니다.
-			</p>
-			</br>
-			<h4>배송정보</h4>
-			<p>
+			</div>
+			<h1 style="margin-top: 30px;">배송정보</h1>
+			<div class="tab-detail">
 				배송 방법 : 택배</br> 배송 지역 : 전국지역</br> 배송 비용 : 4,000원 ~ 50,000원</br> 배송 기간 : 3일 ~ 7일</br> 배송
 				안내 : - 산간벽지나 도서지방은 별도의 추가금액을 지불하셔야 하는 경우가 있습니다.</br> 고객님께서 주문하신 상품은 입금
 				확인후 배송해 드립니다. 다만, 상품종류에 따라서 상품의 배송이 다소 지연될 수 있습니다.
-			</p>
-			</br>
+			</div>
+			
 		</div>
 		<div id="tabs-3">
-			<h4>교환 및 반품정보</h4>
-			<p>
+			<h1 style="margin-top: 10px;">교환 및 반품정보</h1>
+			<div class="tab-detail">
 				교환 및 반품 주소 -쌍용교육센터</br> 교환 및 반품이 가능한 경우 - 계약내용에 관한 서면을 받은 날부터 7일. 단, 그
 				서면을 받은 때보다 재화등의 공급이 늦게 이루어진 경우에는 재화등을 공급받거나 재화등의 공급이 시작된 날부터 7일 이내 -
 				공급받으신 상품 및 용역의 내용이 표시.광고 내용과 다르거나 계약내용과 다르게 이행된 때에는 당해 재화 등을 공급받은 날
@@ -515,7 +502,7 @@ keyframes bread-animation {to { transform:translate(-50%, -50%)scale(2);
 				디지털 콘텐츠의 제공이 개시된 경우, (다만, 가분적 용역 또는 가분적 디지털콘텐츠로 구성된 계약의 경우 제공이 개시되지
 				아니한 부분은 청약철회를 할 수 있습니다.) ※ 고객님의 마음이 바뀌어 교환, 반품을 하실 경우 상품반송 비용은 고객님께서
 				부담하셔야 합니다. (색상 교환, 사이즈 교환 등 포함)
-			</p>
+			</div>
 		</div>
 
 		<div id="tabs-4">
@@ -526,7 +513,7 @@ keyframes bread-animation {to { transform:translate(-50%, -50%)scale(2);
 				</c:if>
 			</c:forEach>
 			<div class="review-header">
-				<h2>상품후기</h2>
+				<h1 style="margin-top: 10px;">상품후기</h1>
 				<p>동일한 상품에 대해 작성된 상품평으로, 판매자는 다를 수 있습니다.</p>
 
 			</div>
@@ -577,12 +564,13 @@ keyframes bread-animation {to { transform:translate(-50%, -50%)scale(2);
 							<c:if test="${board.bo_hit > maxHit}">
 								<c:set var="maxHit" value="${board.bo_hit}" />
 								<c:set var="maxHitTitle" value="${board.bo_title}" />
+								<c:set var="bestreview" value="${board.bo_idx}" />
 							</c:if>
 						</c:if>
 					</c:forEach>
 					<br>
 					<p style="margin-top: 20px">
-						<c:out value="${maxHitTitle}" />
+						<a href="?type=boardsDetail&bo_idx=${bestreview}&cPage=1&bo_type=2"><c:out value="${maxHitTitle}" /></a>
 					</p>
 				</div>
 			</div>
@@ -615,11 +603,12 @@ keyframes bread-animation {to { transform:translate(-50%, -50%)scale(2);
 								<h5>${board.bo_content}</h5>
 								<div class="review-content">${board.bo_content}</div>
 								<div class="review-images">
-									<c:if test="${board.bo_img != null}">
+									<c:if test="${board.bo_img != null && board.bo_img ne ''}">
 										<img
 											src="${pageContext.request.contextPath}/img/${board.bo_img}"
 											width="100" />
 									</c:if>
+									
 								</div>
 							</a>
 						</div>
@@ -634,11 +623,11 @@ keyframes bread-animation {to { transform:translate(-50%, -50%)scale(2);
 			</div>
 		</div>
 		<div id="tabs-5">
-			<h2 class="clearFix">
+			<h1 class="clearFix">
 				상품문의
-				<button onclick="questionCheck()" class="btn-inquiry">문의하기</button>
-			</h2>
-			<div class="inquiry-info">
+				<button onclick="questionCheck()" class="btn submit">문의하기</button>
+			</h1>
+			<div class="tab-detail">
 				<p>구매한 상품의 취소/반품은 마이쿠팡 구매내역에서 신청 가능합니다.</p>
 				<p>상품문의 및 후기게시판을 통해 취소나 환불, 반품 등은 처리되지 않습니다.</p>
 				<p>가격, 판매자, 교환/환불 및 배송 등 해당 상품 자체와 관련 없는 문의는 고객센터 내 1:1 문의하기를
@@ -684,7 +673,7 @@ keyframes bread-animation {to { transform:translate(-50%, -50%)scale(2);
 
 				<c:if test="${not hasquestion}">
 					<!-- 문의가 없는 경우 메시지 출력 -->
-					<h3>아직 문의가 등록되지 않았습니다.</h3>
+					<h3 style="margin: 15px 0;">아직 문의가 등록되지 않았습니다.</h3>
 				</c:if>
 			</div>
 
@@ -695,21 +684,16 @@ keyframes bread-animation {to { transform:translate(-50%, -50%)scale(2);
 	<p></p>
 </div>
 <%@include file="/jsp/common/footer.jsp"%>
-<script>
-			//애니메이션
-			
-			$(function() {
-				$("#tabs").tabs();
-
-				$(".ui-tabs-nav li a").on("click", function(e) {
-					var bread = $("<div class='bread'></div>"); // 추가된 부분
-					$(this).append(bread); // 추가된 부분
-					setTimeout(function() {
-						bread.remove(); // 추가된 부분
-					}, 600); // 애니메이션 지속 시간과 일치시킴
-				});
-			});
-
+<script> 
+			//상품재고 수량 제한
+			function cntLimit(input) { 
+        let max = parseInt(input.max, 10);
+        let value = parseInt(input.value, 10);
+        if (value > max) {
+            alert("재고보다 많은 수량은 구매할 수 없습니다.");
+            input.value = max;
+        }
+    }
 
 			$(function () {
 				$("#tabs").tabs();
@@ -775,22 +759,33 @@ keyframes bread-animation {to { transform:translate(-50%, -50%)scale(2);
 			}
 			
 			function updateTotalPrice() {
-				let price = ${ pvo.pd_price };
-				let quantity = document.getElementById("quantity").value; // 수량 입력 필드에서 값을 가져옵니다.
-				let sale = document.getElementById("sale");
-				let discount = 0;
-				let totalPrice = 0;
-				if (sale == null) {
-					totalPrice = quantity * price;
-				} else {
-					totalPrice = quantity * price;
-					discount = totalPrice - (totalPrice * (${ pvo.pd_sale / 100 }));
-					document.getElementById("discount").innerText = discount.toLocaleString() + '원'; // 총 금액을 화면에 표시합니다.
-				}
-			
-				document.getElementById("totalPrice").innerText = totalPrice.toLocaleString() + '원'; // 총 금액을 화면에 표시합니다.
-			}
-			
+						let priceElement = document.getElementById("price");
+						let quantityElement = document.getElementById("quantity");
+						let saleElement = document.getElementById("sale");
+						let discountElement = document.getElementById("discount");
+						let totalPriceElement = document.getElementById("totalPrice");
+
+						if (!priceElement || !quantityElement) {
+							return;
+						}
+
+						let price = parseInt(priceElement.innerText.replace(/[^0-9]/g, ''), 10);
+						let quantity = parseInt(quantityElement.value, 10);
+						let totalPrice = quantity * price;
+						let discount = 0;
+
+						if (saleElement) {
+							let salePercentage = parseInt(saleElement.innerText.replace(/[^0-9]/g, ''), 10);
+							discount = totalPrice - (totalPrice * (salePercentage / 100));
+							if (discountElement) {
+								discountElement.innerText = discount.toLocaleString() + '원';
+							}
+						}
+
+						if (totalPriceElement) {
+							totalPriceElement.innerText = totalPrice.toLocaleString() + '원';
+						}
+					}
 			
 			window.onload = updateTotalPrice; // 함수를 직접 할당
 			document.getElementById("quantity").addEventListener("input", updateTotalPrice);

@@ -38,10 +38,10 @@
 
 	</tr>
 	<!-- 상품 리스트 출력 -->
-	<c:forEach var="product" items="${p_ar}">
+	<c:forEach var="product" items="${p_ar}" varStatus="vs">
 		<tr>
 			<td><input type="checkbox" class="checkbox" /></td>
-			<td>${product.pd_idx}</td>
+			<td>${vs.index + 1 + (paging.pagePerBlock * (paging.nowPage - 1))}</td>
 			<c:if test="${product.pd_thumbnail_img eq ''}">
 				<td><img
 					src="https://png.pngtree.com/png-vector/20190820/ourmid/pngtree-no-image-vector-illustration-isolated-png-image_1694547.jpg"

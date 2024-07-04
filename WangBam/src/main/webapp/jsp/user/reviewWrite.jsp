@@ -7,9 +7,10 @@
 
 
 	<div class="user">
-        <h1>리뷰 작성</h1>
         <form action="?type=reviewWrite" method="post" class="form-group" enctype="multipart/form-data" name=form>
+       	 	<h1>리뷰 작성</h1>
         	<input type="hidden" name="us_idx" value="${sessionScope.user.us_idx }"> 
+        	<input type="hidden" name="pd_idx" value="${requestScope.product.pd_idx }"> 
         	 
             <div>
                 <label for="text">제목 :</label>
@@ -21,7 +22,7 @@
             </div>
             <div>
             	<label for="text">제품 :</label>
-	            <input type="text" name="pd_idx" value="${requestScope.product.pd_name }" disabled/>
+	            <input type="text" name="pd_name" value="${requestScope.product.pd_name }" disabled/>
             </div>
 			<div>
             	<label for="text">평점 :</label>

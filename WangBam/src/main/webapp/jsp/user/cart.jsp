@@ -67,10 +67,8 @@
 							<input type="hidden" name="type"value="cartList" /> 
 							<input type="hidden" name="p_num"value="${vo.pvo.pd_idx}" /> 
 							<input type="hidden" name="c_num" value="${vo.ca_idx}" class="ca_idx" />															
-							<input type="number" class="count" name="count" value="${vo.ca_cnt}" min="1" onchange="handleInputChange(this)" />												
-							<!-- <input type="number" class="count" name="count" value="${vo.ca_cnt}" min="1"  onchange="handleInputChange(this)" /> -->
-							<!-- <button type="button" class="btn" onclick="increase(this)">△</button> -->
-							<!-- <button type="button" class="btn" onclick="decrease(this)">▽</button> -->
+							<input type="number" class="count" name="count" value="${vo.ca_cnt}" min="1" max="${vo.pvo.pd_cnt}" onchange="handleInputChange(this)" />												
+							
 						</td>
 						<td class="total_price">${vo.pvo.pd_price * vo.ca_cnt}원</td>
 						<td><button type="button" class="btn cancel"
@@ -88,14 +86,14 @@
 </table>
 
 <div class="summary">
-    <div><h4 style="margin-bottom: 40px;">장바구니 상품</h4>
-		<span><img src="./img/cart.png" width="32" height="32">
-		${fn:length(cvo)} 개</span>
+    <div><h4 style="margin-bottom: 30px;">장바구니 상품</h4>
+		<div style="display: flex; gap:8px; align-items: center;"><img src="./img/cart.png" width="32" height="32">
+		<span>${fn:length(cvo)} 개</span></div>
 	</div>
     
-    <div><h4 style="margin-bottom: 40px;">합계금액</h4>
-		<img src="./img/dollar.png" width="32" height="32">
-		<span id="totalSum">0</span>
+    <div><h4 style="margin-bottom: 30px;">합계금액</h4>
+		<div style="display: flex; gap:8px; align-items: center;"><img src="./img/dollar.png" width="32" height="32">
+		<span id="totalSum">0</span></div>
 	</div>
 </div>
 <br />
@@ -105,26 +103,21 @@
 
 <%@include file="/jsp/common/footer.jsp"%>
 <script>
+	//수량 입력 유효성 검사 및 최대수량 제한
 	function handleInputChange(input) {
-        if (input.value === "" || input.value == 0) {
+		let max = parseInt(input.max);
+		let value = parseInt(input.value);
+		if(value > max){
+			alert('수량이 많습니다. 최대 수량은 '+max+'개입니다.');
+			input.value = max;
+		}
+		if (input.value === "" || input.value == 0) {
             input.value = 1;
         }
         calculateTotal(input);
     }									
-	// function increase(button) {
-	// 	let countElement = button.parentElement.querySelector('.count');
-	// 	countElement.value = parseInt(countElement.value) + 1;
-	// 	calculateTotal(countElement);
-	// }
-
-	// function decrease(button) {
-	// 	let countElement = button.parentElement.querySelector('.count');
-	// 	if (parseInt(countElement.value) > 1) {
-	// 		countElement.value = parseInt(countElement.value) - 1;
-	// 		calculateTotal(countElement);
-	// 	}
-	// }
-
+	
+	//개별 상품 금액
 	function calculateTotal(countElement) {
 		let row = countElement.closest('tr');
 		let price = parseInt(row.querySelector('.price').textContent);
@@ -137,6 +130,7 @@
 		calculateTotalSum();
 	}
 
+	//총액 계산
 	function calculateTotalSum() {
 		let totalSum = 0;
 		document.querySelectorAll('.total_price').forEach(function(totalElement) {
@@ -219,9 +213,12 @@
 			}
 	
 		});
-		
+		//선택한 상품 주문하기
 		$("#order_Btn").on('click', function() {
-		    // 1. 선택한 체크박스에서 인덱스 가져오기
+		    if($('.checkbox:checked').length == 0){
+				alert('상품을 선택해주세요.');
+			}else{
+			// 1. 선택한 체크박스에서 인덱스 가져오기
 		    let selectItem = $(".checkbox:checked")
 
 		    let indexArray = [];
@@ -258,28 +255,28 @@
 		        error:function(request,status,error){
 		        }
 		    });
+		}
 		});
-
-		$(".checkbox").on('click', function() {
-			let check = false;
-			let checkAll = $(".checkbox").prop('checked');
-			if(!checkAll){
-				check = false;
-			}else{
-				for(let i=0;i<$(".checkbox").length;i++){
-					if($(".checkbox")[i].checked == false){
-						check = false;
-						break;
-					}else{
-						check = true;
-					}
+	});
+	//체크박스 기능
+	$(".checkbox").on('click', function() {
+		let check = false;
+		let checkAll = $(".checkbox").prop('checked');
+		if(!checkAll){
+			check = false;
+		}else{
+			for(let i=0;i<$(".checkbox").length;i++){
+				if($(".checkbox")[i].checked == false){
+					check = false;
+					break;
+				}else{
+					check = true;
 				}
 			}
-			$(".allCheckbox").prop('checked', check);
-		});
-
+		}
+		$(".allCheckbox").prop('checked', check);
 	});
-			
+
 	function allCheck() {
 		if ($('.allCheckbox').is(':checked')) { // 선택자와 메서드 사용 수정
 			$('.checkbox').prop('checked', true); // 모든 개별 체크박스를 체크 상태로 설정
@@ -289,9 +286,10 @@
 	}
 	
 	$('input[type="number"]').keydown(function(e) {   // input 태그의 text 타입에 키다운 이벤트라면
-	     if (e.keyCode === 13) {   // 엔터키 이벤트라면
-	          e.preventDefault();   // submit을 막아라.
-	     };
+		 if (e.keyCode === 13) {   // 엔터키 이벤트라면
+			  e.preventDefault();   // submit을 막아라.
+		 };
 	});
+			
 	
 </script>

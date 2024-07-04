@@ -22,7 +22,7 @@ public class ProductListAction implements Action {
 		if( productPerBlock != null) {
 			numPerPage = Integer.valueOf(productPerBlock);
 		}
-		Paging page = new Paging(numPerPage,5);
+		Paging page = new Paging(numPerPage,6);
 		
 		String cPage = request.getParameter("cPage");
 		String searchValue = request.getParameter("searchValue");
