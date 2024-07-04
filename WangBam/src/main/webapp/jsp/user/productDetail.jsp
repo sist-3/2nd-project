@@ -560,12 +560,13 @@
 							<c:if test="${board.bo_hit > maxHit}">
 								<c:set var="maxHit" value="${board.bo_hit}" />
 								<c:set var="maxHitTitle" value="${board.bo_title}" />
+								<c:set var="bestreview" value="${board.bo_idx}" />
 							</c:if>
 						</c:if>
 					</c:forEach>
 					<br>
 					<p style="margin-top: 20px">
-						<a href=""><c:out value="${maxHitTitle}" /></a>
+						<a href="?type=boardsDetail&bo_idx=${bestreview}&cPage=1&bo_type=2"><c:out value="${maxHitTitle}" /></a>
 					</p>
 				</div>
 			</div>
