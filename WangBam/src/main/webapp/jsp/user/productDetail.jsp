@@ -69,9 +69,10 @@
 /*배경*/
 .main {
 	width: 70%;
-	padding: 0 20px;
-	margin: 0 auto;
-	background-color: white;
+    padding: 0 20px;
+    margin: 30px auto;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 /*구매*/
 .product-details {
