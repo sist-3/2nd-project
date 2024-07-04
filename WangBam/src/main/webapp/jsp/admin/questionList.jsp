@@ -72,7 +72,7 @@
 
             <c:if test="${fn:length(ar) < 1 }">
                 <tr class="no_data">
-                    <td colspan="6">
+                    <td colspan="7">
                         <b>문의사항이 없습니다.</b>
                     </td>
                 </tr>

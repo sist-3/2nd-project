@@ -45,7 +45,7 @@
 						<c:choose>
 							<c:when test="${nowDate < writeDate + 30}">
 								<li class="new">
-									<a href="?type=noticeDetail&bo_type=0&bo_idx=${notice.bo_idx }">
+									<a href="?type=noticeDetail&bo_type=0&bo_idx=${notice.bo_idx }&cPage=1">
 										<span><c:out value="${notice.bo_title}" /></span> 
 										<span class="sub-date"><c:out value="${notice.bo_write_date}" /></span>
 									</a>
@@ -53,7 +53,7 @@
 							</c:when>
 							<c:when test="${nowDate > writeDate + 30}">
 								<li>
-									<a href="?type=noticeDetail&bo_type=0&bo_idx=${notice.bo_idx }">
+									<a href="?type=noticeDetail&bo_type=0&bo_idx=${notice.bo_idx }&cPage=1">
 										<span><c:out value="${notice.bo_title}" /></span> 
 										<span class="sub-date"><c:out value="${notice.bo_write_date}" /></span>
 									</a>
