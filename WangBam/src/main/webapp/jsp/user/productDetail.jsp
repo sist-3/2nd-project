@@ -10,7 +10,6 @@
 	background: initial !important;
 	font-weight: initial !important;
 	color: initial !important;
-	
 	/*탭버튼 외곽선 */
 }
 
@@ -66,27 +65,7 @@
 	overflow: initial !important;
 	position: initial !important;
 }
-/* 탭을 누르면 터지는 효과 */
-.bread {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	width: 100px;
-	height: 100px;
-	background: url('./upload/wangbam.png') no-repeat center center;
-	/* 빵 이미지 URL */
-	background-size: contain;
-	transform: translate(-50%, -50%) scale(0);
-	pointer-events: none;
-	animation: bread-animation 0.6s ease-out forwards;
-}
 
-@
-keyframes bread-animation {to { transform:translate(-50%, -50%)scale(2);
-	opacity: 0;
-}
-
-}
 /*배경*/
 .main {
 	background-color: white;
@@ -433,7 +412,7 @@ keyframes bread-animation {to { transform:translate(-50%, -50%)scale(2);
 			<tr>
 				<th>수량</th>
 				<td><input type="number" id="quantity" name="quantity"
-					value="1" min="1" max="${pvo.pd_cnt}" onclick="cntLimit(this)"></td>
+					value="1" min="1" max="${pvo.pd_cnt}" oninput="cntLimit(this)"></td>
 			</tr>
 			<tr>
 				<th>총 상품금액</th>
@@ -702,27 +681,14 @@ keyframes bread-animation {to { transform:translate(-50%, -50%)scale(2);
 <%@include file="/jsp/common/footer.jsp"%>
 <script> 
 			//상품재고 수량 제한
-			function cntLimit(input){
-				let max = parseInt(input.max);
-				let value = parseInt(input.value);
-				if(value > max){
-					alert("재고보다 많은 수량은 구매할 수 없습니다.");
-					input.value = max;
-				}
-			}
-			//애니메이션
-			$(function() {
-				$("#tabs").tabs();
-
-				$(".ui-tabs-nav li a").on("click", function(e) {
-					var bread = $("<div class='bread'></div>"); // 추가된 부분
-					$(this).append(bread); // 추가된 부분
-					setTimeout(function() {
-						bread.remove(); // 추가된 부분
-					}, 600); // 애니메이션 지속 시간과 일치시킴
-				});
-			});
-
+			function cntLimit(input) { 
+        let max = parseInt(input.max, 10);
+        let value = parseInt(input.value, 10);
+        if (value > max) {
+            alert("재고보다 많은 수량은 구매할 수 없습니다.");
+            input.value = max;
+        }
+    }
 
 			$(function () {
 				$("#tabs").tabs();
@@ -788,22 +754,33 @@ keyframes bread-animation {to { transform:translate(-50%, -50%)scale(2);
 			}
 			
 			function updateTotalPrice() {
-				let price = parseInt(document.getElementById("price").innerText);
-				let quantity = document.getElementById("quantity").value; // 수량 입력 필드에서 값을 가져옵니다.
-				let sale = document.getElementById("sale");
-				let discount = 0;
-				let totalPrice = 0;
-				if (sale == null) {
-					totalPrice = quantity * price;
-				} else {
-					totalPrice = quantity * price;
-					discount = totalPrice - (totalPrice * (${ pvo.pd_sale / 100 }));
-					document.getElementById("discount").innerText = discount.toLocaleString() + '원'; // 총 금액을 화면에 표시합니다.
-				}
-			
-				document.getElementById("totalPrice").innerText = totalPrice.toLocaleString() + '원'; // 총 금액을 화면에 표시합니다.
-			}
-			
+						let priceElement = document.getElementById("price");
+						let quantityElement = document.getElementById("quantity");
+						let saleElement = document.getElementById("sale");
+						let discountElement = document.getElementById("discount");
+						let totalPriceElement = document.getElementById("totalPrice");
+
+						if (!priceElement || !quantityElement) {
+							return;
+						}
+
+						let price = parseInt(priceElement.innerText.replace(/[^0-9]/g, ''), 10);
+						let quantity = parseInt(quantityElement.value, 10);
+						let totalPrice = quantity * price;
+						let discount = 0;
+
+						if (saleElement) {
+							let salePercentage = parseInt(saleElement.innerText.replace(/[^0-9]/g, ''), 10);
+							discount = totalPrice - (totalPrice * (salePercentage / 100));
+							if (discountElement) {
+								discountElement.innerText = discount.toLocaleString() + '원';
+							}
+						}
+
+						if (totalPriceElement) {
+							totalPriceElement.innerText = totalPrice.toLocaleString() + '원';
+						}
+					}
 			
 			window.onload = updateTotalPrice; // 함수를 직접 할당
 			document.getElementById("quantity").addEventListener("input", updateTotalPrice);
