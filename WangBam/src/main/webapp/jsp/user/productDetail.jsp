@@ -68,9 +68,10 @@
 
 /*배경*/
 .main {
+	width: 70%;
+	padding: 0 20px;
+	margin: 0 auto;
 	background-color: white;
-	opacity: 0.9;
-	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
 }
 /*구매*/
 .product-details {
@@ -261,24 +262,16 @@
 	margin: 5px 0;
 }
 
-.btn-inquiry {
+.btn{
+	float: right !important;
 	display: inline-block;
-	box-shadow: rgb(221, 221, 221) 0px -1px inset;
-	line-height: 1.8em;
-	vertical-align: middle;
-	color: rgb(52, 106, 255);
-	background-color: rgb(255, 255, 255);
-	font-family: "apple sd gothic neo", "malgun gothic", "맑은 고딕",
-		nanumgothic, 나눔고딕, dotum, 돋움, sans-serif;
-	font-size: 12px;
-	font-weight: bold;
-	float: right;
-	padding: 0px 6px;
-	border-width: 1px;
-	border-style: solid;
-	border-color: rgb(52, 106, 255);
-	border-image: initial;
-	border-radius: 2px;
+    float: right;
+    width: 130px;
+    height: 50px;
+    font-size: 20px !important;
+    white-space: nowrap;
+    font-weight: bold;
+    padding: 8px !important;
 }
 
 .question {
@@ -352,6 +345,17 @@
 	left: 50% !important;
 	transform: translate(-50%, -50%) !important;
 	margin: 0 !important;
+}
+
+#tabs-2, #tabs-3, #tabs-5{
+	padding: 30px;
+    line-height: 25px;
+    background-color: #f9f9f3db;
+    margin-top: 20px;
+}
+
+.tab-detail{
+	padding: 5px 20px;
 }
 </style>
 
@@ -469,7 +473,7 @@
 		</div>
 		<div id="tabs-2">
 			<h1 style="margin-top: 10px;">상품결제정보</h1>
-			<div>
+			<div class="tab-detail">
 			고액결제의 경우 안전을 위해 카드사에서 확인전화를 드릴 수도 있습니다. 확인과정에서 도난 카드의 사용이나 타인
 				명의의 주문등 정상적인 주문이 아니라고 판단될 경우 임의로 주문을 보류 또는 취소할 수 있습니다.
 				무통장 입금은 상품 구매 대금은 PC뱅킹, 인터넷뱅킹, 텔레뱅킹 혹은 가까운 은행에서 직접 입금하시면 됩니다.  주문시
@@ -477,7 +481,7 @@
 				자동취소 됩니다.
 			</div>
 			<h1 style="margin-top: 30px;">배송정보</h1>
-			<div>
+			<div class="tab-detail">
 				배송 방법 : 택배</br> 배송 지역 : 전국지역</br> 배송 비용 : 4,000원 ~ 50,000원</br> 배송 기간 : 3일 ~ 7일</br> 배송
 				안내 : - 산간벽지나 도서지방은 별도의 추가금액을 지불하셔야 하는 경우가 있습니다.</br> 고객님께서 주문하신 상품은 입금
 				확인후 배송해 드립니다. 다만, 상품종류에 따라서 상품의 배송이 다소 지연될 수 있습니다.
@@ -486,7 +490,7 @@
 		</div>
 		<div id="tabs-3">
 			<h1 style="margin-top: 10px;">교환 및 반품정보</h1>
-			<div>
+			<div class="tab-detail">
 				교환 및 반품 주소 -쌍용교육센터</br> 교환 및 반품이 가능한 경우 - 계약내용에 관한 서면을 받은 날부터 7일. 단, 그
 				서면을 받은 때보다 재화등의 공급이 늦게 이루어진 경우에는 재화등을 공급받거나 재화등의 공급이 시작된 날부터 7일 이내 -
 				공급받으신 상품 및 용역의 내용이 표시.광고 내용과 다르거나 계약내용과 다르게 이행된 때에는 당해 재화 등을 공급받은 날
@@ -619,11 +623,11 @@
 			</div>
 		</div>
 		<div id="tabs-5">
-			<h1 class="clearFix" style="margin-top: 10px;">
+			<h1 class="clearFix">
 				상품문의
-				<button onclick="questionCheck()" class="btn-inquiry">문의하기</button>
+				<button onclick="questionCheck()" class="btn submit">문의하기</button>
 			</h1>
-			<div class="inquiry-info">
+			<div class="tab-detail">
 				<p>구매한 상품의 취소/반품은 마이쿠팡 구매내역에서 신청 가능합니다.</p>
 				<p>상품문의 및 후기게시판을 통해 취소나 환불, 반품 등은 처리되지 않습니다.</p>
 				<p>가격, 판매자, 교환/환불 및 배송 등 해당 상품 자체와 관련 없는 문의는 고객센터 내 1:1 문의하기를
@@ -669,7 +673,7 @@
 
 				<c:if test="${not hasquestion}">
 					<!-- 문의가 없는 경우 메시지 출력 -->
-					<h3>아직 문의가 등록되지 않았습니다.</h3>
+					<h3 style="margin: 15px 0;">아직 문의가 등록되지 않았습니다.</h3>
 				</c:if>
 			</div>
 
