@@ -10,8 +10,7 @@
 			<option value="6">6개씩 보기</option>
 			<option value="12">12개씩 보기</option>
 			<option value="18">18개씩 보기</option>
-		</select> 
-		<select name="ct_idx" id="ct_idx">
+		</select> <select name="ct_idx" id="ct_idx">
 			<option>전체</option>
 			<c:forEach var="cvo" items="${requestScope.c_list}" varStatus="st">
 				<option value="${cvo.ct_idx}">${cvo.ct_name}</option>
@@ -40,7 +39,7 @@
 	<!-- 상품 리스트 출력 -->
 	<c:forEach var="product" items="${p_ar}" varStatus="vs">
 		<tr>
-			<td><input type="checkbox" class="checkbox" /></td>
+			<td><input type="checkbox" class="checkbox" value="${product.pd_idx}"/></td>
 			<td>${vs.index + 1 + (paging.pagePerBlock * (paging.nowPage - 1))}</td>
 			<c:if test="${product.pd_thumbnail_img eq ''}">
 				<td><img
@@ -73,49 +72,59 @@
 		</tr>
 	</c:forEach>
 </table>
+<div id="admin-dialog" class="admin-dialog" title="수정" class="dialog"
+	style="display: none">
+	<p></p>
+</div>
 
 <div class="admin-pagination" id="pagination">
-    <c:set var="paging" value="${requestScope.paging}" />
-    <c:choose>
-        <c:when test="${paging.startPage >= paging.pagePerBlock }">
-            <div>
-                <a href="javascript:void(0);" onclick="changePage(${paging.nowPage - paging.pagePerBlock})">&lt;</a>
-            </div>
-        </c:when>
-        <c:when test="${paging.startPage < paging.pagePerBlock }">
-            <div class="disable">&lt;</div>
-        </c:when>
-    </c:choose>
-    <c:forEach begin="${paging.startPage }" end="${paging.endPage}"
-        varStatus="st">
-        <c:choose>
-            <c:when test="${paging.nowPage != st.index }">
-                <div>
-                    <a href="javascript:void(0);" onclick="changePage(${st.index})">${st.index}</a>
-                </div>
-            </c:when>
-            <c:when test="${paging.nowPage == st.index }">
-                
-                    <a class="on" href="javascript:void(0);" onclick="changePage(${st.index})">${st.index}</a>
-                
-            </c:when>
-        </c:choose>
-    </c:forEach>
-    <c:if test="${paging.endPage < paging.totalPage}">
-        <c:if test="${paging.nowPage + paging.pagePerBlock > paging.totalPage }">
-            <div>
-                <a href="javascript:void(0);" onclick="changePage(${paging.totalPage})">&gt;</a>
-            </div>
-        </c:if>
-        <c:if test="${paging.nowPage + paging.pagePerBlock <= paging.totalPage }">
-            <div>
-                <a href="javascript:void(0);" onclick="changePage(${paging.nowPage + paging.pagePerBlock})">&gt;</a>
-            </div>
-        </c:if>
-    </c:if>
-    <c:if test="${paging.endPage >= paging.totalPage }">
-        <div class="disable">&gt;</div>
-    </c:if>
+	<c:set var="paging" value="${requestScope.paging}" />
+	<c:choose>
+		<c:when test="${paging.startPage >= paging.pagePerBlock }">
+			<div>
+				<a href="javascript:void(0);"
+					onclick="changePage(${paging.nowPage - paging.pagePerBlock})">&lt;</a>
+			</div>
+		</c:when>
+		<c:when test="${paging.startPage < paging.pagePerBlock }">
+			<div class="disable">&lt;</div>
+		</c:when>
+	</c:choose>
+	<c:forEach begin="${paging.startPage }" end="${paging.endPage}"
+		varStatus="st">
+		<c:choose>
+			<c:when test="${paging.nowPage != st.index }">
+				<div>
+					<a href="javascript:void(0);" onclick="changePage(${st.index})">${st.index}</a>
+				</div>
+			</c:when>
+			<c:when test="${paging.nowPage == st.index }">
+
+				<a class="on" href="javascript:void(0);"
+					onclick="changePage(${st.index})">${st.index}</a>
+
+			</c:when>
+		</c:choose>
+	</c:forEach>
+	<c:if test="${paging.endPage < paging.totalPage}">
+		<c:if
+			test="${paging.nowPage + paging.pagePerBlock > paging.totalPage }">
+			<div>
+				<a href="javascript:void(0);"
+					onclick="changePage(${paging.totalPage})">&gt;</a>
+			</div>
+		</c:if>
+		<c:if
+			test="${paging.nowPage + paging.pagePerBlock <= paging.totalPage }">
+			<div>
+				<a href="javascript:void(0);"
+					onclick="changePage(${paging.nowPage + paging.pagePerBlock})">&gt;</a>
+			</div>
+		</c:if>
+	</c:if>
+	<c:if test="${paging.endPage >= paging.totalPage }">
+		<div class="disable">&gt;</div>
+	</c:if>
 </div>
 
 <!-- 상품 추가 및 삭제 버튼 -->
@@ -145,7 +154,6 @@
 			"ct_idx" : ct_idx,
 			"cPage" : page
 		}
-
 		$.ajax({
 			url : "?", // 올바른 서블릿 경로를 지정하세요.
 			type : "GET",
@@ -158,54 +166,66 @@
 			$("#pagination").html($(res).find("#pagination").html());
 		});
 	}
-
 	function changePage(page) {
 		loadProductList(page);
 	}
+	
 	//상품 추가 메세지 출력
 	let addMsg = "${addmsg}"
 	document.addEventListener("DOMContentLoaded", function() {
 		if (addMsg.length > 0) {
 			alert(addMsg);
-
 		}
 	});
-
+	//상품 삭제 
 	$(document).ready(function() {
 		$("#deleteBtn").on('click', function() {
-			if (confirm("정말 삭제하시겠습니까?")) {
-
-				var pd_idx_array = [];
-
-				$(".checkbox:checked").each(function() {
-					var $row = $(this).closest('tr');
-					var pd_idx = $row.find('td:eq(1)').text().trim();
-					pd_idx_array.push(pd_idx);
-				});
-
-				if (pd_idx_array.length > 0) {
-					$.ajax({
-						url : 'admin?type=productlistDelete', // 수정된 서버의 URL
-						type : 'POST',
-						data : {
-							pd_idx_list : pd_idx_array
-						},
-						traditional : true,
-						success : function(response) {
-							alert('상품이 성공적으로 삭제되었습니다.');
-							location.reload(); // 성공 후 페이지 새로고침
-						},
-						error : function() {
-							alert('상품 삭제에 실패했습니다.');
-						}
-					});
-				} else {
-					alert('삭제할 상품을 선택하세요.');
-				}
-			}
+			dialog("admin-dialog","정말 삭제하시겠습니까?",{
+				"확인": function() {
+				      $( this ).dialog( "close" );
+				      var pd_idx_array = [];
+				      let selectProductList = $(".checkbox:checked");
+				      for(let i=0; i<selectProductList.length; i++) {
+				    	  let pd_idx = selectProductList[i].value;
+				    	  pd_idx_array.push(pd_idx);
+				      }
+						
+						if (pd_idx_array.length > 0) {
+							$.ajax({
+								url : 'admin?type=productlistDelete', // 수정된 서버의 URL
+								type : 'POST',
+								data : {
+									pd_idx_list : pd_idx_array
+								},
+								traditional : true,
+								success : function(response) {
+									dialog("admin-dialog","상품이 성공적으로 삭제되었습니다.",{
+										"확인": function() {
+										      $( this ).dialog( "close" );
+										      location.reload();
+										  }
+									});
+								},
+								error : function() {
+									alert('상품 삭제에 실패했습니다.');
+								}
+							});
+						} else {
+							dialog("admin-dialog","삭제할 상품을 선택하세요.",{
+								"확인": function() {
+								      $( this ).dialog( "close" );
+								      document.updateForm.submit();
+									}
+							  });
+				    }
+				},
+				"취소": function() {
+			          $( this ).dialog( "close" );						         
+			        }
+			});
 		});
 	});
-
+	//체크박스 유효성
 	$(".checkbox").on('click', function() {
 			let check = false;
 			let checkAll = $(".checkbox").prop('checked');
@@ -223,13 +243,23 @@
 			}
 			$(".allCheckbox").prop('checked', check);
 		});
-
 	function allCheck() {
 		if ($('.allCheckbox').is(':checked')) { // 선택자와 메서드 사용 수정
 			$('.checkbox').prop('checked', true); // 모든 개별 체크박스를 체크 상태로 설정
 		} else {
 			$('.checkbox').prop('checked', false); // 모든 개별 체크박스를 체크 해제 상태로 설정
 		}
+	}
+	function dialog(className, msg, callback){
+		$("#"+className+" p").text(msg);
+		$( "#"+className).dialog({
+		      resizable: false,
+		      draggable: false,
+		      height: "auto",
+		      width: 400,
+		      modal: true,
+		      buttons: callback
+		});
 	}
 </script>
 
