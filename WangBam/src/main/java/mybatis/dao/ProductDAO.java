@@ -15,6 +15,7 @@ public class ProductDAO {
 	public static ProductVO findByid(String pd_idx) {
 		SqlSession ss = FactoryService.getFactory().openSession();
 		ProductVO vo = ss.selectOne("product.findByid",pd_idx);
+		ss.close();
 		return vo;
 		
 	}
@@ -22,11 +23,11 @@ public class ProductDAO {
 	public static ProductVO[] allProduct() {
 		SqlSession ss = FactoryService.getFactory().openSession();
 		List<ProductVO> list = ss.selectList("product.all");
-		ss.close();
 		ProductVO[] arr = new ProductVO[list.size()];
         if(list.size()>0&&list!=null) {
             arr = list.toArray(arr);
         }
+        ss.close();
         return arr;
 		
 	}
