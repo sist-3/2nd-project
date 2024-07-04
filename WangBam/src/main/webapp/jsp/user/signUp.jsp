@@ -53,8 +53,8 @@
         <option value="011">011</option>
         <option value="017">017</option>
       </select>
-      <input type="text" id="phone-middle" placeholder="1588" name="us_tel">
-      <input type="text" id="phone-last" placeholder="2222" name="us_tel">
+      <input type="text" id="phone-middle" placeholder="1588" name="us_tel" maxlength="4">
+      <input type="text" id="phone-last" placeholder="2222" name="us_tel" maxlength="4">
     </div>
     <span id="phone-check" style="display: none; color: red;margin-top: 5px;"></span>
   </div>
@@ -196,6 +196,19 @@ $(document).ready(function(){
           }
       }).open();
   });
+
+  $('input#phone-middle').on('propertychange change keyup paste input', function(){
+    if($(this).val().match(/[^0-9]/)){
+      $(this).val($(this).val().replace(/[^0-9]/g, ''));
+                return;
+            }
+        });
+        $('#phone-last').on('propertychange change keyup paste input', function(){
+            if($(this).val().match(/[^0-9]/)){
+                $(this).val($(this).val().replace(/[^0-9]/g, ''));
+                return;
+            }
+        });
 
   $('#signUp').on('click', function(){
     //form요소들 가져오기
