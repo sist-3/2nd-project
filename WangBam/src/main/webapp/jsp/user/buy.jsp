@@ -93,12 +93,12 @@
 				<input type="text" id="or_name"	name="or_name" value="<%=uvo.getUs_name()%>" placeholder="받는분 성함">
 				<label for=postal_code>주소찾기</label>
 				<div class="address-group">
-					<input type="text" id="postal_code" name="postal_code"
+					<input type="text" id="postal_code" name="postal_code" readonly
 						<c:if test="${avo != null}">value="${avo.getAd_postal_code()}"</c:if>
 						placeholder="우편번호">
-					<button id="address-btn" name="address-btn" type="button">우편번호</button>
+					<button id="address-btn" name="address-btn" type="button" >우편번호</button>
 				</div>
-				<input type="text" class="address-input" name="addr"
+				<input type="text" class="address-input" name="addr" readonly
 					<c:if test="${avo != null}">value="${avo.getAd_addr()}"</c:if>
 				placeholder="기본주소" /> 
 					<input type="text" class="address-input2" name="addr_detail"
@@ -108,9 +108,12 @@
 					<select name="tel1">
 						<option value="010">010</option>
 						<!-- Add more options as needed -->
-					</select> <span>-</span> <input type="text" name="tel2"
+					</select> 
+					<span>-</span> 
+					<input type="text" maxlength="4" name="tel2" oninput="validateNumber(this)"
 						<c:if test="${avo != null}">value="${avo.getAd_tel().substring(2,6)}"</c:if>>
-					<span>-</span> <input type="text" name="tel3"
+					<span>-</span> 
+					<input type="text" maxlength="4" name="tel3" oninput="validateNumber(this)"
 						<c:if test="${avo != null}">value="${avo.getAd_tel().substring(6)}"</c:if>>
 				</div>
 				<label for="request">배송시요구사항</label> 
@@ -196,6 +199,10 @@
 			}
 			return true;
 		}
+		
+		function validateNumber(input) {
+            input.value = input.value.replace(/[^0-9]/g, '');
+        }
 		
 		async function requestPayment(){
 			let form = document.forms[0];
