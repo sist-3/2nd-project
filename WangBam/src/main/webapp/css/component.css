@@ -612,3 +612,21 @@ font-weight: bold;
 .hasDatepicker {
 	background:url(../img/icon_calendar.png) no-repeat right 8px center;
 }
+input[type="checkbox"]{
+	width:24px;
+	height:24px;
+	appearance:none;
+	background:url(../img/icon_checkbox.png) no-repeat center;
+	cursor:pointer;
+	margin:0;
+}
+input[type="checkbox"]:checked{
+	background:url(../img/icon_checkbox_on.png) no-repeat center;
+}
+.admin-main input[type="checkbox"]{
+	background:url(../img/icon_checkbox_admin.png) no-repeat center;
+}
+
+.admin-main input[type="checkbox"]:checked{
+	background:url(../img/icon_checkbox_on_admin.png) no-repeat center;
+}
