@@ -2,6 +2,16 @@
     pageEncoding="UTF-8"%>
 <%@include file="/jsp/common/header.jsp" %>
 <c:set var="count" value="0" scope="page"/>
+<div style="width: 80%; margin: 0 auto;">
+    <div class="search-group">
+        <h2> 주문 내역</h2>
+        <form class="search-bar" action="/WangBam/">
+            <input type="hidden" name="type" value="order">
+            <input type="text" id="searchProductName" name="searchValue" placeholder="Search..." />
+            <button type="button" class="btn search" id="searchBtn"></button>
+        </form>
+    </div>
+</div>
 <c:forEach var="ovo" items="${requestScope.o_list}">
 <c:set var="count" value="${count+1}" scope="page"/>
 <div class="order-container" style="margin-bottom: 10px;">
@@ -94,5 +104,16 @@
   	</div>
 
 <%@include file="/jsp/common/footer.jsp" %>
+<script>
+    $(document).ready(function(){
+        $('#searchBtn').click(function(){
+            if($('#searchProductName').val() == null){
+                alert("검색어를 입력해주세요.");
+                return false;
+            }
+            $('.search-bar').submit();
+        });
+    });
+</script>
   </body>
 </html>
