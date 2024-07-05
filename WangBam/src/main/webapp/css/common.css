@@ -70,3 +70,7 @@ body:has(.docu) {
 #updateForm input, select {
 	border:0;
 } 
+
+.phone-group select{
+	border:none;
+} 
