@@ -27,13 +27,13 @@ public class OrderListAction implements Action{
 			String cPage = request.getParameter("cPage");
 			String pd_name = request.getParameter("pd_name");
 			Paging page = new Paging(4,5);
-
+			String searchValue = request.getParameter("searchValue");
 			
 			Map<String, String> map = new HashMap<>();
 			
 			map.put("us_idx",uvo.getUs_idx());
-			if(pd_name != null) {
-				map.put("pd_name",pd_name);
+			if(searchValue != null) {
+				map.put("pd_name",searchValue);
 			}
 			int count = OrderDAO.countUsIdx(map);
 			page.setTotalRecord(count);
