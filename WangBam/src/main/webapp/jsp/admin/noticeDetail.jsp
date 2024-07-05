@@ -8,7 +8,7 @@
 	<div class="form-group">
 		
 		<div>
-	        <div style="background:#fff; padding: 12px;">
+	        <div>
 				<div><h2 style="margin-bottom: 12px;">${vo.bo_title }</h2></div>
 				<div style="color: gray; border-bottom: 1px solid #ddd; padding-bottom: 12px; margin-bottom: 8px;">
 		            <span><c:if test='${vo.uvo.us_nickname != null}'>${vo.uvo.us_nickname}</c:if>
@@ -25,51 +25,47 @@
 		<label for="comment">댓글 [${vo.c_list.size() }]</label>
 		<div class="comment" id="commentList">
 			<c:forEach var="cvo" items="${vo.c_list }" varStatus="vs">
-					<div id="comment_${cvo.co_idx }" class="comment-item">
-						<div class="comment-header">
-							<p>
-								<c:choose>
-									<c:when test="${cvo.uvo.us_idx == vo.uvo.us_idx && cvo.uvo.us_type == 1}">
-										작성자: <b style="color: #ff0044">${vo.uvo.us_nickname }</b>&nbsp;&nbsp;
-									</c:when>
-									<c:when test="${cvo.uvo.us_type == 0 }">
-										작성자: <b style="color: #4400ff">${cvo.uvo.us_nickname }</b> &nbsp;&nbsp;
-									</c:when>
-									<c:when test="${cvo.uvo.us_nickname != null}">
-										작성자: ${cvo.uvo.us_nickname } &nbsp;&nbsp;
-									</c:when>
-									<c:when test="${cvo.uvo.us_nickname == null}">
-										작성자: 탈퇴한 회원 &nbsp;&nbsp;
-									</c:when>
-								</c:choose>
-							</p>
-							<p class="date">
-								작성일: ${cvo.co_write_date } &nbsp;&nbsp;
-							</p>
-						</div>
-						
-						<c:if test="${cvo.uvo.us_idx == sessionScope.user.us_idx and cvo.uvo.us_idx != null }">
-					    	<button class="admin-btn submit" type="button" onclick="editComment('${cvo.co_idx}')" style="float: right; margin-top: 20px;">수정</button><br/>
-						</c:if>
-						<c:if test="${sessionScope.user.us_type == 0 and cvo.uvo.us_idx != sessionScope.user.us_idx}">
-							<button class="admin-btn submit" type="button" onclick="deleteComment('${cvo.co_idx}')" style="float: right; margin-top: 20px;">삭제</button><br/>
-						</c:if>
-						<div class="edit_comment">
-							<input id="contentInput_${cvo.co_idx }" type="text" value="${cvo.co_content }" style="width: 80%" disabled/>
-							<div class="commentEdit_btn" id="btn_${cvo.co_idx }" style="display:none; float: right;">
-								<button type="button" onclick="cancelEdit('${cvo.co_idx }')">취소</button>
-								<button type="button" onclick="saveEditComment('${cvo.co_idx}')">저장</button>
-								<button type="button" onclick="deleteComment('${cvo.co_idx}')">삭제</button>
-							</div>
+				<div id="comment_${cvo.co_idx }" class="comment-item">
+					<div class="comment-header">
+						<c:choose>
+							<c:when test="${cvo.uvo.us_idx == vo.uvo.us_idx && cvo.uvo.us_type == 1}">
+								<p style="color: #ff0044"><strong>[작성자]</strong><b>${cvo.uvo.us_nickname }</b></p>
+							</c:when>
+							<c:when test="${cvo.uvo.us_type == 0 }">
+								<p style="color: #4400ff"><strong>[관리자]</strong><b>${cvo.uvo.us_nickname }</b></p>
+							</c:when>
+							<c:when test="${cvo.uvo.us_nickname != null}">
+								<p>${cvo.uvo.us_nickname }</p>
+							</c:when>
+							<c:when test="${cvo.uvo.us_nickname == null}">
+								<p>탈퇴한 회원</p>
+							</c:when>
+						</c:choose>
+						<p class="date">${cvo.co_write_date } &nbsp;&nbsp;</p>
+					</div>
+					
+					<c:if test="${cvo.uvo.us_idx == sessionScope.user.us_idx and cvo.uvo.us_idx != null }">
+				    	<button class="admin-btn submit" type="button" onclick="editComment('${cvo.co_idx}')" style="float: right; margin-top: 20px;">수정</button><br/>
+					</c:if>
+					<c:if test="${sessionScope.user.us_type == 0 and cvo.uvo.us_idx != sessionScope.user.us_idx}">
+						<button class="admin-btn submit" type="button" onclick="deleteComment('${cvo.co_idx}')" style="float: right; margin-top: 20px;">삭제</button><br/>
+					</c:if>
+					<div class="edit_comment">
+						<input id="contentInput_${cvo.co_idx }" type="text" value="${cvo.co_content }" style="width: 80%" disabled/>
+						<div class="commentEdit_btn" id="btn_${cvo.co_idx }" style="display:none; float: right;">
+							<button type="button" onclick="cancelEdit('${cvo.co_idx }')">취소</button>
+							<button type="button" onclick="saveEditComment('${cvo.co_idx}')">저장</button>
+							<button type="button" onclick="deleteComment('${cvo.co_idx}')">삭제</button>
 						</div>
 					</div>
+				</div>
 			</c:forEach>
 		</div>
 	
 	<br/>
 
 		<c:if test="${sessionScope.user != null}">
-			<h2>댓글 쓰기</h2><h4>작성자: ${sessionScope.user.us_nickname }</h4>
+			<h3>댓글 쓰기</h3><h4>작성자: ${sessionScope.user.us_nickname }</h4>
 				<form class="comment-form" name="writeCommentForm" action="admin" method="post" onsubmit="return writeComment()" style="display: flex; align-items: flex-start; flex-direction: row;">
 					<textarea rows="4" cols="30" name="co_content" id="co_content"  style="resize: none; margin-right: 10px; display: inline-block; width: calc(100% - 80px);"></textarea>
 					<input type="hidden" name="us_idx" value="${sessionScope.user.us_idx }"/>

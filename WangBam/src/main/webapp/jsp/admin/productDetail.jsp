@@ -6,6 +6,8 @@
 	<h1>상품 상세 정보</h1>
 	<form id="updateForm" class="form-group" action="admin?type=productUpdate" method="post"
 		enctype="multipart/form-data" name="updateForm">
+		<input type="hidden" name="existingThumbnailImg" value="${pvo.pd_thumbnail_img}">
+    	<input type="hidden" name="existingDetailImg" value="${pvo.pd_detail_img}">	
 		<input type="hidden" name="pd_idx" value="${pvo.pd_idx}">
 		<div>
 			<label for="pd_name">상품명</label> <input type="text" id="pd_name"
@@ -63,8 +65,8 @@
 		</div>
 	</form>
 </div>
-<div id="dialog-confirm" title="수정" class="dialog" style="display:none">
-	<p>변경하시겠습니까?</p>
+<div id="admin-dialog" class="admin-dialog" title="수정" class="dialog" style="display:none">
+	<p></p>
   </div>
   <div class="popup-container" id="categoryAddPop">
 	<table class="table" id="categoryList">
@@ -119,32 +121,42 @@ function selectImg(input){
 //상품 삭제
 
 	$("#deleteBtn").on('click', function() {
-		if (confirm("정말 삭제하시겠습니까?")) {
-			$.ajax({
-				url: "?type=productDelete",
-				type: "GET",
-				data: {
-					pd_idx: "${pvo.pd_idx}",
-					pd_status: "${pvo.pd_status}"
-				},
-				success: function () {
-					alert("삭제 완료!")
-					// 장바구니 추가가 성공하면 장바구니 목록 페이지로 이동합니다.
-					location.href = "admin?type=productList";
-				},
-				error: function () {
-					alert("삭제 실패...");
-				}
-			});
-		}
+		dialog("admin-dialog","삭제하시겠습니까?",{
+			"확인": function() {
+			      $( this ).dialog( "close" );
+			      $.ajax({
+						url: "?type=productDelete",
+						type: "GET",
+						data: {
+							pd_idx: "${pvo.pd_idx}",
+							pd_status: "${pvo.pd_status}"
+						},
+						success: function () {
+							dialog("admin-dialog","삭제완료!",{
+								"확인": function() {
+								      $( this ).dialog( "close" );
+										location.href = "admin?type=productList";
+								    }
+						});
+						},
+						error: function () {
+							alert("삭제 실패...");
+						}
+						});
+					},
+				"취소": function() {
+		          $( this ).dialog( "close" );			
+		        }
+		});
 	});
+	
 //상품 수정
 function update(){
 		const updateForm = document.updateForm;
 		const elem = updateForm.elements;
 		let pass = false;
 		console.log(elem);
-		for(i=1;i<elem.length-8;i++){
+		for(i=3;i<elem.length-7;i++){
 			if(elem[i].id === "pd_sale"||elem[i].id === "ct_idx"||elem[i].id === "popOpenBtn") {
 				continue; // pd_sale 요소를 건너뜁니다.
 			}
@@ -159,22 +171,15 @@ function update(){
 			}
 		}
 		if(pass){
-			$( "#dialog-confirm" ).dialog({
-		      resizable: false,
-		      draggable: false,
-		      height: "auto",
-		      width: 400,
-		      modal: true,
-		      buttons: {
-		        "확인": function() {
-		          $( this ).dialog( "close" );
-					document.updateForm.submit();
-		        },
-		        "취소": function() {
-		          $( this ).dialog( "close" );
-		        }
-		      }
-		    });
+			dialog("admin-dialog","수정하시겠습니까?",{
+				"확인": function() {
+				      $( this ).dialog( "close" );
+				      document.updateForm.submit();
+				    },
+					"취소": function() {
+			          $( this ).dialog( "close" );						         
+			        }
+				  });
 		}
 	}
 //카테고리 수정
@@ -216,6 +221,7 @@ $("#popOpenBtn").on("click", function(){
 })
 $("#popCloseBtn").on("click", function(){
 	$("#categoryAddPop").hide();
+	location.reload(true);
 })
 $("#addCategoryBtn").on("click", function(){
 	if($("#ct_name").val().length < 1){
@@ -239,19 +245,17 @@ $("#addCategoryBtn").on("click", function(){
 		})
 	}
 })
-		
-	
-
-
-
-
-
-
-
-
-	
-
-
+function dialog(className, msg, callback){
+				$("#"+className+" p").text(msg);
+				$( "#"+className).dialog({
+				      resizable: false,
+				      draggable: false,
+				      height: "auto",
+				      width: 400,
+				      modal: true,
+				      buttons: callback
+				});
+			}
 </script>
 </body>
 
