@@ -1,9 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="/jsp/common/header.jsp"%>
-<div class="form-group">
-        <h1 style="text-align: center;">회원 정보 수정</h1>
         <form id="updateForm" class="form-group" action="/WangBam/?type=my" method="post">
+	        <h1 style="text-align: center;">회원 정보 수정</h1>
             <div>
                 <label for="username">아이디</label>
                 <input type="text" id="us_name" value="${sessionScope.user.us_email}" readonly>
@@ -47,10 +46,7 @@
                     <label type="text" id="out-btn" class="out-btn">회원탈퇴</label>
                 </div>
             </div>
-             
         </form>
-        
-    </div>
     <form action="/WangBam/" method="post" id="resign-form" style="display: none;">
         	<input type="hidden" name="type" value="resign"/>
         </form>

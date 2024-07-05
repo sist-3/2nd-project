@@ -155,14 +155,24 @@ caption {
 .btn.search {
 	background:url(../img/icon_search.png) no-repeat center/contain;
 }
+.btn.search:hover {
+	transition:0.2s;
+	transform:scale(1.1);
+}
 .btn.submit {
 	color: #fff;
 	background-color: #744e33;
+}
+.btn.submit:hover {
+	background-color:#573c29;
 }
 .btn.cancel {
 	border: 1px solid #744e33;
 	background-color: #fff;
 	color: #744e33;
+}
+.btn.cancel:hover {
+	background-color : #efefef;
 }
 .btn.edit {
 	color: #333;
