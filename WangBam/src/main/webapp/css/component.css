@@ -609,3 +609,6 @@ font-weight: bold;
 .icon-star.on {
 	background:url(../img/icon_star_on.png) no-repeat;
 }
+.hasDatepicker {
+	background:url(../img/icon_calendar.png) no-repeat right 8px center;
+}
