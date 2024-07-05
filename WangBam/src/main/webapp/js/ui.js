@@ -15,10 +15,11 @@ const bubblyButtons = document.querySelectorAll('.final-btn');
 for (let i = 0; i < bubblyButtons.length; i++) {
 	bubblyButtons[i].addEventListener('click', animateButton, false);
 }
+function googleTranslateElementInit() {new google.translate.TranslateElement({pageLanguage: 'ko' , includedLanguages : 'ko,en,ja'}, 'google_translate_element');}
 // 페이지 전환
 document.addEventListener('DOMContentLoaded', function() {
     const page = document.querySelector('.content');
     // 페이지가 로드될 때 fadeIn 애니메이션 적용
     page.classList.add('fade-in');
-    new google.translate.TranslateElement({pageLanguage: 'ko' , includedLanguages : 'ko,en,ja,zh-CN'}, 'google_translate_element');
+    googleTranslateElementInit();
 });
