@@ -5,8 +5,30 @@ body {
 	color: #333;
 }
 body {
+	position:static !important;
 	font-family: 'NanumGothic';
 	font-weight: 500;
+}
+/* 번역기 */
+.skiptranslate {
+	display:none;
+}
+#google_translate_element .skiptranslate{
+	display:block;
+	font-size:0
+}
+.VIpgJd-ZVi9od-l4eHX-hSRGPd {
+	display:none !important;
+}
+.goog-te-gadget .goog-te-combo {
+	border:none;
+	padding:0 1em 0 2em;
+	border-radius:0;
+	font-size: 0.8rem !important;
+    color: #333;
+    font-family: 'NanumGothic' !important;
+    font-weight:500;
+    margin:0 0 2px 0 !important;
 }
 /* 헤더 */
 .header {
