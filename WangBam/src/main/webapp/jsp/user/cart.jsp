@@ -37,7 +37,7 @@
 						<col width="160px">
 					</colgroup>
 					<tr>
-						<th><input type="checkbox" class="allCheckbox" onclick="allCheck()" checked /> 모두선택</th>
+						<th><label for="allCheckbox"><input type="checkbox" id="allCheckbox" class="allCheckbox" onclick="allCheck()" checked />모두선택</label></th>
 						<th>이미지</th>
 						<th>상품명</th>
 						<th>가격</th>

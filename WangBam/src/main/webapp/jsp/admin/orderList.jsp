@@ -27,8 +27,8 @@
 </div>
 <table class="table" id="orderList">
 	<tr>
-		<th><input type="checkbox" id="selectSendAll" /> 발송</th>
-		<th><input type="checkbox" id="selectCancelAll" /> 주문취소</th>
+		<th><label for="selectSendAll"><input type="checkbox" id="selectSendAll" />발송</label></th>
+		<th><label for="selectCancelAll"><input type="checkbox" id="selectCancelAll" />주문취소</label></th>
 		<th>no</th>
 		<th>받는사람</th>
 		<th>주문번호</th>

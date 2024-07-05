@@ -22,8 +22,8 @@
 </div>
 <table class="table" id="productList">
 	<tr>
-		<th><input type="checkbox" class="allCheckbox"
-			onclick="allCheck()" />선택</th>
+		<th><label for="allCheckbox"><input type="checkbox" class="allCheckbox"
+			onclick="allCheck()" id="allCheckbox"/>선택</label></th>
 		<th>상품번호</th>
 		<th>썸네일</th>
 		<th>상품명</th>
