@@ -20,5 +20,5 @@ document.addEventListener('DOMContentLoaded', function() {
     const page = document.querySelector('.content');
     // 페이지가 로드될 때 fadeIn 애니메이션 적용
     page.classList.add('fade-in');
+    new google.translate.TranslateElement({pageLanguage: 'ko' , includedLanguages : 'ko,en,ja,zh-CN'}, 'google_translate_element');
 });
-function googleTranslateElementInit() {new google.translate.TranslateElement({pageLanguage: 'ko' , includedLanguages : 'ko,en,ja,zh-CN'}, 'google_translate_element');}
