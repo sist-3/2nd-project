@@ -30,6 +30,7 @@ body {
     font-weight:500;
     margin:0 0 2px 0 !important;
     cursor:pointer;
+    background-color: transparent;
 }
 .goog-te-gadget .goog-te-combo:active, .goog-te-gadget .goog-te-combo:focus {
 	border:none;
