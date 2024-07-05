@@ -230,6 +230,7 @@
                 </if>
             </trim>
         </where>
+        ORDER BY or_idx DESC
         	) a, (SELECT @RN:=0) b
     	) c
         <where>
