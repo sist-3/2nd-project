@@ -14,7 +14,7 @@
 					background-color: #f9eeb0;
 					border-radius: 10px;
 					border: 4px solid #8b5228;
-					height: 200px;
+					height: 150px;
 					display: flex;
 					align-items: center;
 					justify-content: space-around;
