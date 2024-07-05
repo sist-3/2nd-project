@@ -4,7 +4,7 @@
 <%@include file="/jsp/common/adminHeader.jsp"%>
 <div class="admin">
 	<h1>상품 상세 정보</h1>
-	<form id="updateForm" class="form-group" action="admin?type=productUpdate" method="post"
+	<form class="form-group" action="admin?type=productUpdate" method="post"
 		enctype="multipart/form-data" name="updateForm">
 		<input type="hidden" name="existingThumbnailImg" value="${pvo.pd_thumbnail_img}">
     	<input type="hidden" name="existingDetailImg" value="${pvo.pd_detail_img}">	
