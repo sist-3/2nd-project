@@ -22,13 +22,18 @@ body {
 }
 .goog-te-gadget .goog-te-combo {
 	border:none;
-	padding:0 1em 0 2em;
+	padding:0 2em;
 	border-radius:0;
 	font-size: 0.8rem !important;
     color: #333;
     font-family: 'NanumGothic' !important;
     font-weight:500;
     margin:0 0 2px 0 !important;
+    cursor:pointer;
+}
+.goog-te-gadget .goog-te-combo:active, .goog-te-gadget .goog-te-combo:focus {
+	border:none;
+	outline:none;
 }
 /* 헤더 */
 .header {
