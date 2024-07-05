@@ -381,7 +381,7 @@
 <div class="top">
 	<div class="icons">
 
-		<a href="?type=index" id="home"></a> > <a href="?type=productList">카테고리</a>
+		<a href="?type=index" id="home"></a> > <a href="?type=productList">돌아가기</a>
 	</div>
 </div>
 <div class="product-page">
@@ -708,7 +708,13 @@
         let max = parseInt(input.max, 10);
         let value = parseInt(input.value, 10);
         if (value > max) {
-            alert("재고보다 많은 수량은 구매할 수 없습니다.");
+        	dialog("dialog-confirm","재고보다 많은 수량을 구매할 수 없습니다.",{
+				"확인": function() {
+				      $( this ).dialog( "close" );
+				      document.updateForm.submit();
+				    }
+				  });
+            //alert("재고보다 많은 수량은 구매할 수 없습니다.");
             input.value = max;
         }
     }
