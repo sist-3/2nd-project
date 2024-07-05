@@ -27,6 +27,8 @@ body:has(.docu) {
 	gap: 10px;
 	max-width: 700px;
 	margin: auto;
+	border-radius: 10px;
+    background: #fff;
     padding: 50px;
 }
 .form-group > h1 {
@@ -60,3 +62,11 @@ body:has(.docu) {
 .split-box > button {
 	flex-shrink:0;
 }
+
+#signUpForm input, select {
+	border:0;
+}
+
+#updateForm input, select {
+	border:0;
+} 
