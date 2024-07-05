@@ -14,16 +14,18 @@
 					background-color: #f9eeb0;
 					border-radius: 10px;
 					border: 4px solid #8b5228;
-					height: 200px;
+					height: 150px;
 					display: flex;
 					align-items: center;
 					justify-content: space-around;
 				}
 			</style>
-			<h1 style="text-align: center;">장바구니</h1>
-			<div class="btn_div" style="text-align: end">
+			<div class="btn_div" style="display: flex; margin-bottom:10px; ">
+			<h2><a href="?type=cartList">장바구니</a></h2>
+			<div style="display:flex; gap:5px; position: absolute; right:10px">
 				<button id="delete_Btn" class="btn submit">선택상품삭제</button>
 				<button id="deleteAll_Btn" class="btn cancel">장바구니비우기</button>
+			</div>
 			</div>
 			<table class="table1">
 				<thead>
@@ -37,7 +39,7 @@
 						<col width="160px">
 					</colgroup>
 					<tr>
-						<th><input type="checkbox" class="allCheckbox" onclick="allCheck()" checked /> 모두선택</th>
+						<th><label for="allCheckbox"><input type="checkbox" id="allCheckbox" class="allCheckbox" onclick="allCheck()" checked />모두선택</label></th>
 						<th>이미지</th>
 						<th>상품명</th>
 						<th>가격</th>
@@ -52,7 +54,7 @@
 						<% int index=0; %>
 							<c:forEach var="vo" items="${cvo}">
 								<form action="/WangBam/?type=buy" method="get">
-									<tr class="item">
+									<tr class="item" style="font-size: 16px">
 										<td><input type="checkbox" class="checkbox" value="<%= index++ %>" checked />
 										</td>
 										<c:if test="${vo.pvo.pd_thumbnail_img ne ''}">
@@ -99,9 +101,9 @@
 			<div class="summary">
 				<div>
 					<h4 style="margin-bottom: 30px;">장바구니 상품</h4>
-					<div style="display: flex; gap:8px; align-items: center;"><img src="./img/cart.png" width="32"
+					<div style="display: flex; justify-content: space-around;"><img src="./img/cart.png" width="32"
 							height="32">
-						<span>${fn:length(cvo)} 개</span>
+						<span style="margin-right:20px">${fn:length(cvo)} 개</span>
 					</div>
 				</div>
 

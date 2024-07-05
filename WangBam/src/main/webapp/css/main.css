@@ -136,11 +136,9 @@
 
 .item {
 	background: #fff;
-	border: 1px solid #ddd;
 	margin: 10px;
 	padding: 10px;
-	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-	flex-basis: 30%;
+	box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
 	text-align: center;
 	border-radius:20px;
 	font-size:20px;
@@ -650,31 +648,6 @@ label {
 	color: #333;
 }
 
-input[type='text'],
-input[type='password'],
-input[type='email'],
-select {
-	width: 100%;
-	padding: 12px 15px;
-	border: 1px solid #fff;
-	border-radius: 6px;
-	font-size: 16px;
-	background-color: #fff;
-	transition: border-color 0.3s ease-in-out;
-	box-sizing: border-box;
-}
-
-input[type='text']:focus,
-input[type='password']:focus,
-input[type='email']:focus,
-select:focus {
-	border-color: #007bff;
-}
-
-input::placeholder {
-	color: #bbb;
-}
-
 .address-group,
 .phone-group {
 	display: flex;
@@ -815,4 +788,8 @@ textarea:disabled{
 
 .note-modal-footer{
 	padding: 0;
+}
+.comment-list-section :is(input[type='text'], input[type='password'], input[type='email'], select){
+	border:none;
+	border-radius:0;
 }

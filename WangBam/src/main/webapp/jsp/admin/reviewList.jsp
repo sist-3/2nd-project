@@ -24,8 +24,8 @@
 	<table class="table">
 		<thead>
 			<tr>
-				<th><input type="checkbox" id="selectAll"
-					onclick="toggleSelectAll(this)" /> 선택</th>
+				<th><label for="selectAll"><input type="checkbox" id="selectAll"
+					onclick="toggleSelectAll(this)" />선택</label></th>
 				<th>번호</th>
 				<th id="table_col_title">제목</th>
 				<th>닉네임</th>

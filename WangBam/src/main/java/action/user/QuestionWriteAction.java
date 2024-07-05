@@ -33,6 +33,8 @@ public class QuestionWriteAction implements Action {
 		 
 
 		if (enc_type == null || !enc_type.startsWith("multipart")) {
+			request.setAttribute("ct_idx", request.getParameter("ct_idx"));
+			request.setAttribute("pd_idx", request.getParameter("pd_idx"));
 			viewPath = "/jsp/user/questionWrite.jsp";
 			
 		} else if (enc_type.startsWith("multipart")) {

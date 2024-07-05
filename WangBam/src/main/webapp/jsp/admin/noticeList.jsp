@@ -25,7 +25,7 @@
     <table class="table">
         <thead>
             <tr>
-            	<th><input type="checkbox" id="allCheck" name="allCheck"/></th>
+            	<th><label for="allCheck"><input type="checkbox" id="allCheck" name="allCheck"/>전체선택</label></th>
                 <th>번호</th>
                 <th style="width:40%">제목</th>
                 <th>닉네임</th>

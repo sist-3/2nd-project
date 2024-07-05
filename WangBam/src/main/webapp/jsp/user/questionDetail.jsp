@@ -186,7 +186,7 @@
 			data: {co_idx: co_idx,
 				newContent: newContent,
 				bo_idx: ${vo.bo_idx },
-				bo_type: 2 ,
+				bo_type: 1 ,
 				cPage: ${requestScope.cPage}},
 			
 		}).done(function(res) {
@@ -208,7 +208,7 @@
 				data: {co_idx: co_idx,
 					newContent: newContent,
 					bo_idx: ${vo.bo_idx },
-					bo_type: 2 ,
+					bo_type: 1 ,
 					cPage: ${requestScope.cPage}},
 				
 			}).done(function(res) {
