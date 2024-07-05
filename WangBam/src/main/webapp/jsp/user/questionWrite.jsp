@@ -21,13 +21,14 @@
             </div>
             <select name="searchCategory" id="searchCategory">
             	<c:forEach var="category" items="${requestScope.ct_ar }">
-					<option value="${category.ct_idx }" ${requestScope.searchCategory == category.ct_idx ? 'selected' : ''}>${category.ct_name }</option>            	
+					<option value="${category.ct_idx }" ${requestScope.ct_idx == category.ct_idx ? 'selected' : ''}>${category.ct_name }</option>            	
             	</c:forEach>
             </select>
             <select name="searchProduct" id="searchProduct">
-            	<option value="select">::선택:;</option>
+            	<option value="select">::선택::</option>
             		<c:forEach var="product" items="${requestScope.pd_ar }">
-							<option class="product_option" data-category="${product.ct_idx}" value="${product.pd_idx }">${product.pd_name }</option>            	
+							<option class="product_option" data-category="${product.ct_idx}" value="${product.pd_idx }"
+							${requestScope.pd_idx == product.pd_idx ? 'selected' : ''}>${product.pd_name }</option>            	
             		</c:forEach>
             </select>
             <div>
@@ -105,7 +106,7 @@ function saveBorads() {
     function ProductOption() {
 		var selectedCategory = document.getElementById("searchCategory").value;
         var productOptions = document.getElementsByClassName("product_option");
-		$('#searchProduct').prop('selectedIndex', 0);
+		/* $('#searchProduct').prop('selectedIndex', 0); */
 		
         for (var i = 0; i < productOptions.length; i++) {
             var option = productOptions[i];

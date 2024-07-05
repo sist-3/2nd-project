@@ -58,6 +58,18 @@
 	border: 1px solid #fdd835; /* 활성 탭 테두리 */
 	color: #333; /* 활성 탭 텍스트 색상 */
 }
+
+.ui-dialog-buttonset > .ui-button:first-child {
+    background-color: #8b4d35 !important;
+    color: #fff !important;
+}
+.ui-button{
+	border: 1px solid #c5c5c5 !important;
+    background: #f6f6f6 !important;
+    font-weight: normal !important;
+    color: #454545 !important;
+}
+
 /* content 정위치를 위해 css무시 */
 #tabs.ui-widget.ui-widget-content {
 	padding: initial !important;
@@ -65,7 +77,12 @@
 	overflow: initial !important;
 	position: initial !important;
 }
-
+.ui-button:hover{
+	border: 1px solid #cccccc !important;
+    background: #ededed !important;
+    font-weight: normal !important;
+    color: #2b2b2b !important;
+}
 /*배경*/
 .main {
 	width: 70%;
@@ -659,7 +676,7 @@
 								<h3>${board.bo_title}</h3>
 								<h5>${board.bo_content}</h5>
 								<div class="question-images">
-									<c:if test="${board.bo_img != null}">
+									<c:if test="${board.bo_img != null && board.bo_img ne ''}">
 										<img
 											src="${pageContext.request.contextPath}/img/${board.bo_img}"
 											width="100" />
@@ -681,7 +698,7 @@
 		</div>
 	</div>
 </div>
-<div id="dialog-confirm" title="알림" class="dialog" style="display: none">
+<div id="dialog-confirm" title="알림" class="dialog" style="display: none; white-space: pre-line;">
 	<p></p>
 </div>
 <%@include file="/jsp/common/footer.jsp"%>
@@ -698,40 +715,47 @@
 
 			$(function () {
 				$("#tabs").tabs();
-				
 				$("#order_Btn").on('click', function() {
 					if(${sessionScope.user != null}){
-						
+						dialog("dialog-confirm","바로 구매하시겠습니까?",{
+							"확인": function() {
+							      $( this ).dialog( "close" );
+							      let price = null;
+									
+								    if(${pvo.pd_sale != null}) {	  
+										price = $("#discount").text();
+								    } else {
+								    	price = $("#totalPrice").text();
+								    }
+								    
+								    price = price.replace(',', '');
+									price = price.replace('원', '');
+									
+								    const data = {
+								    	cnt : $("#quantity").val(),
+								    	price : price
+								    }
+								    $.ajax({
+								        url : '/WangBam/?type=buy',
+								        type: 'POST',
+								        contentType: 'application/json',
+								        data: JSON.stringify(data),
+								        success: function(response) {
+								            location.replace("/WangBam/?type=buy");
+								        },
+								        error:function(request,status,error){
+								        }
+								    });
+							    },
+								"취소": function() {
+						          $( this ).dialog( "close" );						         
+						        }
+							  });	
 					
-					let price = null;
 					
-				    if(${pvo.pd_sale != null}) {	  
-						price = $("#discount").text();
-				    } else {
-				    	price = $("#totalPrice").text();
-				    }
-				    
-				    price = price.replace(',', '');
-					price = price.replace('원', '');
-					
-				    const data = {
-				    	cnt : $("#quantity").val(),
-				    	price : price
-				    }
-				    $.ajax({
-				        url : '/WangBam/?type=buy',
-				        type: 'POST',
-				        contentType: 'application/json',
-				        data: JSON.stringify(data),
-				        success: function(response) {
-				            location.replace("/WangBam/?type=buy");
-				        },
-				        error:function(request,status,error){
-				        }
-				    });
 					}else{
 						dialog("dialog-confirm", 
-							"로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?", 
+							"로그인이 필요합니다.\n로그인 페이지로 이동하시겠습니까?\n", 
 							{
 								"확인": function() {
 							      $( this ).dialog( "close" );
@@ -747,15 +771,15 @@
 				});
 			});
 			
-			function dialog(className, msg, callback){
-				$("#"+className+" p").text(msg);
-				$( "#"+className).dialog({
-				      resizable: false,
-				      draggable: false,
-				      height: "auto",
-				      width: 400,
-				      modal: true,
-				      buttons: callback
+			function dialog(className, msg, callback) {
+				$("#" + className + " p").text(msg);
+				$("#" + className).dialog({
+					resizable: false,
+					draggable: false,
+					height: "auto",
+					width: 400,
+					modal: true,
+					buttons: callback
 				});
 			}
 			
@@ -795,36 +819,45 @@
 				let count = document.getElementById('quantity').value;
 			
 				if (${ sessionScope.user != null }) {
-			
-					// AJAX 요청을 사용하여 장바구니에 상품을 추가하고, 성공 시 페이지를 리다이렉트합니다.
-					$.ajax({
-						url: "?type=cartAdd",
-						type: "GET",
-						data: {
-							pd_idx: "${pvo.pd_idx}",
-							pd_cnt: count
-						},
-						success: function () {
-							dialog("dialog-confirm", 
-									"장바구니에 담았습니다. 장바구니로 이동하시겠습니까?", 
-									{
-										"확인": function() {
-									      $( this ).dialog( "close" );
-									      location.href = "?type=cartList";
-									    },
-										"취소": function() {
-								          $( this ).dialog( "close" );						         
-								        }
-									  }
-								);
-						},
-						error: function () {
-							alert("장바구니 추가에 실패했습니다.");
-						}
-					});
+					dialog("dialog-confirm", 
+							"장바구니에 담으시겠습니까?", 
+							{
+								"확인": function() {
+							      $( this ).dialog( "close" );
+									$.ajax({
+										url: "?type=cartAdd",
+										type: "GET",
+										data: {
+											pd_idx: "${pvo.pd_idx}",
+											pd_cnt: count
+										},
+										success: function () {
+											dialog("dialog-confirm", 
+													"장바구니에 담았습니다.\n장바구니로 이동하시겠습니까?\n", 
+													{
+														"확인": function() {
+													      $( this ).dialog( "close" );
+													      location.href = "?type=cartList";
+													    },
+														"취소": function() {
+												          $( this ).dialog( "close" );						         
+												        }
+													  }
+												);
+										},
+										error: function () {
+											alert("장바구니 추가에 실패했습니다.");
+										}
+									});
+							    },
+								"취소": function() {
+						          $( this ).dialog( "close" );						         
+						        }
+							  }
+						);
 				}else {
 					dialog("dialog-confirm", 
-							"로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?", 
+							"로그인이 필요합니다.\n로그인 페이지로 이동하시겠습니까?\n", 
 							{
 								"확인": function() {
 							      $( this ).dialog( "close" );
@@ -841,11 +874,11 @@
 			 function questionCheck() {
 		            <c:choose>
 		                <c:when test="${sessionScope.user != null}">
-		                    location.href = "?type=questionWrite&us_idx=${sessionScope.user.us_idx}";
+		                    location.href = "?type=questionWrite&us_idx=${sessionScope.user.us_idx}&pd_idx=${sessionScope.pvo.pd_idx}&ct_idx=${sessionScope.pvo.cvo.ct_idx}";
 		                </c:when>
 		                <c:otherwise>
 		                dialog("dialog-confirm", 
-								"로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?", 
+								"로그인이 필요합니다.\n로그인 페이지로 이동하시겠습니까?\n", 
 								{
 									"확인": function() {
 								      $( this ).dialog( "close" );
