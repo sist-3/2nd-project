@@ -19,7 +19,7 @@
 					<span>조회 : ${vo.bo_hit }회</span>&nbsp;&nbsp;|&nbsp;
 	    	        <span>${vo.bo_write_date }</span>
 				</div>
-	            <p>${vo.bo_content}</p>
+	            <div class="q-contents">${vo.bo_content}</div>
 	        </div>
    		</div>
 		
@@ -98,8 +98,7 @@
 			<c:if test="${sessionScope.user.us_idx == vo.uvo.us_idx}">
 				<button type="button" class="btn submit"
 						onclick="javascript:window.location.href='?type=reviewEdit&bo_idx=${vo.bo_idx }&cPage=${requestScope.cPage }'">수정</button>
-				<button type="button" class="btn cancel"
-						onclick="javascript:window.location.href='?type=reviewDelete&bo_idx=${vo.bo_idx }&cPage=${requestScope.cPage }'">삭제</button>
+				
 			</c:if>
 			
 			<button type="button" class="btn cancel"

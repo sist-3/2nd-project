@@ -20,7 +20,7 @@
 					<span>조회 : ${vo.bo_hit }회</span>&nbsp;&nbsp;|&nbsp;
 	    	        <span>${vo.bo_write_date }</span>
 				</div>
-	            <p>${vo.bo_content}</p>
+	            <div class="q-contents">${vo.bo_content}</div>
 	        </div>
    		</div>
    		
