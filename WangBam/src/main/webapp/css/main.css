@@ -656,7 +656,7 @@ input[type='email'],
 select {
 	width: 100%;
 	padding: 12px 15px;
-	border: 1px solid #ddd;
+	border: 1px solid #fff;
 	border-radius: 6px;
 	font-size: 16px;
 	background-color: #fff;
@@ -755,17 +755,24 @@ input::placeholder {
 
 .comments-list .comment {
     border-radius: 8px;
-    padding: 10px;
     margin-bottom: 10px;
-	border: 1px solid #e2e2e2;
 }
 
+.comment > .split-box{
+	background-color: #ffd065;
+    padding: 10px;
+    border-radius: 7px 7px 0 0;
+}
 .comments-list .comment p {
     margin: 0;
     color: #8b4513;
 }
-.commentEdit_btn {
+ .commentEdit_btn{
 	text-align:right;
+}
+
+.form-group div > div + .edit_comment{
+	margin: 0;
 }
 .content > .form-group {
 	background-color: #fff7e6;
@@ -775,7 +782,37 @@ input::placeholder {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 #commentList{
-	margin-top: 50px;
 	padding-top: 20px;
 	border-top: 2px solid #ffcc99;
+}
+
+.q-contents{
+	min-height: 200px;
+	background: #fff;
+	min-height: 200px;
+    background: #fff;
+    border-radius: 11px;
+    padding: 5px;
+}
+
+textarea:disabled{
+	border-color:rgba(239, 239, 239, 0.3);
+}
+
+.edit_comment > .split-box{
+	gap: 0px;	
+}
+
+.split-box > .btn.cancel{
+	border:none;
+	border-left: 1px dashed orange;
+	border-radius: 0;
+}
+
+.comment-form input, .comment-form textarea{
+	border: none;
+}
+
+.note-modal-footer{
+	padding: 0;
 }
