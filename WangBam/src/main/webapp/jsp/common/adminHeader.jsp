@@ -24,14 +24,10 @@
 				<nav class="global-nav">
 					<div class="global-nav-links">
 						<a href="admin?type=index"
-							class="${currentPage.contains('index') ? 'global-nav-item on' : 'global-nav-item'}">한눈에
-							보기</a> <a href="admin?type=noticeList"
-							class="${currentPage.contains('notice') ? 'global-nav-item on' : 'global-nav-item'}">공지사항
-							관리</a> <a href="admin?type=reviewList"
-							class="${currentPage.contains('review') ? 'global-nav-item on' : 'global-nav-item'}">리뷰
-							답글</a> <a href="admin?type=questionList"
-							class="${currentPage.contains('question') ? 'global-nav-item on' : 'global-nav-item'}">문의사항
-							답글</a> <a href="admin?type=productList"
+							class="${currentPage.contains('index') ? 'global-nav-item on' : 'global-nav-item'}">대시보드</a> <a href="admin?type=noticeList"
+							class="${currentPage.contains('notice') ? 'global-nav-item on' : 'global-nav-item'}">공지사항</a> <a href="admin?type=reviewList"
+							class="${currentPage.contains('question') ? 'global-nav-item on' : 'global-nav-item'}">문의사항</a> <a href="admin?type=productList"
+							class="${currentPage.contains('review') ? 'global-nav-item on' : 'global-nav-item'}">리뷰관리</a> <a href="admin?type=questionList"
 							class="${currentPage.contains('product') ? 'global-nav-item on' : 'global-nav-item'}">상품관리</a>
 						<a href="admin?type=orderList"
 							class="${currentPage.contains('order') ? 'global-nav-item on' : 'global-nav-item'}">주문관리</a>
