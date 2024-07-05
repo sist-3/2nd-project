@@ -21,3 +21,4 @@ document.addEventListener('DOMContentLoaded', function() {
     // 페이지가 로드될 때 fadeIn 애니메이션 적용
     page.classList.add('fade-in');
 });
+function googleTranslateElementInit() {new google.translate.TranslateElement({pageLanguage: 'ko' , includedLanguages : 'ko,en,ja,zh-CN'}, 'google_translate_element');}

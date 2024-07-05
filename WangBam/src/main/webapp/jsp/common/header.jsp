@@ -17,7 +17,6 @@
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/style.css">
-
 </head>
 
 <body>
@@ -47,8 +46,10 @@
 								<a href="?type=cartList">장바구니</a>
 							</c:if>
 							<c:if test="${sessionScope.user eq null}">
-								<a href="?type=login">로그인</a> <a href="?type=signup">회원가입</a>
+								<a href="?type=login">로그인</a>
+								<a href="?type=signup">회원가입</a>
 							</c:if>
+							<div id="google_translate_element"></div>
 						</div>
 					</nav>
 				</div>
