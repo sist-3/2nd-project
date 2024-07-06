@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="heart">
+
+	<select id="count" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM heart_t
+		WHERE bo_idx = #{bo_idx}
+	</select>
+	
+	<select id="check" parameterType="map" resultType="int">
+		SELECT COUNT(*)
+		FROM heart_t
+		WHERE bo_idx = #{bo_idx}
+		AND us_idx = #{us_idx}
+	</select>
+	
+	<insert id="add" parameterType="map">
+		INSERT INTO heart_t(bo_idx, us_idx)
+		VALUES (#{bo_idx}, #{us_idx})
+	</insert>
+	
+	<delete id="remove" parameterType="map">
+		DELETE
+		FROM heart_t
+		WHERE bo_idx = #{bo_idx}
+		AND us_idx = #{us_idx}
+	</delete>
+</mapper>

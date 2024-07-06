@@ -21,6 +21,25 @@
 				</div>
 	            <div class="q-contents">${vo.bo_content}</div>
 	        </div>
+	        
+	        <c:set var="bo_idx" value="${vo.bo_idx }"/>
+        	<c:if test="${sessionScope.user != null }">
+		        <div id="boards_heart">
+		        	<c:choose>
+		        		<c:when test="${requestScope.check == false }">
+		        			<button onclick="addHeart('${bo_idx}', '${sessionScope.user.us_idx}')"><img src="${pageContext.request.contextPath}/img/heart_off.png"/>${requestScope.count }</button>
+		        		</c:when>
+		        		<c:when test="${requestScope.check == true }">
+		        			<button onclick="removeHeart('${bo_idx}', '${sessionScope.user.us_idx}')"><img src="${pageContext.request.contextPath}/img/heart_on.png"/>${requestScope.count }</button>
+		        		</c:when>
+		        	</c:choose>
+	        	</div>
+        	</c:if>
+        	<c:if test="${sessionScope.user == null }">
+        		<div id="boards_heart">
+					<button onclick="loginConfirm()"><img src="${pageContext.request.contextPath}/img/heart_off.png"/>${requestScope.count }</button>
+	        	</div>
+        	</c:if>
    		</div>
 		
 			<div class="comment-list-section" id="commentList">

@@ -765,7 +765,7 @@ label {
 	min-height: 200px;
     background: #fff;
     border-radius: 11px;
-    padding: 5px;
+    padding: 12px 15px;
 }
 
 textarea:disabled{
@@ -792,4 +792,50 @@ textarea:disabled{
 .comment-list-section :is(input[type='text'], input[type='password'], input[type='email'], select){
 	border:none;
 	border-radius:0;
+}
+
+#commentList{
+	margin-top: 0 !important;
+}
+	
+#boards_heart{
+	display: block;
+	float: right;
+}
+
+#boards_heart button {
+    color: red;
+    font-family: sans-serif;
+}
+
+#boards_heart img{
+	max-width: 60%
+}
+
+@keyframes heartBeat_on {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.5);
+    }
+}
+
+@keyframes heartBeat_off {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(0.7);
+    }
+}
+
+.heart-animation-on {
+    animation: heartBeat_on 0.5s ease-in-out;
+    transform-origin: center center;
+}
+
+.heart-animation-off {
+    animation: heartBeat_off 0.5s ease-in-out;
+    transform-origin: center center;
 }
