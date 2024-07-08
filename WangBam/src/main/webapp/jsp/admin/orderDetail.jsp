@@ -64,10 +64,10 @@
 			const status = document.getElementById("or_status_code").value;
 			
 	        form.method = 'POST';
-	        form.action = 'admin?type=orderUpdate&or_status_code=INFORMATION_RECEIVED&or_idx='+idx;
+	        form.action = 'admin?type=orderUpdate&or_status_code=DELIVERED&or_idx='+idx;
 	        
 	        if(status != 'UNKNOWN'){
-	        	if(status == 'INFORMATION_RECEIVED'){
+	        	if(status == 'DELIVERED'){
 		        	alert("이미 발송되었습니다.");
 		        	return;
 		        }

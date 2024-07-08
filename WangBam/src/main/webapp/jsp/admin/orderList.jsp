@@ -169,7 +169,7 @@ function or_ok() {
 
         const form = document.createElement('form');
         form.method = 'POST';
-        form.action = 'admin?type=orderUpdate&or_status_code=INFORMATION_RECEIVED';
+        form.action = 'admin?type=orderUpdate&or_status_code=DELIVERED';
 
         let canProceed = true;
         checkboxes.forEach(checkbox => {
