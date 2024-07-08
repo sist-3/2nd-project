@@ -10,6 +10,11 @@ body:has(.admin) {
 	margin: 0;
 	padding: 0;
 }
+.admin-logo {
+	width:52px;
+	height:40px;
+	background: url(../img/logo.png) no-repeat center/contain;
+}
 .admin-main {
 	padding: 40px;
     min-height: calc(100vh - 144px);

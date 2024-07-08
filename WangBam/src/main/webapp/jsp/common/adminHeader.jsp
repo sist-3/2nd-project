@@ -23,6 +23,7 @@
 			<header class="admin-header">
 				<nav class="global-nav">
 					<div class="global-nav-links">
+						<a href="type=index"><h1 class="admin-logo" title="유저홈으로"></h1></a>
 						<a href="admin?type=index"
 							class="${currentPage.contains('index') ? 'global-nav-item on' : 'global-nav-item'}">대시보드</a> 
 							<a href="admin?type=noticeList"
