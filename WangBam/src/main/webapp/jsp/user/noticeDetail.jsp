@@ -20,27 +20,30 @@
 				</div>
 	            <div class="q-contents">${vo.bo_content}</div>
 	        </div>
+	        
+	        <c:set var="bo_idx" value="${vo.bo_idx }"/>
+        	<c:if test="${sessionScope.user != null }">
+		        <div id="boards_heart">
+		        	<c:choose>
+		        		<c:when test="${requestScope.check == false }">
+		        			<button onclick="addHeart('${bo_idx}', '${sessionScope.user.us_idx}')"><img src="${pageContext.request.contextPath}/img/heart_off.png"/>${requestScope.count }</button>
+		        		</c:when>
+		        		<c:when test="${requestScope.check == true }">
+		        			<button onclick="removeHeart('${bo_idx}', '${sessionScope.user.us_idx}')"><img src="${pageContext.request.contextPath}/img/heart_on.png"/>${requestScope.count }</button>
+		        		</c:when>
+		        	</c:choose>
+	        	</div>
+        	</c:if>
+        	<c:if test="${sessionScope.user == null }">
+        		<div id="boards_heart">
+					<button onclick="loginConfirm()"><img src="${pageContext.request.contextPath}/img/heart_off.png"/>${requestScope.count }</button>
+	        	</div>
+        	</c:if>
    		</div>
 		
-		<%-- <div>
-			<label for="title">제목</label>
-			<div>${vo.bo_title }</div>
-		</div>
-		<div>
-			<label for="writeDate">작성일</label>
-			<div>${vo.bo_write_date }</div>
-		</div>
-		<div>
-			<label for="writer">작성자</label>
-			<input type="text" name="writer" value="<c:if test='${vo.uvo.us_nickname != null}'>${vo.uvo.us_nickname}</c:if>
-			<c:if test='${vo.uvo.us_nickname == null}'>관리자</c:if>" disabled />
-		</div>
-		<div>
-			<label for="content">내용</label>
-			<div style="border: 1px solid #ddd; border-radius:8px; background:#fff; padding: 12px;">${vo.bo_content}</div>
-		</div>
-		 --%>
-	<div class="comment-list-section" id="commentList">
+		
+		
+	<div class="comment-list-section" id="commentList"  style="margin-top: 0">
 		<h3>댓글 목록 [${vo.c_list.size() }]</h3>
 		<div class="comments-list">
 			<c:forEach var="cvo" items="${vo.c_list }" varStatus="vs">
@@ -65,7 +68,11 @@
 
 						<div class="edit_comment">
 							<div class="split-box">
-								<input id="contentInput_${cvo.co_idx }" type="text" value="${cvo.co_content }" disabled/>
+								<input id="contentInput_${cvo.co_idx }" type="text" value="${cvo.co_content }" maxlength="29" disabled/>
+								 <%-- <textarea style="min-height: 5rem; overflow-y: hidden; resize: none;" 
+								 onkeydown="resize(this)" onkeyup="resize(this)">${cvo.co_content }</textarea> --%>
+   <%-- <pre style="background-color: #fff; width:100%; padding: 12px 15px; ">${cvo.co_content }</pre> --%>
+   
 								<c:if test="${cvo.uvo.us_idx == sessionScope.user.us_idx and cvo.uvo.us_idx != null }">
 							    	<button class="btn cancel" type="button" onclick="editComment('${cvo.co_idx}')">수정 및 삭제</button>
 								</c:if>
@@ -93,7 +100,7 @@
 			<div class="comment-form-section">
 				<h3>댓글 쓰기</h3><h4 style="margin-bottom: 5px;">작성자: ${sessionScope.user.us_nickname }</h4>
 				<form class="comment-form" name="writeCommentForm" action="Controller" method="post" onsubmit="return writeComment()" style="display: flex; align-items: flex-start;">
-					<textarea rows="4" cols="30" name="co_content" id="co_content" style="resize: none; margin-right: 10px"></textarea>
+					<textarea rows="4" cols="30" name="co_content" id="co_content" style="resize: none; margin-right: 10px;"></textarea>
 					<input type="hidden" name="us_idx" value="${sessionScope.user.us_idx }"/>
 					<input type="hidden" name="bo_idx" value="${vo.bo_idx}"/>
 					<input type="hidden" name="bo_type" value="0"/>
@@ -129,6 +136,7 @@
 		
 	</div>
 <%@include file="/jsp/common/footer.jsp"%>
+
 <script>
 	//댓글 유효성 검사
 	function writeComment() {

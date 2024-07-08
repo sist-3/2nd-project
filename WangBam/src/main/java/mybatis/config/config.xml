@@ -21,5 +21,6 @@
   	<mapper resource="mybatis/xml/product.xml" />
   	<mapper resource="mybatis/xml/user.xml" />
   	<mapper resource="mybatis/xml/category.xml" />
+  	<mapper resource="mybatis/xml/heart.xml" />
   </mappers>
 </configuration>

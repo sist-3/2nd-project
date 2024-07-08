@@ -1,15 +1,21 @@
 package action.user;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.mysql.cj.Session;
+
 import action.Action;
 import mybatis.dao.BoardsDAO;
+import mybatis.dao.HeartDAO;
 import mybatis.vo.BoardsVO;
+import mybatis.vo.UserVO;
 
 public class NoticeDetailAction implements Action {
 	
@@ -29,23 +35,37 @@ public class NoticeDetailAction implements Action {
 	
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		HttpSession session = request.getSession();
+		
+		UserVO uvo = null;
+		String us_idx = null;
+		Object cnt = session.getAttribute("hit");
+		Object obj = session.getAttribute("user");
 		String bo_idx = request.getParameter("bo_idx");
 		String cPage = request.getParameter("cPage");
-		//String bo_type = request.getParameter("bo_type");
 		
-		HttpSession session = request.getSession();
-		Object cnt = session.getAttribute("hit");
-		
-		if(cnt == null) { //없으면 만든다
+		if(obj != null) {
+			uvo = (UserVO) obj;
+			us_idx = uvo.getUs_idx();
+		}
+		if(cnt == null) {
 			hit_list = new ArrayList<>();
-			//생성된 리스트를 세션에 저장한다.
 			session.setAttribute("hit", hit_list);
 		}else {
 			hit_list = (ArrayList<BoardsVO>)cnt;
 		}
 		
-		BoardsVO vo = BoardsDAO.findByidx(bo_idx);
+		Map<String, String> map = new HashMap<>();
+		map.put("bo_idx", bo_idx);
+		if(us_idx != null)
+			map.put("us_idx", us_idx);
+		else
+			map.put("us_idx", "0");
 		
+		
+		BoardsVO vo = BoardsDAO.findByidx(bo_idx);
+		int count = HeartDAO.count(bo_idx);
+		boolean check = HeartDAO.check(map);
 		
 		if(vo != null) {
 			if(checkView(vo)) {
@@ -54,8 +74,9 @@ public class NoticeDetailAction implements Action {
 			}
 			request.setAttribute("cPage", cPage);
 			request.setAttribute("vo", vo);
-			
-					}
+			request.setAttribute("count", count);
+			request.setAttribute("check", check);
+		}
 		return "jsp/user/noticeDetail.jsp";
 	}
 }
