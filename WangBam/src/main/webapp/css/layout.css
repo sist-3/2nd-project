@@ -17,10 +17,12 @@ body {
 	width:auto;
 	border:none;
 	padding:0 2em;
+	margin-bottom:2px;
 	font-size: 0.8rem;
     color: #333;
-    font-weight:600;
     background-color:transparent;
+    font-family: 'NanumGothic';
+    font-weight:500;
 }
 #google_translate_element .skiptranslate{
 	display:block;
