@@ -1,13 +1,8 @@
-// Key 모음
-const storeId = "store-23c8eb3a-0cc2-4cb0-902d-6a7b553a8703";
-const channelKey = "channel-key-373bd11f-eb47-4c2d-962a-f630fd0d7a49";
-const secretKey = "TzHvWqMNsWKeSnOlJuyoUPemdT1ZlPwh7lUPjRXZ9vQWJxVwl7N1hFxjQCuSMs5V63e8CYWAoinIu9Jt";
-
 // 결재창 불러오기
 async function requestCardPayment(data) {
 	const response = await PortOne.requestPayment({
-		storeId : storeId,
-		channelKey : channelKey,
+		storeId : PaymentConfig.storeId,
+		channelKey : PaymentConfig.channelKey,
 		paymentId : `PAYMENT`+data.or_idx,
 		orderName : "[히트상품] "+data.pd_name,
 		totalAmount : data.price,
@@ -32,7 +27,7 @@ async function requestCardPayment(data) {
 	  method: 'get',
 	  headers: {
 	    'Content-Type': 'application/json',
-    	Authorization: 'PortOne '+secretKey
+    	Authorization: 'PortOne '+ PaymentConfig.secretKey
 	  }
 	};
 
@@ -52,7 +47,7 @@ function getAllPayments() {
 	  method: 'get',
 	  headers: {
 	    'Content-Type': 'application/json',
-    	Authorization: 'PortOne '+secretKey
+    	Authorization: 'PortOne '+ PaymentConfig.secretKey
 	  }
 	};
 
