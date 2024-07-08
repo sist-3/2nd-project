@@ -9,6 +9,9 @@ body {
 	font-family: 'NanumGothic';
 	font-weight: 500;
 }
+body.pop_open {
+	overflow:hidden;
+}
 /* 번역기 */
 .skiptranslate , #google_translate_element {
 	display:none;
@@ -58,9 +61,15 @@ body {
 	background: rgba(250, 250, 252, 0.1);
 	backdrop-filter: saturate(180%) blur(15px);
 }
+.header-m {
+	display:none;
+}
 .header-inner {
 	max-width: 1260px;
 	margin: auto;
+}
+.total-menu {
+	display:none;
 }
 .logo {
 	width: 150px;
@@ -157,4 +166,78 @@ body {
 }
 .inner-footer p + p {
 	margin-top: 12px;
+}
+/* mobile */
+@media screen and (max-width: 768px) {
+	.header {
+		display:none;
+	}
+	.header-m {
+		display:block;
+	}
+	.main {
+		height:auto;
+	}
+	.inner-footer p {
+		font-size:14px;
+	}
+	.total-menu {
+		position:fixed;
+		z-index:1000;
+		top:0;
+		bottom:0;
+		left:0;
+		right:0;
+		padding:24px;
+		background:#fff;
+	}
+	.global-nav-links, .local-nav-links{
+		gap: 8px;
+	}
+	.total-menu .menu-header {
+	    display: flex;
+    	justify-content: space-between;
+    	margin-bottom:12px;
+	}
+	.total-menu .local-nav {
+		padding:0;
+		height:auto;
+	}
+	.total-menu .local-nav-links {
+		flex-direction: column;
+		gap:8px;
+	}
+	.total-menu .global-nav-links a {
+		width:100%;
+		border: 1px solid #e2e2e2;
+        padding: 12px;
+        border-radius: 12px;
+        font-size:0.8rem;
+	}
+	.total-menu .global-nav-links {
+		flex-direction:column;
+		justify-content:start;
+		gap:8px;
+		margin-top:8px;
+	}
+	.total-menu .local-nav-links a, .local-nav-links #language-selector {
+		width:100%;
+		border:1px solid #e2e2e2;
+		padding : 12px;
+		border-radius:12px;
+	}
+	.total-menu .global-nav {
+		height:auto;
+		padding:0;
+	}
+	.total-menu #language-selector {
+		background-position:right 16px center;
+		margin-bottom:0;
+	}
+	.local-nav-links a:not(.product-name){
+		margin-left:0;
+	}
+	.inner-footer {
+		height:auto;
+	}
 }
