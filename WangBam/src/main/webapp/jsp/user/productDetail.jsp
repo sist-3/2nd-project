@@ -265,7 +265,7 @@
 				/* 부드러운 전환 효과 */
 			}
 
-			.review-item a:hover,.best:hover,.recent:hover, .best-review:hover{
+			.review-item a:hover{
 				background-color: #f0f0f0;
 				/* 배경색 변경 */
 				color: #007bff;
@@ -273,10 +273,14 @@
 				border: 1px solid #007bff;
 				/* 테두리 색상 변경 */
 			}
-
+			.best:hover,.recent:hover, .best-review:hover, .my_question:hover, .all_question:hover{
+			font-weight:bold;
+			}
 			/* 문의사항 */
 			.clearFix {
-				display: block;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
 			}
 
 			.clearFix:after {
@@ -310,6 +314,10 @@
 				white-space: nowrap;
 				font-weight: bold;
 				padding: 8px !important;
+			}
+			.btn.submit{
+			position: absolute;
+			right: 30px;
 			}
 
 			.question {
@@ -399,6 +407,7 @@
 
 			.tab-detail {
 				padding: 5px 20px;
+				margin-top: 20px;
 			}
 		</style>
 
@@ -492,7 +501,7 @@
 											<c:set var="reviewCount" value="${reviewCount + 1}" />
 										</c:if>
 									</c:forEach> <span class="review-count">(
-										<c:out value="${reviewCount}" />)
+										<c:out value="${reviewCount}" />&nbsp;)
 									</span>
 								</span>
 							</a></li>
@@ -503,7 +512,7 @@
 										<c:set var="questionCount" value="${questionCount + 1}" />
 									</c:if>
 								</c:forEach> <span class="question-count">(
-									<c:out value="${questionCount}" />)
+									<c:out value="${questionCount}" />&nbsp;)
 								</span>
 							</a></li>
 					</ul>
@@ -559,7 +568,7 @@
 						</c:forEach>
 						<div class="review-header">
 							<h1 style="margin-top: 10px;">상품후기</h1>
-							<span class="align" style=" margin-right:320px; font-weight:bold; margin-top: 10px; font-size:15px;">
+							<span class="align" style=" margin-right:480px; margin-top: 10px; font-size:15px;">
 								<button class="best" onclick="bestList()">베스트순</button>
 								<label>|</label>
 								<button class="recent" onclick="recentList()">최신순</button>
@@ -679,10 +688,15 @@
 						</div>
 					</div>
 					<div id="tabs-5">
-						<h1 class="clearFix">
-							상품문의
+						<div class="clearFix">
+							<span class="align" style="display: flex; align-items: center; font-size:15px;">
+							<h1 style="margin-right:10px;">상품문의</h1>
+							<button onclick="allQuestion()" class="all_question">전체</button>
+                            <label>|</label>
+                            <button onclick="myQuestion()" class="my_question">내 글 보기</button>
+                            </span>
 							<button onclick="questionCheck()" class="btn submit">문의하기</button>
-						</h1>
+						</div>
 						<div class="tab-detail">
 							<p>구매한 상품의 취소/반품은 마이쿠팡 구매내역에서 신청 가능합니다.</p>
 							<p>상품문의 및 후기게시판을 통해 취소나 환불, 반품 등은 처리되지 않습니다.</p>
@@ -697,8 +711,9 @@
 							<!-- 문의 존재 여부를 확인하는 플래그 초기화 -->
 							<c:forEach var="board" items="${bvo}">
 								<c:if test="${board.bo_type == 1}">
-									<div class="question">
+									<div class="question" >
 										<a href="?type=boardsDetail&bo_idx=${board.bo_idx}&bo_type=1&cPage=3">
+										
 											<c:if test="${board.bo_answer eq '0'}">
 												<em class="questionMark">미답변</em>
 											</c:if>
@@ -964,6 +979,7 @@
 						reviewContainer.innerHTML = '';
 						reviewsArray.forEach(item => reviewContainer.appendChild(item));
 					}
+					
 				</script>
 				</body>
 
