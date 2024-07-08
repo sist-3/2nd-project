@@ -17,7 +17,7 @@
 <div class="order-container" style="margin-bottom: 10px;">
         <div class="order-header">
             <h2>주문번호: ${ovo.or_idx}</h2>
-            <a href="http://localhost:8080/WangBam/?type=orderdetail&or_idx=${ovo.or_idx}">주문 상세보기 &gt;</a>
+            <a href="?type=orderdetail&or_idx=${ovo.or_idx}">주문 상세보기 &gt;</a>
         </div>
         <div class="order-status">
         <c:if test="${ovo.or_status_code == 'UNKNOWN'}">
