@@ -79,11 +79,15 @@
 	</c:forEach>
 
 	<c:if test="${page.endPage < page.totalPage }">
-		<div>
-			<a
-				href="admin?type=orderList&cPage=${page.nowPage + page.pagePerBlock}&earchType=${searchType }&searchValue=${searchValue }">&gt;</a>
-		</div>
+		<c:if test="${page.nowPage+page.pagePerBlock > page.totalPage }">
+					<div><a href="admin?type=orderList&&cPage=${page.totalPage}searchType=${requestScope.searchType }&earchType=${searchType }&searchValue=${searchValue }">&gt;</a></div>
+				</c:if>
+		<c:if test="${page.nowPage+page.pagePerBlock <= page.totalPage }">
+			<div><a href="admin?type=orderList&cPage=${page.nowPage + page.pagePerBlock}&searchType=${searchType }&searchValue=${searchValue }">&gt;</a>	</div>
+		</c:if>
 	</c:if>
+	
+	
 	<c:if test="${page.endPage >= page.totalPage }">
 		<div class="disable">&gt;</div>
 	</c:if>

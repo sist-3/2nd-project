@@ -91,10 +91,12 @@
 		</c:forEach>
 
 		<c:if test="${page.endPage < page.totalPage }">
-			<div>
-				<a
-					href="admin?type=reviewList&cPage=${page.nowPage + page.pagePerBlock - 1}&ct_idx=${requestScope.ct_idx}">&gt;</a>
-			</div>
+			<c:if test="${page.nowPage+page.pagePerBlock > page.totalPage }">
+				<div><a href="admin?type=reviewList&cPage=${page.totalPage }&ct_idx=${requestScope.ct_idx}">&gt;</a></div>
+			</c:if>
+			<c:if test="${page.nowPage+page.pagePerBlock <= page.totalPage }">
+				<div><a href="admin?type=reviewList&cPage=${page.nowPage + page.pagePerBlock - 1}&ct_idx=${requestScope.ct_idx}">&gt;</a></div>
+			</c:if>
 		</c:if>
 		<c:if test="${page.endPage >= page.totalPage }">
 			<div class="disable">&gt;</div>
