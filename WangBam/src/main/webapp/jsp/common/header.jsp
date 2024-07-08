@@ -57,6 +57,13 @@
 								</c:when>
 							</c:choose>
 							<div id="google_translate_element"></div>
+							<!-- 언어 선택 select box -->
+							<select id="language-selector">
+							    <option>언어선택</option>
+							    <option value="ko" translate="no">한국어</option>
+							    <option value="en" translate="no">English</option>
+							    <option value="ja" translate="no">日本語</option>
+							</select>
 						</div>
 					</nav>
 				</div>
