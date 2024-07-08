@@ -23,6 +23,7 @@ body {
     background-color:transparent;
     font-family: 'NanumGothic';
     font-weight:500;
+    background-position:right;
 }
 #google_translate_element .skiptranslate{
 	display:block;
