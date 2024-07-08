@@ -89,6 +89,10 @@ body {
 	font-size: 0.8rem;
 	color: #333;
 }
+.local-nav-links a:hover {
+	transition:0.3s;
+	color:#673a11;
+}
 .global-nav-links a {
 	color: #333;
 }

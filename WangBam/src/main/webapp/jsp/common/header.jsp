@@ -39,16 +39,23 @@
 							<h1>
 								<a href="?type=index" class="product-name">왕밤빵</a>
 							</h1>
-							<c:if test="${sessionScope.user ne null}">
-								<a href="?type=logout">로그아웃</a>
-								<a href="?type=my">마이페이지</a>
-								<a href="?type=order">주문현황</a>
-								<a href="?type=cartList">장바구니</a>
-							</c:if>
-							<c:if test="${sessionScope.user eq null}">
-								<a href="?type=login">로그인</a>
-								<a href="?type=signup">회원가입</a>
-							</c:if>
+							<c:choose>
+								<c:when test="${sessionScope.user.us_type eq 1}">
+									<a href="?type=logout">로그아웃</a>
+									<a href="?type=my">마이페이지</a>
+									<a href="?type=order">주문현황</a>
+									<a href="?type=cartList">장바구니</a>
+								</c:when>
+								<c:when test="${sessionScope.user.us_type eq 0}">
+									<a href="?type=logout">로그아웃</a>
+									<a href="admin?type=index">관리자모드</a>
+									<a href="?type=my">마이페이지</a>
+								</c:when>
+								<c:when test="${sessionScope.user eq null}">
+									<a href="?type=login">로그인</a>
+									<a href="?type=signup">회원가입</a>
+								</c:when>
+							</c:choose>
 							<div id="google_translate_element"></div>
 						</div>
 					</nav>
