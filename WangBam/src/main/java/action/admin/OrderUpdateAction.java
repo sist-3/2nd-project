@@ -43,7 +43,8 @@ public class OrderUpdateAction implements Action {
 			for(String or_idx2 : or_idx_ar ) {
 				  // nextLong() 메소드를 사용하여 하한과 상한 사이의 숫자를 생성합니다.
 		        long random12DigitNumber = lowerBound + (long)(random.nextDouble() * (upperBound - lowerBound));
-		        String or_tracking_number = Long.toString(random12DigitNumber);
+		        //String or_tracking_number = Long.toString(random12DigitNumber);
+		        String or_tracking_number = "6864011244408";
 				Map<String,String> map = new HashMap<>();
 				map.put("or_idx", or_idx2);
 				map.put("or_status_code", or_status_code);
