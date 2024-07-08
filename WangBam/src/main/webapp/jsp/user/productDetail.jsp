@@ -410,11 +410,9 @@
 				margin-top: 20px;
 			}
 		</style>
-
 		<%@include file="/jsp/common/header.jsp" %>
 			<div class="top">
 				<div class="icons">
-
 					<a href="?type=index" id="home"></a> > <a href="?type=productList">돌아가기</a>
 				</div>
 			</div>
@@ -435,7 +433,6 @@
 							<span id="sale" style="color: red;">&nbsp;${pvo.pd_sale}%할인!</span>
 						</c:if>
 					</h1>
-
 					<table>
 						<tr>
 							<th>판매가</th>
@@ -448,7 +445,6 @@
 									<p class="price" id="price">${pvo.pd_price}원</p>
 								</c:if>
 							</td>
-
 						</tr>
 						<tr>
 							<th>상품요약정보</th>
@@ -475,7 +471,6 @@
 							<th>총 상품금액</th>
 							<c:if test="${pvo.pd_sale != null}">
 								<td class="total-price"><span id="discount"></span></td>
-
 							</c:if>
 							<c:if test="${pvo.pd_sale == null}">
 								<td class="total-price"><span id="totalPrice"></span></td>
@@ -558,7 +553,6 @@
 							부담하셔야 합니다. (색상 교환, 사이즈 교환 등 포함)
 						</div>
 					</div>
-
 					<div id="tabs-4">
 						<c:forEach var="board" items="${bvo}">
 							<c:if test="${board.bo_type == 2}">
@@ -574,14 +568,11 @@
 								<button class="recent" onclick="recentList()">최신순</button>
 							</span>
 							<p>동일한 상품에 대해 작성된 상품평으로, 판매자는 다를 수 있습니다.</p>
-
 						</div>
 						<c:if test="${reviewCheck != null}">
 							<div class="review-section">
-
 								<div class="total-score">
 									사용자 총 평점
-
 									<div id="starScore" class="star-score" style="margin-top: 10px">
 										<c:set var="totalScore" value="0" />
 										<c:set var="reviewCount" value="0" />
@@ -604,7 +595,6 @@
 											</c:choose>
 										</c:forEach>
 									</div>
-
 									<h2 style="margin-top: 10px">
 										<c:out value="${averageScore}" />
 										/ 5
@@ -673,7 +663,6 @@
 													<img src="${pageContext.request.contextPath}/img/${board.bo_img}"
 														width="100" />
 												</c:if>
-
 											</div>
 										</a>
 									</div>
@@ -711,7 +700,7 @@
 							<!-- 문의 존재 여부를 확인하는 플래그 초기화 -->
 							<c:forEach var="board" items="${bvo}">
 								<c:if test="${board.bo_type == 1}">
-									<div class="question">
+									<div class="question" data-user-id="${board.uvo.us_idx}">
 										<!--  <a href="?type=boardsDetail&bo_idx=${board.bo_idx}&bo_type=1&cPage=3">-->
 										<a href="javascript:if(${sessionScope.user.us_idx == board.uvo.us_idx}){
 										location.href='?type=boardsDetail&bo_idx=${board.bo_idx}&bo_type=1&cPage=3'
@@ -726,7 +715,6 @@
 												);
 										};"
 										>
-										
 											<c:if test="${board.bo_answer eq '0'}">
 												<em class="questionMark">미답변</em>
 											</c:if>
@@ -754,13 +742,11 @@
 									<!-- bo_type이 1인 요소가 있으면 플래그를 true로 설정 -->
 								</c:if>
 							</c:forEach>
-
 							<c:if test="${not hasquestion}">
 								<!-- 문의가 없는 경우 메시지 출력 -->
 								<h3 style="margin: 15px 0;">아직 문의가 등록되지 않았습니다.</h3>
 							</c:if>
 						</div>
-
 					</div>
 				</div>
 			</div>
@@ -834,8 +820,6 @@
 							$(this).dialog("close");
 						}
 					});	
-					
-					
 					}else {
 						dialog("dialog-confirm",
 							"로그인이 필요합니다.\n로그인 페이지로 이동하시겠습니까?\n",
@@ -991,7 +975,25 @@
 						reviewContainer.innerHTML = '';
 						reviewsArray.forEach(item => reviewContainer.appendChild(item));
 					}
-					
+					function allQuestion() {
+						const questions = document.querySelectorAll('.question');
+						questions.forEach(question => {
+							question.style.display = 'block';
+						});
+					}
+
+					function myQuestion() {
+						const userId = '${sessionScope.user.us_idx}';
+						const questions = document.querySelectorAll('.question');
+						questions.forEach(question => {
+							const questionUserId = question.getAttribute('data-user-id');
+							if (questionUserId === userId) {
+								question.style.display = 'block';
+							} else {
+								question.style.display = 'none';
+							}
+						});
+					}
 				</script>
 				</body>
 
