@@ -711,8 +711,21 @@
 							<!-- 문의 존재 여부를 확인하는 플래그 초기화 -->
 							<c:forEach var="board" items="${bvo}">
 								<c:if test="${board.bo_type == 1}">
-									<div class="question" >
-										<a href="?type=boardsDetail&bo_idx=${board.bo_idx}&bo_type=1&cPage=3">
+									<div class="question">
+										<!--  <a href="?type=boardsDetail&bo_idx=${board.bo_idx}&bo_type=1&cPage=3">-->
+										<a href="javascript:if(${sessionScope.user.us_idx == board.uvo.us_idx}){
+										location.href='?type=boardsDetail&bo_idx=${board.bo_idx}&bo_type=1&cPage=3'
+										}else{
+										dialog('dialog-confirm',
+													'본인 글만 볼 수 있습니다!',
+													{
+														'확인': function () {
+															$(this).dialog('close');
+														}
+													}
+												);
+										};"
+										>
 										
 											<c:if test="${board.bo_answer eq '0'}">
 												<em class="questionMark">미답변</em>
@@ -756,6 +769,17 @@
 			</div>
 			<%@include file="/jsp/common/footer.jsp" %>
 				<script>
+					function dialog(className, msg, callback) {
+						$("#" + className + " p").text(msg);
+						$("#" + className).dialog({
+							resizable: false,
+							draggable: false,
+							height: "auto",
+							width: 400,
+							modal: true,
+							buttons: callback
+						});
+					}
 					//상품재고 수량 제한
 					function cntLimit(input) {
 						let max = parseInt(input.max, 10);
@@ -829,18 +853,6 @@
 					
 				});
 			});
-
-					function dialog(className, msg, callback) {
-						$("#" + className + " p").text(msg);
-						$("#" + className).dialog({
-							resizable: false,
-							draggable: false,
-							height: "auto",
-							width: 400,
-							modal: true,
-							buttons: callback
-						});
-					}
 
 					function updateTotalPrice() {
 						let priceElement = document.getElementById("price");
