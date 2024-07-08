@@ -10,8 +10,20 @@ body {
 	font-weight: 500;
 }
 /* 번역기 */
-.skiptranslate {
+.skiptranslate , #google_translate_element {
 	display:none;
+}
+#language-selector {
+	width:auto;
+	border:none;
+	padding:0 2em;
+	margin-bottom:2px;
+	font-size: 0.8rem;
+    color: #333;
+    background-color:transparent;
+    font-family: 'NanumGothic';
+    font-weight:500;
+    background-position:right;
 }
 #google_translate_element .skiptranslate{
 	display:block;

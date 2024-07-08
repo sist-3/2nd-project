@@ -8,6 +8,7 @@
     <!-- all -->
     <select id="all" resultType="mybatis.vo.OrderVO">
         SELECT * FROM order_t
+        ORDER BY or_idx DESC
     </select>
 
 	<select id="allCount" parameterType="Map" resultType="int">
@@ -120,6 +121,7 @@
                 </if>
             </trim>
         </where>
+         ORDER BY or_idx DESC
         	) a, (SELECT @RN:=0) b
     	) c
         <where>
@@ -138,7 +140,7 @@
 
     <!-- update -->
     <update id="updateStatusCode" parameterType="Map">
-        <if test="or_status_code == 'INFORMATION_RECEIVED'">
+        <if test="or_status_code == 'DELIVERED'">
         UPDATE order_t 
         SET or_status_code = #{or_status_code}, 
             or_tracking_number = #{or_tracking_number} 

@@ -231,6 +231,7 @@
 				WHERE bt.pd_idx = pt.pd_idx
             	AND bo_status = 1 
                 AND bo_type = #{bo_type}
+                ORDER BY bo_idx DESC
         	) a, (SELECT @RN:=0) b
     	) c
         WHERE c.rnum BETWEEN #{begin} AND #{end}
