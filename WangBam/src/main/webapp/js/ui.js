@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // 언어 선택 이벤트 핸들러
-document.getElementById('language-selector').addEventListener('change', function() {
+document.getElementById('language-selector')?.addEventListener('change', function() {
     const selectedLanguage = this.value;
     const translateElement = document.querySelector('.goog-te-combo');
     if (translateElement) {

@@ -20,6 +20,8 @@ public class OrderUpdateAction implements Action {
 		String or_idx = request.getParameter("or_idx");
 		String[] or_idx_ar = request.getParameterValues("or_idx_ar");
 		String or_status_code = request.getParameter("or_status_code");
+		String cPage = request.getParameter("cPage");
+		request.setAttribute("cPage", cPage);
 		Random random = new Random();
         
         // 12자리 숫자를 생성하기 위해서는 100000000000L부터 999999999999L까지의 숫자 중에서 랜덤뽑가
