@@ -10,6 +10,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE bo_idx = #{bo_idx}
 	</select>
 	
+	<select id="boardsCount" parameterType="list" resultType="Map">
+		SELECT bo_idx, COUNT(*) AS count
+		FROM heart_t 
+		WHERE bo_idx
+		IN		
+			<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+        	#{item}
+    		</foreach>
+		GROUP BY bo_idx
+		ORDER BY count DESC
+		LIMIT 1
+	</select>
+	
 	<select id="check" parameterType="map" resultType="int">
 		SELECT COUNT(*)
 		FROM heart_t
