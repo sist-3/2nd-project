@@ -93,7 +93,7 @@ function setData(object){
 		ar.push(obj[i].value);
 	}
 	
-	return ar;
+	return ar.reverse();
 }
 
 // 데이터 요청
