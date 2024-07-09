@@ -30,7 +30,7 @@
 					</div>
 					<div>
 						<label for="pd_sale">할인율</label> <input type="text" id="pd_sale" name="pd_sale"
-							placeholder="할인율" data-label="할인율" value="${pvo.pd_sale}">
+							placeholder="할인율" data-label="할인율" value="${pvo.pd_sale}" maxlength="2">
 					</div>
 					<div>
 						<label for="price">가격</label> <input type="text" id="pd_price" placeholder="가격" name="pd_price"
