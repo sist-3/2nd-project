@@ -265,7 +265,7 @@
 				/* 부드러운 전환 효과 */
 			}
 
-			.review-item a:hover,.best:hover,.recent:hover, .best-review:hover{
+			.review-item a:hover{
 				background-color: #f0f0f0;
 				/* 배경색 변경 */
 				color: #007bff;
@@ -273,10 +273,14 @@
 				border: 1px solid #007bff;
 				/* 테두리 색상 변경 */
 			}
-
+			.best:hover,.recent:hover, .best-review:hover, .my_question:hover, .all_question:hover{
+			font-weight:bold;
+			}
 			/* 문의사항 */
 			.clearFix {
-				display: block;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
 			}
 
 			.clearFix:after {
@@ -310,6 +314,10 @@
 				white-space: nowrap;
 				font-weight: bold;
 				padding: 8px !important;
+			}
+			.btn.submit{
+			position: absolute;
+			right: 30px;
 			}
 
 			.question {
@@ -399,13 +407,12 @@
 
 			.tab-detail {
 				padding: 5px 20px;
+				margin-top: 20px;
 			}
 		</style>
-
 		<%@include file="/jsp/common/header.jsp" %>
 			<div class="top">
 				<div class="icons">
-
 					<a href="?type=index" id="home"></a> > <a href="?type=productList">돌아가기</a>
 				</div>
 			</div>
@@ -426,7 +433,6 @@
 							<span id="sale" style="color: red;">&nbsp;${pvo.pd_sale}%할인!</span>
 						</c:if>
 					</h1>
-
 					<table>
 						<tr>
 							<th>판매가</th>
@@ -439,7 +445,6 @@
 									<p class="price" id="price">${pvo.pd_price}원</p>
 								</c:if>
 							</td>
-
 						</tr>
 						<tr>
 							<th>상품요약정보</th>
@@ -466,7 +471,6 @@
 							<th>총 상품금액</th>
 							<c:if test="${pvo.pd_sale != null}">
 								<td class="total-price"><span id="discount"></span></td>
-
 							</c:if>
 							<c:if test="${pvo.pd_sale == null}">
 								<td class="total-price"><span id="totalPrice"></span></td>
@@ -492,7 +496,7 @@
 											<c:set var="reviewCount" value="${reviewCount + 1}" />
 										</c:if>
 									</c:forEach> <span class="review-count">(
-										<c:out value="${reviewCount}" />)
+										<c:out value="${reviewCount}" />&nbsp;)
 									</span>
 								</span>
 							</a></li>
@@ -503,7 +507,7 @@
 										<c:set var="questionCount" value="${questionCount + 1}" />
 									</c:if>
 								</c:forEach> <span class="question-count">(
-									<c:out value="${questionCount}" />)
+									<c:out value="${questionCount}" />&nbsp;)
 								</span>
 							</a></li>
 					</ul>
@@ -549,7 +553,6 @@
 							부담하셔야 합니다. (색상 교환, 사이즈 교환 등 포함)
 						</div>
 					</div>
-
 					<div id="tabs-4">
 						<c:forEach var="board" items="${bvo}">
 							<c:if test="${board.bo_type == 2}">
@@ -559,20 +562,17 @@
 						</c:forEach>
 						<div class="review-header">
 							<h1 style="margin-top: 10px;">상품후기</h1>
-							<span class="align" style=" margin-right:320px; font-weight:bold; margin-top: 10px; font-size:15px;">
+							<span class="align" style=" margin-right:480px; margin-top: 10px; font-size:15px;">
 								<button class="best" onclick="bestList()">베스트순</button>
 								<label>|</label>
 								<button class="recent" onclick="recentList()">최신순</button>
 							</span>
 							<p>동일한 상품에 대해 작성된 상품평으로, 판매자는 다를 수 있습니다.</p>
-
 						</div>
 						<c:if test="${reviewCheck != null}">
 							<div class="review-section">
-
 								<div class="total-score">
 									사용자 총 평점
-
 									<div id="starScore" class="star-score" style="margin-top: 10px">
 										<c:set var="totalScore" value="0" />
 										<c:set var="reviewCount" value="0" />
@@ -595,7 +595,6 @@
 											</c:choose>
 										</c:forEach>
 									</div>
-
 									<h2 style="margin-top: 10px">
 										<c:out value="${averageScore}" />
 										/ 5
@@ -664,7 +663,6 @@
 													<img src="${pageContext.request.contextPath}/img/${board.bo_img}"
 														width="100" />
 												</c:if>
-
 											</div>
 										</a>
 									</div>
@@ -679,10 +677,15 @@
 						</div>
 					</div>
 					<div id="tabs-5">
-						<h1 class="clearFix">
-							상품문의
+						<div class="clearFix">
+							<span class="align" style="display: flex; align-items: center; font-size:15px;">
+							<h1 style="margin-right:10px;">상품문의</h1>
+							<button onclick="allQuestion()" class="all_question">전체</button>
+                            <label>|</label>
+                            <button onclick="myQuestion()" class="my_question">내 글 보기</button>
+                            </span>
 							<button onclick="questionCheck()" class="btn submit">문의하기</button>
-						</h1>
+						</div>
 						<div class="tab-detail">
 							<p>구매한 상품의 취소/반품은 마이쿠팡 구매내역에서 신청 가능합니다.</p>
 							<p>상품문의 및 후기게시판을 통해 취소나 환불, 반품 등은 처리되지 않습니다.</p>
@@ -697,8 +700,21 @@
 							<!-- 문의 존재 여부를 확인하는 플래그 초기화 -->
 							<c:forEach var="board" items="${bvo}">
 								<c:if test="${board.bo_type == 1}">
-									<div class="question">
-										<a href="?type=boardsDetail&bo_idx=${board.bo_idx}&bo_type=1&cPage=3">
+									<div class="question" data-user-id="${board.uvo.us_idx}">
+										<!--  <a href="?type=boardsDetail&bo_idx=${board.bo_idx}&bo_type=1&cPage=3">-->
+										<a href="javascript:if(${sessionScope.user.us_idx == board.uvo.us_idx}){
+										location.href='?type=boardsDetail&bo_idx=${board.bo_idx}&bo_type=1&cPage=3'
+										}else{
+										dialog('dialog-confirm',
+													'본인 글만 볼 수 있습니다!',
+													{
+														'확인': function () {
+															$(this).dialog('close');
+														}
+													}
+												);
+										};"
+										>
 											<c:if test="${board.bo_answer eq '0'}">
 												<em class="questionMark">미답변</em>
 											</c:if>
@@ -726,13 +742,11 @@
 									<!-- bo_type이 1인 요소가 있으면 플래그를 true로 설정 -->
 								</c:if>
 							</c:forEach>
-
 							<c:if test="${not hasquestion}">
 								<!-- 문의가 없는 경우 메시지 출력 -->
 								<h3 style="margin: 15px 0;">아직 문의가 등록되지 않았습니다.</h3>
 							</c:if>
 						</div>
-
 					</div>
 				</div>
 			</div>
@@ -741,6 +755,17 @@
 			</div>
 			<%@include file="/jsp/common/footer.jsp" %>
 				<script>
+					function dialog(className, msg, callback) {
+						$("#" + className + " p").text(msg);
+						$("#" + className).dialog({
+							resizable: false,
+							draggable: false,
+							height: "auto",
+							width: 400,
+							modal: true,
+							buttons: callback
+						});
+					}
 					//상품재고 수량 제한
 					function cntLimit(input) {
 						let max = parseInt(input.max, 10);
@@ -795,8 +820,6 @@
 							$(this).dialog("close");
 						}
 					});	
-					
-					
 					}else {
 						dialog("dialog-confirm",
 							"로그인이 필요합니다.\n로그인 페이지로 이동하시겠습니까?\n",
@@ -814,18 +837,6 @@
 					
 				});
 			});
-
-					function dialog(className, msg, callback) {
-						$("#" + className + " p").text(msg);
-						$("#" + className).dialog({
-							resizable: false,
-							draggable: false,
-							height: "auto",
-							width: 400,
-							modal: true,
-							buttons: callback
-						});
-					}
 
 					function updateTotalPrice() {
 						let priceElement = document.getElementById("price");
@@ -963,6 +974,25 @@
 						const reviewContainer = document.querySelector('.review-container');
 						reviewContainer.innerHTML = '';
 						reviewsArray.forEach(item => reviewContainer.appendChild(item));
+					}
+					function allQuestion() {
+						const questions = document.querySelectorAll('.question');
+						questions.forEach(question => {
+							question.style.display = 'block';
+						});
+					}
+
+					function myQuestion() {
+						const userId = '${sessionScope.user.us_idx}';
+						const questions = document.querySelectorAll('.question');
+						questions.forEach(question => {
+							const questionUserId = question.getAttribute('data-user-id');
+							if (questionUserId === userId) {
+								question.style.display = 'block';
+							} else {
+								question.style.display = 'none';
+							}
+						});
 					}
 				</script>
 				</body>

@@ -33,3 +33,11 @@ document.getElementById('language-selector').addEventListener('change', function
         translateElement.dispatchEvent(new Event('change'));
     }
 });
+$("#menuOpenBtn").on('click', function(){
+	$("#totalMenu").show();
+	$("body").addClass("pop_open");
+})
+$("#menuCloseBtn").on('click', function(){
+	$("#totalMenu").hide();
+	$("body").removeClass("pop_open");
+})
