@@ -596,7 +596,7 @@
 										</c:forEach>
 									</div>
 									<h2 style="margin-top: 10px">
-										<c:out value="${averageScore}" />
+										<fmt:formatNumber value="${averageScore}" pattern= ".0"/> 
 										/ 5
 									</h2>
 								</div>
@@ -605,23 +605,30 @@
 										<h2 style="margin: 0;">베스트 리뷰</h2>
 										<img src="./img/트로피.png" width="32" style="margin-left: 10px;">
 									</span>
-									<c:set var="maxHit" value="0" />
-									<c:set var="maxHitTitle" value="" />
 
 									<c:forEach var="board" items="${bvo}">
-										<c:if test="${board.bo_type == '2'}">
-											<c:if test="${board.bo_hit > maxHit}">
-												<c:set var="maxHit" value="${board.bo_hit}" />
+											<c:if test="${board.bo_idx eq requestScope.bo_idx_best}">
 												<c:set var="maxHitTitle" value="${board.bo_title}" />
-												<c:set var="bestreview" value="${board.bo_idx}" />
 											</c:if>
-										</c:if>
+											<c:if test="${requestScope.bo_idx_best == null}">
+												<c:set var="noReview" value="베스트리뷰가 없습니다." />
+											</c:if>
 									</c:forEach>
 									<br>
 									<p style="margin-top: 20px">
-										<a class="best-review" href="?type=boardsDetail&bo_idx=${bestreview}&cPage=1&bo_type=2">
-											<c:out value="${maxHitTitle}" />
-										</a>
+									<c:choose>
+										<c:when test="${maxHitTitle == null}">
+											<c:out value="${noReview}" />
+										</c:when>
+										<c:when test="${maxHitTitle != null}">
+											<a class="best-review" href="?type=reviewDetail&bo_idx=${requestScope.bo_idx_best}&cPage=1&bo_type=2">
+												<c:out value="${maxHitTitle}" />
+											</a>
+										</c:when>
+										<c:otherwise>
+												<c:out value="${noReview}" />
+										</c:otherwise>
+									</c:choose>
 									</p>
 								</div>
 							</div>
@@ -633,7 +640,7 @@
 							<c:forEach var="board" items="${bvo}">
 								<c:if test="${board.bo_type == 2}">
 									<div class="review-item" data-board='{"bo_hit": ${board.bo_hit}, "bo_write_date": "${board.bo_write_date}"}'>
-										<a href="?type=boardsDetail&bo_idx=${board.bo_idx}&cPage=1&bo_type=2">
+										<a href="?type=reviewDetail&bo_idx=${board.bo_idx}&cPage=1&bo_type=2">
 											<div id="starScore" class="star-score">
 												<c:set var="limit" value="${Math.floor(board.bo_score)}" />
 												<c:forEach begin="1" end="5" varStatus="st">
@@ -701,7 +708,7 @@
 							<c:forEach var="board" items="${bvo}">
 								<c:if test="${board.bo_type == 1}">
 									<div class="question" data-user-id="${board.uvo.us_idx}">
-										<!--  <a href="?type=boardsDetail&bo_idx=${board.bo_idx}&bo_type=1&cPage=3">-->
+										<!--  <a href="?type=reviewDetail&bo_idx=${board.bo_idx}&bo_type=1&cPage=3">-->
 										<a href="javascript:if(${sessionScope.user.us_idx == board.uvo.us_idx}){
 										location.href='?type=boardsDetail&bo_idx=${board.bo_idx}&bo_type=1&cPage=3'
 										}else{

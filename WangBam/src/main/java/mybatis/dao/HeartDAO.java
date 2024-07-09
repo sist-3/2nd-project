@@ -1,5 +1,7 @@
 package mybatis.dao;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -58,5 +60,20 @@ public class HeartDAO {
 			ss.rollback();
 
 		ss.close();
+	}
+	
+	public static String boardsCount(ArrayList<String> list) {
+		SqlSession ss = FactoryService.getFactory().openSession();
+		String bo_idx;
+		Map<String, Object> bo_idx_map = ss.selectOne("heart.boardsCount", list);
+
+		ss.close();
+		if(bo_idx_map != null) {
+			bo_idx = bo_idx_map.get("bo_idx").toString();
+		}else {
+			bo_idx = null;
+		}
+		return bo_idx;
+		
 	}
 }
