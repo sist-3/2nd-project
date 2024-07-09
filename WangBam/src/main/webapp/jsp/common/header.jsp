@@ -27,33 +27,34 @@
 				<div class="header-inner">
 					<nav class="global-nav">
 						<div class="global-nav-links">
-							<a href="?type=notice" class="${currentPage.contains('notice') ? 'global-nav-item on' : 'global-nav-item'}">공지사항</a>
-							<a href="?type=productList" class="${currentPage.contains('product') ? 'global-nav-item on' : 'global-nav-item'}">상품보기</a>
-							<a href="?type=review" class="${currentPage.contains('review') ? 'global-nav-item on' : 'global-nav-item'}">리뷰보기</a>
-							<a href="?type=question" class="${currentPage.contains('question') ? 'global-nav-item on' : 'global-nav-item'}">1:1문의</a>
-							<a href="?type=brand" class="${currentPage.contains('brand') ? 'global-nav-item on' : 'global-nav-item'}">브랜드소개</a>
+							<a href="/WangBam/?type=notice" class="${currentPage.contains('notice') ? 'global-nav-item on' : 'global-nav-item'}">공지사항</a>
+							<a href="/WangBam/?type=productList" class="${currentPage.contains('product') ? 'global-nav-item on' : 'global-nav-item'}">상품보기</a>
+							<a href="/WangBam/?type=review" class="${currentPage.contains('review') ? 'global-nav-item on' : 'global-nav-item'}">리뷰보기</a>
+							<a href="/WangBam/?type=question" class="${currentPage.contains('question') ? 'global-nav-item on' : 'global-nav-item'}">1:1문의</a>
+							<a href="/WangBam/?type=brand" class="${currentPage.contains('brand') ? 'global-nav-item on' : 'global-nav-item'}">브랜드소개</a>
 						</div>
 					</nav>
 					<nav class="local-nav">
 						<div class="local-nav-links">
 							<h1>
-								<a href="?type=index" class="product-name">왕밤빵</a>
+								<a href="/WangBam/?type=index" class="product-name">왕밤빵</a>
+								
 							</h1>
 							<c:choose>
 								<c:when test="${sessionScope.user.us_type eq 1}">
-									<a href="?type=logout">로그아웃</a>
-									<a href="?type=my">마이페이지</a>
-									<a href="?type=order">주문현황</a>
-									<a href="?type=cartList">장바구니</a>
+									<a href="/WangBam/?type=logout">로그아웃</a>
+									<a href="/WangBam/?type=my">마이페이지</a>
+									<a href="/WangBam/?type=order">주문현황</a>
+									<a href="/WangBam/?type=cartList">장바구니</a>
 								</c:when>
 								<c:when test="${sessionScope.user.us_type eq 0}">
-									<a href="?type=logout">로그아웃</a>
-									<a href="admin?type=index">관리자모드</a>
-									<a href="?type=my">마이페이지</a>
+									<a href="/WangBam/?type=logout">로그아웃</a>
+									<a href="admin/WangBam/?type=index">관리자모드</a>
+									<a href="/WangBam/?type=my">마이페이지</a>
 								</c:when>
 								<c:when test="${sessionScope.user eq null}">
-									<a href="?type=login">로그인</a>
-									<a href="?type=signup">회원가입</a>
+									<a href="/WangBam/?type=login">로그인</a>
+									<a href="/WangBam/?type=signup">회원가입</a>
 								</c:when>
 							</c:choose>
 							<div id="google_translate_element"></div>
@@ -70,19 +71,19 @@
 						<div class="swiper-wrapper">
 							<!-- Slides -->
 							<div class="swiper-slide">
-								<a href="?type=notice">
+								<a href="/WangBam/?type=notice">
 									<img src="${pageContext.request.contextPath}/img/01.png"
 										alt="배너">
 								</a>
 							</div>
 							<div class="swiper-slide">
-								<a href="?type=notice">
+								<a href="/WangBam/?type=notice">
 									<img src="${pageContext.request.contextPath}/img/02.png"
 										alt="배너">
 								</a>
 							</div>
 							<div class="swiper-slide">
-								<a href="?type=notice">
+								<a href="/WangBam/?type=notice">
 									<img src="${pageContext.request.contextPath}/img/03.png"
 										alt="배너">
 								</a>

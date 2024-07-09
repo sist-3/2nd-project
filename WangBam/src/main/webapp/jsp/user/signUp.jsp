@@ -6,6 +6,10 @@
 <form action="/WangBam/" method="post" class="form-group" id="signUpForm">
 <h1>회원 가입</h1>
   <input type="hidden" name="type" value="signup">
+  <c:if test="${param.o_id != null}">
+    <input type="hidden" name="o_id" value="${param.o_id}">
+    <input type="hidden" name="o_type" value="${param.o_type}">
+  </c:if>
   <div>
     <label for="username">이름</label>
     <input type="text" id="username" placeholder="이름" name="us_name">
@@ -363,6 +367,10 @@ $(document).ready(function(){
         postcode: postcode,
         address: address,
         extraAddress: extraAddress,
+        <c:if test="${param.o_id != null}">
+          o_id: ${param.o_id},
+          o_type: ${param.o_type}
+        </c:if>
       }
      }).done(function(data){
       if(data==1){

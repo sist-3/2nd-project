@@ -11,7 +11,7 @@ import mybatis.vo.UserVO;
 
 public class UserDAO {
 	// 유저 추가
-	static public int add(Map<String, String> map) {
+	static public String add(Map<String, String> map) {
 		SqlSession ss = FactoryService.getFactory().openSession();
 		int cnt = ss.insert("user.add",map);
 		if(cnt>0) {
@@ -26,8 +26,9 @@ public class UserDAO {
 		}else{
 			ss.rollback();
 		}
+		String us_idx = map.get("us_idx");
 		ss.close();
-		return cnt; 
+		return us_idx; 
 	}
 	
 	// 로그인
@@ -165,5 +166,12 @@ public class UserDAO {
 		}
 		ss.close();
 		return ar;
+	}
+
+	public static UserVO searchUserByOauth(String oa_id) {
+		SqlSession ss = FactoryService.getFactory().openSession();
+		UserVO result = ss.selectOne("user.searchUserByOauth", oa_id);
+		ss.close();
+		return result;
 	}
 }
