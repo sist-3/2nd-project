@@ -186,6 +186,19 @@ public class BoardsDAO {
 
 		return ar;
 	}
+	
+	public static BoardsVO[] findBypdidx2(String pd_idx) {
+		SqlSession ss = FactoryService.getFactory().openSession();
+		BoardsVO[] ar = null;
+		List<BoardsVO> list = ss.selectList("boards.findBypdidx2", pd_idx);
+		if (list != null) {
+			ar = new BoardsVO[list.size()];
+			list.toArray(ar);
+		}
+		ss.close();
+
+		return ar;
+	}
 
 	// 리뷰 게시판 글 수
 	public static int countReview(String ct_idx) {
