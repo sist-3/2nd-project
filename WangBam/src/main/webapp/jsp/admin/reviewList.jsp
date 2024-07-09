@@ -44,8 +44,8 @@
 						<td><a href="admin?type=reviewDetail&bo_idx=${vo.bo_idx}">${vo.bo_title}</a></td>
 						<td><c:if test="${null eq vo.uvo.us_nickname}">
 								<b>탈퇴한 회원</b>
-							</c:if> <c:if test="${null ne vo.uvo.us_name}">
-								${vo.uvo.us_name}
+							</c:if> <c:if test="${null ne vo.uvo.us_nickname}">
+								${vo.uvo.us_nickname}
 							</c:if></td>
 						<td>${vo.bo_write_date}</td>
 						<td>${vo.bo_score}</td>
