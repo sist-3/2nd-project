@@ -85,8 +85,10 @@ private static final long serialVersionUID = 1L;
 			type = "index";
 		
 		Action action = actionMap.get(type);
-		
 		String viewPath = null;
+		if(action == null) {
+			action = actionMap.get("index");
+		}
 		try {
 			viewPath = action.execute(request, response);
 		} catch (Exception e) {
