@@ -528,6 +528,14 @@ font-weight: bold;
     background-color: #8b4d35;
     color: #fff;
 }
+.login-button {
+    width: 100%;
+    padding: 12px 0;
+    background-color: #8b4d35;
+    border-radius: 12px;
+    color: #fff;
+    font-weight: 700;
+}
 /* 파일 선택 */
 .file-select {
 	display: block;
