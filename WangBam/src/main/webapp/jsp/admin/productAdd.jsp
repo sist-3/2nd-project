@@ -26,7 +26,7 @@
 					</div>
 					<div>
 						<label for="sale">할인율</label> <input type="text" id="sale" name="pd_sale" placeholder="할인율"
-							data-label="할인율" maxlength="3">
+							data-label="할인율" maxlength="2">
 					</div>
 					<div>
 						<label for="price">가격</label> <input type="text" id="price" name="pd_price" placeholder="가격"
@@ -123,13 +123,11 @@
 							if (elem[i].id === "sale" || elem[i].id === "category" || elem[i].id === "popOpenBtn") {
 								continue; // pd_sale, category, popOpenBtn 요소를 건너뜁니다.
 							}
-							if (elem[i].type === "number") {
-								if (elem[i].value < 0) {
-									alert("0 이상 입력하세요");
-									elem[i].value = "";
-									elem[i].focus();
-									return;
-								}
+							if (elem[i].value < 0) {
+								alert("0 이상 입력하세요");
+								elem[i].value = "";
+								elem[i].focus();
+								return;
 							}
 							if (elem[i].id === "item_name") {
 								if (elem[i].value.trim().length > 20) {

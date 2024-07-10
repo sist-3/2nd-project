@@ -140,6 +140,8 @@
 	        	$('#searchValue3').hide().val('');
 	        	$('#searchCategory').hide();
 	    		$('#searchProduct').hide();
+	    		$('#searchCategory').val("1").attr("selected", "selected");
+	    		$('#searchProduct').val("allProduct").attr("selected", "selected");
 	            $('#searchValue').val('').show().datepicker({
 	                changeYear: true,
 	                changeMonth: true,
@@ -163,6 +165,8 @@
 	    		$('#searchProduct').hide();
 	        	$('#searchValue3').show();
 	        	//$('#searchValue3').val("5.0").attr("selected", "selected")
+	        	$('#searchCategory').val("1").attr("selected", "selected");
+	    		$('#searchProduct').val("allProduct").attr("selected", "selected");
 	        }else if(selectType == 'category'){
 	        	$('#searchValue').hide().val('');
 	        	$('#searchValue2').hide().val('');
@@ -176,6 +180,8 @@
 	            $('#searchValue3').hide().val('');
 	            $('#searchCategory').hide();
 	    		$('#searchProduct').hide();
+	    		$('#searchCategory').val("1").attr("selected", "selected");
+	    		$('#searchProduct').val("allProduct").attr("selected", "selected");
 	        }
     	}).trigger('change');
 	});
@@ -213,7 +219,7 @@
 	function ProductOption() {
 		var selectedCategory = document.getElementById("searchCategory").value;
         var productOptions = document.getElementsByClassName("product_option");
-		$('#searchProduct').val("allProduct").attr("selected", "selected");
+		//$('#searchProduct').val("allProduct").attr("selected", "selected");
 		
         for (var i = 0; i < productOptions.length; i++) {
             var option = productOptions[i];
@@ -224,7 +230,7 @@
             }
         }
     }
-	$('#searchCategory').change(ProductOption());
+	$('#searchCategory').change(ProductOption);
     // 초기 로드 시 선택된 카테고리에 따라 제품 필터링
     document.addEventListener("DOMContentLoaded", function() {
     	ProductOption();

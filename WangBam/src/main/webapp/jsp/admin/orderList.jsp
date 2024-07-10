@@ -27,8 +27,10 @@
 </div>
 <table class="table" id="orderList">
 	<tr>
-		<th><label for="selectSendAll"><input type="checkbox" id="selectSendAll" />발송</label></th>
-		<th><label for="selectCancelAll"><input type="checkbox" id="selectCancelAll" />주문취소</label></th>
+		<th><label for="selectSendAll"><input type="checkbox"
+				id="selectSendAll" />발송</label></th>
+		<th><label for="selectCancelAll"><input type="checkbox"
+				id="selectCancelAll" />주문취소</label></th>
 		<th>no</th>
 		<th>받는사람</th>
 		<th>주문번호</th>
@@ -79,11 +81,21 @@
 	</c:forEach>
 
 	<c:if test="${page.endPage < page.totalPage }">
-		<div>
-			<a
-				href="admin?type=orderList&cPage=${page.nowPage + page.pagePerBlock}&earchType=${searchType }&searchValue=${searchValue }">&gt;</a>
-		</div>
+		<c:if test="${page.nowPage+page.pagePerBlock > page.totalPage }">
+			<div>
+				<a
+					href="admin?type=orderList&cPage=${page.totalPage}&searchType=${searchType }&searchValue=${searchValue }">&gt;</a>
+			</div>
+		</c:if>
+		<c:if test="${page.nowPage+page.pagePerBlock <= page.totalPage }">
+			<div>
+				<a
+					href="admin?type=orderList&cPage=${page.nowPage + page.pagePerBlock}&searchType=${searchType }&searchValue=${searchValue }">&gt;</a>
+			</div>
+		</c:if>
 	</c:if>
+
+
 	<c:if test="${page.endPage >= page.totalPage }">
 		<div class="disable">&gt;</div>
 	</c:if>
@@ -107,7 +119,6 @@ $(function(){
 	$("#searchType").on('change', function(){
 		$("#searchValue").val("");
 	})
-	
 	
 	$("#sendBtn").on('click', function(){
 		const searchType = $("#searchType").val();
@@ -159,7 +170,9 @@ function selectCancelAll() {
         });
     });
 }
+
 function or_ok() {
+	let cPage = ${page.nowPage};
     if (confirm("정말 발송하시겠습니까?")) {
         const checkboxes = document.querySelectorAll('input[name="or_idx_ar"]:checked');
         if (checkboxes.length === 0) {
@@ -169,7 +182,7 @@ function or_ok() {
 
         const form = document.createElement('form');
         form.method = 'POST';
-        form.action = 'admin?type=orderUpdate&or_status_code=INFORMATION_RECEIVED';
+        form.action = 'admin?type=orderUpdate&or_status_code=DELIVERED&cPage='+cPage;
 
         let canProceed = true;
         checkboxes.forEach(checkbox => {
@@ -199,6 +212,7 @@ function or_ok() {
 
 function or_cancel(){
 	let chk = false;
+	let cPage = ${page.nowPage};
 	if (confirm("정말 취소하시겠습니까?")) {
         const checkboxes = document.querySelectorAll('input[name="or_idx_ar"]:checked');
         if (checkboxes.length === 0) {
@@ -208,28 +222,36 @@ function or_cancel(){
 
         const form = document.createElement('form');
         form.method = 'POST';
-        form.action = 'admin?type=orderUpdate&or_status_code=CANCEL';
-
+        form.action = 'admin?type=orderUpdate&or_status_code=CANCEL&cPage='+cPage;
+        
+        let canProceed = true;
+         const hiddenInput = document.createElement('input');
         checkboxes.forEach(checkbox => {
-            const hiddenInput = document.createElement('input');
+            const row = checkbox.closest('tr');
+            const cells = row.querySelectorAll('td');
+            const orderStatus = cells[5].textContent.trim();
             hiddenInput.type = 'hidden';
             hiddenInput.name = 'or_idx_ar';
             hiddenInput.value = checkbox.value;
             form.appendChild(hiddenInput);
+            
+            if (orderStatus !== 'UNKNOWN_WAIT') {
+                alert("취소가능한 상태가 아닙니다.");
+                canProceed = false;
+                return;
+            }
+            
             if(check(hiddenInput.value) == 'CANCELLED' ){
             	chk = true;
             }else{
             	chk = false;
             }
-            
         });
-        	document.body.appendChild(form);
-       	if(chk){
-	       form.submit();
-       	}else{
-        	alert("주문 취소가 가능한 상태가 아닙니다.");
-        }
         
+       	if(chk && canProceed){
+              document.body.appendChild(form);
+              form.submit();
+       	}
 	}
 }
 
@@ -238,17 +260,6 @@ function check(value){
 	return result.status;
 }
 
-// 예시 비동기 함수 (getPaymentByOrIdx는 실제 비동기 함수여야 합니다)
-async function getPaymentByOrIdx(value) {
-    // 여기서 실제 서버 요청을 수행해야 합니다.
-    // 아래는 예시 응답 객체입니다.
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            resolve({ status: 'CANCELLED' });
-        }, 1000);
-    });
-}
-	
 </script>
 </body>
 </html>

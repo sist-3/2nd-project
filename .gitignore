@@ -2,3 +2,6 @@
 .metadata
 Servers
 build/
+
+# Secret
+PaymentConfig.js

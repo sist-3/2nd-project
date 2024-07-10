@@ -301,3 +301,21 @@ label + .split-box {
 .popup-container table + form {
 	margin-top:32px;
 }
+@media screen and (max-width: 768px) {
+	.table {
+		word-break:keep-all;
+	}
+	.admin-main {
+		padding:12px;
+		overflow:hidden;
+	}
+	.admin-main > .content > section {
+		padding:12px;
+	}
+	.admin-main .chart-box {
+		width:100%;
+	}
+	.order-state {
+		flex-direction:column;
+	}
+}

@@ -211,6 +211,13 @@
 		WHERE pd_idx = #{pd_idx}
 		AND bo_type IN(1,2)
 	</select>
+	
+	<select id="findBypdidx2" parameterType="String" resultMap="findWithBoard">
+		SELECT *
+		FROM boards_t 
+		WHERE pd_idx = #{pd_idx}
+		AND bo_type = 2
+	</select>
 <!-- Update, Delete end-->
 
 
@@ -231,6 +238,7 @@
 				WHERE bt.pd_idx = pt.pd_idx
             	AND bo_status = 1 
                 AND bo_type = #{bo_type}
+                ORDER BY bo_idx DESC
         	) a, (SELECT @RN:=0) b
     	) c
         WHERE c.rnum BETWEEN #{begin} AND #{end}

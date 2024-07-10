@@ -42,10 +42,10 @@
 						<td><input type="checkbox" name="bo_idx_ar" value="${vo.bo_idx }" /></td>
 						<td>${vs.index + 1 + (page.pagePerBlock * (page.nowPage - 1))}</td>
 						<td><a href="admin?type=reviewDetail&bo_idx=${vo.bo_idx}">${vo.bo_title}</a></td>
-						<td><c:if test="${null eq vo.uvo.us_name}">
+						<td><c:if test="${null eq vo.uvo.us_nickname}">
 								<b>탈퇴한 회원</b>
-							</c:if> <c:if test="${null ne vo.uvo.us_name}">
-								${vo.uvo.us_name}
+							</c:if> <c:if test="${null ne vo.uvo.us_nickname}">
+								${vo.uvo.us_nickname}
 							</c:if></td>
 						<td>${vo.bo_write_date}</td>
 						<td>${vo.bo_score}</td>
@@ -91,10 +91,12 @@
 		</c:forEach>
 
 		<c:if test="${page.endPage < page.totalPage }">
-			<div>
-				<a
-					href="admin?type=reviewList&cPage=${page.nowPage + page.pagePerBlock - 1}&ct_idx=${requestScope.ct_idx}">&gt;</a>
-			</div>
+			<c:if test="${page.nowPage+page.pagePerBlock > page.totalPage }">
+				<div><a href="admin?type=reviewList&cPage=${page.totalPage }&ct_idx=${requestScope.ct_idx}">&gt;</a></div>
+			</c:if>
+			<c:if test="${page.nowPage+page.pagePerBlock <= page.totalPage }">
+				<div><a href="admin?type=reviewList&cPage=${page.nowPage + page.pagePerBlock - 1}&ct_idx=${requestScope.ct_idx}">&gt;</a></div>
+			</c:if>
 		</c:if>
 		<c:if test="${page.endPage >= page.totalPage }">
 			<div class="disable">&gt;</div>

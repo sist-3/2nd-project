@@ -58,10 +58,61 @@
 								</c:when>
 							</c:choose>
 							<div id="google_translate_element"></div>
+							<!-- 언어 선택 select box -->
+							<select id="language-selector">
+							    <option>언어선택</option>
+							    <option value="ko" translate="no">한국어</option>
+							    <option value="en" translate="no">English</option>
+							    <option value="ja" translate="no">日本語</option>
+							</select>
 						</div>
 					</nav>
 				</div>
 			</header>
+			<header class="header-m">
+				<div class="header-inner">
+					<nav class="local-nav">
+						<div class="local-nav-links">
+							<h1>
+								<a href="?type=index" class="product-name">왕밤빵</a>
+							</h1>
+							<c:choose>
+								<c:when test="${sessionScope.user.us_type eq 1}">
+									<a class="icon-btn logout" title="로그아웃" href="?type=logout"></a>
+									<a class="icon-btn user" title="마이페이지" href="?type=my"></a>
+									<a class="icon-btn order" title="주문현황" href="?type=order"></a>
+									<a class="icon-btn cart" title="장바구니" href="?type=cart"></a>
+								</c:when>
+								<c:when test="${sessionScope.user.us_type eq 0}">
+									<a class="icon-btn logout" title="로그아웃" href="?type=logout"></a>
+									<a class="icon-btn admin" title="관리자" href="admin?type=index"></a>
+									<a class="icon-btn user" title="마이페이지" href="?type=my"></a>
+								</c:when>
+								<c:when test="${sessionScope.user eq null}">
+									<a class="icon-btn user" title="로그인" href="?type=login"></a>
+								</c:when>
+							</c:choose>
+							
+							<button type="button" class="icon-btn menu" id="menuOpenBtn" title="전체메뉴"></button>
+						</div>
+					</nav>
+				</div>
+			</header>
+			<div class="total-menu" id="totalMenu">
+				<div class="menu-header">
+					<h3>전체메뉴</h3>	
+					<button type="button" class="icon-btn close" title="메뉴닫기" id="menuCloseBtn"></button>
+				</div>
+				<nav class="global-nav">
+					<div class="global-nav-links">
+						<a href="?type=notice" class="${currentPage.contains('notice') ? 'global-nav-item on' : 'global-nav-item'}">공지사항</a>
+						<a href="?type=productList" class="${currentPage.contains('product') ? 'global-nav-item on' : 'global-nav-item'}">상품보기</a>
+						<a href="?type=review" class="${currentPage.contains('review') ? 'global-nav-item on' : 'global-nav-item'}">리뷰보기</a>
+						<a href="?type=question" class="${currentPage.contains('question') ? 'global-nav-item on' : 'global-nav-item'}">1:1문의</a>
+						<a href="?type=brand" class="${currentPage.contains('brand') ? 'global-nav-item on' : 'global-nav-item'}">브랜드소개</a>
+					</div>
+				</nav>
+			</div>
 			<main class="main">
 				<c:if
 					test="${fn:endsWith(pageContext.request.requestURI,'main.jsp')}">

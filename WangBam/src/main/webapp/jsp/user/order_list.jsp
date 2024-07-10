@@ -59,8 +59,8 @@
         </div>
         </c:forEach>
         <div class="order-total-price">
-            <fmt:formatNumber value="${ovo.or_total_price}" pattern="###" var="totalPrice"/>
-            <span>총 결제금액: ${totalPrice+4000}원</span>
+            <fmt:formatNumber value="${ovo.or_total_price+4000}" pattern="#,###" var="totalPrice"/>
+            <span>총 결제금액: ${totalPrice}원 (배송비포함)</span>
         </div>
     </div>
 </c:forEach>

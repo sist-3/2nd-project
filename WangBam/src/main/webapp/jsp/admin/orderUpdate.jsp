@@ -9,6 +9,7 @@
 <body onload="exe()">
 	<form action="admin" method="post">
 		<input type="hidden" name="type" value="orderList"/>
+		<input type="hidden" name="cPage" value="${cPage}"/>
 	</form>
 <script>
 	function exe(){
