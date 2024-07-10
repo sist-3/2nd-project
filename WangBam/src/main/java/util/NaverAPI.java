@@ -6,51 +6,45 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.Properties;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-public class OAuthAPI {
+import com.mysql.cj.xdevapi.JsonArray;
+
+public class NaverAPI {
 	Properties prop = APIenv.getProp();
 	
-	public String getAccessToken(String code) {
+	public String getAccessToken(String code,String state) throws UnsupportedEncodingException {
 	    String accessToken = "";
 	    String refreshToken = "";
-	    String reqUrl = prop.getProperty("kakao.token_uri");
+	    String reqUrl = prop.getProperty("naver.token_uri");
+	    StringBuilder sb = new StringBuilder();
+	    String redirect_uri =URLEncoder.encode(prop.getProperty("naver.redirect_uri"),"UTF-8");
+	    sb.append(reqUrl).append("?");
+        sb.append(prop.getProperty("naver.defalt_param"));
+        
+		sb.append("&client_id=").append(prop.getProperty("naver.api_key"));
+		sb.append("&client_secret=").append(prop.getProperty("naver.client_secret"));
+        sb.append("&redirect_uri=").append(redirect_uri);
+        sb.append("&code=").append(code);
+        sb.append("&state=").append(state);
+        String apiUrl =sb.toString();
+        
 	    OutputStreamWriter osw = null;
 	    BufferedWriter bw = null;
 	    BufferedReader br = null;
 	    InputStreamReader isr = null;
 	    try{
-	        URL url = new URL(reqUrl);
+	        URL url = new URL(apiUrl);
 	        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-	        
-	        //필수 헤더 세팅
-	        conn.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
-	        conn.setDoOutput(true); //OutputStream으로 POST 데이터를 넘겨주겠다는 옵션.
-	        osw = new OutputStreamWriter(conn.getOutputStream());
-	        
-	        bw = new BufferedWriter(osw);
-	        StringBuilder sb = new StringBuilder();
-	        
-	        
-	        
-	        
-	        //필수 쿼리 파라미터 세팅
-	        sb.append(prop.getProperty("kakao.defalt_param"));
-	        
-			sb.append("&client_id=").append(prop.getProperty("kakao.api_key"));
-	        sb.append("&redirect_uri=").append(prop.get("kakao.redirect_uri"));
-	        sb.append("&code=").append(code);
-
-	        bw.write(sb.toString());
-	        bw.flush();
-
+	        conn.setRequestMethod("GET");
 	        int responseCode = conn.getResponseCode();
-
 	        
 	        if (responseCode >= 200 && responseCode < 300) {
 	        	isr = new InputStreamReader((conn.getInputStream()));
@@ -65,11 +59,12 @@ public class OAuthAPI {
 	            responseSb.append(line);
 	        }
 	        String result = responseSb.toString();
-
+	        
+	        System.out.println("결과: "+result);
+	        
 	        JSONParser parser = new JSONParser();
 	        JSONObject element = (JSONObject) parser.parse(result);
 	        accessToken = element.get("access_token").toString();
-	        refreshToken = element.get("refresh_token").toString();
 	    }catch (Exception e){
 	        e.printStackTrace();
 	    }finally {
@@ -93,8 +88,8 @@ public class OAuthAPI {
 	    return accessToken;
 	}
 	
-	public String getUserId(String accessToken,String type) {
-	    String reqUrl = prop.getProperty("kakao.getUser_uri");
+	public String getUserId(String accessToken) {
+	    String reqUrl = prop.getProperty("naver.getUser_uri");
 	    BufferedReader br = null;
 	    InputStreamReader isr = null;
 	    String id=null;
@@ -103,7 +98,10 @@ public class OAuthAPI {
 	        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 	        conn.setRequestMethod("POST");
 	        conn.setRequestProperty("Authorization", "Bearer " + accessToken);
-	        conn.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+	        conn.setRequestProperty("User-Agent", "curl/7.12.1 (i686-redhat-linux-gnu) libcurl/7.12.1 OpenSSL/0.9.7a zlib/1.2.1.2 libidn/0.5.6");
+	        conn.setRequestProperty("Host", "openapi.naver.com");
+	        conn.setRequestProperty("Pragma", "no-cache");
+	        conn.setRequestProperty("Accept", "*");
 
 	        int responseCode = conn.getResponseCode();
 	        
@@ -126,9 +124,9 @@ public class OAuthAPI {
 	        
 	        JSONParser parser = new JSONParser();
 	        JSONObject element = (JSONObject) parser.parse(result);
+	        JSONObject response = (JSONObject)element.get("response");
+	        id = response.get("id").toString();
 	        
-	        
-	        id = element.get("id").toString();
 	        
 	    }catch (Exception e){
 	        e.printStackTrace();
@@ -145,39 +143,5 @@ public class OAuthAPI {
 			}
 		}
 	    return id;
-	}
-	
-	public void logout(String accessToken, String type) {
-		String reqUrl = prop.getProperty("kakao.logout_uri");
-		OutputStreamWriter osw = null;
-	    BufferedWriter bw = null;
-		try {
-			URL url = new URL(reqUrl);
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-	        conn.setRequestMethod("GET");
-	        osw = new OutputStreamWriter(conn.getOutputStream());
-	        bw = new BufferedWriter(osw);
-	        
-	        StringBuffer sb = new StringBuffer();
-	        sb.append("client_id").append(prop.getProperty("kakao.api_key"));
-	        sb.append("logout_redirect_uri").append(prop.getProperty(type=".logout_redirect_uri"));
-	        
-	        bw.write(sb.toString());
-	        bw.flush();
-	        
-		} catch (Exception e) {
-			// TODO: handle exception
-		}finally {
-			try {
-				if(bw!=null) {
-					bw.close();
-				}
-				if (osw!=null) {
-					osw.close();
-				}
-			} catch (Exception e2) {
-				// TODO: handle exception
-			}
-		}
 	}
 }

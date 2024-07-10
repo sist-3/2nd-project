@@ -10,9 +10,9 @@
   <div class="login-footer"><button id="signup">왕밤빵 계정을 보유하고 있지 않습니다.</button></div>
 </div>
 <form id="form" action="/WangBam/login" method="post">
-  <input id="type" type="hidden" name="type" value="signup">
+  <input id="type" type="hidden" name="go" value="signup">
   <input id="o_id" type="hidden" name="o_id" value="${requestScope.o_id}">
-  <input id="o_type" type="hidden" name="o_type" value="${requestScope.o_type}">
+  <input id="o_type" type="hidden" name="type" value="${param.type}">
 </form>
 <%@include file="/jsp/common/footer.jsp" %>
 </body>

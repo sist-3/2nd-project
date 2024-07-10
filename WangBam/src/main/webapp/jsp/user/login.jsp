@@ -17,9 +17,9 @@
         <a href="/WangBam/?type=findPwd">비밀번호찾기</a> 
         <a href="/WangBam/?type=signup">회원가입</a>
     </div>
-    <c:if test="${param.id==null}">
+    <c:if test="${param.o_id==null}">
     	<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${requestScope.KaKao_API_KEY}&redirect_uri=${requestScope.KaKao_REDIRECT_URI}"><img src="${pageContext.request.contextPath}/img/kakao_login.png" alt="카카오로그인"></a>
-        <a href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${requestScope.Naver_API_KEY}&redirect_uri=${requestScope.Naver_REDIRECT_URI}"><img src="${pageContext.request.contextPath}/img/naver_login.png" alt="네이버로그인"></a>
+        <a href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${requestScope.Naver_API_KEY}&redirect_uri=${requestScope.Naver_REDIRECT_URI}&state=${requestScope.state}"><img src="${pageContext.request.contextPath}/img/naver_login.png" alt="네이버로그인"></a>
     </c:if>
 </div>
 <%@include file="/jsp/common/footer.jsp" %>
@@ -48,7 +48,7 @@
         		us_pw: us_pw,
                 <c:if test="${param.o_id != null}">
                     o_id: '${param.o_id}',
-                    o_type: '${param.o_type}'
+                    o_type: '${param.type}'
                 </c:if>
         	}
         }).done(function(data){
