@@ -148,5 +148,10 @@
 		order by us_total_price desc
 		limit 5;
     </select>
+    
+    <!-- api 로그인 정보 확인 -->
+    <select id="searchUserByOauth" parameterType="Map" resultType="mybatis.vo.UserVO">
+      SELECT * FROM user_t WHERE us_idx in (SELECT us_idx FROM oauth_t WHERE oa_id = #{oa_id}) AND us_status = 1;
+    </select>
   </mapper>
 

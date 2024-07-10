@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import mybatis.dao.OAuthDAO;
 import mybatis.dao.UserDAO;
 import mybatis.vo.UserVO;
 
@@ -25,6 +26,8 @@ public class SignUpAction implements Action {
 			String us_postcode = request.getParameter("postcode");
 			String us_address = request.getParameter("address");
 			String us_extraAddress = request.getParameter("extraAddress");
+			String oa_id = request.getParameter("o_id");
+			String oa_type = request.getParameter("o_type");
 
 			Map<String, String> map = new HashMap<>();
 			map.put("us_name", us_name);
@@ -40,6 +43,7 @@ public class SignUpAction implements Action {
 			map.put("ad_tel", us_tel);
 			map.put("ad_default", "1");
 			
+			
 			//이메일 중복검사
 			UserVO user = UserDAO.findByEmail(us_email);
 			if(user != null){
@@ -51,7 +55,16 @@ public class SignUpAction implements Action {
 				return "jsp/user/signupFailByNick.jsp";
 			}
 			//회원가입
-			int cnt = UserDAO.add(map);
+			String us_idx = UserDAO.add(map);
+
+			//소셜 회원가입
+			Map<String, String> oa_map = new HashMap<>();
+			if(oa_id != null && oa_type != null && us_idx != null) {
+				oa_map.put("oa_id", oa_id);
+				oa_map.put("oa_type", oa_type);
+				oa_map.put("us_idx", us_idx);
+				OAuthDAO.add(oa_map);
+			}
 			return "jsp/user/signupSuccess.jsp";
 		}
 		return null;

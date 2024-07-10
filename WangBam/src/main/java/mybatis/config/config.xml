@@ -22,5 +22,6 @@
   	<mapper resource="mybatis/xml/user.xml" />
   	<mapper resource="mybatis/xml/category.xml" />
   	<mapper resource="mybatis/xml/heart.xml" />
+  	<mapper resource="mybatis/xml/oauth.xml" />
   </mappers>
 </configuration>

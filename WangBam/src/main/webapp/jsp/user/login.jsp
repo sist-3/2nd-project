@@ -10,7 +10,6 @@
     	<input type="hidden" name="type" value="login">
         <input type="text" name="id" placeholder="아이디" required>
         <input type="password" name="pw" placeholder="비밀번호" required>
-
         <button type="button" onclick="login(this.form)" >로그인</button>
     </form>
     <div class="login-links">
@@ -18,6 +17,10 @@
         <a href="/WangBam/?type=findPwd">비밀번호찾기</a> 
         <a href="/WangBam/?type=signup">회원가입</a>
     </div>
+    <c:if test="${param.id==null}">
+    	<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${requestScope.KaKao_API_KEY}&redirect_uri=${requestScope.KaKao_REDIRECT_URI}">카카오로그인</a>
+        <a href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${requestScope.Naver_API_KEY}&redirect_uri=${requestScope.Naver_REDIRECT_URI}">네이버로그인</a>
+    </c:if>
 </div>
 <%@include file="/jsp/common/footer.jsp" %>
 <script>
@@ -39,7 +42,15 @@
         $.ajax({  
         	url: '/WangBam/',
         	type: 'POST',
-        	data: "type=login&us_id="+us_id+"&us_pw="+us_pw
+        	data:{
+        		type: "login",
+        		us_id: us_id,
+        		us_pw: us_pw,
+                <c:if test="${param.o_id != null}">
+                    o_id: '${param.o_id}',
+                    o_type: '${param.o_type}'
+                </c:if>
+        	}
         }).done(function(data){
             if(data==0){
             	alert("아이디 또는 비밀번호가 일치하지 않습니다.");
