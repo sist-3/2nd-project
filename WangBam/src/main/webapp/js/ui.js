@@ -11,8 +11,7 @@ function applyFadeInAnimation() {
 }
 
 function initializeAmazingButton() {
-    $('.final-btn').on('click', function(e) {
-        e.preventDefault();
+    $('.final-btn').on('click', function() {
         $(this).removeClass('animate');
         $(this).addClass('animate');
         setTimeout(() => {
