@@ -18,8 +18,8 @@
         <a href="/WangBam/?type=signup">회원가입</a>
     </div>
     <c:if test="${param.id==null}">
-    	<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${requestScope.KaKao_API_KEY}&redirect_uri=${requestScope.KaKao_REDIRECT_URI}">카카오로그인</a>
-        <a href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${requestScope.Naver_API_KEY}&redirect_uri=${requestScope.Naver_REDIRECT_URI}">네이버로그인</a>
+    	<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${requestScope.KaKao_API_KEY}&redirect_uri=${requestScope.KaKao_REDIRECT_URI}"><img src="${pageContext.request.contextPath}/img/kakao_login.png" alt="카카오로그인"></a>
+        <a href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${requestScope.Naver_API_KEY}&redirect_uri=${requestScope.Naver_REDIRECT_URI}"><img src="${pageContext.request.contextPath}/img/naver_login.png" alt="네이버로그인"></a>
     </c:if>
 </div>
 <%@include file="/jsp/common/footer.jsp" %>
