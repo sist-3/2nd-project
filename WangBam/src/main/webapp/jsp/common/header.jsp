@@ -42,13 +42,13 @@
 							</h1>
 							<c:choose>
 								<c:when test="${sessionScope.user.us_type eq 1}">
-									<a href="/WangBam/?type=logout">로그아웃</a>
+									<a href="/WangBam/?type=logout" onclick="confirm('로그아웃 하시겠습니까?')">로그아웃</a>
 									<a href="/WangBam/?type=my">마이페이지</a>
 									<a href="/WangBam/?type=order">주문현황</a>
 									<a href="/WangBam/?type=cartList">장바구니</a>
 								</c:when>
 								<c:when test="${sessionScope.user.us_type eq 0}">
-									<a href="/WangBam/?type=logout">로그아웃</a>
+									<a href="/WangBam/?type=logout" onclick="confirm('로그아웃 하시겠습니까?')">로그아웃</a>
 									<a href="/WangBam/admin?type=index">관리자모드</a>
 									<a href="/WangBam/?type=my">마이페이지</a>
 								</c:when>
