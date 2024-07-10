@@ -36,7 +36,7 @@ public class KakaoLoginAction implements Action {
 				viewPath = "jsp/user/redirectMain.jsp";
 			}
 		}else if(request.getMethod().equals("POST")) {
-			String type = request.getParameter("type");
+			String type = request.getParameter("go");
 			if(type.equals("signup")) {
 				viewPath = "jsp/user/signUp.jsp";
 			}else if(type.equals("login")) {

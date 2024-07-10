@@ -1,5 +1,7 @@
 package action.user;
 
+import java.math.BigInteger;
+import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -12,6 +14,7 @@ import action.Action;
 import mybatis.dao.OAuthDAO;
 import mybatis.dao.UserDAO;
 import mybatis.vo.UserVO;
+import util.APIenv;
 import util.OAuthAPI;
 
 public class LoginAction implements Action {
@@ -31,6 +34,7 @@ public class LoginAction implements Action {
 			String oa_id = request.getParameter("o_id");
 			String oa_type = request.getParameter("o_type");
 			if(oa_id != null && oa_type != null) {
+				session.setAttribute("type", oa_type);
 				String us_idx = user.getUs_idx();
 				map.put("oa_id", oa_id);
 				map.put("oa_type", oa_type);
@@ -47,10 +51,14 @@ public class LoginAction implements Action {
 			}
 		}else if(request.getMethod().equals("GET")) {
 			String oldurl = request.getHeader("referer");
-			Properties api_prop = OAuthAPI.getProp();
+			Properties api_prop = APIenv.getProp();
 			request.setAttribute("KaKao_API_KEY", api_prop.get("kakao.api_key"));
 			request.setAttribute("KaKao_REDIRECT_URI", api_prop.get("kakao.redirect_uri"));
-
+			
+			SecureRandom random = new SecureRandom();
+		    String state = new BigInteger(130, random).toString();
+		    
+		    request.setAttribute("state", state);
 			request.setAttribute("Naver_API_KEY", api_prop.get("naver.api_key"));
 			request.setAttribute("Naver_REDIRECT_URI", api_prop.get("naver.redirect_uri"));
 			
