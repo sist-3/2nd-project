@@ -122,7 +122,6 @@ public class OAuthAPI {
 	        }
 	        String result = responseSb.toString();
 	        
-	        System.out.println(result);
 	        
 	        JSONParser parser = new JSONParser();
 	        JSONObject element = (JSONObject) parser.parse(result);

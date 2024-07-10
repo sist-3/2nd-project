@@ -60,8 +60,6 @@ public class NaverAPI {
 	        }
 	        String result = responseSb.toString();
 	        
-	        System.out.println("결과: "+result);
-	        
 	        JSONParser parser = new JSONParser();
 	        JSONObject element = (JSONObject) parser.parse(result);
 	        accessToken = element.get("access_token").toString();
@@ -120,7 +118,7 @@ public class NaverAPI {
 	        }
 	        String result = responseSb.toString();
 	        
-	        System.out.println(result);
+
 	        
 	        JSONParser parser = new JSONParser();
 	        JSONObject element = (JSONObject) parser.parse(result);
