@@ -11,7 +11,7 @@ import mybatis.dao.UserDAO;
 import mybatis.vo.UserVO;
 import util.OAuthAPI;
 
-public class LoginAction implements Action {
+public class KakaoLoginAction implements Action {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -20,9 +20,8 @@ public class LoginAction implements Action {
 			String code = request.getParameter("code");
 			String type = request.getParameter("type");
 			OAuthAPI api = new OAuthAPI();
-			String accessToken = api.getAccessToken(code, type);
+			String accessToken = api.getAccessToken(code);
 			HttpSession session = request.getSession();
-			session.setAttribute("accessToken", accessToken);
 			session.setAttribute("type", type);
 			
 			String id = api.getUserId(accessToken,type);
