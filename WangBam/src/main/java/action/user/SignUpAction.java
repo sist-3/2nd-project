@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import action.Action;
 import mybatis.dao.OAuthDAO;
@@ -18,6 +19,7 @@ public class SignUpAction implements Action {
 		if(request.getMethod().equals("GET")){
 			return "/jsp/user/signUp.jsp";
 		}else if(request.getMethod().equals("POST")){
+			HttpSession session = request.getSession();
 			String us_name = request.getParameter("us_name");
 			String us_email = request.getParameter("us_email");
 			String us_pwd = request.getParameter("us_pwd");

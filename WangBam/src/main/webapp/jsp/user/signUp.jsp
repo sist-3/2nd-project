@@ -369,7 +369,7 @@ $(document).ready(function(){
         extraAddress: extraAddress,
         <c:if test="${param.o_id != null}">
           o_id: ${param.o_id},
-          o_type: ${param.o_type}
+          o_type: ${param.type}
         </c:if>
       }
      }).done(function(data){
